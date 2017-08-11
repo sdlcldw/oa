@@ -1,0 +1,88 @@
+		<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+			<div class="title_txt">创建新生
+			</div>
+		</div>
+<div class="right_content"> 
+<!-- 内容区域开始 -->
+<div id="cjxs">
+<div class="container">
+<form [formGroup]="formModel" name="signUpForm" class="form-horizontal" (submit)="onSubmit()">
+<!--<form [formGroup]="formModel" name="signUpForm"  class="form-horizontal" (submit)="onSubmit()">-->
+ 	<div class="form-group">
+   			<h3 class="text-center">查询中考成绩</h3>
+   	</div>
+   	<div class="row">
+	   	<div class="form-group" id="asdf">
+	   			<h4 class="col-sm-2 text-center">中考成绩查询</h4>
+	   			<label for="firstname" class="col-sm-1 control-label">学籍号</label>
+				<div class="col-sm-2">
+				<input [class.hasError]="formModel.get('yhzh').invalid && formModel.get('yhzh').touched" formControlName="yhzh" name="yhzh" type="text" class="form-control" placeholder="输入学籍号">
+				</div>
+				
+				<label for="firstname" class="col-sm-1 control-label">密码</label>
+				<div class="col-sm-2">
+					<input [class.hasError]="formModel.get('yhmm').invalid && formModel.get('yhmm').touched" formControlName="yhmm" name="yhmm" type="text" class="form-control" placeholder="初始密码为身份证后6位">
+						
+				</div>
+				<div class="col-sm-1">
+				<img (click)="newyzm()" [src]="imageurl">
+				</div>
+				<div class="col-sm-1">
+			<input [class.hasError]="formModel.get('yzm').invalid && formModel.get('yzm').touched" formControlName="yzm" name="yzm" type="text" class="form-control" placeholder="输入验证码">
+				</div>
+<div class="col-md-2 col-md-offset-1">
+				<div [hidden]="formModel.get('yhzh').valid || formModel.get('yhzh').untouched">
+                        <div [hidden]="!formModel.hasError('required','yhzh')">学籍号不可为空</div>
+                        <div [hidden]="!formModel.hasError('minlength','yhzh') && !formModel.hasError('maxlength','yhzh')">学籍号应为19位数字</div>
+                </div>
+</div>
+<div class="col-md-2 col-md-offset-1">
+<div [hidden]="formModel.get('yhmm').valid || formModel.get('yhmm').untouched">
+                        <div [hidden]="!formModel.hasError('required','yhmm')">密码不可为空</div>
+                        <div [hidden]="!formModel.hasError('minlength','yhmm')">密码不小于3位</div>                       
+					    <div [hidden]="!formModel.hasError('maxlength','yhmm')">密码不大于24位</div>
+                </div>	
+</div>
+<div class="col-md-1 col-md-offset-1">
+          <div [hidden]="formModel.get('yzm').valid || formModel.get('yzm').untouched" >
+                        <div [hidden]="!formModel.hasError('required','yzm')">验证码不可为空</div>
+                        <div [hidden]="!formModel.hasError('minlength','yzm') && !formModel.hasError('maxlength','yzm')">验证码应为4位数字</div>
+                </div>
+</div>
+		</div>
+   	</div>
+   	   	<div class="row">
+	   	<div class="form-group">
+	   	<div class="col-sm-4"></div>
+	   	<button type="submit" class="btn btn-info col-sm-1">查&ensp;询</button>
+<div class="col-sm-1"></div>
+				<a class="col-sm-1 btn btn-info" (click)="wjmm()">忘记密码</a>
+<div class="col-sm-1"></div>
+	   	</div>
+	   	</div>
+</form>	   	
+<hr>
+<div class="row">
+<div class="form-group">
+<div id="name" class="col-sm-8" style="margin-left:5%;font-size:12pt;"></div>
+<div [hidden]="txan">
+<button class="col-sm-1 btn btn-info" (click)="txxx()">填写详细信息</button>
+</div>
+</div>
+</div>
+
+
+
+		<div id="fenshu">
+		
+
+
+		</div>
+</div>
+		
+
+
+<!-- 内容区域结束 -->
+</div>
+</div>
+

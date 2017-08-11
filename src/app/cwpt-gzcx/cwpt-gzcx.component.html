@@ -1,0 +1,115 @@
+
+		<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+			<div class="title_txt">工资查询
+			</div>
+		</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+<!-- 内容区域开始 -->
+<hr>
+<button type="button" class="btn btn-primary" [class.active]="ifhtgz" (click)="htgz()">合同工资</button>
+<button type="button" class="btn btn-primary" [class.active]="iftggz" (click)="tggz()">套改工资</button>
+<table class="table table-bordered" *ngIf="ifhtgz">
+	<caption>共{{htgzdata.length}}条工资记录</caption>
+	<thead>
+		<tr>
+			<th>序号</th>
+			<th>姓名</th>
+			<th>月份</th>
+			<th>基本工资</th>
+			<th>班主任费</th>
+			<th>课时工资</th>
+			<th>考务费</th>
+			<th>校龄</th>
+			<th>其它</th>
+			<th>全勤奖</th>
+			<th>应发工资</th>
+			<th>扣考勤</th>
+			<th>扣工会费</th>
+			<th>扣保险</th>
+			<th>其它扣款</th>
+			<th>扣款合计</th>
+			<th>实发工资</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr *ngFor="let x of htgzdata; let i=index">
+	<td>{{i +1 }}</td>
+    <td>{{ x.username }}</td>
+    <td>{{ x.riqi }}</td>
+    <td>{{ x.jbgz }}</td>
+    <td>{{ x.bzrf }}</td>
+    <td>{{ x.ksgz }}</td>
+    <td>{{ x.kwf }}</td>
+    <td>{{ x.xl }}</td>
+    <td>{{ x.qt }}</td>
+    <td>{{ x.qqj }}</td>
+    <td class="yfgz">{{ x.yfgz }}</td>
+    <td>{{ x.kkq }}</td>
+    <td>{{ x.kghf }}</td>
+    <td>{{ x.kbx }}</td>
+    <td>{{ x.qtkk }}</td>
+    <td>{{ x.kkhj }}</td>
+    <td class="sfgz">{{ x.sfgz}}</td>
+  </tr>
+	</tbody>
+</table>
+<!-- 套改工资表格 -->
+
+<table class="table table-bordered" *ngIf="iftggz">
+	<caption>共{{tggzdata.length}}条工资记录</caption>
+	<thead>
+		<tr>
+	 <th>序号</th>
+     <th>姓名</th>
+     <th>月份</th>
+	 <th>岗位工资</th>
+	 <th>薪级工资</th>
+	 <th>三次职补</th>
+	 <th>地福补岗补</th>
+	 <th>聊城岗位津贴</th>
+	 <th>新增地方补贴</th>
+	 <th>新增绩效</th>
+	 <th>住房补贴</th>
+	 <th>课时费</th>
+	 <th>考务费</th>
+	 <th>班主任费</th>
+	 <th>其它</th>
+	 <th>全勤奖</th>
+	 <th>应发合计</th>
+	 <th>扣考勤</th>
+	 <th>扣保险</th>
+	 <th>扣工会费</th>
+     <th>扣款合计</th>
+	 <th>实发工资</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr *ngFor="let x of tggzdata; let i=index">
+	<td>{{ i + 1 }}</td>
+    <td>{{ x.username }}</td>
+    <td>{{ x.riqi }}</td>
+    <td>{{ x.gwgz }}</td>
+    <td>{{ x.xjgz }}</td>
+    <td>{{ x.sczb }}</td>
+    <td>{{ x.dfbgb }}</td>
+    <td>{{ x.lcgwjt }}</td>
+    <td>{{ x.xzdfbt }}</td>
+    <td>{{ x.xzjx }}</td>
+    <td>{{ x.zfbt }}</td>
+    <td>{{ x.ksf }}</td>
+    <td>{{ x.kwf }}</td>
+    <td>{{ x.bzrf }}</td>
+    <td>{{ x.qita }}</td>
+    <td>{{ x.qqj }}</td>
+    <td class="yfgz">{{ x.yfhj }}</td>
+    <td>{{ x.kkq }}</td>
+    <td>{{ x.kbx}}</td>
+    <td>{{ x.kghf}}</td>
+    <td>{{ x.kkhj}}</td>
+    <td class="sfgz">{{ x.sfgz}}</td>
+  </tr>
+	</tbody>
+</table>
+</div>
+
+<!-- 内容区域结束 -->
