@@ -6,7 +6,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms"
 import { Observable } from "rxjs/Observable";
 import * as $ from 'jquery';
 import 'rxjs/Rx';
-import { UserService } from "../../UserService";
+import { UserService } from "../../service/UserService";
 
 
 

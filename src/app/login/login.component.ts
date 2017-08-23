@@ -12,13 +12,15 @@ import * as $ from 'jquery';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
- formModel:FormGroup;
+ public formModel:FormGroup;
  dataSource:Observable<any>;
-//  data:Array<any>;
-  constructor(fb: FormBuilder,private http:Http,private router:Router) {
-    this.formModel = fb.group({
-      username: ['刘大旺',[Validators.required,Validators.minLength(2),Validators.maxLength(8)]],
-      password: ['123',[Validators.required,Validators.minLength(6),Validators.maxLength(24)]]
+
+private fb:FormBuilder = new FormBuilder();
+
+  constructor(private http:Http,private router:Router) {
+    this.formModel = this.fb.group({
+      username: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
+      password: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(24)]],
     })
     
   }

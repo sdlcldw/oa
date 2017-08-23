@@ -13,8 +13,9 @@ export const routeConfig: Routes = [
   children:[
     {path:'',pathMatch: 'full',redirectTo: 'home'},
     {path:'home',component:IndexHomeComponent},
-    {path:'grbg',loadChildren:'./grbg/grbg.module#GrbgModule'},
-    {path:'xsgl',loadChildren:'./xsgl/xsgl.module#XsglModule'},
+    {path:'grbg',loadChildren:'./module-grbg/module-grbg.module#GrbgModule'},
+    {path:'xsgl',loadChildren:'./module-xsgl/module-xsgl.module#XsglModule'},
+    {path:'cwpt',loadChildren:'./module-cwpt/module-cwpt.module#CwptModule'},
   ],canActivate:[LoginGuard]
 }
 ];

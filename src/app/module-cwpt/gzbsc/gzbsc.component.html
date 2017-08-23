@@ -1,0 +1,128 @@
+     <div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+        <div class="title_txt">工资表上传
+        </div>
+      </div>
+  <div class="right_content" style="padding:5px;">
+  <!-- 内容区域开始 -->
+  <hr>
+  <input type="file" name='gzb' ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />
+  
+  <a (click)="gzbyl()" class="btn btn-warning">工资表预览</a>							
+  <a (click)="gzbsc()" class="btn btn-warning">确认上传工资表</a>
+  <hr>
+  <div [hidden]="yangli">
+  <p>合同工资样例</p>
+  <img src="assets/images/htgzgs.png" class="img-thumbnail">
+  <p>套改工资样例</p>
+  <img src="assets/images/tggzgs.png" class="img-thumbnail">
+  </div>
+  <div [hidden]="ifgzb">
+  <table class="table table-bordered">
+  <caption>以下为合同工资表</caption>
+    <caption>共{{htgzdata.length}}条工资记录</caption>
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>月份</th>
+        <th>基本工资</th>
+        <th>班主任费</th>
+        <th>课时工资</th>
+        <th>考务费</th>
+        <th>校龄</th>
+        <th>其它</th>
+        <th>全勤奖</th>
+        <th>应发工资</th>
+        <th>扣考勤</th>
+        <th>扣工会费</th>
+        <th>扣保险</th>
+        <th>其它扣款</th>
+        <th>扣款合计</th>
+        <th>实发工资</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let x of htgzdata; let i=index">
+    <td>{{ i + 1 }}</td>
+      <td>{{ x.username }}</td>
+      <td>{{ x.riqi }}</td>
+      <td>{{ x.jbgz | number:'1.0-2' }}</td>
+      <td>{{ x.bzrf | number:'1.0-2' }}</td>
+      <td>{{ x.ksgz | number:'1.0-2' }}</td>
+      <td>{{ x.kwf | number:'1.0-2' }}</td>
+      <td>{{ x.xl | number:'1.0-2' }}</td>
+      <td>{{ x.qt | number:'1.0-2' }}</td>
+      <td>{{ x.qqj | number:'1.0-2' }}</td>
+      <td class="yfgz">{{ x.yfgz | number:'1.0-2' }}</td>
+      <td>{{ x.kkq | number:'1.0-2' }}</td>
+      <td>{{ x.kghf | number:'1.0-2' }}</td>
+      <td>{{ x.kbx | number:'1.0-2' }}</td>
+      <td>{{ x.qtkk | number:'1.0-2' }}</td>
+      <td>{{ x.kkhj | number:'1.0-2' }}</td>
+      <td class="sfgz">{{ x.sfgz | number:'1.0-2' }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <!-- 套改工资表格 -->
+  <div style="overflow-x:auto;">
+  <table class="table table-bordered">
+  <caption>以下为套改工资表</caption>
+    <caption>共{{tggzdata.length}}条工资记录</caption>
+    <thead>
+      <tr>
+     <th>序号</th>
+       <th>姓名</th>
+       <th>月份</th>
+     <th>岗位工资</th>
+     <th>薪级工资</th>
+     <th>三次职补</th>
+     <th>地福补岗补</th>
+     <th>聊城岗位津贴</th>
+     <th>新增地方补贴</th>
+     <th>新增绩效</th>
+     <th>住房补贴</th>
+     <th>课时费</th>
+     <th>考务费</th>
+     <th>班主任费</th>
+     <th>其它</th>
+     <th>全勤奖</th>
+     <th>应发合计</th>
+     <th>扣考勤</th>
+     <th>扣保险</th>
+     <th>扣工会费</th>
+       <th>扣款合计</th>
+     <th>实发工资</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let x of tggzdata; let i=index">
+    <td>{{ i + 1 }}</td>
+      <td>{{ x.username }}</td>
+      <td>{{ x.riqi }}</td>
+      <td>{{ x.gwgz | number:'1.0-2' }}</td>
+      <td>{{ x.xjgz | number:'1.0-2' }}</td>
+      <td>{{ x.sczb | number:'1.0-2' }}</td>
+      <td>{{ x.dfbgb | number:'1.0-2' }}</td>
+      <td>{{ x.lcgwjt | number:'1.0-2' }}</td>
+      <td>{{ x.xzdfbt | number:'1.0-2' }}</td>
+      <td>{{ x.xzjx | number:'1.0-2' }}</td>
+      <td>{{ x.zfbt | number:'1.0-2' }}</td>
+      <td>{{ x.ksf | number:'1.0-2' }}</td>
+      <td>{{ x.kwf | number:'1.0-2' }}</td>
+      <td>{{ x.bzrf | number:'1.0-2' }}</td>
+      <td>{{ x.qita | number:'1.0-2' }}</td>
+      <td>{{ x.qqj | number:'1.0-2' }}</td>
+      <td class="yfgz">{{ x.yfhj | number:'1.0-2' }}</td>
+      <td>{{ x.kkq | number:'1.0-2' }}</td>
+      <td>{{ x.kbx | number:'1.0-2' }}</td>
+      <td>{{ x.kghf | number:'1.0-2' }}</td>
+      <td>{{ x.kkhj | number:'1.0-2' }}</td>
+      <td class="sfgz">{{ x.sfgz | number:'1.0-2' }}</td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+  <!-- 内容区域结束 -->
+  </div>
+

@@ -13,7 +13,8 @@ import { Routes, RouterModule } from "@angular/router";
 import { IndexHomeComponent } from './index-home/index-home.component';
 import { LoginGuard } from "app/guard/login.guard";
 import { ExitGuard } from "app/guard/exit.guard";
-import { UserService } from "./UserService";
+import { UserService } from "./service/UserService";
+import { TskService } from "./service/TskService";
 import { MenuGrbgComponent } from './menu-grbg/menu-grbg.component';
 import { MenuXsglComponent } from './menu-xsgl/menu-xsgl.component';
 import { MenuZcglComponent } from './menu-zcgl/menu-zcgl.component';
@@ -43,7 +44,7 @@ import { MenuCwptComponent } from './menu-cwpt/menu-cwpt.component';
     CommonModule,
     FileUploadModule,
   ],
-  providers: [LoginGuard,ExitGuard,UserService],
+  providers: [LoginGuard,ExitGuard,UserService,TskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

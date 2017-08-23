@@ -250,7 +250,7 @@ class GzcxController extends Controller
 						$t.=';';
 						$datah = Yii::$app->db->createCommand($h)->execute();
 						$datat = Yii::$app->db->createCommand($t)->execute();
-						$data['tggh']=$datah;
+						$data['htgz']=$datah;
 						$data['tggz']=$datat;
 						Yii::$app->response->format=Response::FORMAT_JSON;	
 				 		return $data;

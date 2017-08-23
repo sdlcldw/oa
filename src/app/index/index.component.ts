@@ -4,10 +4,11 @@ import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import * as $ from 'jquery';
 import jQuery from 'jquery';
-import { UserService } from "../UserService";
+import { UserService } from "../service/UserService";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {FileUploader} from "ng2-file-upload";
 import { Location } from '@angular/common';
+import { TskService } from "app/service/TskService";
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -41,7 +42,7 @@ qrxmm;
 
 xgzl:boolean=false;
 
-  constructor(private router: Router, private http: Http, private user: UserService,private modalService:NgbModal, private location: Location) {
+  constructor(private router: Router, private http: Http, private user: UserService,private modalService:NgbModal, private location: Location,private tsk:TskService) {
     this.zxrs = this.http.get('/oa/basic/web/index.php?r=index/up_time').map((res) => res.json());
 
   this.http.get('/oa/basic/web/index.php?r=index/getuser').map((res) => res.json()).subscribe((data) => {
@@ -124,13 +125,16 @@ xgzl:boolean=false;
   }
 
   changeleft(name) {
-
-
+    if(name != 'grbg' && $.cookie("qx").indexOf(name) == -1 ){
+      this.tsk.tsk('对不起，您的权限不足！');
+      return;
+  }
     this.xsgl = false;
     this.zcgl = false;
     this.grbg = false;
     this.rsgl = false;
     this.cwpt = false;
+  
     if (name == 'xsgl') {
       this.xsgl = true;
     } else if (name == 'zcgl') {

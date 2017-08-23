@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { GzcxComponent } from './gzcx/gzcx.component';
 import { TxlComponent } from './txl/txl.component';
 
-import {grbgRoutes} from './grbg.routes';
+import {grbgRoutes} from './module-grbg.routes';
 
 
 @NgModule({

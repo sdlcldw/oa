@@ -27,5 +27,4 @@ return this.dataSource.map((auth) => {
             return false;
         }).first(); 
     }
-   
 }

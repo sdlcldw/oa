@@ -1,0 +1,164 @@
+
+      <div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+        <div class="title_txt">数据分析
+        </div>
+      </div>
+  <div class="right_content" style="padding:5px;">
+  <!-- 内容区域开始 -->
+  <hr>
+  <form class="form-horizontal" role="form" >
+    <div class="form-group">
+      <label for="firstname" class="col-sm-2 control-label">输入教师姓名查看全部明细</label>
+      <div class="col-sm-2">
+        <input name="xm" type="text" class="form-control" id="firstname" placeholder="请输入名字" [(ngModel)]="xm">
+      </div>
+     <div class="col-sm-1">
+       <button type="submit" class="btn btn-default" (click)="xm_htgz()" >确定</button>
+       </div>
+    </div>
+  </form>
+  <hr>
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="firstname" class="col-sm-2 control-label">输入年份查看年度数据统计</label>
+      <div class="col-sm-2">
+        <input name="nd" type="text" class="form-control" id="firstname" placeholder="格式：2017" [(ngModel)]="nd">
+      </div>
+      <div class="col-sm-1">
+       <button type="submit" class="btn btn-default" (click)="nd_htgz()">确定</button>
+       </div>
+       <label for="firstname" class="col-sm-2 control-label">输入年月查看当月发放明细</label>
+      <div class="col-sm-2">
+        <input name="ny" type="text" class="form-control" id="firstname" placeholder="格式：201701" [(ngModel)]="ny">
+      </div>
+      <div class="col-sm-1">
+      <button type="submit" class="btn btn-default" (click)="ny_htgz()">确定</button>
+      </div>
+    </div>
+  </form>
+  <hr>
+  <div [hidden]="ifjsxm">
+  <!-- 按教师姓名查询 -->
+  <div [hidden]="anjsxm" >
+  <button type="button" class="btn btn-primary" [class.active]="iftggz" (click)="xm_htgz()">合同工资</button>
+  <button type="button" class="btn btn-primary" [class.active]="ifhtgz" (click)="xm_tggz()">套改工资</button>
+  基本工资：{{jbgz | number:'1.0-2'}} || 课时工资：{{ksgz | number:'1.0-2'}} || 总应发工资：{{yfgz | number:'1.0-2'}} || 总实发工资：{{sfgz | number:'1.0-2'}} 平均月工资：{{sfgz/data.length | number:'1.0-2'}}
+  </div>
+  <!-- 按年月查询 -->
+  <div [hidden]="anny" >
+  <button type="button" class="btn btn-primary" [class.active]="iftggz" (click)="ny_htgz()">合同工资</button>
+  <button type="button" class="btn btn-primary" [class.active]="ifhtgz" (click)="ny_tggz()">套改工资</button>
+  基本工资：{{jbgz | number:'1.0-2'}} || 课时工资：{{ksgz | number:'1.0-2'}} || 总应发工资：{{yfgz | number:'1.0-2'}} || 总实发工资：{{sfgz | number:'1.0-2'}} || 平均月工资：{{sfgz/data.length | number:'1.0-2'}}
+  </div>
+  <!-- 按年度查询 -->
+  <div [hidden]="annd" >
+  <button type="button" class="btn btn-primary" [class.active]="iftggz" (click)="nd_htgz()">合同工资</button>
+  <button type="button" class="btn btn-primary" [class.active]="ifhtgz" (click)="nd_tggz()">套改工资</button>
+  </div>
+  <table class="table table-bordered" [hidden]="ifhtgz">
+    <caption>共{{data.length}}条工资记录</caption>
+    <thead>
+      <tr>
+        <th style="width:45px;">序号</th>
+        <th style="width:75px;">姓名</th>
+        <th style="width:45px;">月份</th>
+        <th style="width:75px;">基本工资</th>
+        <th style="width:75px;">班主任费</th>
+        <th style="width:75px;">课时工资</th>
+        <th style="width:55px;">考务费</th>
+        <th style="width:45px;">校龄</th>
+        <th style="width:45px;">其它</th>
+        <th style="width:55px;">全勤奖</th>
+        <th style="width:75px;">应发工资</th>
+        <th style="width:55px;">扣考勤</th>
+        <th style="width:75px;">扣工会费</th>
+        <th style="width:55px;">扣保险</th>
+        <th style="width:75px;">其它扣款</th>
+        <th style="width:75px;">扣款合计</th>
+        <th style="width:75px;">实发工资</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let x of data; let i=index">
+    <td>{{ i + 1 }}</td>
+      <td>{{ x.username }}</td>
+      <td>{{ x.riqi }}</td>
+      <td>{{ x.jbgz | number:'1.0-2' }}</td>
+      <td>{{ x.bzrf | number:'1.0-2' }}</td>
+      <td>{{ x.ksgz | number:'1.0-2' }}</td>
+      <td>{{ x.kwf | number:'1.0-2' }}</td>
+      <td>{{ x.xl | number:'1.0-2' }}</td>
+      <td>{{ x.qt | number:'1.0-2' }}</td>
+      <td>{{ x.qqj | number:'1.0-2' }}</td>
+      <td class="yfgz">{{ x.yfgz | number:'1.0-2' }}</td>
+      <td>{{ x.kkq | number:'1.0-2' }}</td>
+      <td>{{ x.kghf | number:'1.0-2' }}</td>
+      <td>{{ x.kbx | number:'1.0-2' }}</td>
+      <td>{{ x.qtkk | number:'1.0-2' }}</td>
+      <td>{{ x.kkhj | number:'1.0-2' }}</td>
+      <td class="sfgz">{{ x.sfgz | number:'1.0-2' }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <!-- 套改工资表格 -->
+  <div style=" overflow-x:auto;">
+  <table style="max-width: 130%;" class="table table-bordered" [hidden]="iftggz">
+    <caption>共{{data.length}}条工资记录</caption>
+    <thead>
+      <tr>
+    <th style="width:49px;">序号</th>
+    <th style="width:55px;">姓名</th>
+    <th style="width:49px;">月份</th>
+    <th style="width:83px;">岗位工资</th>
+    <th style="width:83px;">薪级工资</th>
+    <th style="width:83px;">三次职补</th>
+    <th style="width:83px;">地福补岗补</th>
+    <th style="width:83px;">聊城岗位津贴</th>
+    <th style="width:83px;">新增地方补贴</th>
+    <th style="width:83px;">新增绩效</th>
+    <th style="width:83px;">住房补贴</th>
+    <th style="width:55px;">课时费</th>
+    <th style="width:55px;">考务费</th>
+    <th style="width:83px;">班主任费</th>
+    <th style="width:45px;">其它</th>
+    <th style="width:55px;">全勤奖</th>
+    <th style="width:83px;">应发合计</th>
+    <th style="width:55px;">扣考勤</th>
+    <th style="width:55px;">扣保险</th>
+    <th style="width:83px;">扣工会费</th>
+    <th style="width:83px;">扣款合计</th>
+    <th style="width:83px;">实发工资</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let x of data; let i=index">
+    <td>{{ i + 1 }}</td>
+      <td>{{ x.username }}</td>
+      <td>{{ x.riqi }}</td>
+      <td>{{ x.gwgz | number:'1.0-2' }}</td>
+      <td>{{ x.xjgz | number:'1.0-2' }}</td>
+      <td>{{ x.sczb | number:'1.0-2' }}</td>
+      <td>{{ x.dfbgb | number:'1.0-2' }}</td>
+      <td>{{ x.lcgwjt | number:'1.0-2' }}</td>
+      <td>{{ x.xzdfbt | number:'1.0-2' }}</td>
+      <td>{{ x.xzjx | number:'1.0-2' }}</td>
+      <td>{{ x.zfbt | number:'1.0-2' }}</td>
+      <td>{{ x.ksf | number:'1.0-2' }}</td>
+      <td>{{ x.kwf | number:'1.0-2' }}</td>
+      <td>{{ x.bzrf | number:'1.0-2' }}</td>
+      <td>{{ x.qita | number:'1.0-2' }}</td>
+      <td>{{ x.qqj | number:'1.0-2' }}</td>
+      <td class="yfgz">{{ x.yfhj | number:'1.0-2' }}</td>
+      <td>{{ x.kkq | number:'1.0-2' }}</td>
+      <td>{{ x.kbx | number:'1.0-2' }}</td>
+      <td>{{ x.kghf | number:'1.0-2' }}</td>
+      <td>{{ x.kkhj | number:'1.0-2' }}</td>
+      <td class="sfgz">{{ x.sfgz | number:'1.0-2' }}</td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+  <!-- 内容区域结束 -->
+  </div>
+  
