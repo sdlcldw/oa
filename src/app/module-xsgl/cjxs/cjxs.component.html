@@ -22,7 +22,6 @@
 				<label for="firstname" class="col-sm-1 control-label">密码</label>
 				<div class="col-sm-2">
 					<input [class.hasError]="formModel.get('yhmm').invalid && formModel.get('yhmm').touched" formControlName="yhmm" name="yhmm" type="text" class="form-control" placeholder="初始密码为身份证后6位">
-						
 				</div>
 				<div class="col-sm-1">
 				<img (click)="newyzm()" [src]="imageurl">
@@ -32,21 +31,21 @@
 				</div>
 <div class="col-md-2 col-md-offset-1">
 				<div [hidden]="formModel.get('yhzh').valid || formModel.get('yhzh').untouched">
-                        <div [hidden]="!formModel.hasError('required','yhzh')">学籍号不可为空</div>
-                        <div [hidden]="!formModel.hasError('minlength','yhzh') && !formModel.hasError('maxlength','yhzh')">学籍号应为19位数字</div>
+                        <!-- <div [hidden]="!formModel.hasError('required','yhzh')">学籍号不可为空</div>
+                        <div [hidden]="!formModel.hasError('minlength','yhzh') && !formModel.hasError('maxlength','yhzh')">学籍号应为19位数字</div> -->
                 </div>
 </div>
 <div class="col-md-2 col-md-offset-1">
 <div [hidden]="formModel.get('yhmm').valid || formModel.get('yhmm').untouched">
-                        <div [hidden]="!formModel.hasError('required','yhmm')">密码不可为空</div>
+                        <!-- <div [hidden]="!formModel.hasError('required','yhmm')">密码不可为空</div>
                         <div [hidden]="!formModel.hasError('minlength','yhmm')">密码不小于3位</div>                       
-					    <div [hidden]="!formModel.hasError('maxlength','yhmm')">密码不大于24位</div>
+					    <div [hidden]="!formModel.hasError('maxlength','yhmm')">密码不大于24位</div> -->
                 </div>	
 </div>
 <div class="col-md-1 col-md-offset-1">
           <div [hidden]="formModel.get('yzm').valid || formModel.get('yzm').untouched" >
-                        <div [hidden]="!formModel.hasError('required','yzm')">验证码不可为空</div>
-                        <div [hidden]="!formModel.hasError('minlength','yzm') && !formModel.hasError('maxlength','yzm')">验证码应为4位数字</div>
+                        <!-- <div [hidden]="!formModel.hasError('required','yzm')">验证码不可为空</div>
+                        <div [hidden]="!formModel.hasError('minlength','yzm') && !formModel.hasError('maxlength','yzm')">验证码应为4位数字</div> -->
                 </div>
 </div>
 		</div>

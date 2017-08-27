@@ -6,27 +6,29 @@ import { Router } from "@angular/router";
 import 'rxjs/Rx';
 import * as $ from 'jquery';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
- public formModel:FormGroup;
- dataSource:Observable<any>;
-
-private fb:FormBuilder = new FormBuilder();
-
+  formModel:FormGroup; 
+dataSource:Observable<any>;
+fb:FormBuilder = new FormBuilder();
   constructor(private http:Http,private router:Router) {
     this.formModel = this.fb.group({
       username: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
       password: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(24)]],
     })
-    
   }
-  ngOnInit() {
+  ngOnInit(){
+ 
+  }
 
-  }
+  get username() { return this.formModel.get('username'); }
+  get password() { return this.formModel.get('password'); }
+  
 onSubmit(){
 let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
