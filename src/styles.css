@@ -106,9 +106,9 @@ min-width: 160px;
 	background-color: #FFFFFF;
 	border-collapse: collapse;
 	}
-	.menu2{
-	/*min-height: 350px;*/
-	}
+		/*.menu2{
+min-height: 350px;
+	}*/
 
 	.menu_ul{
 		max-height: 410px;

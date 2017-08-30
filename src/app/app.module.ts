@@ -4,7 +4,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CommonModule }     from '@angular/common';
-import {routeConfig} from './app.routes';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -21,6 +20,20 @@ import { MenuZcglComponent } from './menu-zcgl/menu-zcgl.component';
 import { MenuRsglComponent } from './menu-rsgl/menu-rsgl.component';
 import { MenuCwptComponent } from './menu-cwpt/menu-cwpt.component';
 
+
+const routeConfig: Routes = [
+  {path: '',  pathMatch: 'full',redirectTo: 'index'},
+  {path: 'login', component:LoginComponent,canActivate:[ExitGuard]},
+  {path: 'index', component:IndexComponent,
+    children:[
+      {path:'',pathMatch: 'full',redirectTo: 'home'},
+      {path:'home',component:IndexHomeComponent},
+      {path:'grbg',loadChildren:'./module-grbg/module-grbg.module#GrbgModule'},
+      {path:'xsgl',loadChildren:'./module-xsgl/module-xsgl.module#XsglModule'},
+      {path:'cwpt',loadChildren:'./module-cwpt/module-cwpt.module#CwptModule'},
+    ],canActivate:[LoginGuard]
+  }
+  ];
 
 @NgModule({
   declarations: [
