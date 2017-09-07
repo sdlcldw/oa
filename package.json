@@ -22,6 +22,7 @@
     "@angular/router": "^4.0.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.26",
     "bootstrap": "^3.3.7",
+    "classlist.js": "^1.1.20150312",
     "cookie": "^0.3.1",
     "cookies": "^0.7.0",
     "core-js": "^2.4.1",
@@ -29,6 +30,7 @@
     "jquery": "^3.2.1",
     "ng2-file-upload": "^1.2.1",
     "rxjs": "^5.1.0",
+    "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
