@@ -197,9 +197,19 @@ open_password(content){
 // 修改密码模态框操纵方法
 xgmm(){
   if(this.xmm != this.qrxmm){
-                alert('新密码两次输入不一致！');
+                alert('新密码两次输入不一致,请重新输入！');
+                this.ymm = '';
+                this.xmm = '';
+                this.qrxmm = '';
                 return;
             }
+  if(this.ymm == this.xmm){
+    alert('新密码不能与原密码相同,请重新设置！');
+    this.ymm = '';
+    this.xmm = '';
+    this.qrxmm = '';
+                return;
+  }
   var creds = 'ymm=' + this.ymm + "&xmm=" + this.xmm + "&qrxmm=" + this.qrxmm;
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");

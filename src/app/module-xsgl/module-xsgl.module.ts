@@ -4,6 +4,8 @@ import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {xsglRoutes} from './module-xsgl.routes';
 import { CjxsComponent } from './cjxs/cjxs.component';
+import { XxshComponent } from './xxsh/xxsh.component';
+import { ZszlComponent } from './zszl/zszl.component';
 
 
 
@@ -14,6 +16,6 @@ import { CjxsComponent } from './cjxs/cjxs.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [CjxsComponent]
+  declarations: [CjxsComponent, XxshComponent, ZszlComponent]
 })
 export class XsglModule { }

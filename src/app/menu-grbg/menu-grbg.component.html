@@ -7,15 +7,15 @@
 		</div>
 		<div class="menu_ul">
 			<div class="menu_1 menu_1_1"><span>常用功能</span></div>
-			<div class="menu_1_2">
+			<div class="menu_1_2"> 
 				<div [routerLink]="['./grbg/gzcx']" class="out"><span>工资查询</span></div>
 				<div [routerLink]="['./grbg/txl']" class="out"><span>通讯录</span></div>
-				<div class="out out_last"><span>菜单占位</span></div>
+				<div [routerLink]="['./grbg/gjcjtxl']" class="out out_last"><span>高级财经通讯录</span></div>
 			</div>
-			<div class="menu_1 menu_1_1"><span>招生管理</span></div>
+			<div class="menu_1 menu_1_1"><span>我的招生</span></div>
 			<div class="menu_1_2">
-				<div [routerLink]="['./cjxs']" class="out"><span>新生入校</span></div>
-				<div [routerLink]="['./wdzs']" class="out"><span>我的招生</span></div>
+				<div [routerLink]="['./xsgl/cjxs']" class="out"><span>新生入校</span></div>
+				<div [routerLink]="['./grbg/wdzs']" class="out"><span>我的招生</span></div>
 				<div class="out out_last"><span>菜单占位</span></div>
 			</div>
 			<div class="menu_1 menu_1_1"><span>个人档案</span></div>
@@ -26,7 +26,12 @@
 				<div class="out out_last"><span>菜单占位</span></div>
 				</div>
 			
-			<div class="menu_1"><span>菜单占位</span></div>
+			<div class="menu_1 menu_1_1"><span>个人设置</span></div>
+				<div class="menu_1_2">
+				<div class="out" data-toggle="modal" data-target="#myModal"><span>修改个人资料</span></div>
+				<div class="out" data-toggle="modal" data-target="#myModalt"><span>修改密码</span></div>
+				<div class="out out_last"><span>菜单占位</span></div>
+				</div>
 			<div class="menu_1"><span>菜单占位</span></div>
 			<div class="menu_1"><span>菜单占位</span></div>
 

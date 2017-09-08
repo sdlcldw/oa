@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GzbscComponent } from './gzbsc/gzbsc.component';
-import {cwptRoutes} from './module-cwpt.routes';
+import { cwptRoutes} from './module-cwpt.routes';
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'ng2-file-upload';
