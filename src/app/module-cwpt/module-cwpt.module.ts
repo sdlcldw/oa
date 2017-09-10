@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GzbscComponent } from './gzbsc/gzbsc.component';
-import { cwptRoutes} from './module-cwpt.routes';
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -10,11 +9,16 @@ import { HttpModule } from '@angular/http';
 import { SjfxComponent } from './sjfx/sjfx.component';
 import { QxGuard } from "app/guard/qx.guard";
 
+const Routes=[
+  {path:'gzbsc',component:GzbscComponent,data:{role:'gzbsc'},canActivate:[QxGuard]},
+  {path:'gzbwh',component:GzbwhComponent,data:{role:'gzbwh'},canActivate:[QxGuard]},
+  {path:'sjfx',component:SjfxComponent,data:{role:'sjfx'},canActivate:[QxGuard]},
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(cwptRoutes),
+    RouterModule.forChild(Routes),
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,   

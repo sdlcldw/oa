@@ -6,16 +6,21 @@ import { HttpModule } from '@angular/http';
 import { GzcxComponent } from './gzcx/gzcx.component';
 import { TxlComponent } from './txl/txl.component';
 
-import {grbgRoutes} from './module-grbg.routes';
 import { GjcjtxlComponent } from './gjcjtxl/gjcjtxl.component';
 import { WdzsComponent } from './wdzs/wdzs.component';
 
+const Routes=[
+  {path:'gzcx',component:GzcxComponent,},
+{path:'txl',component:TxlComponent,},
+{path:'wdzs',component:WdzsComponent,},
+{path:'gjcjtxl',component:GjcjtxlComponent,},
+];
 
 @NgModule({
   imports: [
     CommonModule,
     HttpModule,
-    RouterModule.forChild(grbgRoutes),
+    RouterModule.forChild(Routes),
   ],
   declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent]
 })

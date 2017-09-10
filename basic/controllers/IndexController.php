@@ -14,6 +14,14 @@ use yii\data\Pagination;
 class IndexController extends Controller
 {
 	public $enableCsrfValidation = false;// ->覆盖父类的属性
+	public function actionAdd(){
+        if (Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+        
+            Yii::$app->response->format=Response::FORMAT_JSON;
+            return $post;
+            }
+        }	
 	// public function beforeAction($action){
 	// 	// $controller = $action -> controller -> id;
 	// 	// $actionName = $action -> id;
@@ -51,7 +59,6 @@ class IndexController extends Controller
 				$model = new User;
 				if (Yii::$app->request->isPost){
 					$post = Yii::$app->request->post();
-				
 					if ($ssv = $model->login($post)){
 						return $ssv;
 						Yii::$app->end();

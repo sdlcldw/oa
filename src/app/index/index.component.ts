@@ -23,6 +23,7 @@ export class IndexComponent implements OnInit {
   grbg: boolean;
   rsgl: boolean;
   cwpt: boolean;
+  xtsz: boolean;  
   height: number;
   username: string;
   userimage: string;
@@ -134,6 +135,8 @@ xgzl:boolean=false;
     this.grbg = false;
     this.rsgl = false;
     this.cwpt = false;
+    this.xtsz = false;
+    
   
     if (name == 'xsgl') {
       this.xsgl = true;
@@ -145,6 +148,8 @@ xgzl:boolean=false;
       this.rsgl = true;
     } else if (name == 'cwpt') {
       this.cwpt = true;
+    }else if (name == 'xtsz') {
+      this.xtsz = true;
     }
   }
   Logout() {

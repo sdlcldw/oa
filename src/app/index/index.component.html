@@ -14,7 +14,8 @@
 		<li (click)="changeleft('zcgl')" class="a2" title="资产管理" onmouseover="menuOver(this);" onmouseout="menuOut(this);"><div><img *ngIf="zcgl" class="top_img2"  src="assets/images/asset2.png"><img *ngIf="!zcgl" class="top_img2" hoversrc="assets/images/asset2.png" normalsrc="assets/images/asset.png"  src="assets/images/asset.png"></div><div>资产管理</div></li>
 		<li (click)="changeleft('grbg')" class="a3" title="个人办公" onmouseover="menuOver(this);" onmouseout="menuOut(this);"><div><img *ngIf="grbg" class="top_img3" src="assets/images/private2.png"><img *ngIf="!grbg" class="top_img3" hoversrc="assets/images/private2.png" normalsrc="assets/images/private.png"  src="assets/images/private.png"></div><div>个人办公</div></li>
 		<li (click)="changeleft('rsgl')" class="a4" title="人事管理" onmouseover="menuOver(this);" onmouseout="menuOut(this);"><div><img *ngIf="rsgl" class="top_img4" src="assets/images/hr2.png"><img *ngIf="!rsgl" class="top_img4" hoversrc="assets/images/hr2.png" normalsrc="assets/images/hr.png"  src="assets/images/hr.png"></div><div>人事管理</div></li>
-		<li (click)="changeleft('cwpt')" class="a5" title="财务平台" onmouseover="menuOver(this);" onmouseout="menuOut(this);"><div><img *ngIf="cwpt" class="top_img4" src="assets/images/cwgl2.png"><img *ngIf="!cwpt" class="top_img4" hoversrc="assets/images/cwgl2.png" normalsrc="assets/images/cwgl.png"  src="assets/images/cwgl.png"></div><div>财务平台</div></li> 
+		<li (click)="changeleft('cwpt')" class="a5" title="财务平台" onmouseover="menuOver(this);" onmouseout="menuOut(this);"><div><img *ngIf="cwpt" class="top_img4" src="assets/images/cwgl2.png"><img *ngIf="!cwpt" class="top_img4" hoversrc="assets/images/cwgl2.png" normalsrc="assets/images/cwgl.png"  src="assets/images/cwgl.png"></div><div>财务平台</div></li>
+		<li (click)="changeleft('xtsz')" class="a6" title="系统设置" onmouseover="menuOver(this);" onmouseout="menuOut(this);"><div><img *ngIf="xtsz" class="top_img6" src="assets/images/xtsz2.png"><img *ngIf="!xtsz" class="top_img6" hoversrc="assets/images/xtsz2.png" normalsrc="assets/images/xtsz.png"  src="assets/images/xtsz.png"></div><div>系统设置</div></li>  
 	</ul>
 <div class="dibu"></div>
 </div>
@@ -35,7 +36,8 @@
 				<app-menu-zcgl *ngIf="zcgl"></app-menu-zcgl>	
 				<app-menu-grbg *ngIf="grbg"></app-menu-grbg>					 
 				<app-menu-rsgl *ngIf="rsgl"></app-menu-rsgl>	
-				<app-menu-cwpt *ngIf="cwpt"></app-menu-cwpt>			
+				<app-menu-cwpt *ngIf="cwpt"></app-menu-cwpt>
+				<app-menu-xtsz *ngIf="xtsz"></app-menu-xtsz>				
 					<!-- 动态加载进来菜单 -->
 <div class="search">
 	<div class="shousuo">

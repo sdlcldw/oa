@@ -16,7 +16,7 @@ height:75px;
 min-width:1200px;
 }
 .top_rightmenu{
-    margin: 30px 60px 0 0;
+    margin: 30px 60px 0 -25px;
 	list-style-type: none;
 	width: 200px;
     float: right;
@@ -34,9 +34,9 @@ min-width:1200px;
 	color: #6e6e6e;
 	list-style-type: none;
 	padding:0;
-	width: 430px;
+	width: 490px;
 	height: 52px;
-	margin:5px 0 0 25%;
+	margin:5px 0 0 21%;
 	float: left;
 }
 .top_leftmenu li{
