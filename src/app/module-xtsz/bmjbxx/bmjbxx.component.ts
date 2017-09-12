@@ -12,20 +12,17 @@ import 'rxjs/Rx';
   styleUrls: ['./bmjbxx.component.css']
 })
 export class BmjbxxComponent implements OnInit {
-
-
+ifbj:boolean = true;
   formModel:FormGroup; 
  fb:FormBuilder = new FormBuilder();
- bms:Array<any> = ['123','2','3','4','5','6','7','8','9'];
-
-
-
+ bms:Array<any>=[];
   constructor(private http:Http) {
 
     }
 
   ngOnInit() {
     this.formgj();
+    this.getbm();
   }
 
   formgj(){
@@ -36,13 +33,27 @@ export class BmjbxxComponent implements OnInit {
     })
    }
 
+ getbm(){
+  this.http.get('/oa/basic/web/index.php?r=xtsz/get_bm').map(res => res.json()).subscribe(data => {
+    console.log(data)
+     if(data){
+this.bms = data;
+this.formgj();
+     }
+  });
+ }
+
+   bj(){
+    this.ifbj = false;
+   }
+
+   tcbj(){
+    this.ifbj = true;
+   }
+
   addbm(){
     let bms = this.formModel.get('bms') as FormArray;
     bms.push(new FormControl());
-  }
-
-  qx(){
-    this.formgj();
   }
 
   removebm(n) {
@@ -58,8 +69,12 @@ export class BmjbxxComponent implements OnInit {
    tj(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=index/add", this.formModel.value.bms, { headers: myHeaders }).toPromise().then((response) => {
-      console.log(response.json());
+    this.http.post("/oa/basic/web/index.php?r=xtsz/add_bm", this.formModel.value.bms, { headers: myHeaders }).toPromise().then((response) => {
+       let data = response.json();
+       if(data){
+         alert("修改成功！");
+         this.ifbj = true;
+       }
   });
    }
 }

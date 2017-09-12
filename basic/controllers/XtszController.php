@@ -14,18 +14,38 @@ use yii\data\Pagination;
 class XtszController extends Controller
 {
     public $enableCsrfValidation = false;// ->覆盖父类的属性
-    public function actionAdd(){
+    public function actionAdd_bm(){
         if (Yii::$app->request->isPost){
+            $sq = "truncate table data_bm;";
+            Yii::$app->db->createCommand($sq)->execute(); //清空数据表
             $post = Yii::$app->request->post();
-        
+            $sql = 'insert into data_bm(name) values ';
+            foreach($post as $key=>$v){
+                    $sql.="('".$v."'),";
+                }
+                $sql = rtrim($sql,',');
+                $sql.=';';
+                $ifok = Yii::$app->db->createCommand($sql)->execute();
             Yii::$app->response->format=Response::FORMAT_JSON;
-            // print_r($post) ;
-            // echo $post;
-            $abc['a'] = $post;
-            return $abc;
+            return $ifok;
             }
         }	
+    public function actionGet_bm(){
         
+        $sql = "SELECT name FROM data_bm";
+        $connection=Yii::$app->db;
+       $command=$connection->createCommand($sql);
+       $dataReader=$command->query();
+       $dataReader=$dataReader->readAll();
+       $bms = [];
+       foreach ($dataReader as $row=>$v){
+    //    print_r($dataReader[$row]['name']);
+       array_push($bms,$dataReader[$row]['name']);
+       }
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $bms;
+
+    }
     
 
 

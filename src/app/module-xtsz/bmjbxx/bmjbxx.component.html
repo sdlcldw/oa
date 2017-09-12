@@ -14,9 +14,10 @@
     
       <div class="panel-body">
   <div class="form-group">
-<button class="btn btn-success btn-sm" type="button" (click)="addbm()" >添加部门</button>
-<button class="btn btn-success btn-sm" type="button" (click)="qx()" >取消操作</button>
-<button class="btn btn-success btn-sm" type="submit" >提交修改</button>
+<button *ngIf="ifbj" class="btn btn-success btn-sm" type="button" (click)="bj()" >编辑</button>
+<button *ngIf="!ifbj" class="btn btn-success btn-sm" type="button" (click)="tcbj()" >退出编辑</button>
+<button *ngIf="!ifbj" class="btn btn-success btn-sm" type="button" (click)="addbm()" >添加部门</button>
+<button *ngIf="!ifbj" class="btn btn-success btn-sm" type="submit" >提交修改</button>
 </div>
 
 <div formArrayName="bms">
@@ -24,9 +25,9 @@
     
     <label class="control-label  col-md-1">{{i+1}}</label>
   <div class="col-md-6">
-    <input class="form-control" [formControlName]="i"> 
+    <input id="disabledInput" class="form-control" [formControlName]="i"> 
    </div>
-    <button class="btn btn-success btn-sm col-md-3" type="button" (click)="removebm(i)">删除部门</button>
+    <button *ngIf="!ifbj" class="btn btn-success btn-sm col-md-3" type="button" (click)="removebm(i)">删除部门</button>
   </div>
 </div>
 </div>
