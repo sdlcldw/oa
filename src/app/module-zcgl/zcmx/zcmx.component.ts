@@ -8,19 +8,25 @@ import { Component, OnInit } from '@angular/core';
 export class ZcmxComponent implements OnInit {
 
   settings = {
+    add: {
+      addButtonContent: '<i class="ion-ios-plus-outline"></i>',
+      createButtonContent: '<i class="ion-checkmark"></i>',
+      cancelButtonContent: '<i class="ion-close"></i>',
+    },
+    edit: {
+      editButtonContent: '<i class="ion-edit"></i>',
+      saveButtonContent: '<i class="ion-checkmark"></i>',
+      cancelButtonContent: '<i class="ion-close"></i>',
+    },
+    delete: {
+      deleteButtonContent: '<i class="ion-trash-a"></i>',
+      // confirmDelete: true
+    },
     columns: {
-      id: {
-        title: 'ID'
-      },
-      name: {
-        title: 'Full Name'
-      },
-      usename: {
-        title: 'User Name'
-      },
-      emai: {
-        title: 'Email'
-      }
+      id: {title: 'ID'},
+      name: {title: '资产编号'},
+      usename: {title: '资产名称'},
+      emai: {title: '规格型号'}
     }
   };
   data = [
