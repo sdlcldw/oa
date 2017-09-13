@@ -13,17 +13,17 @@ export class ZcmxComponent implements OnInit {
       columnTitle:'操作'
     },
     add: {
-      addButtonContent: '<i class="ion-ios-plus-outline"></i>',
-      createButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
+      addButtonContent: '<i class="icon ion-ios-plus-outline"></i>',
+      createButtonContent: '<i class="icon ion-checkmark"></i>',
+      cancelButtonContent: '<i class="icon ion-close"></i>',
     },
     edit: {
-      editButtonContent: '<i class="ion-edit"></i>',
-      saveButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
+      editButtonContent: '<i class="icon ion-edit"></i>',
+      saveButtonContent: '<i class="icon ion-checkmark"></i>',
+      cancelButtonContent: '<i class="icon ion-close"></i>',
     },
     delete: {
-      deleteButtonContent: '<i class="ion-trash-a"></i>',
+      deleteButtonContent: '<i class="icon ion-trash-a"></i>',
       confirmDelete: true
     },
     columns: {
