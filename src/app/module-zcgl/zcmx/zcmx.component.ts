@@ -8,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class ZcmxComponent implements OnInit {
 
   settings = {
+    actions:{
+      position:'right',
+      columnTitle:'操作'
+    },
     add: {
       addButtonContent: '<i class="ion-ios-plus-outline"></i>',
       createButtonContent: '<i class="ion-checkmark"></i>',
@@ -20,7 +24,7 @@ export class ZcmxComponent implements OnInit {
     },
     delete: {
       deleteButtonContent: '<i class="ion-trash-a"></i>',
-      // confirmDelete: true
+      confirmDelete: true
     },
     columns: {
       id: {title: 'ID'},
@@ -57,5 +61,24 @@ export class ZcmxComponent implements OnInit {
 
   ngOnInit() {
   }
+  row(event){
+    console.log('123')
+    
+  }
+  ondelete(){
+    console.log('789')
+  }
+  oncreste(event){
+    console.log(event.source);
+    console.log('456')
+  }
 
+  onDeleteConfirm(event){
+    console.log(event.source.data);
+    if (window.confirm('Are you sure you want to delete?')) {
+      event.confirm.resolve();
+    } else {
+      event.confirm.reject();
+    }
+  }
 }
