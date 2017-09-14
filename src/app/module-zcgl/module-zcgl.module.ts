@@ -7,7 +7,6 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 const Routes=[
   {path:'zcmx',component:ZcmxComponent},
-
 ];
 
 @NgModule({

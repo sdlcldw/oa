@@ -1,8 +1,4 @@
-
-.ng2-smart-table table, th, td
-{
-border: 1px solid blue;
-}
 .ng2-smart-table{
     font-size: 14px;
 }
+

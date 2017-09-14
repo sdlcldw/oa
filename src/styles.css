@@ -460,5 +460,6 @@ div.error{
 	color: #a10;
 }
 .icon {
-    font-size: 20px;  
+	font-size: 20px;  
+	margin-left: 10px;
  }
