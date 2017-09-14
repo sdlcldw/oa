@@ -8,8 +8,8 @@ import 'rxjs/Rx';
 
 @Component({
   selector: 'app-bmjbxx',
+  styleUrls: ['./bmjbxx.component.css'],
   templateUrl: './bmjbxx.component.html',
-  styleUrls: ['./bmjbxx.component.css']
 })
 export class BmjbxxComponent implements OnInit {
 ifbj:boolean = true;

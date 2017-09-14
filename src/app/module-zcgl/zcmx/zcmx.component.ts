@@ -30,28 +30,31 @@ export class ZcmxComponent implements OnInit {
       editButtonContent: '<i title="编辑" class="icon ion-edit"></i>',
       saveButtonContent: '<i title="确认修改" class="icon ion-checkmark"></i>',
       cancelButtonContent: '<i title="取消" class="icon ion-close"></i>',
-      confirmSave:true
+      confirmSave:true,
+      
     },
     delete: {
       deleteButtonContent: '<i title="删除" class="icon ion-trash-a"></i>',
       confirmDelete: true
     },
     columns: {
-      bh: {title: '资产编号'},
-      name: {title: '资产名称'},
-      pp: {title: '品牌'},
-      xh: {title: '规格型号'},
-      sybm: {title: '使用部门'},
-      cfdd: {title: '存放地点'},
-      jg: {title: '价格'},
-      gzsj: {title: '购置时间'},
-      jysj: {title: '借用时间'},
-      bz: {title: '备注'},
-      zrr: {title: '责任人'},
-      lb: {title: '类别'},
-      ly: {title: '资产来源'},
-      zt: {title: '状态'},
+      bh: {title: '资产编号',width:'150px',editable:false},
+      name: {title: '资产名称',width:'150px',editor:{type:'list',config:{list:[{ value: 'Element Value', title: 'Element Title' }]}}},
+      pp: {title: '品牌',width:'150px'},
+      xh: {title: '规格型号',width:'150px'},
+      sybm: {title: '使用部门',width:'150px'},
+      cfdd: {title: '存放地点',width:'150px'},
+      jg: {title: '价格',width:'150px'},
+      gzsj: {title: '购置时间',width:'150px'},
+      jysj: {title: '借用时间',width:'150px'},
+      bz: {title: '备注',width:'150px'},
+      zrr: {title: '责任人',width:'150px'},
+      lb: {title: '类别',width:'150px'},
+      ly: {title: '资产来源',width:'150px'},
+      zt: {title: '状态',width:'150px'},
+    
     }
+   
   };
   
   source: LocalDataSource = new LocalDataSource();

@@ -461,5 +461,8 @@ div.error{
 }
 .icon {
 	font-size: 20px;  
-	margin-left: 10px;
+	margin-left: 5px;
  }
+ .ng2-smart-title{
+    width: 65px;
+}
