@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Observable } from "rxjs/Observable";
 import { Http, Headers, RequestOptions } from "@angular/http";
+import { CustomEditor } from './custom-editor';
+
 
 
 
@@ -39,7 +41,15 @@ export class ZcmxComponent implements OnInit {
     },
     columns: {
       bh: {title: '资产编号',width:'150px',editable:false},
-      name: {title: '资产名称',width:'150px',editor:{type:'list',config:{list:[{ value: 'Element Value', title: 'Element Title' }]}}},
+      names: {
+        title: '资产名称',
+        width:'150px',
+        type: 'html',
+        editor: {
+          type: 'custom',
+          component: CustomEditor,
+        },
+       },
       pp: {title: '品牌',width:'150px'},
       xh: {title: '规格型号',width:'150px'},
       sybm: {title: '使用部门',width:'150px'},
@@ -64,10 +74,21 @@ export class ZcmxComponent implements OnInit {
      
        if(data){
         this.source.load(data);
+        // this.settings.columns.name.editor.config.list = [{ value: 'Element Value', title: 'Element Title' },{ value: 'Ele123ment Value', title: 'Elem123ent Title' }];
+        
+        // this.source.reset(true);
+        // this.source.refresh();
+        // console.log(this.source.getElements());
+        // console.log(this.source.getFilteredAndSorted());
+        // console.log(this.source);
+        
+        
        }
     });
   }
   ngOnInit() {
+
+  
   }
   onCreateConfirm(event){
     let myHeaders:Headers = new Headers();
