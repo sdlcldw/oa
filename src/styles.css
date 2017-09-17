@@ -463,6 +463,12 @@ div.error{
 	font-size: 20px;  
 	margin-left: 5px;
  }
+ .ng2-smart-table{
+    font-size: 14px;
+}
  .ng2-smart-title{
     width: 65px;
+}
+.ng2-smart-actions-title{
+	text-align: center;
 }

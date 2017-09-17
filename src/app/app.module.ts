@@ -20,7 +20,7 @@ import { MenuZcglComponent } from './menu-zcgl/menu-zcgl.component';
 import { MenuRsglComponent } from './menu-rsgl/menu-rsgl.component';
 import { MenuCwptComponent } from './menu-cwpt/menu-cwpt.component';
 import { MenuXtszComponent } from './menu-xtsz/menu-xtsz.component';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
+
 
 
 const routeConfig: Routes = [
@@ -62,8 +62,7 @@ const routeConfig: Routes = [
     RouterModule.forRoot(routeConfig,{ useHash: true }),
     NgbModule.forRoot(),
     CommonModule,
-    FileUploadModule,
-    Ng2SmartTableModule,        
+    FileUploadModule,       
   ],
   providers: [LoginGuard,ExitGuard,UserService,TskService],
   bootstrap: [AppComponent]

@@ -46,7 +46,59 @@ class XtszController extends Controller
         return $bms;
 
     }
-    
+    public function actionGet_users(){
+        $sql = "SELECT * FROM user";
+        $connection=Yii::$app->db;
+       $command=$connection->createCommand($sql);
+       $dataReader=$command->query();
+       $dataReader=$dataReader->readAll();
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $dataReader;
+    }
+    public function actionAdd_user(){
+        if (Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+            $sql = "insert into user (username,sfzhm,sex,phone,email,password) values ('".$post['username']."','".$post['sfzh']."','".$post['sex']."','".$post['phone']."','".$post['email']."','".$post['password']."');";
+                $ifok = Yii::$app->db->createCommand($sql)->execute();
+            Yii::$app->response->format=Response::FORMAT_JSON;
+            return $ifok;
+            }
+        }
+        public function actionUpdata_user(){
+            if (Yii::$app->request->isPost){
+                $post = Yii::$app->request->post();
+                $sql = "UPDATE user SET username='".$post['username']."',sfzhm='".$post['sfzh']."',sex='".$post['sex']."',phone='".$post['phone']."',email='".$post['email']."',password='".$post['password']."' WHERE Id =".$post['Id'];
+                 $ifok = Yii::$app->db->createCommand($sql)->execute();
+                Yii::$app->response->format=Response::FORMAT_JSON;
+                return $sql;
+                }
+            }	
+            public function actionDelete_user(){
+                if (Yii::$app->request->isPost){
+                    $post = Yii::$app->request->post();
+                $sql = "DELETE FROM user WHERE Id='".$post['Id']."'";
+                $connection=Yii::$app->db;
+                $ifok = Yii::$app->db->createCommand($sql)->execute();
+               Yii::$app->response->format=Response::FORMAT_JSON;
+                return $ifok;
+                }
+            }
+            public function actionGet_dljl(){
+                $sql = "SELECT * FROM dljl";
+                $connection=Yii::$app->db;
+               $command=$connection->createCommand($sql);
+               $dataReader=$command->query();
+               $dataReader=$dataReader->readAll();
+               Yii::$app->response->format=Response::FORMAT_JSON;
+                return $dataReader;
+            }
+            public function actionQk_dljl(){
+                $sql = "truncate table dljl";
+                $ifok = Yii::$app->db->createCommand($sql)->execute();
+               Yii::$app->response->format=Response::FORMAT_JSON;
+                return $ifok;
+            }
+            
 
 
 

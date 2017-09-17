@@ -88,7 +88,7 @@ class User extends ActiveRecord{
 				'isLogin' => 1,
 				];
 				$session['__id']= $data['attributes']['Id'];
-				$this->updateAll(['logintime' => time(),'loginip' => ip2long(Yii::$app->request->userIP)],'username = :user',[':user' =>$data['username']]);
+				$this->updateAll(['loginip' => ip2long(Yii::$app->request->userIP)],'username = :user',[':user' =>$data['username']]);
 				$arr = array('dl'=>(bool)$session['user']['isLogin'],'qx'=>$qx,'username'=>array('username'=>$data['username'],'userid'=>$data['attributes']['Id']));
 				//**记录登录记录**//
 				$sql = "insert into dljl(username,password,time) values ('".$this->username."','".$passw."',now());";
