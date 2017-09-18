@@ -263,13 +263,15 @@ margin-top: 1px;
 }
 
 .right_home{
-	padding: 0;
+	padding:0;
 	float: left;
 	margin:0;
 	width:100%;
 	height: 100%;
 	border: 1px solid #B4C6D9;
 	background-color: #FEFEFE;
+	overflow-x:hidden;
+	
 }
 
 .right{
