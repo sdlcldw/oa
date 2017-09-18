@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+
 @Component({
-  selector: 'app-index-home',
-  templateUrl: './index-home.component.html',
-  styleUrls: ['./index-home.component.css']
+  selector: 'app-weather',
+  templateUrl: './weather.component.html',
+  styleUrls: ['./weather.component.css']
 })
-export class IndexHomeComponent implements OnInit {
+export class WeatherComponent implements OnInit {
   weekday:any[]=[];
   xq:any;
   rq:any;
@@ -36,7 +37,3 @@ export class IndexHomeComponent implements OnInit {
             this.sj = now;
 }
 }
-// var window:document;
-// $("body").css("height",$(window).height());
-// $(".right,.left").css("height",$(window).height()-86);
-// alert(window.innerWidth+'*'+window.innerHeight);

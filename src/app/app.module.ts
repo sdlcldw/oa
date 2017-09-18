@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './login/login.component';
 import { Routes, RouterModule } from "@angular/router";
-import { IndexHomeComponent } from './index-home/index-home.component';
 import { LoginGuard } from "app/guard/login.guard";
 import { ExitGuard } from "app/guard/exit.guard";
 import { UserService } from "./service/UserService";
@@ -29,7 +28,6 @@ const routeConfig: Routes = [
   {path: 'index', component:IndexComponent,
     children:[
       {path:'',pathMatch: 'full',redirectTo: 'home'},
-      // {path:'home',component:IndexHomeComponent},
       {path:'home',loadChildren:'./module-home/module-home.module#HomeModule'},      
       {path:'grbg',loadChildren:'./module-grbg/module-grbg.module#GrbgModule'},
       {path:'xsgl',loadChildren:'./module-xsgl/module-xsgl.module#XsglModule'},
@@ -45,7 +43,6 @@ const routeConfig: Routes = [
     AppComponent,
     IndexComponent,
     LoginComponent,
-    IndexHomeComponent,
     MenuGrbgComponent,
     MenuXsglComponent,
     MenuZcglComponent,
