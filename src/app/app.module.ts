@@ -29,14 +29,13 @@ const routeConfig: Routes = [
   {path: 'index', component:IndexComponent,
     children:[
       {path:'',pathMatch: 'full',redirectTo: 'home'},
-      {path:'home',component:IndexHomeComponent},
+      // {path:'home',component:IndexHomeComponent},
+      {path:'home',loadChildren:'./module-home/module-home.module#HomeModule'},      
       {path:'grbg',loadChildren:'./module-grbg/module-grbg.module#GrbgModule'},
       {path:'xsgl',loadChildren:'./module-xsgl/module-xsgl.module#XsglModule'},
       {path:'cwpt',loadChildren:'./module-cwpt/module-cwpt.module#CwptModule'},
       {path:'xtsz',loadChildren:'./module-xtsz/module-xtsz.module#XtszModule'},
       {path:'zcgl',loadChildren:'./module-zcgl/module-zcgl.module#ZcglModule'},
-      
-      
     ],canActivate:[LoginGuard]
   }
   ];
