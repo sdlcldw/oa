@@ -40,14 +40,13 @@ export class TodoComponent implements OnInit {
   
     addToDoItem($event) {
       
-          if (($event.which === 1 || $event.which === 13) && this.newTodoText.trim() != '') {
+          // if (($event.which === 1 || $event.which === 13) && this.newTodoText.trim() != '') {
       
             this.todoList.unshift({
               text: this.newTodoText,
-              color: this._getRandomColor(),
             });
             this.newTodoText = '';
-          }
+          // }
         }
     private _getRandomColor() {
       
