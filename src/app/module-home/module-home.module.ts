@@ -4,6 +4,8 @@ import { ModuleHomeComponent } from './module-home.component';
 import { RouterModule } from "@angular/router";
 import { TodoComponent } from './todo/todo.component';
 import { WeatherComponent } from './weather/weather.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 const Routes=[
   {
@@ -19,7 +21,13 @@ const Routes=[
   imports: [
     CommonModule,
     RouterModule.forChild(Routes),
+    FormsModule,
+    HttpModule,
+    ReactiveFormsModule,
   ],
-  declarations: [ModuleHomeComponent, TodoComponent, WeatherComponent]
+  declarations: [
+    ModuleHomeComponent, 
+    TodoComponent,
+    WeatherComponent]
 })
 export class HomeModule { }

@@ -3,7 +3,37 @@
     待办事项
   </div>
   <div class="panel-body">
-    面板内容
+    
+      <div class="task-todo-container">
+          <div class="input-group">
+              <input class="form-control with-danger-ad8don" value="" placeholder="添加事项" type="text" (keyup)="addToDoItem($event)" [(ngModel)]="newTodoText">
+              <span class="input-group-btn">
+                  <button class="btn btn-success" type="button"> <i (click)="addToDoItem($event)" class="add-item-icon ion-plus-round"></i></button>
+              </span>
+            </div>
+
+          <!-- <div class="box-shadow-border"></div> -->
+          <div style="overflow-x: hidden;height: 250px;">
+          <table class="table table-condensed" >
+            <thead></thead>
+            <tbody>
+            <tr *ngFor="let item of getNotDeleted()" [ngClass]="{checked: item.isChecked, active: item.isActive}"
+                (mouseenter)="item.isActive=true" (mouseleave)="item.isActive=false">
+                <td>
+              <!-- <div class="blur-container"><div class="blur-box"></div></div> -->
+              <!-- <i class="mark" [ngStyle]="{ 'background-color': item.color }"></i> -->
+              <label class="todo-checkbox custom-checkbox custom-input-success">
+                <input type="checkbox" [(ngModel)]="item.isChecked">
+                <span class="cut-with-dots">{{ item.text }}</span>
+              </label>
+              <i class="remove-todo ion-ios-close-empty" (click)="item.deleted = true"></i></td>
+            </tr>
+          </tbody>
+          </table></div>
+        </div>
+        
+
+
   </div>
 </div>
     

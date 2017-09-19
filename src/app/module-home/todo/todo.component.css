@@ -1,3 +1,14 @@
 .panel{
     margin:0;
 }
+.remove-todo{
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+    right: 12px;
+    font-size: 32px;
+    transition: color 0.2s;
+    color: rgba(255, 0, 0, 0.62);
+    /* visibility: hidden; */
+    line-height: 42px;
+}
