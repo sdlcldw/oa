@@ -8,7 +8,20 @@
     line-height: 20px;
     float: right;
     padding-right: 10px;
+    margin: -5px 0 -5px 0;
 }
-.label-todo{
-    margin-top: 5px;
+.td-todo{
+    padding: 10px;
+    border-top:0;
+    border-bottom: 1px solid #ddd
+}
+
+.td-todo label{
+    width: 76%;
+    overflow: hidden;/*超出部分隐藏*/
+    white-space: nowrap;/*不换行*/
+    text-overflow:ellipsis;/*超出部分文字以...显示*/
+}
+.td-todo i{
+    width: 20%;
 }

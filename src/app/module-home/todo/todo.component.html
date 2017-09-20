@@ -18,14 +18,16 @@
             <tbody>
             <tr *ngFor="let item of getNotDeleted()" [ngClass]="{checked: item.isChecked, active: item.isActive}"
                 (mouseenter)="item.isActive=true" (mouseleave)="item.isActive=false">
-                <td>
+                <td class="td-todo">
+                  
               <!-- <div class="blur-container"><div class="blur-box"></div></div> -->
               <!-- <i class="mark" [ngStyle]="{ 'background-color': item.color }"></i> -->
-              <label  [class.label-todo]="item.isActive" style="margin-bottom:0;">
+              <label   style="margin-bottom:0;">
                 <input type="checkbox" [(ngModel)]="item.isChecked">
                 <span class="cut-with-dots">{{ item.text }}</span>
               </label>
-              <i class="remove-todo ion-ios-close-empty" [class.hidden]="!item.isActive" (click)="item.deleted = true"></i></td>
+            <i class="remove-todo ion-ios-close-empty" [class.hidden]="!item.isActive" (click)="item.deleted = true"></i>            
+            </td>123
             </tr>
           </tbody>
           </table>
