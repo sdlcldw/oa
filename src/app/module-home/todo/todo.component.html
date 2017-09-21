@@ -12,25 +12,42 @@
               </span>
             </div>
 
-          <!-- <div class="box-shadow-border"></div> -->
+          
           <div style="overflow-x: hidden;height: 250px;">
-          <table class="table table-condensed" >
+
+          <!-- <table class="table table-condensed" >
             <tbody>
             <tr *ngFor="let item of getNotDeleted()" [ngClass]="{checked: item.isChecked, active: item.isActive}"
                 (mouseenter)="item.isActive=true" (mouseleave)="item.isActive=false">
                 <td class="td-todo">
                   
-              <!-- <div class="blur-container"><div class="blur-box"></div></div> -->
-              <!-- <i class="mark" [ngStyle]="{ 'background-color': item.color }"></i> -->
+            
               <label   style="margin-bottom:0;">
                 <input type="checkbox" [(ngModel)]="item.isChecked">
                 <span class="cut-with-dots">{{ item.text }}</span>
               </label>
-            <i class="remove-todo ion-ios-close-empty" [class.hidden]="!item.isActive" (click)="item.deleted = true"></i>            
-            </td>123
+            <i class="remove-todo ion-ios-close-empty" [class.hidden]="!item.isActive" (click)="item.deleted = true"></i>      
+               
+            </td>
             </tr>
           </tbody>
-          </table>
+          </table> -->
+
+          <ul class="todo-list">
+              <li *ngFor="let item of getNotDeleted()" [ngClass]="{checked: item.isChecked, active: item.isActive}"
+                  (mouseenter)="item.isActive=true" (mouseleave)="item.isActive=false">
+          
+                <div class="blur-container"><div class="blur-box"></div></div>
+                <i class="mark" [ngStyle]="{ 'background-color': item.color }"></i>
+                <label class="todo-checkbox custom-checkbox custom-input-success">
+                  <input type="checkbox" [(ngModel)]="item.isChecked">
+                  <span class="cut-with-dots">{{ item.text }}</span>
+                </label>
+                <i class="remove-todo ion-ios-close-empty" (click)="item.deleted = true"></i>
+              </li>
+            </ul>
+
+          
         </div>
         </div>
         

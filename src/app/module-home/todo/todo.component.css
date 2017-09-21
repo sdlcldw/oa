@@ -1,7 +1,7 @@
 .panel{
     margin:0;
 }
-.remove-todo{
+/* .remove-todo{
     font-size: 32px;
     transition: color 0.2s;
     color: rgba(255, 0, 0, 0.62);
@@ -14,14 +14,77 @@
     padding: 10px;
     border-top:0;
     border-bottom: 1px solid #ddd
-}
+} */
 
-.td-todo label{
-    width: 76%;
-    overflow: hidden;/*超出部分隐藏*/
-    white-space: nowrap;/*不换行*/
-    text-overflow:ellipsis;/*超出部分文字以...显示*/
+/*.td-todo label{
+    width: 86%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
 }
-.td-todo i{
+ .td-todo i{
     width: 20%;
+} */
+.remove-todo{
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+    right: 12px;
+    font-size: 32px;
+    transition: color 0.2s;
+    color: rgba(255, 0, 0, 0.5);
+    /* visibility: hidden; */
+    line-height: 42px;
 }
+.blur-box{
+   height: 100%;
+background: linear-gradient(to right, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%);
+}
+.todo-list li{
+    margin: 0;
+    border: none;
+    font-weight: 300;
+    margin: 0 0 -1px 0;
+    padding: 12px;
+    list-style: none;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.6);
+    cursor: grab;
+    height: 42px;
+}
+.todo-list{
+    margin: 0;
+    padding: 0;
+}
+/* .todo-list span{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 16px;
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    line-height: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    padding-left: 22px;
+    width: 100%;
+} */
+.cut-with-dots {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+label.custom-checkbox > span {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    line-height: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    padding-left: 22px;
+    width: 100%;}
+    label.todo-checkbox > span {
+        white-space: nowrap;
+        height: 16px;
+    }
