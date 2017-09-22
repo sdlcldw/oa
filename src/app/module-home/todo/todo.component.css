@@ -1,39 +1,14 @@
 .panel{
     margin:0;
 }
-/* .remove-todo{
-    font-size: 32px;
-    transition: color 0.2s;
-    color: rgba(255, 0, 0, 0.62);
-    line-height: 20px;
-    float: right;
-    padding-right: 10px;
-    margin: -5px 0 -5px 0;
-}
-.td-todo{
-    padding: 10px;
-    border-top:0;
-    border-bottom: 1px solid #ddd
-} */
-
-/*.td-todo label{
-    width: 86%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow:ellipsis;
-}
- .td-todo i{
-    width: 20%;
-} */
 .remove-todo{
     position: absolute;
     cursor: pointer;
     top: 0px;
     right: 12px;
-    font-size: 32px;
+    font-size: 16px;
     transition: color 0.2s;
     color: rgba(255, 0, 0, 0.5);
-    /* visibility: hidden; */
     line-height: 42px;
 }
 .blur-box{
@@ -56,20 +31,7 @@ background: linear-gradient(to right, rgba(255,255,255,0.3) 0%, rgba(255,255,255
     margin: 0;
     padding: 0;
 }
-/* .todo-list span{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    height: 16px;
-    position: relative;
-    display: inline-block;
-    margin: 0;
-    line-height: 16px;
-    font-weight: 300;
-    cursor: pointer;
-    padding-left: 22px;
-    width: 100%;
-} */
+
 .cut-with-dots {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -83,8 +45,91 @@ label.custom-checkbox > span {
     font-weight: 300;
     cursor: pointer;
     padding-left: 22px;
-    width: 100%;}
+    width: 100%;
+}
+
     label.todo-checkbox > span {
         white-space: nowrap;
         height: 16px;
     }
+    label.custom-checkbox > i {
+        height: 0;
+        position: absolute;
+    }
+    label.custom-checkbox > input {
+        height: 0;
+        z-index: -100 !important;
+        opacity: 0;
+        position: absolute;
+    }
+    label.todo-checkbox {
+        width: 100%;
+        padding-right: 25px;
+        min-height: 16px;
+        cursor: pointer;}
+.box-shadow-border {
+            border-bottom: 1px solid rgba(0,0,0,0.12);
+            box-shadow: 0px 1px 0px 0px rgba(255,255,255,0.12);
+            width:100%;
+            /* margin-left: -22px; */
+        }    
+input.task-todo {
+            color: #000000;
+            width: calc(100% - 25px);
+            border-radius: 0;
+            border: none;
+            background: transparent;
+            margin-bottom: 8px;
+            box-shadow: none;
+            font-size: 14px;
+            display: block;
+        }
+        .add-item-icon {
+            display: block;
+            float: right;
+            margin-top: -45px;
+            margin-right: 5px;
+            font-size: 25px;
+            cursor: pointer;
+            color: #559aea;
+            
+        }
+        hr {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border: 0;
+                border-top-width: 0px;
+                border-top-style: none;
+                border-top-color: currentcolor;
+            border-top: 1px solid #eee;
+        }
+        .panel-heading span{
+            font-weight: 700;
+        }
+        .panel-heading i{
+            font-size: 25px;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            left: 25px;
+            top: 1px;
+        }
+        .panel-heading{
+            color: #fff;
+            background-color: #559aea;
+            border-color: #ddd;
+            height: 50px;
+        }
+        .tite{
+            position: absolute;
+            left: 65px;
+            top: 15px;
+            font-size: 15px;
+        }
+        .my{
+            float: right;
+            padding-top: 5px;
+        }
+        .ion-checkmark-round{
+            color: rgba(255, 0, 0, 0.8);
+        }

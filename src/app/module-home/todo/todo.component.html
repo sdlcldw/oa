@@ -1,49 +1,24 @@
-<div class="panel panel-default" style=" height:350px;">
+<div class="panel panel-default" style=" height:366px;">
   <div class="panel-heading">
-    待办事项
+    <i class="ion-navicon-round"></i>
+   <span class="tite">待办事项</span>       <span class="my">今日事今日毕 明日事今日计</span>
   </div>
   <div class="panel-body">
-    
       <div class="task-todo-container">
-          <div class="input-group">
-              <input class="form-control with-danger-ad8don" value="" placeholder="添加事项" type="text" [(ngModel)]="newTodoText">
-              <span class="input-group-btn">
-                  <button class="btn btn-success" type="button" (click)="addToDoItem($event)"> <i  class="add-item-icon ion-plus-round"></i></button>
-              </span>
-            </div>
-
-          
+              <input class="form-control task-todo" value="" type="text" placeholder="添加事项" [(ngModel)]="newTodoText">
+              <i class="add-item-icon ion-plus-round" (click)="addToDoItem()"></i>
+            <hr>
           <div style="overflow-x: hidden;height: 250px;">
-
-          <!-- <table class="table table-condensed" >
-            <tbody>
-            <tr *ngFor="let item of getNotDeleted()" [ngClass]="{checked: item.isChecked, active: item.isActive}"
-                (mouseenter)="item.isActive=true" (mouseleave)="item.isActive=false">
-                <td class="td-todo">
-                  
-            
-              <label   style="margin-bottom:0;">
-                <input type="checkbox" [(ngModel)]="item.isChecked">
-                <span class="cut-with-dots">{{ item.text }}</span>
-              </label>
-            <i class="remove-todo ion-ios-close-empty" [class.hidden]="!item.isActive" (click)="item.deleted = true"></i>      
-               
-            </td>
-            </tr>
-          </tbody>
-          </table> -->
-
           <ul class="todo-list">
               <li *ngFor="let item of getNotDeleted()" [ngClass]="{checked: item.isChecked, active: item.isActive}"
                   (mouseenter)="item.isActive=true" (mouseleave)="item.isActive=false">
-          
-                <div class="blur-container"><div class="blur-box"></div></div>
-                <i class="mark" [ngStyle]="{ 'background-color': item.color }"></i>
                 <label class="todo-checkbox custom-checkbox custom-input-success">
-                  <input type="checkbox" [(ngModel)]="item.isChecked">
+                    <input type="checkbox" [(ngModel)]="item.isChecked">
+                    <i [hidden]="!item.isChecked" class="ion-checkmark-round"></i>
+                    <i [hidden]="item.isChecked" class="ion-android-radio-button-off"></i>
                   <span class="cut-with-dots">{{ item.text }}</span>
                 </label>
-                <i class="remove-todo ion-ios-close-empty" (click)="item.deleted = true"></i>
+                <i class="remove-todo ion-close-round" [hidden]="!item.isActive" (click)="item.deleted = true"></i>
               </li>
             </ul>
 
