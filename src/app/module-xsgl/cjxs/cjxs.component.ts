@@ -68,7 +68,7 @@ export class CjxsComponent implements OnInit {
         return;
       }
       if (data.html.indexOf("重新登录") > 0) {
-        alert('用户名、密码或验证码错误，请重新登录！');
+        alert('用户名、密码或验证码错误，请重新输入！');
         return;
       }
       let zy;

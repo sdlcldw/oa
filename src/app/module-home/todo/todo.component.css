@@ -55,6 +55,7 @@ label.custom-checkbox > span {
     label.custom-checkbox > i {
         height: 0;
         position: absolute;
+        top: 11px;
     }
     label.custom-checkbox > input {
         height: 0;

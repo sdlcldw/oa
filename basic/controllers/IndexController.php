@@ -795,7 +795,56 @@ public function actionCjxs(){
 					return $fh;
 					}
 	}
-
+	public function actionAdd_todo(){
+        if (Yii::$app->request->isPost){
+			$post = Yii::$app->request->post();
+			$session = Yii::$app->session;
+			
+            $sql = "insert into todo_list (userid,text,isChecked) values (".$session['__id'].",'".$post['text']."',null);";
+            
+                $ifok = Yii::$app->db->createCommand($sql)->execute();
+            Yii::$app->response->format=Response::FORMAT_JSON;
+            if($ifok){
+				return $this->actionGet_todo();
+			}
+            }
+		}
+		public function actionGet_todo(){
+			$session = Yii::$app->session;			
+            $sql = "SELECT * FROM todo_list where userid = ".$session['__id'];
+            $connection=Yii::$app->db;
+           $command=$connection->createCommand($sql);
+           $dataReader=$command->query();
+           $dataReader=$dataReader->readAll();
+           Yii::$app->response->format=Response::FORMAT_JSON;
+            return $dataReader;
+        }
+		public function actionDelete_todo(){
+			if (Yii::$app->request->isPost){
+				$post = Yii::$app->request->post();
+				$sql = "DELETE FROM todo_list WHERE Id=".$post['id'];
+				$connection=Yii::$app->db;
+				$ifok = Yii::$app->db->createCommand($sql)->execute();
+				if($ifok){
+					return $this->actionGet_todo();
+				}			
+				}
+			}
+			public function actionUpdata_todo(){
+				if (Yii::$app->request->isPost){
+					$post = Yii::$app->request->post();
+					if($post['isc']){
+$sql = "UPDATE todo_list SET isChecked = null where Id =".$post['id'];
+					}else{
+$sql = "UPDATE todo_list SET isChecked = 1 where Id =".$post['id'];
+					}					
+					$connection=Yii::$app->db;
+					$ifok = Yii::$app->db->createCommand($sql)->execute();
+					if($ifok){
+						return $this->actionGet_todo();
+					}			
+					}
+				}
 
 }?>
 
