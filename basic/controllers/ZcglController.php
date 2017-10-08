@@ -156,7 +156,17 @@ class ZcglController extends Controller
                 return $ifok;
                 }
             }
-
+            public function actionGet_brsy(){
+                $um =Yii::$app->session['user']['username'];
+                $sql = "SELECT * FROM zcgl_mx where zrr='".$um."';";
+                $connection=Yii::$app->db;
+               $command=$connection->createCommand($sql);
+               $dataReader=$command->query();
+               $dataReader=$dataReader->readAll();
+               Yii::$app->response->format=Response::FORMAT_JSON;
+                return $dataReader;
+            }
+        
 
 
 
