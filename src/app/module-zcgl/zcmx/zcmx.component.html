@@ -5,5 +5,9 @@
 		</div>
 <div class="right_content" id="cwpt" style="padding:5px;">
 <!-- 内容区域开始 -->
+<div style="height:50px;padding-top: 8px;">
+<button class="col-sm-1 btn btn-info" (click)="dcexcel()">导出Excel表格</button>
+</div>
+<hr>
 <ng2-smart-table class="ng2-smart-table" [settings]="settings" [source]="source" (editConfirm)="onEditConfirm($event)" (createConfirm)="onCreateConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
 </div>

@@ -5,7 +5,9 @@ use yii\web\Controller;
 use Yii;
 use yii\web\Response; 
 use yii\data\Pagination;
-
+use phpexcel;
+use phpexcel_IOFactory;
+use PHPExcel_Style_Alignment;
 
 class ZcglController extends Controller
 {
@@ -166,6 +168,44 @@ class ZcglController extends Controller
                Yii::$app->response->format=Response::FORMAT_JSON;
                 return $dataReader;
             }
+            public function actionDcexcel(){
+                $sql = "SELECT * FROM zcgl_mx";
+                $connection=Yii::$app->db;
+               $command=$connection->createCommand($sql);
+               $dataReader=$command->query();
+               $dataReader=$dataReader->readAll();
+                    // $dir = dirname(__FILE__);//获取当前目录
+                    $excel = new PHPExcel();
+                    $sheet = $excel->getActiveSheet();
+                    $sheet->setTitle("data");
+                    $sheet->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER)->setHorizontal(PHPExcel_Style_Alignment::VERTICAL_CENTER);//设置默认水平居中和垂直居中。
+                    $sheet->getStyle("A1:Z1")->getFont()->setBold(True);
+                    $sheet->setCellValue("A1","资产编号")->setCellValue("B1","资产名称")->setCellValue("C1","品牌")->setCellValue("D1","规格型号")->setCellValue("E1","使用部门")->setCellValue("F1","存放地点")->setCellValue("G1","价格")->setCellValue("H1","购置时间")->setCellValue("I1","借用时间")->setCellValue("J1","备注")->setCellValue("K1","责任人")->setCellValue("L1","类别")->setCellValue("M1","资产来源")->setCellValue("N1","状态");
+                    foreach ($dataReader as $row=>$v){
+                        $line = $row+2;
+                        $sheet->setCellValue("A".$line,$dataReader[$row]['bh'])
+                              ->setCellValue("B".$line,$dataReader[$row]['name'])
+                              ->setCellValue("C".$line,$dataReader[$row]['pp'])
+                              ->setCellValue("D".$line,$dataReader[$row]['xh'])
+                              ->setCellValue("E".$line,$dataReader[$row]['sybm'])
+                              ->setCellValue("F".$line,$dataReader[$row]['cfdd'])
+                              ->setCellValue("G".$line,$dataReader[$row]['jg'])
+                              ->setCellValue("H".$line,$dataReader[$row]['gzsj'])
+                              ->setCellValue("I".$line,$dataReader[$row]['jysj'])
+                              ->setCellValue("J".$line,$dataReader[$row]['bz'])
+                              ->setCellValue("K".$line,$dataReader[$row]['zrr'])
+                              ->setCellValue("L".$line,$dataReader[$row]['lb'])
+                              ->setCellValue("M".$line,$dataReader[$row]['ly'])
+                              ->setCellValue("N".$line,$dataReader[$row]['zt']);
+                        }
+                    $writer = PHPExcel_IOFactory::createWriter($excel,"Excel2007");//生成excel文件
+                    // $writer->save($dir."/zc.xlsx");//保存文件
+                    header('Content-Type:application/vnd.openxmiformats-officedocument.spreadsheetml,sheet');//excel2007
+                    header('Content-Disposition:attachment;filename="资产详细表单.xlsx"');//告诉浏览器将输出文件的名称
+                    header('Cache-Control:max-age=0');//禁止缓存
+                    $writer->save("php://output");//输出到浏览器
+            }
+        
         
 
 

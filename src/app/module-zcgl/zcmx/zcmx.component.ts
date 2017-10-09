@@ -137,7 +137,6 @@ export class ZcmxComponent implements OnInit {
 
   onDeleteConfirm(event){
     if (window.confirm('你确定要删除吗?')) {
-// console.log(event.data.bh)
 let data={data:event.data.bh}
       let myHeaders:Headers = new Headers();
       myHeaders.append("Content-Type","application/json; charset=UTF-8");
@@ -152,5 +151,9 @@ let data={data:event.data.bh}
     } else {
       event.confirm.reject();
     }
+  }
+  dcexcel(){
+    window.open('/oa/basic/web/index.php?r=zcgl/dcexcel');
+    // window.location.href="/oa/basic/web/index.php?r=zcgl/dcexcel";
   }
 }
