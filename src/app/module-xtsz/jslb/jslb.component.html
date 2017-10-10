@@ -1,0 +1,37 @@
+
+		<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+			<div class="title_txt">角色列表
+			</div>
+		</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+<!-- 内容区域开始 -->
+<hr>
+<div class="col-sm-12">
+<table class="table table-striped table-bordered table-hover table-condensed text-center" style="margin:5px;">
+	<thead>
+	<tr><td>序号</td><td>名称</td><td>标识</td><td>规则名称</td><td>创建时间</td><td>更新时间</td><td>操作</td></tr>
+	</thead>
+	<tbody>
+  <tr *ngFor="let x of data; let i=index">
+    <td style="vertical-align: middle;">{{ i+1 }}</td>
+    <td style="vertical-align: middle;">{{ x.description }}</td>
+    <td style="vertical-align: middle;">{{ x.name }}</td>
+    <td style="vertical-align: middle;">{{ x.rule_name }}</td>
+    <td style="vertical-align: middle;">{{ x.created_at }}</td>
+    <td style="vertical-align: middle;">{{ x.updated_at }}</td>
+
+    <td style="vertical-align: middle;">
+    <button  type="button" class="btn btn-info" (click)="fpqx(x.description)">分配权限</button>
+    <button  type="button" class="btn btn-info" >更新</button>    
+    <button  type="button" class="btn btn-danger" >删除</button> 
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>
+<!-- 内容区域结束 -->
+</div>
+
+
+
+

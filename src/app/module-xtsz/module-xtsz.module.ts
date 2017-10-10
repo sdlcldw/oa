@@ -6,12 +6,17 @@ import { BmjbxxComponent } from './bmjbxx/bmjbxx.component';
 import { YhlbComponent } from './yhlb/yhlb.component';
 import { DljlComponent } from './dljl/dljl.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
+import { JsglComponent } from './jsgl/jsgl.component';
+import { JslbComponent } from './jslb/jslb.component';
+import { FpqxComponent } from './fpqx/fpqx.component';
 
 const Routes=[
   {path:'bmjbxx',component:BmjbxxComponent},
   {path:'yhlb',component:YhlbComponent},
   {path:'dljl',component:DljlComponent},
+  {path:'jsgl',component:JsglComponent},
+  {path:'jslb',component:JslbComponent},
+  {path:'fpqx',component:FpqxComponent},
 ];
 
 @NgModule({
@@ -22,6 +27,6 @@ const Routes=[
     ReactiveFormsModule, 
     Ng2SmartTableModule,
   ],
-  declarations: [BmjbxxComponent, YhlbComponent, DljlComponent]
+  declarations: [BmjbxxComponent, YhlbComponent, DljlComponent, JsglComponent, JslbComponent, FpqxComponent]
 })
 export class XtszModule { }
