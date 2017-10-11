@@ -26,7 +26,7 @@ const Routes=[
     FormsModule,
     ReactiveFormsModule, 
     Ng2SmartTableModule,
-  ],
+  ], 
   declarations: [BmjbxxComponent, YhlbComponent, DljlComponent, JsglComponent, JslbComponent, FpqxComponent]
 })
 export class XtszModule { }

@@ -15,31 +15,30 @@ public items = [{description:'1',name:''},{description:'2',name:''}];
 myForm: FormGroup;
 
   likesArr: string[] = ['喜欢','不喜欢','非常喜欢','超级喜欢','喜欢得不得了'];
-  selects: string[] = ['喜欢'];
+  likesif:boolean[] = [true,true,true,true,false];
+  selects: string[] = [];
 
   constructor(public routeInfo: ActivatedRoute,public router:Router,private fb: FormBuilder,private http: Http,) { }
 
   ngOnInit() {
     this.js = this.routeInfo.snapshot.queryParams['data'];
-
     this.myForm = this.fb.group({
-      likes: this.fb.array([ 
-        { name: '喜欢',  selected: true, id: 0 },
-        { name: '不喜欢', selected: false, id: 1 }
-     ])
+      likes: this.fb.array(this.likesif)
     });
 
     this.likes.valueChanges.subscribe(values => {
       let selects: string[] = [];
       values.forEach((selected: boolean ,i: number) => {
-        selected === true && selects.push(values)
+        selected === true && selects.push(this.likesArr[i])
       });
       this.selects = selects;
+      console.log(this.likes); 
     });
   }
 
   ok(){
-    this.router.navigate(['index/xtsz/jslb']);
+    // this.router.navigate(['index/xtsz/jslb']);
+    this.likesArr = ['不喜欢','非常喜欢','超级喜欢','喜欢得不得了'];
   }
   
     get likes () {

@@ -9,7 +9,7 @@
 <form [formGroup]="myForm">
     <div class="like" *ngFor="let like of likes.controls; let i = index;" >
       <input type="checkbox" [formControl]="like"> 
-     {{likesArr[i]}}
+     {{likesArr[i]}}{{like._value}}
     </div>
     <div class="youselect">{{selects}}</div>
    </form>
