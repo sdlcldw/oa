@@ -13,7 +13,7 @@ data;
   constructor(private router: Router,private http:Http) { }
 
   ngOnInit() {
-    this.http.get('/oa/basic/web/index.php?r=rbac/get_item') // (4)
+    this.http.get('/oa/basic/web/index.php?r=rbac/get_js') // (4)
     .map(res => res.json()) // (5)
     .subscribe(data => {
        if (data) this.data = data; // (6)

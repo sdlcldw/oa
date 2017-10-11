@@ -7,12 +7,12 @@
 <!-- 内容区域开始 -->
 <hr>
 <form [formGroup]="myForm">
-		<div class="like" *ngFor="let like of likes.controls; let i = index;" >
-		  <input type="checkbox" [formControl]="like"> 
-		 {{likesArr[i]}}
-		</div>
-		<div class="youselect">{{selects}}</div>
-	   </form>
+    <div class="like" *ngFor="let like of likes.controls; let i = index;" >
+      <input type="checkbox" [formControl]="like"> 
+     {{likesArr[i]}}
+    </div>
+    <div class="youselect">{{selects}}</div>
+   </form>
 <!-- 内容区域结束 -->
 <button  type="button" class="btn btn-info" (click)="ok()" >完成</button>  
 </div>

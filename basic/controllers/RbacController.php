@@ -25,8 +25,17 @@ class RbacController extends Controller
         }
         return false;
     }
-    public function actionGet_item(){
+    public function actionGet_js(){
         $sql = "SELECT * FROM auth_item where type = '1'";
+        $connection=Yii::$app->db;
+       $command=$connection->createCommand($sql);
+       $dataReader=$command->query();
+       $dataReader=$dataReader->readAll();
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $dataReader;
+    }
+    public function actionGet_item(){
+        $sql = "SELECT * FROM auth_item";
         $connection=Yii::$app->db;
        $command=$connection->createCommand($sql);
        $dataReader=$command->query();
