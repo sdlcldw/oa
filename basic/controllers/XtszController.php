@@ -16,18 +16,11 @@ class XtszController extends Controller
     public $enableCsrfValidation = false;// ->覆盖父类的属性
     public function actionAdd_bm(){
         if (Yii::$app->request->isPost){
-            $sq = "truncate table data_bm;";
-            Yii::$app->db->createCommand($sq)->execute(); //清空数据表
             $post = Yii::$app->request->post();
-            $sql = 'insert into data_bm(name) values ';
-            foreach($post as $key=>$v){
-                    $sql.="('".$v."'),";
-                }
-                $sql = rtrim($sql,',');
-                $sql.=';';
+            $sql = "insert into data_bm (name) values ('".$post['bm']."')";
                 $ifok = Yii::$app->db->createCommand($sql)->execute();
             Yii::$app->response->format=Response::FORMAT_JSON;
-            return $ifok;
+            return $post;
             }
         }	
     public function actionGet_bm(){
@@ -39,12 +32,21 @@ class XtszController extends Controller
        $dataReader=$dataReader->readAll();
        $bms = [];
        foreach ($dataReader as $row=>$v){
-    //    print_r($dataReader[$row]['name']);
        array_push($bms,$dataReader[$row]['name']);
        }
        Yii::$app->response->format=Response::FORMAT_JSON;
         return $bms;
 
+    }
+    public function actionDelete_bm(){
+        if (Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+        $sql = "DELETE FROM data_bm WHERE name ='".$post['data']."'";
+        $connection=Yii::$app->db;
+        $ifok = Yii::$app->db->createCommand($sql)->execute();
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $ifok;
+        }
     }
     public function actionGet_users(){
         $sql = "SELECT * FROM user";
