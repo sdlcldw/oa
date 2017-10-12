@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Http,Headers } from "@angular/http";
+import { DataService } from '../DataService';
+
 
 @Component({
   selector: 'app-fpqx',
@@ -18,10 +20,12 @@ myForm: FormGroup;
   likesif:boolean[] = [true,true,true,true,false];
   selects: string[] = [];
 
-  constructor(public routeInfo: ActivatedRoute,public router:Router,private fb: FormBuilder,private http: Http,) { }
+  constructor(public routeInfo: ActivatedRoute,public router:Router,private fb: FormBuilder,private http: Http,private datasv:DataService) { }
 
   ngOnInit() {
-    this.js = this.routeInfo.snapshot.queryParams['data'];
+    console.log('进入到fpqx路由了');
+    
+    console.log(this.datasv.getfpqxdata());
     this.myForm = this.fb.group({
       likes: this.fb.array(this.likesif)
     });
@@ -45,12 +49,7 @@ myForm: FormGroup;
       return this.myForm.get('likes');
     }
   getdata(){
-    let myHeaders:Headers = new Headers();
-    myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=rbac/get_item",this.js, { headers: myHeaders }).toPromise().then((response) => {
-       this.items = response.json();
-       console.log(this.items)
-  });
+
   }
     
 

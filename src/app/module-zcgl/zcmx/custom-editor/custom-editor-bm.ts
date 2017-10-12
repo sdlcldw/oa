@@ -3,7 +3,7 @@ import { Cell, DefaultEditor, Editor } from 'ng2-smart-table';
 import { Http,RequestOptions } from "@angular/http";
 @Component({
   template: `
-  <select #sybm [(ngModel)]="newbm"  class="form-control short-input" (ngModelChange)="updateValue()">
+  <select #sybm [(ngModel)]="newbm" style="padding: 6px 0px;" class="form-control short-input" (ngModelChange)="updateValue()">
   <option *ngFor="let bm of bms" [value]='bm' >{{bm}}</option>
 </select>
   `,

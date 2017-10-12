@@ -35,13 +35,40 @@ class RbacController extends Controller
         return $dataReader;
     }
     public function actionGet_item(){
-        $sql = "SELECT * FROM auth_item";
+        if(Yii::$app->request->isPost){
+        $return = [];
+        $return['rolesall'] = [];
+        $return['permissionsall']=[];
+        $return['roles'] = [];
+        $return['permissions']=[];
+
+        $jsname = Yii::$app->request->post();
+
+        $sql = "SELECT name,description,type FROM auth_item";
         $connection=Yii::$app->db;
-       $command=$connection->createCommand($sql);
-       $dataReader=$command->query();
-       $dataReader=$dataReader->readAll();
+        $qxall=$connection->createCommand($sql)->query()->readAll();//获取所有角色和权限
+        foreach ($qxall as $qx){
+            // if($qx->type ==1){
+                array_push($return['rolesall'],$qx);
+                
+            // }else{
+                // $return['permissionsall'][] = $qx;            
+            // }
+        }
+        
+       
+    //    $children = Yii::$app->authManager->getChildren($jsname['js']);//获取当前角色所有权限和角色
+    //    foreach ($children as $obj){
+    //        if($obj->type ==1){
+    //            $return['roles'][] = $obj->name;
+    //        }else{
+    //            $return['permissions'][] = $obj->name;            
+    //        }
+    //    }
        Yii::$app->response->format=Response::FORMAT_JSON;
-        return $dataReader;
+        return $return;
+        }
+        
     }
     public function actionInit()
     {

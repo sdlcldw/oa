@@ -3,7 +3,7 @@ import { Cell, DefaultEditor, Editor } from 'ng2-smart-table';
 import { Http,RequestOptions } from "@angular/http";
 @Component({
   template: `
-  <select #sylb [(ngModel)]="newlb"  class="form-control short-input" (ngModelChange)="updateValue()">
+  <select #sylb [(ngModel)]="newlb" style="padding: 6px 0px;" class="form-control short-input" (ngModelChange)="updateValue()">
   <option *ngFor="let lb of lbs" [value]='lb' >{{lb}}</option>
 </select>
   `,

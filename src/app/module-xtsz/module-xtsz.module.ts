@@ -9,6 +9,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { JsglComponent } from './jsgl/jsgl.component';
 import { JslbComponent } from './jslb/jslb.component';
 import { FpqxComponent } from './fpqx/fpqx.component';
+import { DataService } from './DataService';
 
 const Routes=[
   {path:'bmjbxx',component:BmjbxxComponent},
@@ -27,6 +28,7 @@ const Routes=[
     ReactiveFormsModule, 
     Ng2SmartTableModule,
   ], 
+  providers: [DataService],  
   declarations: [BmjbxxComponent, YhlbComponent, DljlComponent, JsglComponent, JslbComponent, FpqxComponent]
 })
 export class XtszModule { }
