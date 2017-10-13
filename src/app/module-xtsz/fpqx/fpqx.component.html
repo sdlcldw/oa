@@ -11,13 +11,16 @@
 <form [formGroup]="myForm">
 
 <div>
-  角色子节点：
-    <div class="like" *ngFor="let rol of roles['controls']; let i = index;" >
-      <input type="checkbox" [formControl]="rol">
-     name：{{rolesall[i]['name']}} 描述：{{rolesall[i]['description']}}
-    </div>
+  <table>
+    <div>
+角色子节点：</div>
+    <tr class="like" *ngFor="let rol of roles['controls']; let i = index;" >
+      <td></td>
+     <td><input type="checkbox" [formControl]="rol"></td> 
+     <td>name：{{rolesall[i]['name']}} </td><td>描述：{{rolesall[i]['description']}}</td>
+    </tr>
     <div class="youselect">{{selects}}</div>
-    
+    </table>
 </div>
 <div>
     权限子节点：
@@ -30,7 +33,8 @@
   </div>
    </form>
 <!-- 内容区域结束 -->
-<button  type="button" class="btn btn-info" (click)="ok()" >完成</button>  
+<button  type="button" class="btn btn-info" (click)="ok()" >分配权限</button>  
+<button  type="button" class="btn btn-warning" (click)="fh()" >返回</button>  
 </div>
 
 

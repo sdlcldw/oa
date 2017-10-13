@@ -77,6 +77,9 @@ myForm: FormGroup;
     }
   });
   }
+  fh(){
+    this.router.navigate(['index/xtsz/jslb']);    
+  }
     get roles () {
       return this.myForm.get('roles');
     }
