@@ -26,7 +26,9 @@ fpqx(js){
   let myHeaders:Headers = new Headers();
   myHeaders.append("Content-Type","application/json; charset=UTF-8");
   this.http.post("/oa/basic/web/index.php?r=rbac/get_item",dat, { headers: myHeaders }).toPromise().then((response) => {
-     this.datasv.setfpqxdata(response.json());
+    let datas :any[]= response.json();
+    datas['js'] = js;
+     this.datasv.setfpqxdata(datas);
     //  console.log(this.datasv.getfpqxdata());
       this.router.navigate(['index/xtsz/fpqx']);
 });

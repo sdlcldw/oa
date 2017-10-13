@@ -6,13 +6,28 @@
 <div class="right_content" id="cwpt" style="padding:5px;">
 <!-- 内容区域开始 -->
 <hr>
+<div>当前角色：{{data.js}}</div>
+
 <form [formGroup]="myForm">
-    <div class="like" *ngFor="let like of likes.controls; let i = index;" >
-      <input type="checkbox" [formControl]="like"> 
-     {{likesArr[i]}}{{like._value}}
+
+<div>
+  角色子节点：
+    <div class="like" *ngFor="let rol of roles['controls']; let i = index;" >
+      <input type="checkbox" [formControl]="rol">
+     name：{{rolesall[i]['name']}} 描述：{{rolesall[i]['description']}}
     </div>
     <div class="youselect">{{selects}}</div>
     
+</div>
+<div>
+    权限子节点：
+      <div class="like" *ngFor="let per of permissions['controls']; let i = index;" >
+        <input type="checkbox" [formControl]="per">
+       name：{{permissionsall[i]['name']}} 描述：{{permissionsall[i]['description']}}
+      </div>
+      <div class="youselect">{{selects}}</div>
+      
+  </div>
    </form>
 <!-- 内容区域结束 -->
 <button  type="button" class="btn btn-info" (click)="ok()" >完成</button>  

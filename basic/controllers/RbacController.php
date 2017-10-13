@@ -39,8 +39,8 @@ class RbacController extends Controller
         $return = [];
         $return['rolesall'] = [];
         $return['permissionsall']=[];
-        $return['roles'] = [];
-        $return['permissions']=[];
+        $return['myroles'] = [];
+        $return['mypermissions']=[];
 
         $jsname = Yii::$app->request->post();
 
@@ -48,27 +48,61 @@ class RbacController extends Controller
         $connection=Yii::$app->db;
         $qxall=$connection->createCommand($sql)->query()->readAll();//获取所有角色和权限
         foreach ($qxall as $qx){
-            // if($qx->type ==1){
+            if($qx['type'] ==1){
+                if($qx['name'] != $jsname['js']){
                 array_push($return['rolesall'],$qx);
-                
-            // }else{
-                // $return['permissionsall'][] = $qx;            
-            // }
+            }
+            }else{
+                $return['permissionsall'][] = $qx;            
+            }
         }
         
        
-    //    $children = Yii::$app->authManager->getChildren($jsname['js']);//获取当前角色所有权限和角色
-    //    foreach ($children as $obj){
-    //        if($obj->type ==1){
-    //            $return['roles'][] = $obj->name;
-    //        }else{
-    //            $return['permissions'][] = $obj->name;            
-    //        }
-    //    }
+       $children = Yii::$app->authManager->getChildren($jsname['js']);//获取当前角色所有权限和角色
+       foreach ($children as $obj){
+           if($obj->type ==1){
+               $return['myroles'][] = $obj->name;
+           }else{
+               $return['mypermissions'][] = $obj->name;            
+           }
+       }
+
+       foreach ($return['rolesall'] as $s){
+        if(in_array($s['name'],$return['myroles'])){
+            $return['ifsoles'][]= true;
+        }else{
+            $return['ifsoles'][]= false;
+        }
+       }
+
+       foreach ($return['permissionsall'] as $v){
+        if(in_array($v['name'],$return['mypermissions'])){
+            $return['ifpermissions'][]= true;
+        }else{
+            $return['ifpermissions'][]= false;
+        }
+       }
+
        Yii::$app->response->format=Response::FORMAT_JSON;
         return $return;
         }
         
+    }
+    public function actionAdd_child(){
+        if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $auth = Yii::$app->authManager;
+        $itemObj = $auth->getRole($post['name']);
+        if(empty($itemObj)){
+            return false;
+        }
+        $auth->removeChildren($itemObj);
+        foreach($post['items'] as $item){
+            $obj = empty($auth->getRole($item)) ? $auth->getPermission($item) : $auth->getRole($item);
+            $auth->addChild($itemObj,$obj);
+        }
+       return true;
+    }
     }
     public function actionInit()
     {

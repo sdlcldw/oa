@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Http,Headers } from "@angular/http";
 import { DataService } from '../DataService';
+import { TskService } from "app/service/TskService";
 
 
 @Component({
@@ -12,41 +13,75 @@ import { DataService } from '../DataService';
 })
 export class FpqxComponent implements OnInit {
 
+data;
 public js: any;
 public items = [{description:'1',name:''},{description:'2',name:''}];
 myForm: FormGroup;
 
-  likesArr: string[] = ['喜欢','不喜欢','非常喜欢','超级喜欢','喜欢得不得了'];
-  likesif:boolean[] = [true,true,true,true,false];
+  rolesall: string[];
+  ifroles:boolean[];
+  permissionsall: string[];
+  ifpermissions: boolean[];
   selects: string[] = [];
 
-  constructor(public routeInfo: ActivatedRoute,public router:Router,private fb: FormBuilder,private http: Http,private datasv:DataService) { }
+  constructor(public routeInfo: ActivatedRoute,public router:Router,private fb: FormBuilder,private http: Http,private datasv:DataService,private tsk:TskService) { }
 
   ngOnInit() {
+    if (!this.datasv.getfpqxdata()){
+      this.router.navigate(['index/xtsz/jslb']);
+      return;
+    }
+    this.data= this.datasv.getfpqxdata();
+    this.ifroles = this.data['ifsoles'];
+    this.rolesall = this.data['rolesall'];
+    this.ifpermissions = this.data['ifpermissions'];
+    this.permissionsall = this.data['permissionsall'];
+    
     console.log('进入到fpqx路由了');
     
     console.log(this.datasv.getfpqxdata());
+    console.log('马上渲染表单')
+
     this.myForm = this.fb.group({
-      likes: this.fb.array(this.likesif)
+      roles: this.fb.array(this.ifroles),
+      permissions: this.fb.array(this.ifpermissions),
     });
 
-    this.likes.valueChanges.subscribe(values => {
-      let selects: string[] = [];
-      values.forEach((selected: boolean ,i: number) => {
-        selected === true && selects.push(this.likesArr[i])
-      });
-      this.selects = selects;
-      console.log(this.likes); 
-    });
+    // this.roles.valueChanges.subscribe(values => {
+    //   let selects: string[] = [];
+    //   values.forEach((selected: boolean ,i: number) => {
+    //     selected === true && selects.push(this.rolesall[i]['name'])
+    //   });
+    //   this.selects = selects;
+    //   console.log(this.roles); 
+    // });
   }
 
   ok(){
-    // this.router.navigate(['index/xtsz/jslb']);
-    this.likesArr = ['不喜欢','非常喜欢','超级喜欢','喜欢得不得了'];
+    this.selects = [];
+    this.roles.value.forEach((selected: boolean ,i: number) => {
+      selected === true && this.selects.push(this.rolesall[i]['name'])
+    });
+    this.permissions.value.forEach((selected: boolean ,i: number) => {
+      selected === true && this.selects.push(this.permissionsall[i]['name'])
+    });
+
+    let dat = {name:this.data.js,items:this.selects};
+    let myHeaders:Headers = new Headers();
+    myHeaders.append("Content-Type","application/json; charset=UTF-8");
+    this.http.post("/oa/basic/web/index.php?r=rbac/add_child",dat, { headers: myHeaders }).toPromise().then((response) => {
+      let data= response.json();
+      if(data){
+      this.tsk.cg('分配权限成功！');
+    this.router.navigate(['index/xtsz/jslb']);
+    }
+  });
   }
-  
-    get likes () {
-      return this.myForm.get('likes');
+    get roles () {
+      return this.myForm.get('roles');
+    }
+    get permissions () {
+      return this.myForm.get('permissions');
     }
   getdata(){
 
