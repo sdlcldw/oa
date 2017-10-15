@@ -10,6 +10,10 @@ import { JsglComponent } from './jsgl/jsgl.component';
 import { JslbComponent } from './jslb/jslb.component';
 import { FpqxComponent } from './fpqx/fpqx.component';
 import { DataService } from './DataService';
+import { YhsqComponent } from './yhsq/yhsq.component';
+import { YhsqFpjsComponent } from './yhsq-fpjs/yhsq-fpjs.component';
+import { FpjsGuard } from './fpjs.guard';
+import { FpqxGuard } from './fpqx.guard';
 
 const Routes=[
   {path:'bmjbxx',component:BmjbxxComponent},
@@ -17,7 +21,9 @@ const Routes=[
   {path:'dljl',component:DljlComponent},
   {path:'jsgl',component:JsglComponent},
   {path:'jslb',component:JslbComponent},
-  {path:'fpqx',component:FpqxComponent},
+  {path:'fpqx',component:FpqxComponent,canActivate:[FpqxGuard]},
+  {path:'yhsq',component:YhsqComponent},
+  {path:'yhsq-fpjs',component:YhsqFpjsComponent,canActivate:[FpjsGuard]},
 ];
 
 @NgModule({
@@ -28,7 +34,7 @@ const Routes=[
     ReactiveFormsModule, 
     Ng2SmartTableModule,
   ], 
-  providers: [DataService],  
-  declarations: [BmjbxxComponent, YhlbComponent, DljlComponent, JsglComponent, JslbComponent, FpqxComponent]
+  providers: [DataService,FpjsGuard,FpqxGuard],  
+  declarations: [BmjbxxComponent, YhlbComponent, DljlComponent, JsglComponent, JslbComponent, FpqxComponent, YhsqComponent, YhsqFpjsComponent]
 })
 export class XtszModule { }

@@ -20,7 +20,8 @@
 <div class="dibu"></div>
 </div>
 <!-- 左侧菜单栏 -->
-<div class="left">
+<div *ngIf="ifleft" class="left">
+	<div class="ycleft"><i class="ion-arrow-left-b"></i></div>
 	<div class="user">
 
 	<div class="head_img_div"></div>	
@@ -49,7 +50,6 @@
 	<img src="assets/images/online.png">
 	<span style="cursor:pointer;float:left;margin-left:6px;margin-top:-2px;">当前在线人数<span id="onlineUserNum"><font color="red">{{rs}}</font>人&nbsp;</span></span>
 	</div>
-
 </div>
 </div>
 <!--右侧操作显示区-->

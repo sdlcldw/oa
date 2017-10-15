@@ -76,7 +76,10 @@ export class ZcmxComponent implements OnInit {
         component: ZtEditor,
       },},
     
-    }
+    },
+    pager:{
+      perPage:'30',
+    },
    
   };
   

@@ -104,6 +104,81 @@ class RbacController extends Controller
        return true;
     }
     }
+    
+    public function actionAdd_assignment(){
+        if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $sql = "DELETE FROM auth_assignment WHERE user_id =".$post['id'];
+        $connection=Yii::$app->db;
+        $ifok = Yii::$app->db->createCommand($sql)->execute(); //清空当前Id下的全部角色。
+       if(!$post['assignment']){
+           return $ifok;
+       }
+        $sqlt = "INSERT INTO auth_assignment(item_name,user_id) VALUES";
+        foreach($post['assignment'] as $ass){
+           $sqlt.= "('".$ass."',".$post['id']."),";
+        }
+        $sqlt = rtrim($sqlt,',');
+        $ifok = Yii::$app->db->createCommand($sqlt)->execute();
+       return $ifok;
+    }
+    }
+
+
+    public function actionGet_users(){
+        $sql = "select a.Id,a.username,b.item_name from user a left join auth_assignment b on a.Id=b.user_id";
+        $connection=Yii::$app->db;
+       $command=$connection->createCommand($sql);
+       $dataReader=$command->query();
+       $dataReader=$dataReader->readAll();
+
+       $res = array();
+       foreach($dataReader as $item) {
+         if(! isset($res[$item['Id']])){
+             $res[$item['Id']] = $item;
+        }else{ 
+             $res[$item['Id']]['item_name'] .= ',' . $item['item_name'];
+            }
+       }
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return array_values($res);
+    }
+
+    
+    public function actionGet_assignment(){
+        if(Yii::$app->request->isPost){
+        $return = [];
+        $return['assignmentall'] = [];
+        $myassignment=[];
+
+        $post = Yii::$app->request->post();
+
+        $sql = "SELECT name,description FROM auth_item where type = 1";
+        $connection=Yii::$app->db;
+        $return['assignmentall']=$connection->createCommand($sql)->query()->readAll();//获取所有角色
+        
+        $sql = "SELECT item_name FROM auth_assignment where user_id = ".$post['id'];
+        $connection=Yii::$app->db;
+        $data=$connection->createCommand($sql)->query()->readAll();//获取当前用户拥有的角色
+
+        foreach ($data as $s){
+                $myassignment[]= $s['item_name'];
+           }
+
+       foreach ($return['assignmentall'] as $s){
+        if(in_array($s['name'],$myassignment)){
+            $return['ifassignment'][]= true;
+        }else{
+            $return['ifassignment'][]= false;
+        }
+       }
+
+
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $return;
+        }
+        
+    }
     public function actionInit()
     {
         // $auth = Yii::$app->authManager;

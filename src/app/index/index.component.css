@@ -1,0 +1,20 @@
+.left{
+    position: relative;
+}
+.ycleft {
+    height: 60px;
+    width: 10px;
+    background-color: #559aea;
+    position: absolute;
+    right: -9px;
+    margin: auto 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 25px 25px 0;
+}
+.ycleft i{
+    position: absolute;
+    color: #ffffff;
+    top: 19px;
+    left: 1px;
+}

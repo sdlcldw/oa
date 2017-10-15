@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export class DataService{
 
 fpqx;
-
+fpjs;
     constructor(){ }
 
     setfpqxdata(data){
@@ -13,6 +13,13 @@ fpqx;
     }
     getfpqxdata(){
         return this.fpqx;
+    }
+
+    setfpjsdata(data){
+        this.fpjs = data;
+    }
+    getfpjsdata(){
+        return this.fpjs;
     }
 
 }

@@ -15,7 +15,6 @@ export class FpqxComponent implements OnInit {
 
 data;
 public js: any;
-public items = [{description:'1',name:''},{description:'2',name:''}];
 myForm: FormGroup;
 
   rolesall: string[];
@@ -86,9 +85,7 @@ myForm: FormGroup;
     get permissions () {
       return this.myForm.get('permissions');
     }
-  getdata(){
 
-  }
     
 
 }
