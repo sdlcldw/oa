@@ -43,7 +43,7 @@ qrxmm;
 
 xgzl:boolean=false;
 
-ifleft:boolean=true;
+ifleft:boolean=false;
 
   constructor(private router: Router, private http: Http, private user: UserService,private modalService:NgbModal, private location: Location,private tsk:TskService) {
     this.zxrs = this.http.get('/oa/basic/web/index.php?r=index/up_time').map((res) => res.json());
@@ -232,16 +232,8 @@ xgmm(){
                         this.xmm="";this.ymm="";this.qrxmm="";
     })
 }
-toggleNavigation() {
-  if ($('#navcontainer').hasClass('display-nav')) {
-      // Close Nav
-      // $('#navcontainer').removeClass('display-nav');
-      this.ifleft = false;
-  } else {
-      // Open Nav
-      this.ifleft = true;
-      // $('#navcontainer').addClass('display-nav');
-  }
+lefthide(){
+  this.ifleft = !this.ifleft;
 }
 }
 

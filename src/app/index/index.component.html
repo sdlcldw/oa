@@ -20,8 +20,8 @@
 <div class="dibu"></div>
 </div>
 <!-- 左侧菜单栏 -->
-<div *ngIf="ifleft" class="left">
-	<div class="ycleft"><i class="ion-arrow-left-b"></i></div>
+<div class="left" [class.left-hide-l]="ifleft">
+	<div class="ycleft" (click)="lefthide()"><i [class.hidden]="ifleft" class="ion-arrow-left-b"></i><i [class.hidden]="!ifleft" class="ion-arrow-right-b"></i></div>
 	<div class="user">
 
 	<div class="head_img_div"></div>	
@@ -53,7 +53,7 @@
 </div>
 </div>
 <!--右侧操作显示区-->
- <div [style.height]="height + 'px'" class="right" id='right'>
+ <div [style.height]="height + 'px'" class="right" id='right' [class.left-hide-r]="ifleft">
 	 
 <router-outlet></router-outlet>
 

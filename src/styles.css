@@ -70,11 +70,11 @@ min-width:1200px;
 }
 .left {
 padding:0;
-width:12%;
+width:220px;
 height:89.2%;
-margin:15px 0 0 22px;
-float: left;
-min-width: 160px;
+margin:15px 0 0 15px;
+position: absolute;
+left: 0;
 }
 	.user{
 	height:11%;
@@ -273,13 +273,9 @@ margin-top: 1px;
 	overflow-x:hidden;
 	
 }
-
 .right{
 padding: 0;
-float: left;
-margin:15px 0 0 15px;
-width:83%;
-min-width: 80%;
+margin:15px 15px 0 250px;
 }
 	.right_title{
 		height: 40px;
