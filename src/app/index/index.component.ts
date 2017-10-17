@@ -25,10 +25,12 @@ export class IndexComponent implements OnInit {
   cwpt: boolean;
   xtsz: boolean;  
   height: number;
+  menu_ul_height:number;
   username: string;
   userimage: string;
- public userId:number;
+  userId:number;
 
+  menu_title = "个人办公";
 
 model: any;
 modelt:any;
@@ -59,6 +61,7 @@ ifleft:boolean=false;
     })
 
     this.height = $(window).height() - 100;
+    this.menu_ul_height = $(window).height() - 100 - 232;
   }
   ngOnInit() {
 
@@ -142,16 +145,22 @@ ifleft:boolean=false;
   
     if (name == 'xsgl') {
       this.xsgl = true;
+      this.menu_title = '学生管理';
     } else if (name == 'zcgl') {
       this.zcgl = true;
+      this.menu_title = '资产管理';      
     } else if (name == 'grbg') {
       this.grbg = true;
+      this.menu_title = '个人办公';
     } else if (name == 'rsgl') {
       this.rsgl = true;
+      this.menu_title = '人事管理';
     } else if (name == 'cwpt') {
       this.cwpt = true;
+      this.menu_title = '财务平台';
     }else if (name == 'xtsz') {
       this.xtsz = true;
+      this.menu_title = '系统设置'; 
     }
   }
   Logout() {

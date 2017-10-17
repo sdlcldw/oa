@@ -8,8 +8,9 @@ use yii\data\Pagination;
 use phpexcel;
 use phpexcel_IOFactory;
 use PHPExcel_Style_Alignment;
+use app\controllers\CommonController;
 
-class ZcglController extends Controller
+class ZcglController extends CommonController
 {
     public $enableCsrfValidation = false;// ->覆盖父类的属性
     public function actionAdd(){

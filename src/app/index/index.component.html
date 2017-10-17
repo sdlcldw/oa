@@ -20,8 +20,10 @@
 <div class="dibu"></div>
 </div>
 <!-- 左侧菜单栏 -->
-<div class="left" [class.left-hide-l]="ifleft">
-	<div class="ycleft" (click)="lefthide()"><i [class.hidden]="ifleft" class="ion-arrow-left-b"></i><i [class.hidden]="!ifleft" class="ion-arrow-right-b"></i></div>
+<div class="left" [style.height]="height + 'px'" [class.left-hide-l]="ifleft">
+	<div class="kzt"></div>
+	<div class="ycleft" [class.hidden]="ifleft" (click)="lefthide()"><i class="ion-chevron-left"></i></div>
+	<div class="ycleft" style="display:block" [class.hidden]="!ifleft" (click)="lefthide()"><i class="ion-chevron-right"></i></div>
 	<div class="user">
 
 	<div class="head_img_div"></div>	
@@ -33,6 +35,13 @@
 		</span>
 		
 	</div>
+		<div class="menu">
+				<div class="menu2">
+					<div class="menu-title">
+						<img class="menu-title-img" src="assets/images/dian_1.png"> {{menu_title}}
+					</div>
+					<div class="menu_ul" [style.height]="menu_ul_height + 'px'">
+
 				<app-menu-xsgl *ngIf="xsgl"></app-menu-xsgl>	
 				<app-menu-zcgl *ngIf="zcgl"></app-menu-zcgl>	
 				<app-menu-grbg *ngIf="grbg"></app-menu-grbg>					 
@@ -40,6 +49,9 @@
 				<app-menu-cwpt *ngIf="cwpt"></app-menu-cwpt>
 				<app-menu-xtsz *ngIf="xtsz"></app-menu-xtsz>				
 					<!-- 动态加载进来菜单 -->
+				</div>
+			</div>
+		</div>
 <div class="search">
 	<div class="shousuo">
 		<!-- 防止自动填充	--><form style="display:none"><input type="password"/></form><input type="password" style="width:0;height:0;float:left;visibility:hidden"/> 

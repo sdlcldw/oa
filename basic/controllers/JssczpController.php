@@ -3,7 +3,9 @@ namespace app\controllers;
 use yii\web\Controller;
 use Yii;
 use yii\web\Response; 
-class JssczpController extends Controller{
+use app\controllers\CommonController;
+
+class JssczpController extends CommonController{
 
 public $enableCsrfValidation = false;
 	protected $fileName='uploadedfile';

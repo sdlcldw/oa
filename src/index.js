@@ -28,12 +28,14 @@ $(this). addClass('active_2')
 function ckkz(){
 	$("body").css("height",$(window).height());
     $(".right,.left").css("height",$(window).height()-100);
+	$(".menu_ul").css("height",$(window).height()-100-232);
 }
 // 文档加载完自动执行
-$(document).ready(function() {
- ckkz();
-});
-$(window).resize(function () { 
+// $(document).ready(function() {
+// 	setTimeout(ckkz(),3000);
+ 
+// });
+$(window).resize(function () {
     ckkz();
 });
 

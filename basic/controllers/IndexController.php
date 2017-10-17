@@ -9,9 +9,10 @@ use app\models\Charge_cj;
 use Yii;
 use yii\web\Response; 
 use yii\data\Pagination;
+use app\controllers\CommonController;
 
 
-class IndexController extends Controller
+class IndexController extends CommonController
 {
 	public $enableCsrfValidation = false;// ->覆盖父类的属性
 	// public function beforeAction($action){

@@ -3,7 +3,9 @@ namespace app\controllers;
 use yii\web\Controller;
 use Yii;
 use yii\web\Response; 
-class XssczpController extends Controller{
+use app\controllers\CommonController;
+
+class XssczpController extends CommonController{
 
 public $enableCsrfValidation = false;
 	protected $fileName='logo';

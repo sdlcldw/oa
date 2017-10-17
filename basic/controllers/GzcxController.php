@@ -5,9 +5,10 @@ use app\models\User;
 use Yii;
 use yii\web\Response; 
 use phpexcel_IOFactory;
+use app\controllers\CommonController;
 
 
-class GzcxController extends Controller
+class GzcxController extends CommonController
 {
 
 	public $enableCsrfValidation = false;// ->覆盖父类的属性

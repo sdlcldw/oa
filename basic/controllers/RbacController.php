@@ -5,8 +5,9 @@ namespace app\controllers;
 use yii\web\Response; 
 use Yii;
 use yii\web\Controller;
+use app\controllers\CommonController;
 
-class RbacController extends Controller
+class RbacController extends CommonController
 {
     public $enableCsrfValidation = false;// ->覆盖父类的属性
     public function actionAdd_js(){

@@ -71,14 +71,12 @@ min-width:1200px;
 .left {
 padding:0;
 width:220px;
-height:89.2%;
 margin:15px 0 0 15px;
 position: absolute;
 left: 0;
 }
 	.user{
-	height:11%;
-	min-height: 70px;
+	height: 70px;
 	width: 100%;
 	border:1px solid #B3C5D9;
 	background-color: #FFFFFF;
@@ -111,16 +109,14 @@ min-height: 350px;
 	}*/
 
 	.menu_ul{
-		max-height: 410px;
 		width: 100%;
-		height: 91%;
 		overflow:auto;
 		overflow-x:hidden;
 		}
 		.menu-title{
 		float: left;
-		height: 48px;
-		line-height: 40px;
+		height: 50px;
+		line-height: 45px;
 		font-family: Microsoft YaHei;
 		font-size: 16px;
 		color: #FFFFFF;
@@ -137,19 +133,20 @@ min-height: 350px;
 		.menu_1{
 			float: left;
 			width: 100%;
-			/*height: 40px;*/
 			line-height: 40px;
 			font-weight: bold;
 			color: #60656C;
 			font-size: 15px;
 			background-color: #ffffff;
 			border-top:  1px solid #B3C5D9;
-			/*border-top: 0;*/
 			border-collapse: collapse;
 			cursor: pointer;
 			}
 			.menu_1 span {
 				padding-left: 35px;
+			}
+			.menu_1_end{
+				border-bottom:  1px solid #B3C5D9;
 			}
 		.menu_prev{
 		border-bottom: 2px solid #559aea;
@@ -214,8 +211,7 @@ min-height: 350px;
 
 
 .search{
-height:88px;
-min-height: 88px;
+height:90px;
 width:100%;
 margin-top: 10px;
 border:1px solid #B3C5D9;
