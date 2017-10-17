@@ -15,25 +15,6 @@ use app\controllers\CommonController;
 class IndexController extends CommonController
 {
 	public $enableCsrfValidation = false;// ->覆盖父类的属性
-	// public function beforeAction($action){
-	// 	// $controller = $action -> controller -> id;
-	// 	// $actionName = $action -> id;
-	// 	// if (Yii::$app->user->can($controller.'/*')){
-	// 	// 	return true;
-	// 	// }
-	// 	// if (Yii::$app->user->can($controller.'/'.$actionName)){
-	// 		return true;
-	// 	// }
-	// 	// throw new \yii\web\UnauthorizedHttpException('对不起，您没有访问'.$controller.'/'.$actionName.'权限');
-	// 	//  return false;
-	// }
-	// rbac 权限判断方法
-	public function actionRbac(){
-				 if (!yii::$app->user->can('zszl1')){
-				 return "没有权限的非法访问！";
-				}
-				
-	}
 	public function actionIndex(){
 				$this->layout = false;
 				if(Yii::$app->session['user']['isLogin']===1){
@@ -90,9 +71,6 @@ class IndexController extends CommonController
 	}
 	public function actionWdzs(){
 				$username = Yii::$app->session['user']['username'];
-				// $user = User::find()->where(['username'=>$username])->one();
-				// $student_basic = $user->student_basic;
-				// $student_basic['zrjs']="zrjs";
 				$sql = "select a.username,b.*,c.xjh as fxjh,c.sfzh as fsfzh,c.name as fname,c.zkzh as fzkzh,c.cfmm as fcfmm,c.yw as fyw,c.sx as fsx,c.yy as fyy,c.zz as fzz,c.ls as fls,c.wl as fwl,c.hx as fhx,c.dl as fdl,c.sw as fsw,c.xxjs as fxxjs,c.tncs as ftncs,c.sy as fsy,c.suy as fsuy,c.tc as ftc,c.tsks as ftsks,c.qf as fqf,c.zy as fzy from user as a left join student_basic as b on a.Id=b.user_id left join xsgl_zkfs as c on b.xjh=c.xjh WHERE a.username='".$username."';";
 				$student_basic = Yii::$app->db->createCommand($sql)->queryAll();
 				foreach ($student_basic as $row=>$v){
@@ -110,7 +88,6 @@ class IndexController extends CommonController
 					}
 		    		$student_basic[$row]['zrjs'] = $username; 
 					} 
-				 // print_r($student_basic);
 				Yii::$app->response->format=Response::FORMAT_JSON;
 				return $student_basic;
 	}

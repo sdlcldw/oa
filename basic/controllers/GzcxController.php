@@ -273,24 +273,6 @@ class GzcxController extends CommonController
 		$dataReader = Yii::$app->db->createCommand($sql)->execute(); 
 			return $dataReader;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

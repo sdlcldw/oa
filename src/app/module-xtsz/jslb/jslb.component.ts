@@ -3,6 +3,7 @@ import { Http,Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
 import { DataService } from '../DataService';
+import { TskService } from "app/service/TskService";
 
 
 @Component({
@@ -12,7 +13,7 @@ import { DataService } from '../DataService';
 })
 export class JslbComponent implements OnInit {
 data;
-  constructor(private router: Router,private http:Http,private datasv: DataService,) { }
+  constructor(private router: Router,private http:Http,private datasv: DataService,private tsk:TskService) { }
 
   ngOnInit() {
     this.http.get('/oa/basic/web/index.php?r=rbac/get_js') // (4)
@@ -33,5 +34,12 @@ fpqx(js){
       this.router.navigate(['index/xtsz/fpqx']);
 });
  
+}
+gxqxjd(){
+  this.http.get('/oa/basic/web/index.php?r=rbacadd/init').subscribe(data => {
+    if(data){
+      this.tsk.cg('一键更新全部权限子节点操作成功！');
+    }
+ });
 }
 }
