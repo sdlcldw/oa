@@ -19,6 +19,7 @@ import { MenuZcglComponent } from './menu-zcgl/menu-zcgl.component';
 import { MenuRsglComponent } from './menu-rsgl/menu-rsgl.component';
 import { MenuCwptComponent } from './menu-cwpt/menu-cwpt.component';
 import { MenuXtszComponent } from './menu-xtsz/menu-xtsz.component';
+import { User_infoResolve } from 'app/guard/user_info.resolve';
 
 
 
@@ -34,7 +35,7 @@ const routeConfig: Routes = [
       {path:'cwpt',loadChildren:'./module-cwpt/module-cwpt.module#CwptModule'},
       {path:'xtsz',loadChildren:'./module-xtsz/module-xtsz.module#XtszModule'},
       {path:'zcgl',loadChildren:'./module-zcgl/module-zcgl.module#ZcglModule'},
-    ],canActivate:[LoginGuard]
+    ],canActivate:[LoginGuard],resolve:{info:User_infoResolve},
   }
   ];
 
@@ -58,9 +59,9 @@ const routeConfig: Routes = [
     RouterModule.forRoot(routeConfig,{ useHash: true }),
     NgbModule.forRoot(),
     CommonModule,
-    FileUploadModule,       
+    FileUploadModule,
   ],
-  providers: [LoginGuard,ExitGuard,UserService,TskService],
+  providers: [LoginGuard,ExitGuard,UserService,TskService,User_infoResolve],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,10 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Http,Headers } from "@angular/http";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import * as $ from 'jquery';
 import jQuery from 'jquery';
-import { UserService } from "../service/UserService";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {FileUploader} from "ng2-file-upload";
 import { Location } from '@angular/common';
@@ -47,23 +46,21 @@ xgzl:boolean=false;
 
 ifleft:boolean=false;
 
-  constructor(private router: Router, private http: Http, private user: UserService,private modalService:NgbModal, private location: Location,private tsk:TskService) {
+  constructor(private router: Router, private http: Http, private modalService:NgbModal, private location: Location,private tsk:TskService,private ar:ActivatedRoute) {
     this.zxrs = this.http.get('/oa/basic/web/index.php?r=index/up_time').map((res) => res.json());
-
-  this.http.get('/oa/basic/web/index.php?r=index/getuser').map((res) => res.json()).subscribe((data) => {
-      this.user.setuserinfo(data);
-      this.username = this.user.getuserinfo()['username'];
-      this.userId = this.user.getuserinfo()['userid'];
-      this.userimage = "assets/images/jsimg/" + this.userId + ".jpg?" + Math.random();
-      
-      console.log(data);
-      console.log("服务内无信息" + this.user.getuserinfo()['username']);
-    })
 
     this.height = $(window).height() - 100;
     this.menu_ul_height = $(window).height() - 100 - 232;
   }
   ngOnInit() {
+    this.ar.data.subscribe((data=>{
+      this.username = data.info.username;
+      this.userId =data.info.userid;
+      this.userimage = "assets/images/jsimg/" + this.userId + ".jpg?" + Math.random();
+    })
+
+    )
+    
 
     this.grbg = true;
 
