@@ -8,89 +8,61 @@ use phpexcel_IOFactory;
 use app\controllers\CommonController;
 
 
-class GzcxController extends CommonController
+class CwptController extends CommonController
 {
 
 	public $enableCsrfValidation = false;// ->覆盖父类的属性
-	
 
-	public function actionGzcx_htgz(){
-			$session = Yii::$app->session;
-			$username = $session['user']['username'];
-		  	$sql = "select * from gzcx_xd where username = '".$username."' order by 2 desc";
-  			$connection=Yii::$app->db;
-  			$command=$connection->createCommand($sql);
-  			$dataReader=$command->query();
-  			$dataReader=$dataReader->readAll();
-			  if($dataReader){
-  			Yii::$app->response->format=Response::FORMAT_JSON;
-  			return $dataReader;
-			  }
-			  return "2";
-	}
-	public function actionGzcx_tggz(){
-			$session = Yii::$app->session;
-			$username = $session['user']['username'];
-		  	$sql = "select * from gzcx_xd_2 where username = '".$username."' order by 2 desc";
-  			$connection=Yii::$app->db;
-  			$command=$connection->createCommand($sql);
-  			$dataReader=$command->query();
-  			$dataReader=$dataReader->readAll();
-			  if($dataReader){
-  			Yii::$app->response->format=Response::FORMAT_JSON;
-  			return $dataReader;
-			  }
-			  return "2";
-	}
-	public function actionGzcx_jsxm_htgz(){
-		 if (Yii::$app->request->isPost){
-					$post = Yii::$app->request->post();
-				}
-		 	$sql = "select * from gzcx_xd where username = '".$post['jsxm']."' order by 2 desc";
-  	 		$connection=Yii::$app->db;
-  			$command=$connection->createCommand($sql);
-  			$dataReader=$command->query();
-  			$dataReader=$dataReader->readAll();
-  			Yii::$app->response->format=Response::FORMAT_JSON;
-  			return $dataReader;
-	}
-	public function actionGzcx_jsxm_tggz(){
-		 if (Yii::$app->request->isPost){
-					$post = Yii::$app->request->post();
-				}
-		 	$sql = "select * from gzcx_xd_2 where username = '".$post['jsxm']."' order by 2 desc";
-  	 		$connection=Yii::$app->db;
-  			$command=$connection->createCommand($sql);
-  			$dataReader=$command->query();
-  			$dataReader=$dataReader->readAll();
-  			Yii::$app->response->format=Response::FORMAT_JSON;
-  			return $dataReader;
-	}
-	public function actionGzcx_ckny_htgz(){
-		 if (Yii::$app->request->isPost){
-					$post = Yii::$app->request->post();
-				}
-		 	$sql = "select * from gzcx_xd where riqi = '".$post['ckny']."' order by 1 desc";
-  	 		$connection=Yii::$app->db;
-  			$command=$connection->createCommand($sql);
-  			$dataReader=$command->query();
-  			$dataReader=$dataReader->readAll();
-  			Yii::$app->response->format=Response::FORMAT_JSON;
-  			return $dataReader;
-	}
-	public function actionGzcx_ckny_tggz(){
-		 if (Yii::$app->request->isPost){
-					$post = Yii::$app->request->post();
-				}
-		 	$sql = "select * from gzcx_xd_2 where riqi = '".$post['ckny']."' order by 1 desc";
-  	 		$connection=Yii::$app->db;
-  			$command=$connection->createCommand($sql);
-  			$dataReader=$command->query();
-  			$dataReader=$dataReader->readAll();
-  			Yii::$app->response->format=Response::FORMAT_JSON;
-  			return $dataReader;
-	}
-	public function actionGzcx_cknd_htgz(){
+	
+	public function actionSjfx_ckny_htgz(){
+		if (Yii::$app->request->isPost){
+				   $post = Yii::$app->request->post();
+			   }
+			$sql = "select * from gzcx_xd where riqi = '".$post['ckny']."' order by 1 desc";
+			  $connection=Yii::$app->db;
+			 $command=$connection->createCommand($sql);
+			 $dataReader=$command->query();
+			 $dataReader=$dataReader->readAll();
+			 Yii::$app->response->format=Response::FORMAT_JSON;
+			 return $dataReader;
+   }
+   public function actionSjfx_ckny_tggz(){
+		if (Yii::$app->request->isPost){
+				   $post = Yii::$app->request->post();
+			   }
+			$sql = "select * from gzcx_xd_2 where riqi = '".$post['ckny']."' order by 1 desc";
+			  $connection=Yii::$app->db;
+			 $command=$connection->createCommand($sql);
+			 $dataReader=$command->query();
+			 $dataReader=$dataReader->readAll();
+			 Yii::$app->response->format=Response::FORMAT_JSON;
+			 return $dataReader;
+   }
+	public function actionSjfx_jsxm_htgz(){
+		if (Yii::$app->request->isPost){
+				   $post = Yii::$app->request->post();
+			   }
+			$sql = "select * from gzcx_xd where username = '".$post['jsxm']."' order by 2 desc";
+			  $connection=Yii::$app->db;
+			 $command=$connection->createCommand($sql);
+			 $dataReader=$command->query();
+			 $dataReader=$dataReader->readAll();
+			 Yii::$app->response->format=Response::FORMAT_JSON;
+			 return $dataReader;
+   }
+   public function actionSjfx_jsxm_tggz(){
+		if (Yii::$app->request->isPost){
+				   $post = Yii::$app->request->post();
+			   }
+			$sql = "select * from gzcx_xd_2 where username = '".$post['jsxm']."' order by 2 desc";
+			  $connection=Yii::$app->db;
+			 $command=$connection->createCommand($sql);
+			 $dataReader=$command->query();
+			 $dataReader=$dataReader->readAll();
+			 Yii::$app->response->format=Response::FORMAT_JSON;
+			 return $dataReader;
+   }
+	public function actionSjfx_cknd_htgz(){
 		 if (Yii::$app->request->isPost){
 					$post = Yii::$app->request->post();
 				}
@@ -102,7 +74,7 @@ class GzcxController extends CommonController
   			Yii::$app->response->format=Response::FORMAT_JSON;
   			return $dataReader;
 	}
-	public function actionGzcx_cknd_tggz(){
+	public function actionSjfx_cknd_tggz(){
 		 if (Yii::$app->request->isPost){
 					$post = Yii::$app->request->post();
 				}
@@ -114,18 +86,8 @@ class GzcxController extends CommonController
   			Yii::$app->response->format=Response::FORMAT_JSON;
   			return $dataReader;
 	}
-// public function actionGzcx_gzsc(){
-// 	$dir=dirname(__FILE__);
-// 		$filename = $dir."/123.xls";
-// 		 $objphpexcel = phpexcel_IOFactory::load($filename);
-// 		 $sheetCount=$objphpexcel->getSheetCount();
-// 		 for($i=0;$i<$sheetCount;$i++){
-// 		 	$data=$objphpexcel->getSheet($i)->toArray();
-// 		 	print_r($data);
-// 		 }
-// 	}
 	// **上传工资表方法**//
-	public function actionUploadfile(){
+	public function actionGzbsc_uploadfile(){
 		// print_r($_FILES['gzb']);
 		$objphpexcel = phpexcel_IOFactory::load($_FILES['gzb']['tmp_name']);
 		 $sheetCount=$objphpexcel->getSheetCount();
@@ -229,7 +191,7 @@ class GzcxController extends CommonController
 		return $gzarray;		
 	}
 
-	public function actionGzbsc(){
+	public function actionGzbsc_gzbsc(){
 		if (Yii::$app->request->isGet){
 				 	$htgz=Yii::$app->session['gzb']['htgz'];
 				 	$tggz=Yii::$app->session['gzb']['tggz'];
@@ -257,7 +219,31 @@ class GzcxController extends CommonController
 				 		return $data;
 		}
 	}
-	public function actionDele_htgz(){
+	public function actionGzbwh_ckny_htgz(){
+		if (Yii::$app->request->isPost){
+				   $post = Yii::$app->request->post();
+			   }
+			$sql = "select * from gzcx_xd where riqi = '".$post['ckny']."' order by 1 desc";
+			  $connection=Yii::$app->db;
+			 $command=$connection->createCommand($sql);
+			 $dataReader=$command->query();
+			 $dataReader=$dataReader->readAll();
+			 Yii::$app->response->format=Response::FORMAT_JSON;
+			 return $dataReader;
+   }
+   public function actionGzbwh_ckny_tggz(){
+		if (Yii::$app->request->isPost){
+				   $post = Yii::$app->request->post();
+			   }
+			$sql = "select * from gzcx_xd_2 where riqi = '".$post['ckny']."' order by 1 desc";
+			  $connection=Yii::$app->db;
+			 $command=$connection->createCommand($sql);
+			 $dataReader=$command->query();
+			 $dataReader=$dataReader->readAll();
+			 Yii::$app->response->format=Response::FORMAT_JSON;
+			 return $dataReader;
+   }
+	public function actionGzbwh_dele_htgz(){
 				 if (Yii::$app->request->isPost){
 					$post = Yii::$app->request->post();
 				}
@@ -265,7 +251,7 @@ class GzcxController extends CommonController
 		$dataReader = Yii::$app->db->createCommand($sql)->execute(); 
 			return $dataReader;
 	}
-	public function actionDele_tggz(){
+	public function actionGzbwh_dele_tggz(){
 				 if (Yii::$app->request->isPost){
 					$post = Yii::$app->request->post();
 				}

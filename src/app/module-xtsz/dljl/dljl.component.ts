@@ -34,7 +34,7 @@ export class DljlComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   
   constructor(private http:Http) {
-    this.http.get('/oa/basic/web/index.php?r=xtsz/get_dljl').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xtsz/dljl_get').map(res => res.json()).subscribe(data => {
        if(data){
         this.source.load(data.reverse());
        }
@@ -46,7 +46,7 @@ export class DljlComponent implements OnInit {
   }
   qk(){
     if (window.confirm('你确定要清空全部数据吗?')) {
-       this.http.get('/oa/basic/web/index.php?r=xtsz/qk_dljl').map(res => res.json()).subscribe(data => {
+       this.http.get('/oa/basic/web/index.php?r=xtsz/dljl_qk').map(res => res.json()).subscribe(data => {
       let da = [];
       this.source.load(da);
    });

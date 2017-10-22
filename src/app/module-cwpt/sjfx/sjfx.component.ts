@@ -41,7 +41,7 @@ export class SjfxComponent implements OnInit {
   xm_htgz(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=gzcx/gzcx_jsxm_htgz',$.param({'jsxm':this.xm}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=cwpt/sjfx_jsxm_htgz',$.param({'jsxm':this.xm}),{headers:myHeaders})
     .map((res)=>res.json());
    console.log($.param(this.xm));
    this.dataSource.subscribe(data=>{
@@ -68,7 +68,7 @@ export class SjfxComponent implements OnInit {
   xm_tggz(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=gzcx/gzcx_jsxm_tggz',$.param({'jsxm':this.xm}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=cwpt/sjfx_jsxm_tggz',$.param({'jsxm':this.xm}),{headers:myHeaders})
     .map((res)=>res.json());
    console.log($.param(this.xm));
    this.dataSource.subscribe(data=>{
@@ -99,7 +99,7 @@ export class SjfxComponent implements OnInit {
   ny_htgz(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=gzcx/gzcx_ckny_htgz',$.param({'ckny':this.ny}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=cwpt/sjfx_ckny_htgz',$.param({'ckny':this.ny}),{headers:myHeaders})
     .map((res)=>res.json());
    this.dataSource.subscribe(data=>{
                 this.data = data;
@@ -125,7 +125,7 @@ export class SjfxComponent implements OnInit {
   ny_tggz(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=gzcx/gzcx_ckny_tggz',$.param({'ckny':this.ny}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=cwpt/sjfx_ckny_tggz',$.param({'ckny':this.ny}),{headers:myHeaders})
     .map((res)=>res.json());
    this.dataSource.subscribe(data=>{
                 this.data = data;
@@ -153,7 +153,7 @@ export class SjfxComponent implements OnInit {
   nd_htgz(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=gzcx/gzcx_cknd_htgz',$.param({'cknd':this.nd}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=cwpt/sjfx_cknd_htgz',$.param({'cknd':this.nd}),{headers:myHeaders})
     .map((res)=>res.json());
    this.dataSource.subscribe(data=>{
                 this.data = data;
@@ -171,7 +171,7 @@ export class SjfxComponent implements OnInit {
   nd_tggz(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=gzcx/gzcx_cknd_tggz',$.param({'cknd':this.nd}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=cwpt/sjfx_cknd_tggz',$.param({'cknd':this.nd}),{headers:myHeaders})
     .map((res)=>res.json());
    this.dataSource.subscribe(data=>{
                 this.data = data;

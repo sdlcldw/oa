@@ -86,7 +86,7 @@ export class ZcmxComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   
   constructor(private http:Http) { 
-    this.http.get('/oa/basic/web/index.php?r=zcgl/get_mx').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=zcgl/zcmx_get').map(res => res.json()).subscribe(data => {
        if(data){
         this.source.load(data);
        }
@@ -109,7 +109,7 @@ export class ZcmxComponent implements OnInit {
 })
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=zcgl/add",event.newData, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=zcgl/zcmx_add",event.newData, { headers: myHeaders }).toPromise().then((response) => {
        let data = response.json();
        if(data){
        event.confirm.resolve();
@@ -128,7 +128,7 @@ export class ZcmxComponent implements OnInit {
     }
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=zcgl/updata",data, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=zcgl/zcmx_updata",data, { headers: myHeaders }).toPromise().then((response) => {
        let data = response.json();
        if(data){
        event.confirm.resolve();
@@ -143,7 +143,7 @@ export class ZcmxComponent implements OnInit {
 let data={data:event.data.bh}
       let myHeaders:Headers = new Headers();
       myHeaders.append("Content-Type","application/json; charset=UTF-8");
-      this.http.post("/oa/basic/web/index.php?r=zcgl/delete",data, { headers: myHeaders }).toPromise().then((response) => {
+      this.http.post("/oa/basic/web/index.php?r=zcgl/zcmx_delete",data, { headers: myHeaders }).toPromise().then((response) => {
          let data = response.json();
          if(data){
          event.confirm.resolve();
@@ -156,7 +156,7 @@ let data={data:event.data.bh}
     }
   }
   dcexcel(){
-    window.open('/oa/basic/web/index.php?r=zcgl/dcexcel');
+    window.open('/oa/basic/web/index.php?r=zcgl/zcmx_dcexcel');
     // window.location.href="/oa/basic/web/index.php?r=zcgl/dcexcel";
   }
 }

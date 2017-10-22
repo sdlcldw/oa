@@ -8,6 +8,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {FileUploader} from "ng2-file-upload";
 import { Location } from '@angular/common';
 import { TskService } from "app/service/TskService";
+import { UserService } from 'app/service/UserService';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -25,10 +26,10 @@ export class IndexComponent implements OnInit {
   xtsz: boolean;  
   height: number;
   menu_ul_height:number;
-  username: string;
+  // username: string;
   userimage: string;
-  userId:number;
-
+  // userId:number;
+userdata;
   menu_title = "个人办公";
 
 model: any;
@@ -42,21 +43,22 @@ ymm;
 xmm;
 qrxmm;
 
-xgzl:boolean=false;
+qx;
 
 ifleft:boolean=false;
 
-  constructor(private router: Router, private http: Http, private modalService:NgbModal, private location: Location,private tsk:TskService,private ar:ActivatedRoute) {
+  constructor(private router: Router, private http: Http, private modalService:NgbModal, private location: Location,private tsk:TskService,private ar:ActivatedRoute, private userinfo:UserService) {
     this.zxrs = this.http.get('/oa/basic/web/index.php?r=index/up_time').map((res) => res.json());
-
     this.height = $(window).height() - 100;
     this.menu_ul_height = $(window).height() - 100 - 232;
   }
   ngOnInit() {
     this.ar.data.subscribe((data=>{
-      this.username = data.info.username;
-      this.userId =data.info.userid;
-      this.userimage = "assets/images/jsimg/" + this.userId + ".jpg?" + Math.random();
+      this.userdata = data.info.userinfo;
+      this.qx = data.info.qx;
+      this.userimage = "assets/images/jsimg/" + this.userdata.userId + ".jpg?" + Math.random();
+      this.modeldata = this.userdata;
+      console.log(this.modeldata)
     })
 
     )
@@ -67,12 +69,6 @@ ifleft:boolean=false;
     this.zxrsdata();
     setInterval(() => { this.zxrsdata() }, 2000 * 60);
 
-        this.http.get('/oa/basic/web/index.php?r=index/getuserinfo').subscribe((data) => {
-      this.modeldata = data.json();
-      console.log(this.modeldata);
-      this.xgzl = true;
-      
-  })
 }
     // 回退
     goBack(): void {
@@ -89,7 +85,7 @@ ifleft:boolean=false;
     });
     // C: 定义事件，选择文件
     selectedFileOnChanged(event:any) {
-      console.log(this.userId);
+      console.log(this.userdata.userid);
       
         // 打印文件选择名称
         console.log(event.target.value);
@@ -105,7 +101,7 @@ ifleft:boolean=false;
                 // let tempRes = JSON.parse(response);
                 if(response == '1'){
                   this.ifsczp = true;
-                  this.userimage = "assets/images/jsimg/" + this.userId + ".jpg?" + Math.random();
+                  this.userimage = "assets/images/jsimg/" + this.userdata.userid + ".jpg?" + Math.random();
                   alert('上传成功！');
                   
                 }else{
@@ -128,10 +124,10 @@ ifleft:boolean=false;
   }
 
   changeleft(name) {
-    if(name != 'grbg' && $.cookie("qx").indexOf(name) == -1 ){
-      this.tsk.tsk('对不起，您的权限不足！');
-      return;
-  }
+  //   if(name != 'grbg' && this.qx.indexOf(name+'/') == -1 ){
+  //     this.tsk.tsk('对不起，您的权限不足！');
+  //     return;
+  // }else{
     this.xsgl = false;
     this.zcgl = false;
     this.grbg = false;
@@ -159,6 +155,7 @@ ifleft:boolean=false;
       this.xtsz = true;
       this.menu_title = '系统设置'; 
     }
+  //  }
   }
   Logout() {
     this.http.get('/oa/basic/web/index.php?r=index/logout').subscribe((data) => {

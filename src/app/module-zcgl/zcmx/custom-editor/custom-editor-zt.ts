@@ -14,7 +14,7 @@ zts = [];
 newzt = '';
   constructor(private http:Http) {
     super();
-    this.http.get('/oa/basic/web/index.php?r=zcgl/get_zt').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=zcgl/zczt_get').map(res => res.json()).subscribe(data => {
           console.log(data)
           if(data){
       this.zts = data;

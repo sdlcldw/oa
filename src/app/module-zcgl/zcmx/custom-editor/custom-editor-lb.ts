@@ -14,7 +14,7 @@ lbs = [];
 newlb = '';
   constructor(private http:Http) {
     super();
-    this.http.get('/oa/basic/web/index.php?r=zcgl/get_lb').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=zcgl/zclb_get').map(res => res.json()).subscribe(data => {
           console.log(data)
           if(data){
       this.lbs = data;

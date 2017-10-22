@@ -13,7 +13,7 @@ use app\controllers\CommonController;
 class ZcglController extends CommonController
 {
     public $enableCsrfValidation = false;// ->覆盖父类的属性
-    public function actionAdd(){
+    public function actionZcmx_add(){
         if (Yii::$app->request->isPost){
             $post = Yii::$app->request->post();
             $sql = 'insert into zcgl_mx values (';
@@ -27,7 +27,7 @@ class ZcglController extends CommonController
             return $ifok;
             }
         }	
-    public function actionGet_mx(){
+    public function actionZcmx_get(){
         $sql = "SELECT * FROM zcgl_mx";
         $connection=Yii::$app->db;
        $command=$connection->createCommand($sql);
@@ -36,7 +36,7 @@ class ZcglController extends CommonController
        Yii::$app->response->format=Response::FORMAT_JSON;
         return $dataReader;
     }
-    public function actionDelete(){
+    public function actionZcmx_delete(){
         if (Yii::$app->request->isPost){
             $post = Yii::$app->request->post();
         $sql = "DELETE FROM zcgl_mx WHERE bh='".$post['data']."'";
@@ -49,7 +49,7 @@ class ZcglController extends CommonController
 
     // UPDATE Person SET FirstName = 'Fred' WHERE LastName = 'Wilson' 
 
-    public function actionUpdata(){
+    public function actionZcmx_updata(){
         if (Yii::$app->request->isPost){
             $post = Yii::$app->request->post();
             $sql = 'UPDATE zcgl_mx SET ';
@@ -63,7 +63,7 @@ class ZcglController extends CommonController
             return $ifok;
             }
         }	
-        public function actionGet_zt(){
+        public function actionZczt_get(){
             $sql = "SELECT * FROM zcgl_zt";
             $connection=Yii::$app->db;
            $command=$connection->createCommand($sql);
@@ -76,7 +76,7 @@ class ZcglController extends CommonController
            Yii::$app->response->format=Response::FORMAT_JSON;
             return $datas;
         }
-        public function actionAdd_zt(){
+        public function actionZczt_add(){
             if (Yii::$app->request->isPost){
                 $post = Yii::$app->request->post();
                 $sql = "insert into zcgl_zt (zt) values ('".$post['zt']."')";
@@ -85,7 +85,7 @@ class ZcglController extends CommonController
                 return $post;
                 }
             }
-            public function actionDelete_zt(){
+            public function actionZczt_delete(){
                 if (Yii::$app->request->isPost){
                     $post = Yii::$app->request->post();
                 $sql = "DELETE FROM zcgl_zt WHERE zt='".$post['data']."'";
@@ -95,7 +95,7 @@ class ZcglController extends CommonController
                 return $ifok;
                 }
             }
-        public function actionGet_lb(){
+        public function actionZclb_get(){
             $sql = "SELECT * FROM zcgl_lb";
             $connection=Yii::$app->db;
            $command=$connection->createCommand($sql);
@@ -108,7 +108,7 @@ class ZcglController extends CommonController
            Yii::$app->response->format=Response::FORMAT_JSON;
             return $datas;
         }
-        public function actionAdd_lb(){
+        public function actionZclb_add(){
             if (Yii::$app->request->isPost){
                 $post = Yii::$app->request->post();
                 $sql = "insert into zcgl_lb (lb) values ('".$post['lb']."')";
@@ -117,7 +117,7 @@ class ZcglController extends CommonController
                 return $post;
                 }
             }
-            public function actionDelete_lb(){
+            public function actionZclb_delete(){
                 if (Yii::$app->request->isPost){
                     $post = Yii::$app->request->post();
                 $sql = "DELETE FROM zcgl_lb WHERE lb='".$post['data']."'";
@@ -127,7 +127,7 @@ class ZcglController extends CommonController
                 return $ifok;
                 }
             }
-        public function actionGet_ly(){
+        public function actionZcly_get(){
             $sql = "SELECT * FROM zcgl_ly";
             $connection=Yii::$app->db;
            $command=$connection->createCommand($sql);
@@ -140,7 +140,7 @@ class ZcglController extends CommonController
            Yii::$app->response->format=Response::FORMAT_JSON;
             return $datas;
         }
-        public function actionAdd_ly(){
+        public function actionZcly_add(){
             if (Yii::$app->request->isPost){
                 $post = Yii::$app->request->post();
                 $sql = "insert into zcgl_ly (ly) values ('".$post['ly']."')";
@@ -149,7 +149,7 @@ class ZcglController extends CommonController
                 return $post;
                 }
             }
-            public function actionDelete_ly(){
+            public function actionZcly_delete(){
                 if (Yii::$app->request->isPost){
                     $post = Yii::$app->request->post();
                 $sql = "DELETE FROM zcgl_ly WHERE ly='".$post['data']."'";
@@ -159,17 +159,7 @@ class ZcglController extends CommonController
                 return $ifok;
                 }
             }
-            public function actionGet_brsy(){
-                $um =Yii::$app->session['user']['username'];
-                $sql = "SELECT * FROM zcgl_mx where zrr='".$um."';";
-                $connection=Yii::$app->db;
-               $command=$connection->createCommand($sql);
-               $dataReader=$command->query();
-               $dataReader=$dataReader->readAll();
-               Yii::$app->response->format=Response::FORMAT_JSON;
-                return $dataReader;
-            }
-            public function actionDcexcel(){
+            public function actionZcmx_dcexcel(){
                 $sql = "SELECT * FROM zcgl_mx";
                 $connection=Yii::$app->db;
                $command=$connection->createCommand($sql);

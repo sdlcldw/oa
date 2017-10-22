@@ -52,33 +52,12 @@ class User extends ActiveRecord{
 			if(is_null($data)){
 				return "2";//用户名或者密码验证错误！
 			}
-			/*获取当前用户权限列表*/
-			$sql = "Select b.child from (select * from `auth_assignment` where user_id='".$data['attributes']['Id']."') a Left JOIN auth_item_child b on a.item_name = b.parent";
-			$connection=Yii::$app->db;
-			$command=$connection->createCommand($sql);
-			$dataReader=$command->query();
-			$dataReader=$dataReader->readAll();
-			$qx="";
-			foreach($dataReader as $item){
-				foreach ($item as $ite) {
-					$qx=$qx.$ite.'9';
-				}
-				
-			}
+		
 			// **更新最后登录时间**//
 			$sql = "update user set up_time = now() where username='".$this->username."'";
 			Yii::$app->db->createCommand($sql)->execute(); 
-			 // echo $qx;
-			// $arr_str = serialize($dataReader);
-			// echo $arr_str;
-			// setcookie("qx",$qx);
-			// setcookie("Age",$dataReader);
-				// $id = self::find()->where('username= :user',[":user"=>$this->username])->one();
-				// var_dump($id);
-				// setcookie("Age","18");
-// $arr = array(1,2,3);
-// $arr_str = serialize($arr);
-// setcookie("a",$arr_str);
+
+			
 			 	$lifetime = 24*3600;
 				$session = Yii::$app->session;
 				// session_set_cookie_params(24*3600);
@@ -89,7 +68,7 @@ class User extends ActiveRecord{
 				];
 				$session['__id']= $data['attributes']['Id'];
 				$this->updateAll(['loginip' => ip2long(Yii::$app->request->userIP)],'username = :user',[':user' =>$data['username']]);
-				$arr = array('dl'=>(bool)$session['user']['isLogin'],'qx'=>$qx,'username'=>array('username'=>$data['username'],'userid'=>$data['attributes']['Id']));
+				$arr = array('dl'=>(bool)$session['user']['isLogin']);
 				//**记录登录记录**//
 				$sql = "insert into dljl(username,password,time) values ('".$this->username."','".$passw."',now());";
 					Yii::$app->db->createCommand($sql)->execute(); 

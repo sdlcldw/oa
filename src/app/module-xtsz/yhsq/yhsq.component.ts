@@ -39,7 +39,7 @@ export class YhsqComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private router: Router,private http:Http,private datasv: DataService,) { 
-    this.http.get('/oa/basic/web/index.php?r=rbac/get_users').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xtsz/yhsq_get_users').map(res => res.json()).subscribe(data => {
        if(data){
         this.source.load(data);
        }
@@ -52,7 +52,7 @@ export class YhsqComponent implements OnInit {
     let dat = {id:$event.data.Id};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=rbac/get_assignment",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xtsz/yhsq_get_assignment",dat, { headers: myHeaders }).toPromise().then((response) => {
       let datas :any[]= response.json();
        datas['user']=$event.data;
        this.datasv.setfpjsdata(datas);

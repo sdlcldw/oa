@@ -11,13 +11,14 @@ import { LyEditor } from './zcmx/custom-editor/custom-editor-ly';
 import { ZclbComponent } from './zclb/zclb.component';
 import { ZclyComponent } from './zcly/zcly.component';
 import { ZcztComponent } from './zczt/zczt.component';
+import { QxGuard } from 'app/guard/qx.guard';
 
 
 const Routes=[
-  {path:'zcmx',component:ZcmxComponent},
-  {path:'zcly',component:ZclyComponent},
-  {path:'zclb',component:ZclbComponent},
-  {path:'zczt',component:ZcztComponent},
+  {path:'zcmx',component:ZcmxComponent,canActivate:[QxGuard]},
+  {path:'zcly',component:ZclyComponent,canActivate:[QxGuard]},
+  {path:'zclb',component:ZclbComponent,canActivate:[QxGuard]},
+  {path:'zczt',component:ZcztComponent,canActivate:[QxGuard]},
 ];
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ const Routes=[
     ZclbComponent,
     ZclyComponent,
     ZcztComponent,
-  ]
+  ],
+  providers: [QxGuard]
 })
 
 export class ZcglModule { }

@@ -4,11 +4,11 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
 
 @Component({
-  selector: 'app-jsgl',
-  templateUrl: './jsgl.component.html',
-  styleUrls: ['./jsgl.component.css']
+  selector: 'app-cjjs',
+  templateUrl: './cjjs.component.html',
+  styleUrls: ['./cjjs.component.css']
 })
-export class JsglComponent implements OnInit {
+export class CjjsComponent implements OnInit {
 
   data = {
     name:'',
@@ -25,7 +25,7 @@ export class JsglComponent implements OnInit {
     console.log(this.data);
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=rbac/add_js",this.data, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xtsz/cjjs_add_js",this.data, { headers: myHeaders }).toPromise().then((response) => {
       if(response){
         alert('添加成功');
         this.qx();

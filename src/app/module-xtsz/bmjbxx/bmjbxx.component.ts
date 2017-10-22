@@ -41,7 +41,7 @@ export class BmjbxxComponent implements OnInit {
     
 
   constructor(private http:Http) {
-    this.http.get('/oa/basic/web/index.php?r=xtsz/get_bm').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xtsz/bmjbxx_get_bm').map(res => res.json()).subscribe(data => {
       if(data){
         let da = []
         for(var ele of data){  
@@ -66,7 +66,7 @@ export class BmjbxxComponent implements OnInit {
  })
      let myHeaders:Headers = new Headers();
      myHeaders.append("Content-Type","application/json; charset=UTF-8");
-     this.http.post("/oa/basic/web/index.php?r=xtsz/add_bm",event.newData, { headers: myHeaders }).toPromise().then((response) => {
+     this.http.post("/oa/basic/web/index.php?r=xtsz/bmjbxx_add_bm",event.newData, { headers: myHeaders }).toPromise().then((response) => {
         let data = response.json();
         if(data){
         event.confirm.resolve();
@@ -81,7 +81,7 @@ export class BmjbxxComponent implements OnInit {
  let data={data:event.data.bm}
        let myHeaders:Headers = new Headers();
        myHeaders.append("Content-Type","application/json; charset=UTF-8");
-       this.http.post("/oa/basic/web/index.php?r=xtsz/delete_bm",data, { headers: myHeaders }).toPromise().then((response) => {
+       this.http.post("/oa/basic/web/index.php?r=xtsz/bmjbxx_delete_bm",data, { headers: myHeaders }).toPromise().then((response) => {
           let data = response.json();
           if(data){
           event.confirm.resolve();

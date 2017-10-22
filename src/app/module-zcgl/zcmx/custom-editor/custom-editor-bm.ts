@@ -14,7 +14,7 @@ bms = [];
 newbm = '';
   constructor(private http:Http) {
     super();
-    this.http.get('/oa/basic/web/index.php?r=xtsz/get_bm').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xtsz/bmjbxx_get_bm').map(res => res.json()).subscribe(data => {
           console.log(data)
           if(data){
       this.bms = data;

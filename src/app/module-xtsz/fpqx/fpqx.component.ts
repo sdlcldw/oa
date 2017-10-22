@@ -68,7 +68,7 @@ myForm: FormGroup;
     let dat = {name:this.data.js,items:this.selects};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=rbac/add_child",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xtsz/fpqx_add_child",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
       if(data){
       this.tsk.cg('分配权限成功！');

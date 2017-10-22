@@ -38,7 +38,7 @@ export class ZclbComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   
   constructor(private http:Http) { 
-    this.http.get('/oa/basic/web/index.php?r=zcgl/get_lb').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=zcgl/zclb_get').map(res => res.json()).subscribe(data => {
        if(data){
          let da = []
          for(var ele of data){  
@@ -64,7 +64,7 @@ export class ZclbComponent implements OnInit {
 })
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=zcgl/add_lb",event.newData, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=zcgl/zclb_add",event.newData, { headers: myHeaders }).toPromise().then((response) => {
        let data = response.json();
        if(data){
        event.confirm.resolve();
@@ -79,7 +79,7 @@ export class ZclbComponent implements OnInit {
 let data={data:event.data.lb}
       let myHeaders:Headers = new Headers();
       myHeaders.append("Content-Type","application/json; charset=UTF-8");
-      this.http.post("/oa/basic/web/index.php?r=zcgl/delete_lb",data, { headers: myHeaders }).toPromise().then((response) => {
+      this.http.post("/oa/basic/web/index.php?r=zcgl/zclb_delete",data, { headers: myHeaders }).toPromise().then((response) => {
          let data = response.json();
          if(data){
          event.confirm.resolve();

@@ -21,8 +21,8 @@ ifhtgz:boolean;
 iftggz:boolean;
 
     constructor(private http:Http) {
-     this.htgzSource = this.http.get('/oa/basic/web/index.php?r=gzcx/gzcx_htgz').map((res)=>res.json());
-     this.tggzSource = this.http.get('/oa/basic/web/index.php?r=gzcx/gzcx_tggz').map((res)=>res.json());
+     this.htgzSource = this.http.get('/oa/basic/web/index.php?r=grbg/gzcx_htgz').map((res)=>res.json());
+     this.tggzSource = this.http.get('/oa/basic/web/index.php?r=grbg/gzcx_tggz').map((res)=>res.json());
   }
 
    ngOnInit() {

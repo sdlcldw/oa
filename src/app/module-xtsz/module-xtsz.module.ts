@@ -6,24 +6,25 @@ import { BmjbxxComponent } from './bmjbxx/bmjbxx.component';
 import { YhlbComponent } from './yhlb/yhlb.component';
 import { DljlComponent } from './dljl/dljl.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { JsglComponent } from './jsgl/jsgl.component';
+import { CjjsComponent } from './cjjs/cjjs.component';
 import { JslbComponent } from './jslb/jslb.component';
 import { FpqxComponent } from './fpqx/fpqx.component';
 import { DataService } from './DataService';
 import { YhsqComponent } from './yhsq/yhsq.component';
-import { YhsqFpjsComponent } from './yhsq-fpjs/yhsq-fpjs.component';
+import { YhsqFpjsComponent } from './yhsq_fpjs/yhsq_fpjs.component';
 import { FpjsGuard } from './fpjs.guard';
 import { FpqxGuard } from './fpqx.guard';
+import { QxGuard } from 'app/guard/qx.guard';
 
 const Routes=[
-  {path:'bmjbxx',component:BmjbxxComponent},
-  {path:'yhlb',component:YhlbComponent},
-  {path:'dljl',component:DljlComponent},
-  {path:'jsgl',component:JsglComponent},
-  {path:'jslb',component:JslbComponent},
-  {path:'fpqx',component:FpqxComponent,canActivate:[FpqxGuard]},
-  {path:'yhsq',component:YhsqComponent},
-  {path:'yhsq-fpjs',component:YhsqFpjsComponent,canActivate:[FpjsGuard]},
+  {path:'bmjbxx',component:BmjbxxComponent,canActivate:[QxGuard]},
+  {path:'yhlb',component:YhlbComponent,canActivate:[QxGuard]},
+  {path:'dljl',component:DljlComponent,canActivate:[QxGuard]},
+  {path:'cjjs',component:CjjsComponent,canActivate:[QxGuard]},
+  {path:'jslb',component:JslbComponent,canActivate:[QxGuard]},
+  {path:'fpqx',component:FpqxComponent,canActivate:[QxGuard,FpqxGuard]},
+  {path:'yhsq',component:YhsqComponent,canActivate:[QxGuard]},
+  {path:'yhsq-fpjs',component:YhsqFpjsComponent,canActivate:[QxGuard,FpjsGuard]},
 ];
 
 @NgModule({
@@ -34,7 +35,7 @@ const Routes=[
     ReactiveFormsModule, 
     Ng2SmartTableModule,
   ], 
-  providers: [DataService,FpjsGuard,FpqxGuard],  
-  declarations: [BmjbxxComponent, YhlbComponent, DljlComponent, JsglComponent, JslbComponent, FpqxComponent, YhsqComponent, YhsqFpjsComponent]
+  providers: [DataService,FpjsGuard,FpqxGuard,QxGuard],  
+  declarations: [BmjbxxComponent, YhlbComponent, DljlComponent, CjjsComponent, JslbComponent, FpqxComponent, YhsqComponent, YhsqFpjsComponent]
 })
 export class XtszModule { }

@@ -7,9 +7,9 @@ import { TskService } from "app/service/TskService";
 
 
 @Component({
-  selector: 'app-yhsq-fqjs',
-  templateUrl: './yhsq-fpjs.component.html',
-  styleUrls: ['./yhsq-fpjs.component.css']
+  selector: 'app-yhsq_fqjs',
+  templateUrl: './yhsq_fpjs.component.html',
+  styleUrls: ['./yhsq_fpjs.component.css']
 })
 export class YhsqFpjsComponent implements OnInit {
   data;
@@ -46,7 +46,7 @@ export class YhsqFpjsComponent implements OnInit {
       let dat = {id:this.data.user.Id,assignment:this.selects};
       let myHeaders:Headers = new Headers();
       myHeaders.append("Content-Type","application/json; charset=UTF-8");
-      this.http.post("/oa/basic/web/index.php?r=rbac/add_assignment",dat, { headers: myHeaders }).toPromise().then((response) => {
+      this.http.post("/oa/basic/web/index.php?r=xtsz/yhsq_fpjs_add_assignment",dat, { headers: myHeaders }).toPromise().then((response) => {
         // let data= response.json();
         if(response){
         this.tsk.cg('分配角色成功！');

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JsglComponent } from './jsgl.component';
+import { CjjsComponent } from './cjjs.component';
 
 describe('JsglComponent', () => {
-  let component: JsglComponent;
-  let fixture: ComponentFixture<JsglComponent>;
+  let component: CjjsComponent;
+  let fixture: ComponentFixture<CjjsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JsglComponent ]
+      declarations: [ CjjsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JsglComponent);
+    fixture = TestBed.createComponent(CjjsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

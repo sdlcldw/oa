@@ -56,11 +56,6 @@ class IndexController extends CommonController
 
 		}
 	}
-	public function actionGetuser(){
-		$session = Yii::$app->session;
-		Yii::$app->response->format=Response::FORMAT_JSON;
-		return array('username'=>$session['user']['username'],'userid'=>$session['__id']);
-	}
 	public function actionLogout(){
 				   Yii::$app->session->removeAll();
 				   Yii::$app->session->destroy();
@@ -69,29 +64,6 @@ class IndexController extends CommonController
 				   }
 				   return "2";
 	}
-	public function actionWdzs(){
-				$username = Yii::$app->session['user']['username'];
-				$sql = "select a.username,b.*,c.xjh as fxjh,c.sfzh as fsfzh,c.name as fname,c.zkzh as fzkzh,c.cfmm as fcfmm,c.yw as fyw,c.sx as fsx,c.yy as fyy,c.zz as fzz,c.ls as fls,c.wl as fwl,c.hx as fhx,c.dl as fdl,c.sw as fsw,c.xxjs as fxxjs,c.tncs as ftncs,c.sy as fsy,c.suy as fsuy,c.tc as ftc,c.tsks as ftsks,c.qf as fqf,c.zy as fzy from user as a left join student_basic as b on a.Id=b.user_id left join xsgl_zkfs as c on b.xjh=c.xjh WHERE a.username='".$username."';";
-				$student_basic = Yii::$app->db->createCommand($sql)->queryAll();
-				foreach ($student_basic as $row=>$v){
-					if($student_basic[$row]['zt']==1){
-						$student_basic[$row]['zt']= "未审核";
-					}elseif($student_basic[$row]['zt']==2){
-						$student_basic[$row]['zt']= "已审核";
-					}elseif($student_basic[$row]['zt']==3){
-						$student_basic[$row]['zt']= "已缴费";
-					}
-					if($student_basic[$row]['bjlx']==1){
-						$student_basic[$row]['bjlx']= "普通高中";
-					}elseif($student_basic[$row]['bjlx']==2){
-						$student_basic[$row]['bjlx']= "春季实验班";
-					}
-		    		$student_basic[$row]['zrjs'] = $username; 
-					} 
-				Yii::$app->response->format=Response::FORMAT_JSON;
-				return $student_basic;
-	}
-
 	public function actionXxsh_wsh(){
 		if (!yii::$app->user->can('xxsh')){
 				 return "没有权限的非法访问！";
@@ -510,9 +482,26 @@ class IndexController extends CommonController
   			$connection=Yii::$app->db;
   			$command=$connection->createCommand($sql);
   			$dataReader=$command->query();
-  			$dataReader=$dataReader->readAll();
+			  $userinfo=$dataReader->readAll();
+			  
+			  	/*获取当前用户权限列表*/
+			$sql = "Select b.child from (select * from `auth_assignment` where user_id='".$id."') a Left JOIN auth_item_child b on a.item_name = b.parent";
+			$connection=Yii::$app->db;
+			$command=$connection->createCommand($sql);
+			$dataReader=$command->query();
+			$dataReader=$dataReader->readAll();
+
+			$qx="";
+			foreach($dataReader as $item){
+				foreach ($item as $ite) {
+					$qx=$qx.$ite.';';
+				}
+			}
+
+			$arr = array('qx'=>$qx,'userinfo'=>$userinfo[0]);
+
   			Yii::$app->response->format=Response::FORMAT_JSON;
-  			return $dataReader[0];
+  			return $arr;
   		}
   		public function actionSetuserinfo(){
   			$model = new User;

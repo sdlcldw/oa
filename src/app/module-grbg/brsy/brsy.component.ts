@@ -56,7 +56,7 @@ export class BrsyComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   
   constructor(private http:Http) { 
-    this.http.get('/oa/basic/web/index.php?r=zcgl/get_brsy').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=grbg/brsy_get').map(res => res.json()).subscribe(data => {
        if(data){
         this.source.load(data);
        }

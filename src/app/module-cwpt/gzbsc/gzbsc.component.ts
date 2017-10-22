@@ -24,7 +24,7 @@ export class GzbscComponent implements OnInit {
 
 // B: 初始化定义uploader变量,用来配置input中的uploader属性
 public uploader:FileUploader = new FileUploader({
-  url: "/oa/basic/web/index.php?r=gzcx/uploadfile",
+  url: "/oa/basic/web/index.php?r=cwpt/gzbsc_uploadfile",
   method: "POST",
   itemAlias: "gzb",
   removeAfterUpload:true,
@@ -71,7 +71,7 @@ gzbyl() {
 }
 
 gzbsc(){
-  this.http.get('/oa/basic/web/index.php?r=gzcx/gzbsc').subscribe((res=> {
+  this.http.get('/oa/basic/web/index.php?r=cwpt/gzbsc_gzbsc').subscribe((res=> {
     console.log(res.json());
     var data = res.json();
     if(data){

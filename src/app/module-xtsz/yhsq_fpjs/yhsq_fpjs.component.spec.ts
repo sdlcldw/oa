@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YhsqFpjsComponent } from './yhsq-fpjs.component';
+import { YhsqFpjsComponent } from './yhsq_fpjs.component';
 
 describe('YhsqFqjsComponent', () => {
   let component: YhsqFpjsComponent;

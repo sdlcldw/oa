@@ -16,7 +16,7 @@ data;
   constructor(private router: Router,private http:Http,private datasv: DataService,private tsk:TskService) { }
 
   ngOnInit() {
-    this.http.get('/oa/basic/web/index.php?r=rbac/get_js') // (4)
+    this.http.get('/oa/basic/web/index.php?r=xtsz/jslb_get_js') // (4)
     .map(res => res.json()) // (5)
     .subscribe(data => {
        if (data) this.data = data; // (6)
@@ -26,7 +26,7 @@ fpqx(js){
   let dat = {js:js};
   let myHeaders:Headers = new Headers();
   myHeaders.append("Content-Type","application/json; charset=UTF-8");
-  this.http.post("/oa/basic/web/index.php?r=rbac/get_item",dat, { headers: myHeaders }).toPromise().then((response) => {
+  this.http.post("/oa/basic/web/index.php?r=xtsz/jslb_get_item",dat, { headers: myHeaders }).toPromise().then((response) => {
     let datas :any[]= response.json();
     datas['js'] = js;
      this.datasv.setfpqxdata(datas);
@@ -36,7 +36,7 @@ fpqx(js){
  
 }
 gxqxjd(){
-  this.http.get('/oa/basic/web/index.php?r=rbacadd/init').subscribe(data => {
+  this.http.get('/oa/basic/web/index.php?r=xtsz/jslb_init').subscribe(data => {
     if(data){
       this.tsk.cg('一键更新全部权限子节点操作成功！');
     }

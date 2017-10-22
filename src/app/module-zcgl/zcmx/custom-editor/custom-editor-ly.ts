@@ -14,7 +14,7 @@ lys = [];
 newly = '';
   constructor(private http:Http) {
     super();
-    this.http.get('/oa/basic/web/index.php?r=zcgl/get_ly').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=zcgl/zcly_get').map(res => res.json()).subscribe(data => {
           console.log(data)
           if(data){
       this.lys = data;

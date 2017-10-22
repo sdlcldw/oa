@@ -32,7 +32,7 @@ iftggz:boolean = true;
   ny_htgz(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=gzcx/gzcx_ckny_htgz',$.param({'ckny':this.ckny}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=cwpt/gzbwh_ckny_htgz',$.param({'ckny':this.ckny}),{headers:myHeaders})
     .map((res)=>res.json());
    console.log($.param(this.ckny));
    this.dataSource.subscribe(data=>{
@@ -47,7 +47,7 @@ iftggz:boolean = true;
   ny_tggz(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=gzcx/gzcx_ckny_tggz',$.param({'ckny':this.ckny}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=cwpt/gzbwh_ckny_tggz',$.param({'ckny':this.ckny}),{headers:myHeaders})
     .map((res)=>res.json());
    console.log($.param(this.ckny));
    this.dataSource.subscribe(data=>{
@@ -63,7 +63,7 @@ iftggz:boolean = true;
   dele_htgz(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=gzcx/dele_htgz',$.param({'ckny':this.ckny}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=cwpt/gzbwh_dele_htgz',$.param({'ckny':this.ckny}),{headers:myHeaders})
     .map((res)=>res.json());
    console.log($.param(this.ckny));
    this.dataSource.subscribe(data=>{
@@ -77,7 +77,7 @@ iftggz:boolean = true;
   dele_tggz(){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=gzcx/dele_tggz',$.param({'ckny':this.ckny}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=cwpt/gzbwh_dele_tggz',$.param({'ckny':this.ckny}),{headers:myHeaders})
     .map((res)=>res.json());
    console.log($.param(this.ckny));
    this.dataSource.subscribe(data=>{

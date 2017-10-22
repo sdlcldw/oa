@@ -55,7 +55,7 @@ export class YhlbComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   
   constructor(private http:Http) { 
-    this.http.get('/oa/basic/web/index.php?r=xtsz/get_users').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xtsz/yhlb_get_users').map(res => res.json()).subscribe(data => {
        if(data){
         this.source.load(data);
        }
@@ -78,7 +78,7 @@ export class YhlbComponent implements OnInit {
 })
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xtsz/add_user",event.newData, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xtsz/yhlb_add_user",event.newData, { headers: myHeaders }).toPromise().then((response) => {
        let data = response.json();
        if(data){
        event.confirm.resolve();
@@ -93,7 +93,7 @@ export class YhlbComponent implements OnInit {
   onEditConfirm(event){
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xtsz/updata_user",event.newData, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xtsz/yhlb_updata_user",event.newData, { headers: myHeaders }).toPromise().then((response) => {
        let data = response.json();
        if(data){
        event.confirm.resolve();
@@ -109,7 +109,7 @@ export class YhlbComponent implements OnInit {
 let data={Id:event.data.Id}
       let myHeaders:Headers = new Headers();
       myHeaders.append("Content-Type","application/json; charset=UTF-8");
-      this.http.post("/oa/basic/web/index.php?r=xtsz/delete_user",data, { headers: myHeaders }).toPromise().then((response) => {
+      this.http.post("/oa/basic/web/index.php?r=xtsz/yhlb_delete_user",data, { headers: myHeaders }).toPromise().then((response) => {
          let data = response.json();
          if(data){
          event.confirm.resolve();

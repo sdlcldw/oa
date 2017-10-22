@@ -17,7 +17,7 @@ constructor(private http:Http) {
 
   ngOnInit() {
 
-this.http.get('/oa/basic/web/index.php?r=index/wdzs') // (4)
+this.http.get('/oa/basic/web/index.php?r=grbg/wdzs') // (4)
         .map(res => res.json()) // (5)
         .subscribe(data => {
            if (data) this.names = data; // (6)
