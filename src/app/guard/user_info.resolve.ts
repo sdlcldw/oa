@@ -15,7 +15,6 @@ export class User_infoResolve implements Resolve<any>{
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
        return this.dataSource.map((auth) => {
         let data = auth.json(); 
-        console.log(data);
            if(data){
             this.userinfo.setuserinfo(data);
             return data;
