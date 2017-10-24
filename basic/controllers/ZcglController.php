@@ -63,6 +63,20 @@ class ZcglController extends CommonController
             return $ifok;
             }
         }	
+        public function actionBmjbxx_get_bm(){
+            $sql = "SELECT name FROM data_bm";
+            $connection=Yii::$app->db;
+           $command=$connection->createCommand($sql);
+           $dataReader=$command->query();
+           $dataReader=$dataReader->readAll();
+           $bms = [];
+           foreach ($dataReader as $row=>$v){
+           array_push($bms,$dataReader[$row]['name']);
+           }
+           Yii::$app->response->format=Response::FORMAT_JSON;
+            return $bms;
+    
+        }
         public function actionZczt_get(){
             $sql = "SELECT * FROM zcgl_zt";
             $connection=Yii::$app->db;

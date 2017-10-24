@@ -7,26 +7,26 @@ use Yii;
 
 class CommonController extends Controller
 {
- 
-
-
+//统一权限认证
     public function beforeAction($action)
     {
-        // if (!parent::beforeAction($action)) {
-        //     return false;
-        // }
-        // $controller = $action->controller->id;
-        // $actionName = $action->id;
-        // if (Yii::$app->admin->can($controller. '/*')) {
-        //     return true;
-        // }
-        // if (Yii::$app->admin->can($controller. '/'. $actionName)) {
-        //     return true;
-        // }
-        // throw new \yii\web\UnauthorizedHttpException('对不起，您没有访问'. $controller. '/'. $actionName. '的权限');
-         return true;
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+        $controller = $action->controller->id;
+        $actionName = $action->id;
+        if ($controller == 'index'){ //index控制器不需验证
+            return true;
+        }
+        if (Yii::$app->user->can($controller. '/*')) {
+            return true;
+        }
+        if (Yii::$app->user->can($controller. '/'. $actionName)) {
+            return true;
+        }
+        throw new \yii\web\UnauthorizedHttpException('对不起，您没有访问'. $controller. '/'. $actionName. '的权限');
+         return false;
     }
-
     public function init()
     {
         // var_dump(Yii::$app->controller);

@@ -58,7 +58,6 @@ ifleft:boolean=false;
       this.qx = data.info.qx;
       this.userimage = "assets/images/jsimg/" + this.userdata.userId + ".jpg?" + Math.random();
       this.modeldata = this.userdata;
-      console.log(this.modeldata)
     })
 
     )
@@ -85,10 +84,7 @@ ifleft:boolean=false;
     });
     // C: 定义事件，选择文件
     selectedFileOnChanged(event:any) {
-      console.log(this.userdata.userid);
-      
         // 打印文件选择名称
-        console.log(event.target.value);
     }
     // D: 定义事件，上传文件
     uploadFile() {
@@ -119,15 +115,14 @@ ifleft:boolean=false;
   zxrsdata() {
     this.zxrs.subscribe((data) => {
       this.rs = data;
-      console.log(data);
     })
   }
 
   changeleft(name) {
-  //   if(name != 'grbg' && this.qx.indexOf(name+'/') == -1 ){
-  //     this.tsk.tsk('对不起，您的权限不足！');
-  //     return;
-  // }else{
+    if(name != 'grbg' && this.qx.indexOf(name+'/') == -1 ){
+      this.tsk.tsk('对不起，您的权限不足！');
+      return;
+  }else{
     this.xsgl = false;
     this.zcgl = false;
     this.grbg = false;
@@ -155,12 +150,12 @@ ifleft:boolean=false;
       this.xtsz = true;
       this.menu_title = '系统设置'; 
     }
-  //  }
+   }
   }
   Logout() {
     this.http.get('/oa/basic/web/index.php?r=index/logout').subscribe((data) => {
       if (data.json() == 1) {
-        console.log('退出成功');
+this.tsk.tsk('退出成功！')
         this.router.navigate(['login'])
       }
     })
@@ -181,8 +176,6 @@ qxsczp(){
 }
 
   submit() {
-    console.log("submit按钮按下了");
-    console.log(this.modeldata);
     var creds = 'sex=' + this.modeldata.sex + "&email=" + this.modeldata.email + "&phone=" + this.modeldata.phone;
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
@@ -197,8 +190,7 @@ $("#qxan").click();
     })
   }
 
-open_password(content){
-  console.log('修改密码模态框该出现了');
+open_password(){
  $("#qxan").click();
 }
 

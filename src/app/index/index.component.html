@@ -95,8 +95,6 @@
 						<td>{{modeldata.username}}</td>
 						<td style="width:30%;height:200px;" rowspan="4">
 						<img class="img-thumbnail" height="180" width="180" src="{{userimage}}" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">
-						<!--<img src="{{userimage}}" height="60" width="60" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">-->
-						<!--<input [hidden]='ifsczp' type="file" file-model="jsimg" name='jsimg' id="jsimg" accept="image/jpeg">-->
 						<div [hidden]='ifsczp'>
 						<p  style="color:#ff0000;">温馨提示：照片格式应为jpg<br>照片大小不超过500KB</p>
 						<input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />
@@ -137,17 +135,8 @@
 		</button>
         
 		<button class="btn btn-sm btn-info" (click)="zpsc()">更换照片</button>
-			<button class="btn btn-sm btn-info" (click)="open_password()" data-toggle="modal" data-target="#myModalt">
-				修改密码
-			</button>
-		<button class="btn btn-primary" (click)="submit()">
-			确认修改
-		</button>
-				<!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-				</button>
-				<button type="button" class="btn btn-primary">
-					提交更改
-				</button>-->
+		<button class="btn btn-sm btn-info" (click)="open_password()" data-toggle="modal" data-target="#myModalt">修改密码</button>
+		<button class="btn btn-primary" (click)="submit()">确认修改</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
@@ -195,11 +184,6 @@
 		<button class="btn btn-primary" (click)="xgmm()">
 			确认修改
 		</button>
-				<!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-				</button>
-				<button type="button" class="btn btn-primary">
-					提交更改
-				</button>-->
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
