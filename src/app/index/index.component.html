@@ -20,7 +20,7 @@
 <div class="dibu"></div>
 </div>
 <!-- 左侧菜单栏 -->
-<div class="left" [style.height]="height + 'px'" [class.left-hide-l]="ifleft">
+<div class="menu-left" [style.height]="height + 'px'" [class.left-hide-l]="ifleft">
 	<div class="kzt"></div>
 	<div class="ycleft" [class.hidden]="ifleft" (click)="lefthide()"><i class="ion-chevron-left"></i></div>
 	<div class="ycleft" style="display:block" [class.hidden]="!ifleft" (click)="lefthide()"><i class="ion-chevron-right"></i></div>
@@ -65,7 +65,7 @@
 </div>
 </div>
 <!--右侧操作显示区-->
- <div [style.height]="height + 'px'" class="right" id='right' [class.left-hide-r]="ifleft">
+ <div [style.height]="height + 'px'" class="nr-right" id='right' [class.left-hide-r]="ifleft">
 	 
 <router-outlet></router-outlet>
 

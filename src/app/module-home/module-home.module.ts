@@ -6,6 +6,7 @@ import { TodoComponent } from './todo/todo.component';
 import { WeatherComponent } from './weather/weather.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { CarouselComponent } from './carousel/carousel.component';
 
 const Routes=[
   {
@@ -28,6 +29,7 @@ const Routes=[
   declarations: [
     ModuleHomeComponent, 
     TodoComponent,
-    WeatherComponent]
+    WeatherComponent,
+    CarouselComponent]
 })
 export class HomeModule { }

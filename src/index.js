@@ -25,9 +25,9 @@ $(this). addClass('active_2')
 //**********************************
 //整体页面控制程序
 //**********************************
-function ckkz(){
+function ckkz() {
 	$("body").css("height",$(window).height());
-    $(".right,.left").css("height",$(window).height()-100);
+    $(".nr-right,.menu-left").css("height",$(window).height()-100);
 	$(".menu_ul").css("height",$(window).height()-100-232);
 }
 // 文档加载完自动执行
@@ -57,8 +57,7 @@ function menuOut(obj) {
     imgObj.attr("src", imgObj.attr("normalSrc"));
 }
 // 提示框
-function tsk(ts)
-{
+function tsk(ts) {
     $("#jgk").append("<div style='letter-spacing:2px;' id='myAlert' class='alert alert-danger fade in'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&times;</button><strong>"+ts+"</strong>");
     setTimeout("$('#myAlert').remove()",2000)
 }

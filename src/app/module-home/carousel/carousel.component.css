@@ -1,0 +1,13 @@
+.carousel{
+    height: 366px;
+    background-color: #fff;
+}
+.carousel .item{
+    height: 366px;
+    background-color: #fff;
+    
+}
+.carousel img{
+    height: 366px;
+     width:100%;
+}

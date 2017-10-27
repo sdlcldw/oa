@@ -67,7 +67,9 @@ ifleft:boolean=false;
 
     this.zxrsdata();
     setInterval(() => { this.zxrsdata() }, 2000 * 60);
-
+    
+           
+   
 }
     // 回退
     goBack(): void {
@@ -163,9 +165,9 @@ this.tsk.tsk('退出成功！')
 
 // 个人资料模态框操作方法
 
-open(){
-  $("#username").click();
-}
+// open(){
+//   $("#username").click();
+// }
 
 
 zpsc(){
@@ -183,16 +185,16 @@ qxsczp(){
     .map((res)=>res.json()).subscribe(data=>{
 if(data == 1){
   alert('修改成功！');
-$("#qxan").click();
+// $("#qxan").click();
 }else{
   alert("修改失败！")
 }
     })
   }
 
-open_password(){
- $("#qxan").click();
-}
+// open_password(){
+//  $("#qxan").click();
+// }
 
 
 
@@ -222,7 +224,7 @@ xgmm(){
                         }
                         if(data == 1){
                             alert('修改密码成功！');
-                             $("#qxant").click();
+                            //  $("#qxant").click();
                         }
                         this.xmm="";this.ymm="";this.qrxmm="";
     })

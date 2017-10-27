@@ -68,7 +68,7 @@ min-width:1200px;
 	bottom:50px;
 	z-index:100;
 }
-.left {
+.menu-left {
 padding:0;
 width:220px;
 margin:15px 0 0 15px;
@@ -269,7 +269,7 @@ margin-top: 1px;
 	overflow-x:hidden;
 	
 }
-.right{
+.nr-right{
 padding: 0;
 margin:15px 15px 0 250px;
 }
