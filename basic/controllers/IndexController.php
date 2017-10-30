@@ -48,17 +48,31 @@ class IndexController extends CommonController
 				return "2"; //用户名和绑定的邮箱不匹配
 			}else{
 					$time = time();
-					$token = md5(md5($command['Id']).base64_decode(Yii::$app->request->userIP).md5($time));
-					$url = "http://localhost:4200/#/seekpwxg&timestamp=".$time."&id=".$command['Id']."&token=".$token;
-					$body="尊敬的".$post['username']."您好：您的找回密码链接如下：".$url."，该链接5分钟内有效，请勿传递给别人！该邮件为系统自动发送，请勿回复！";
+					$token = md5(md5($command['Id']).base64_decode('666888').md5($time));
+					$url = "http://localhost/oa/basic/web/index.php?r=index/seekpasswordxg&timestamp=".$time."&id=".$command['Id']."&token=".$token;
+					$body="尊敬的".$post['username']."您好：\r\n您的找回密码链接如下：\r\n".$url."\r\n，该链接5分钟内有效，请勿传递给别人！\r\n该邮件为系统自动发送，请勿回复！";
 					$data = $this->email($post['email'],'聊城育才学校在线办公平台——找回密码',$body);
 					Yii::$app->response->format=Response::FORMAT_JSON;
 				   return $data;
-				//    return $url;
 				}
 		}
 		return false;
 	}	
+	public function actionSeekpasswordxg(){
+		// $time= Yii::$app->request->get("timestamp");
+		// $userid= Yii::$app->request->get("id");
+		// $token= Yii::$app->request->get("token");
+		// $mytoken =  md5(md5($userid).base64_decode('666888').md5($time));
+		// if($token != $mytoken){
+		// 	return '非法访问！';
+		// }
+		// if(time() - $time > 300){
+		// 	return '该链接已经失效！';
+		// }
+		return $this->render("mailchangepass");
+		// return 'time:'.$time.'id'.$userid."token:".$token."mytoken:".$mytoken;
+		
+	}		
 
 
 //阿里云虚拟主机适用的email发送方法
@@ -72,9 +86,7 @@ class IndexController extends CommonController
     $headers = "Content-Type: text/plain; charset=\"utf8\"\r\nContent-Transfer-Encoding: base64";
     $lb="\r\n";                    //linebreak
         $hdr = explode($lb,$headers);     //解析后的hdr
-    // if($body) {$bdy = preg_replace("/^\./","..",explode($lb,$body));}//解析后的Body
-    // if($body) {$bdy = preg_replace("/^\./","..",explode($lb,$body));}//解析后的Body
-
+	if($body) {$bdy = preg_replace("/^\./","..",explode($lb,$body));}//解析后的Body
         $smtp = array(
                 //1、EHLO，期待返回220或者250
                 array("EHLO ".$loc_host.$lb,"220,250","HELO error: "),
@@ -101,17 +113,15 @@ class IndexController extends CommonController
         //8.4、发送一个空行，结束Header发送
         $smtp[] = array($lb,"","");
         //8.5、发送信件主体
-        // if($bdy) {foreach($bdy as $b) {$smtp[] = array(base64_encode($b.$lb).$lb,"","");}}
-        if($body) {$smtp[] = $body;}
+		if($bdy) {foreach($bdy as $b) {$smtp[] = array(base64_encode($b.$lb).$lb,"","");}}
         //9、发送“.”表示信件结束，期待返回250
         $smtp[] = array(".".$lb,"250","DATA(end)error: ");
         //10、发送Quit，退出，期待返回221
-        $smtp[] = array("QUIT".$lb,"221","QUIT error: ");
+		$smtp[] = array("QUIT".$lb,"221","QUIT error: ");
         //打开smtp服务器端口
         $fp = @fsockopen($smtp_host, 25);
         if (!$fp) echo "Error: Cannot conect to ".$smtp_host."";
         while($result = @fgets($fp, 1024)){if(substr($result,3,1) == " ") { break; }}
-       
         $result_str="";
         //发送smtp数组中的命令/数据
         foreach($smtp as $req){
@@ -139,7 +149,7 @@ class IndexController extends CommonController
 
 
 	public function actionCs(){
-		 $data = $this->email('626289360@qq.com','聊城育才学校在线办公平台——找回密码','你的密码是。。。。');
+		 $data = $this->email('626289360@qq.com','聊城育才学校在线办公平台——找回密码','你的\</.密码是。。。。该链接5分钟内有效，请勿传递给别人！该邮件为系统自动发送，请勿回复！');
 		 Yii::$app->response->format=Response::FORMAT_JSON;		 
 		return $data;
 		}
