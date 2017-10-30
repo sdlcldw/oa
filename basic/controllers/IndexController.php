@@ -47,12 +47,14 @@ class IndexController extends CommonController
 			if(!$command){
 				return "2"; //用户名和绑定的邮箱不匹配
 			}else{
-					$url = "www.zhaohuimima.com";
-					$body="尊敬的".$post['username']."您好：您的找回密码链接如下：<a href='#'>".$url."</a>，该链接5分钟内有效，请勿传递给别人！该邮件为系统自动发送，请勿回复！";
-					// $data = $this->email($post['email'],'聊城育才学校在线办公平台——找回密码',$body);
-					$data = $this->email('sdlcldw@163.com','聊城育才学校在线办公平台——找回密码',$body);
+					$time = time();
+					$token = md5(md5($command['Id']).base64_decode(Yii::$app->request->userIP).md5($time));
+					$url = "http://localhost:4200/#/seekpwxg&timestamp=".$time."&id=".$command['Id']."&token=".$token;
+					$body="尊敬的".$post['username']."您好：您的找回密码链接如下：".$url."，该链接5分钟内有效，请勿传递给别人！该邮件为系统自动发送，请勿回复！";
+					$data = $this->email($post['email'],'聊城育才学校在线办公平台——找回密码',$body);
 					Yii::$app->response->format=Response::FORMAT_JSON;
 				   return $data;
+				//    return $url;
 				}
 		}
 		return false;
@@ -70,7 +72,8 @@ class IndexController extends CommonController
     $headers = "Content-Type: text/plain; charset=\"utf8\"\r\nContent-Transfer-Encoding: base64";
     $lb="\r\n";                    //linebreak
         $hdr = explode($lb,$headers);     //解析后的hdr
-    if($body) {$bdy = preg_replace("/^\./","..",explode($lb,$body));}//解析后的Body
+    // if($body) {$bdy = preg_replace("/^\./","..",explode($lb,$body));}//解析后的Body
+    // if($body) {$bdy = preg_replace("/^\./","..",explode($lb,$body));}//解析后的Body
 
         $smtp = array(
                 //1、EHLO，期待返回220或者250
@@ -98,7 +101,8 @@ class IndexController extends CommonController
         //8.4、发送一个空行，结束Header发送
         $smtp[] = array($lb,"","");
         //8.5、发送信件主体
-        if($bdy) {foreach($bdy as $b) {$smtp[] = array(base64_encode($b.$lb).$lb,"","");}}
+        // if($bdy) {foreach($bdy as $b) {$smtp[] = array(base64_encode($b.$lb).$lb,"","");}}
+        if($body) {$smtp[] = $body;}
         //9、发送“.”表示信件结束，期待返回250
         $smtp[] = array(".".$lb,"250","DATA(end)error: ");
         //10、发送Quit，退出，期待返回221

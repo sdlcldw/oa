@@ -22,6 +22,7 @@ import { MenuXtszComponent } from './menu-xtsz/menu-xtsz.component';
 import { User_infoResolve } from 'app/guard/user_info.resolve';
 import { QxGuard } from 'app/guard/qx.guard';
 import { SeekpasswordComponent } from './seekpassword/seekpassword.component';
+import { SeekpasswordXgComponent } from './seekpassword-xg/seekpassword-xg.component';
 
 
 
@@ -29,6 +30,7 @@ const routeConfig: Routes = [
   {path: '',  pathMatch: 'full',redirectTo: 'index'},
   {path: 'login', component:LoginComponent,canActivate:[ExitGuard]},
   {path: 'seekpw', component:SeekpasswordComponent,canActivate:[ExitGuard]},
+  {path: 'seekpwxg', component:SeekpasswordXgComponent,canActivate:[ExitGuard]},
   {path: 'index', component:IndexComponent,
     children:[
       {path:'',pathMatch: 'full',redirectTo: 'home'},
@@ -53,7 +55,8 @@ const routeConfig: Routes = [
     MenuRsglComponent,
     MenuCwptComponent,
     MenuXtszComponent,
-    SeekpasswordComponent
+    SeekpasswordComponent,
+    SeekpasswordXgComponent
   ],
   imports: [
     BrowserModule,
