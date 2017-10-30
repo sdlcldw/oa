@@ -59,19 +59,28 @@ class IndexController extends CommonController
 		return false;
 	}	
 	public function actionSeekpasswordxg(){
-		// $time= Yii::$app->request->get("timestamp");
-		// $userid= Yii::$app->request->get("id");
-		// $token= Yii::$app->request->get("token");
-		// $mytoken =  md5(md5($userid).base64_decode('666888').md5($time));
-		// if($token != $mytoken){
-		// 	return '非法访问！';
-		// }
-		// if(time() - $time > 300){
-		// 	return '该链接已经失效！';
-		// }
-		return $this->render("mailchangepass");
-		// return 'time:'.$time.'id'.$userid."token:".$token."mytoken:".$mytoken;
+		$this->layout = false;
+		$time= Yii::$app->request->get("timestamp");
+		$userid= Yii::$app->request->get("id");
+		$token= Yii::$app->request->get("token");
+		$mytoken =  md5(md5($userid).base64_decode('666888').md5($time));
+		if($token != $mytoken){
+			return '非法访问！';
+		}
+		if(time() - $time > 300){
+			return '该链接已经失效！';
+		}
+		$model = new User;
+		if (Yii::$app->request->isPost){
+			$post = Yii::$app->request->post();
+			if($model->changepass($post)){
+				Yii::$app->session->setFlash('info','密码修改成功！');
+			}
+		}
 		
+		$model->userid = $userid;
+		return $this->render("mailchangepass",['model' => $model]);
+		// return 'time:'.$time.'id'.$userid."token:".$token."mytoken:".$mytoken;
 	}		
 
 
@@ -149,9 +158,7 @@ class IndexController extends CommonController
 
 
 	public function actionCs(){
-		 $data = $this->email('626289360@qq.com','聊城育才学校在线办公平台——找回密码','你的\</.密码是。。。。该链接5分钟内有效，请勿传递给别人！该邮件为系统自动发送，请勿回复！');
-		 Yii::$app->response->format=Response::FORMAT_JSON;		 
-		return $data;
+		return $this->render("index");
 		}
 	
 	public function actionUp_time(){

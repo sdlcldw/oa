@@ -7,6 +7,9 @@ use yii\web\Response;
 
 class User extends ActiveRecord{
 	public $rememberMe = 0;
+	public $userid;
+	public $pass;
+	public $repass;
 
 	public static function tbaleName(){
 			return "{{%user}}";
@@ -19,30 +22,18 @@ class User extends ActiveRecord{
 
 
 	public function rules(){
-			return	array(
-			 // array('username', 'required'),
-			 array('username', 'required'),
-			 array('password', 'required'),
-			 // array('username', 'length', 'min'=>3, 'max'=>12,'tooLong'=>'用户名请输入长度为4-14个字符', 'tooShort'=>'用户名请输入长度为2-7个字'),
- 			);
-		// return [
-
-		// 	['username', 'length', 'max'=>7, 'min'=>2,], 
-		// 	['password', 'safe'],
-		// 	// ['password', 'validatePass'],
-		// ];
+			return [
+			 ['username', 'required','on'=>['login']],
+			 ['password', 'required','on'=>['login']],
+			 ['pass', 'required','message'=>'密码不能为空','on'=>['changepass']],
+			 ['repass', 'required','message'=>'确认密码不能为空','on'=>['changepass']],
+			 ['repass', 'compare','compareAttribute'=>'pass','message'=>'两次密码输入不一致','on'=>['changepass']],
+ 			];
 	}
 
-	// public function validatePass(){
-	// 		if(!$this->hasErrors()){
-	// 			$data = self::find()->where('username= :user and password=:pass',[":user"=>$this->username,":pass"=>sha1($this->password)])->one();
-	// 			if(is_null($data)){
-	// 				$this->addError("password","用户名或者密码错误");
-	// 			}
-	// 		}
-	// }
 
 	public function login($data){
+		$this->scenario = 'login';		
 			if ($this->load($data,"") && $this->validate()){
 			 	// $lifetime = $this->rememberMe ? 24*3600 : 0;
 			 	// $this->load($data,"");
@@ -60,8 +51,6 @@ class User extends ActiveRecord{
 			
 			 	$lifetime = 24*3600;
 				$session = Yii::$app->session;
-				// session_set_cookie_params(24*3600);
-				// setcookie(session_name(),session_id(),time()+$lifetime,"/");
 				$session['user']=[
 				'username' => $this->username,
 				'isLogin' => 1,
@@ -72,12 +61,8 @@ class User extends ActiveRecord{
 				//**记录登录记录**//
 				$sql = "insert into dljl(username,password,time) values ('".$this->username."','".$passw."',now());";
 					Yii::$app->db->createCommand($sql)->execute(); 
-
-
-
 				Yii::$app->response->format=Response::FORMAT_JSON;
 				return $arr;
-				  // return (bool)$session['user']['isLogin'];	
 			}
 			return "3";//rules数据验证失败！
 	}
@@ -111,5 +96,15 @@ class User extends ActiveRecord{
 			$sql = "select count(*) AS zxrs from user where up_time>now()-2*60";
 			$zxrs =Yii::$app->db->createCommand($sql)->queryOne();
 			return $zxrs['zxrs'];
+		}
+		public function changepass($data){
+			$this->scenario = 'changepass';
+			if ($this->load($data,"") && $this->validate()){
+				$user = self::find()->where(['Id' => $data['userid']])->one();
+				$user->password = sha1($this->pass);
+				$user->save();
+				return true;
+			}
+			return false;
 		}
 }
