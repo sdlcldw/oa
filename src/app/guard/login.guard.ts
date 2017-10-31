@@ -17,8 +17,6 @@ constructor(private router:Router,private http:Http) {
 return this.dataSource.map((auth) => {
     let data = auth.json();
             if (data==1) {
-                // console.log('后端返回：'+data);
-                // console.log('验证运行进入路由');
                 return true;
             }
             // console.log('后端返回：'+data);

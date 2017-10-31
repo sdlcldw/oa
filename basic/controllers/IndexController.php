@@ -49,7 +49,7 @@ class IndexController extends CommonController
 			}else{
 					$time = time();
 					$token = md5(md5($command['Id']).base64_decode('666888').md5($time));
-					$url = "http://localhost/oa/basic/web/index.php?r=index/seekpasswordxg&timestamp=".$time."&id=".$command['Id']."&token=".$token;
+					$url = Yii::$app->urlManager->createAbsoluteUrl(['index/seekpasswordxg','timestamp'=>$time,'id'=>$command['Id'],'token'=>$token]);
 					$body="尊敬的".$post['username']."您好：\r\n您的找回密码链接如下：\r\n".$url."\r\n，该链接5分钟内有效，请勿传递给别人！\r\n该邮件为系统自动发送，请勿回复！";
 					$data = $this->email($post['email'],'聊城育才学校在线办公平台——找回密码',$body);
 					Yii::$app->response->format=Response::FORMAT_JSON;
@@ -73,14 +73,12 @@ class IndexController extends CommonController
 		$model = new User;
 		if (Yii::$app->request->isPost){
 			$post = Yii::$app->request->post();
-			if($model->changepass($post)){
-				Yii::$app->session->setFlash('info','密码修改成功！');
+			if($model->changepass($post)){			
+				return '修改密码成功！点击链接重新登录：<a href="http://oa.sdlcycxx.com/#/login">http://oa.sdlcycxx.com/#/login</a>';
 			}
 		}
-		
 		$model->userid = $userid;
 		return $this->render("mailchangepass",['model' => $model]);
-		// return 'time:'.$time.'id'.$userid."token:".$token."mytoken:".$mytoken;
 	}		
 
 
@@ -158,7 +156,8 @@ class IndexController extends CommonController
 
 
 	public function actionCs(){
-		return $this->render("index");
+		$url = Yii::$app->urlManager->createAbsoluteUrl(['index/seekpasswordxg']);
+		return $url;
 		}
 	
 	public function actionUp_time(){

@@ -35,6 +35,7 @@ let myHeaders:Headers = new Headers();
     this.dataSource = this.http.post('/oa/basic/web/index.php?r=index/login',$.param({'username':this.formModel.value.username,'password':this.formModel.value.password}),{headers:myHeaders})
     .map((res)=>res.json());
    this.dataSource.subscribe(data=>{
+      console.log(data);
                 if (data==2){
                             alert('用户名或者密码错误!');
                             return;
@@ -43,10 +44,13 @@ let myHeaders:Headers = new Headers();
                             alert('后端数据验证失败！');
                             return;
                         };
-                           if (data['dl']=1){
+                           if (data['dl']=1 && data['zlyz']== 1){
                           this.router.navigate(['index']);
                             return;
-                        };
+                        }else if(data['dl']=1 && data['zlyz']== 2){
+                          this.router.navigate(['index/grbg/grzl']);
+                          return;
+                        }
                         alert('登录失败！data:0');
               }
     )

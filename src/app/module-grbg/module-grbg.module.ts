@@ -10,13 +10,15 @@ import { TxlComponent } from './txl/txl.component';
 import { GjcjtxlComponent } from './gjcjtxl/gjcjtxl.component';
 import { WdzsComponent } from './wdzs/wdzs.component';
 import { BrsyComponent } from './brsy/brsy.component';
+import { GrzlComponent } from './grzl/grzl.component';
 
 const Routes=[
   {path:'gzcx',component:GzcxComponent,},
-{path:'txl',component:TxlComponent,},
-{path:'wdzs',component:WdzsComponent,},
-{path:'gjcjtxl',component:GjcjtxlComponent,},
-{path:'brsy',component:BrsyComponent,},
+  {path:'txl',component:TxlComponent,},
+  {path:'wdzs',component:WdzsComponent,},
+  {path:'gjcjtxl',component:GjcjtxlComponent,},
+  {path:'brsy',component:BrsyComponent,},
+  {path:'grzl',component:GrzlComponent,},
 ];
 
 @NgModule({
@@ -26,6 +28,6 @@ const Routes=[
     RouterModule.forChild(Routes),
     Ng2SmartTableModule
   ],
-  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent]
+  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent]
 })
 export class GrbgModule { }

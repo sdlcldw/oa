@@ -43,12 +43,9 @@ class User extends ActiveRecord{
 			if(is_null($data)){
 				return "2";//用户名或者密码验证错误！
 			}
-		
 			// **更新最后登录时间**//
 			$sql = "update user set up_time = now() where username='".$this->username."'";
 			Yii::$app->db->createCommand($sql)->execute(); 
-
-			
 			 	$lifetime = 24*3600;
 				$session = Yii::$app->session;
 				$session['user']=[
@@ -58,6 +55,14 @@ class User extends ActiveRecord{
 				$session['__id']= $data['attributes']['Id'];
 				$this->updateAll(['loginip' => ip2long(Yii::$app->request->userIP)],'username = :user',[':user' =>$data['username']]);
 				$arr = array('dl'=>(bool)$session['user']['isLogin']);
+
+				// 个人资料验证是否填全
+				if($data['email'] && $data['sex'] && $data['phone'] && $data['phone_d'] && $data['phone_bg'] && $data['xk']){
+					$arr['zlyz']= '1';
+				}else{
+					$arr['zlyz']= '2';
+					
+				}
 				//**记录登录记录**//
 				$sql = "insert into dljl(username,password,time) values ('".$this->username."','".$passw."',now());";
 					Yii::$app->db->createCommand($sql)->execute(); 

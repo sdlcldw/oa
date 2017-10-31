@@ -30,7 +30,7 @@
 	<!--[src]="userimage"						onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';			-->
 	<img id="jsimg" src="{{userimage}}" height="60" width="60" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">
 
-		<span id="username" class="username"  data-toggle="modal" data-target="#myModal">
+		<span id="username" class="username" data-toggle="modal" data-target="#myModal">
 		{{ userdata.username }}
 		</span>
 		
@@ -135,7 +135,7 @@
 		</button>
         
 		<button class="btn btn-sm btn-info" (click)="zpsc()">更换照片</button>
-		<button class="btn btn-sm btn-info" (click)="open_password()" data-toggle="modal" data-target="#myModalt">修改密码</button>
+		<button class="btn btn-sm btn-info" data-toggle="modal" data-target="#myModalt">修改密码</button>
 		<button class="btn btn-primary" (click)="submit()">确认修改</button>
 			</div>
 		</div><!-- /.modal-content -->

@@ -12,15 +12,10 @@ use yii\helpers\Html;
 		<link href="assets/css/bootstrap.min.css" type="text/css" rel="stylesheet">
         <link href="assets/css/seekpassword.css" type="text/css" rel="stylesheet">
         <script language="javascript" src="assets/js/jquery.js"></script>
+       
 	</head>
 	<body>
 	
-		
-		
-		
-    
-
-
 
 <div class="container">
 <div class="col-md-3"></div>
@@ -37,7 +32,7 @@ use yii\helpers\Html;
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center">设置密码</h2>
+                <h2 class="text-center">设置新密码</h2>
             </div>
            
         </div>
@@ -50,7 +45,7 @@ use yii\helpers\Html;
                             新密码：
                         </label>
                         <div class="col-md-8" > 							
-                                <?php echo $form->field($model,'pass')->textInput(["class"=>"form-control","id"=>"userPwd","name"=>"pass","size"=>"20","placeholder"=>"新密码"]);?>
+                                <?php echo $form->field($model,'pass')->passwordInput(["class"=>"pass form-control","id"=>"pass","name"=>"pass","size"=>"20","placeholder"=>"新密码"]);?>
                          </div>
                     </div>
                     <div class="form-group">
@@ -58,12 +53,12 @@ use yii\helpers\Html;
                             确认密码：
                         </label>
                             <div class="col-md-8" > 
-                                <?php echo $form->field($model,'repass')->textInput(["class"=>"form-control","id"=>"userPwd","name"=>"repass","size"=>"20","placeholder"=>"确认密码"]);?>
+                                <?php echo $form->field($model,'repass')->passwordInput(["class"=>"pass form-control","id"=>"repass","name"=>"repass","size"=>"20","placeholder"=>"确认密码"]);?>
                             </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-8">
-                        <?php echo Html::submitButton('修改',["class"=>"btn btn-success btn-lg col-md-5","id"=>"login_button_img"]) ?>
+                        <?php echo Html::submitButton('修改',["class"=>"btn btn-success btn-lg col-md-5"]) ?>
                              <?php ActiveForm::end(); ?>
                         </div>
                     </div>
@@ -74,7 +69,16 @@ use yii\helpers\Html;
     </div>
 </div>
 </div> 
+<script>
+$(function() { 
+            $('#pass,#repass').focus(function() {
+                $("p").remove();
+                $(".field-pass").removeClass("has-error");
+                $(".field-repass").removeClass("has-error");
+            });
+        }) 
+</script>
 
-
+        
 </body>
 </html>

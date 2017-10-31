@@ -38,11 +38,13 @@ onSubmit(){
   myHeaders.append("Content-Type","application/json; charset=UTF-8");
   this.http.post("/oa/basic/web/index.php?r=index/seekpassword",data, { headers: myHeaders }).toPromise().then((response) => {
      let data = response.json();
-    console.log(data);
     if(data==2){
       this.tsk.tsk('电子邮箱与用户不匹配！');
+    }else if(data == 'success'){
+      this.tsk.cg('发送成功，请登录邮箱按提示修改密码！',8000);
+      this.router.navigate(['login']);
     }else{
-
+      this.tsk.tsk('系统错误，请联系管理员！',3000);
     }
 });
  }
