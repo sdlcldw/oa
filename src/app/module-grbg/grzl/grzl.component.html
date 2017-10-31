@@ -7,75 +7,100 @@
 	<!-- 内容区域开始 -->
 	<hr>
 	<div class="col-sm-8">
-	<div class="panel panel-info">
-		<div class="panel-heading">
-			<h3 class="panel-title">个人信息修改</h3>
-		</div>
-		<div class="panel-body">
+		<form class="form-horizontal" role="form" [formGroup]="formModel" (submit)="onSubmit()">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">个人信息修改</h3>
+				</div>
+				<div class="panel-body">
 
-			<form class="form-horizontal" role="form" [formGroup]="formModel" (submit)="onSubmit()">
-
-				<div class="form-group">
-					<label for="firstname" class="col-sm-2 control-label">用&ensp;户&ensp;名</label>
-					<div class="col-sm-4">
-						<input type="text" class="form-control" id="firstname" disabled formControlName="username">
+					<div class="form-group">
+						<label for="firstname" class="col-sm-2 control-label">用&ensp;户&ensp;名</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="firstname" formControlName="username">
+						</div>
+						<label for="firstname" class="col-sm-2 control-label">身份证号</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="firstname" placeholder="（选填）" formControlName="sfzhm">
+							<div *ngIf="sfzhm.invalid && (email.dirty || sfzhm.touched)" class="col-md-12">
+									<div class="error" *ngIf="sfzhm.errors.maxlength">身份证号码应不超过18位</div>
+							</div>
+						</div>
 					</div>
-					<label for="firstname" class="col-sm-2 control-label">身份证号</label>
-					<div class="col-sm-4">
-						<input type="text" class="form-control" id="firstname" placeholder="（选填）" formControlName="sfzhm">
+
+					<div class="form-group">
+						<label for="firstname" class="col-sm-2 control-label">邮&ensp;&ensp;&ensp;&ensp;箱</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="firstname" placeholder="找回密码用（必填）" formControlName="email">
+							<div *ngIf="email.invalid && (email.dirty || email.touched)" class="col-md-12">
+									<div class="error" *ngIf="email.errors.required || email.errors.email">重要：邮箱是找回密码唯一途径，请认真填写。</div>
+									<div class="error" *ngIf="email.errors.email">邮箱格式不正确</div>
+							</div>
+						</div>
+						<label class="col-sm-2 control-label" for="name">性&ensp;&ensp;&ensp;&ensp;别</label>
+						<div class="col-sm-4">
+							<select class="form-control" formControlName="sex">
+								<option>男</option>
+								<option>女</option>
+							</select>
+						</div>
+						
+						
+					</div>
+
+					<div class="form-group">
+						<label for="firstname" class="col-sm-2 control-label">手机号码</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="firstname" placeholder="通讯录用（必填）" formControlName="phone">
+							<div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="col-md-12">
+									<div class="error" *ngIf="phone.errors.required">手机号为必填项</div>
+									<div class="error" *ngIf="phone.errors.minlength || phone.errors.maxlength">手机号应等于11位</div>
+							</div>
+						</div>
+						<label for="firstname" class="col-sm-2 control-label">手机短号</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="firstname" placeholder="没有填无（必填）" formControlName="phone_d">
+							<div *ngIf="phone_d.invalid && (phone_d.dirty || phone_d.touched)" class="col-md-12">
+									<div class="error" *ngIf="phone_d.errors.required">手机短号为必填项</div>
+									<div class="error" *ngIf="phone_d.errors.minlength">手机短号不应小于6位</div>
+									<div class="error" *ngIf="phone_d.errors.maxlength">手机短号不应大于11位</div>
+							</div>
+						</div>
+						
+					</div>
+
+
+					<div class="form-group">
+						<label for="firstname" class="col-sm-2 control-label">办公电话</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="firstname" placeholder="没有填无（必填）" formControlName="phone_bg">
+							<div *ngIf="phone_bg.invalid && (phone_bg.dirty || phone_bg.touched)" class="col-md-12">
+									<div class="error" *ngIf="phone_bg.errors.required">办公电话为必填项</div>
+									<div class="error" *ngIf="phone_bg.errors.minlength">办公电话不应小于5位</div>
+									<div class="error" *ngIf="phone_bg.errors.maxlength">办公电话不应大于12位</div>
+							</div>
+						</div>
+						<label for="firstname" class="col-sm-2 control-label">教学学科</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="firstname" placeholder="不上课可填无（必填）" formControlName="xk">
+							<div *ngIf="xk.invalid && (xk.dirty || xk.touched)" class="col-md-12">
+									<div class="error" *ngIf="xk.errors.required">教学学科为必填项</div>
+									<div class="error" *ngIf="xk.errors.maxlength">教学学科不应大于24位</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="panel-footer" style="height: 60px;">
+					<div class="form-group">								
+						<div class="col-sm-offset-8 col-sm-4">
+							<button type="submit" class="btn btn-success" [disabled]="formModel.invalid">&ensp;提&ensp;&ensp;交&ensp;</button>
+						</div>
 					</div>
 				</div>
 
-
-				<div class="form-group">
-					<label for="firstname" class="col-sm-2 control-label">邮&ensp;&ensp;&ensp;&ensp;箱</label>
-					<div class="col-sm-4">
-						<input type="text" class="form-control" id="firstname" placeholder="找回密码用（必填）" formControlName="email">
-					</div>			
-					<label class="col-sm-2 control-label" for="name">性&ensp;&ensp;&ensp;&ensp;别</label>
-					<div class="col-sm-4">
-					<select class="form-control" formControlName="sex">
-					  <option>男</option>
-					  <option>女</option>
-					</select>
-				</div>
-				</div>
-
-
-
-				<div class="form-group">
-					<label for="firstname" class="col-sm-2 control-label">手机号码</label>
-					<div class="col-sm-4">
-						<input type="text" class="form-control" id="firstname" placeholder="通讯录用（必填）" formControlName="phone">
-					</div>
-					<label for="firstname" class="col-sm-2 control-label">手机短号</label>
-					<div class="col-sm-4">
-						<input type="text" class="form-control" id="firstname" placeholder="没有填无（必填）" formControlName="phone_d">
-					</div>
-				</div>
-
-
-				<div class="form-group">
-					<label for="firstname" class="col-sm-2 control-label">办公电话</label>
-					<div class="col-sm-4">
-						<input type="text" class="form-control" id="firstname" placeholder="没有填无（必填）" formControlName="phone_bg">
-					</div>
-					<label for="firstname" class="col-sm-2 control-label">教学学科</label>
-					<div class="col-sm-4">
-						<input type="text" class="form-control" id="firstname" placeholder="不上课可填无（必填）" formControlName="xk">
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="panel-footer" style="height: 60px;">
-			<div class="form-group">
-				<div class="col-sm-offset-8 col-sm-4">
-					<button type="submit" class="btn btn-success">&ensp;提&ensp;&ensp;交&ensp;</button>
-				</div>
 			</div>
-		</div>
-
+		</form>
 	</div>
-</div>
 
 </div>

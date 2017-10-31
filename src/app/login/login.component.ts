@@ -14,15 +14,20 @@ import { TskService } from 'app/service/TskService';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   formModel:FormGroup; 
 dataSource:Observable<any>;
 fb:FormBuilder = new FormBuilder();
+
+
   constructor(private http:Http,private router:Router,private userinfo:UserService,private tsk:TskService) {
     this.formModel = this.fb.group({
       username: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
       password: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(24)]],
     })
   }
+
+  
   ngOnInit(){
  
   }

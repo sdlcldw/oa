@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GzcxComponent } from './gzcx/gzcx.component';
 import { TxlComponent } from './txl/txl.component';
 
@@ -26,7 +26,9 @@ const Routes=[
     CommonModule,
     HttpModule,
     RouterModule.forChild(Routes),
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    FormsModule, 
+    ReactiveFormsModule,
   ],
   declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent]
 })

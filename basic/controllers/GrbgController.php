@@ -72,7 +72,19 @@ public function actionBrsy_get(){
    Yii::$app->response->format=Response::FORMAT_JSON;
 	return $dataReader;
 }
-	
+
+public function actionGrzl_set(){
+	if (Yii::$app->request->isPost){ 
+		$ps = Yii::$app->request->post();
+		$session = Yii::$app->session;
+		$id = $session['__id'];
+		$sql = "UPDATE user SET sfzhm='".$ps['sfzhm']."',email='".$ps['email']."',sex='".$ps['sex']."',phone='".$ps['phone']."',phone_d='".$ps['phone_d']."',phone_bg='".$ps['phone_bg']."',xk='".$ps['xk']."' WHERE Id='".$id."';";
+		$ifok = Yii::$app->db->createCommand($sql)->execute();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+	return $ifok;
+	}
+	return false;
+}
 
 
 
