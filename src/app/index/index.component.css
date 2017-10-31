@@ -23,7 +23,7 @@
 .left-hide-r{
     margin: 15px 15px 0 15px;
 }
-.left,.right {
+.menu-left,.nr-right {
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
     transition: all 0.5s ease;
@@ -36,7 +36,7 @@
     height: 100%;
     width: 10px;
 }
-.left:hover .ycleft{
+.menu-left:hover .ycleft{
     display:block;
 }
 .kzt:hover .ycleft{
