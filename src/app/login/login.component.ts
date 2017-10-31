@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import 'rxjs/Rx';
 import * as $ from 'jquery';
 import { UserService } from 'app/service/UserService';
+import { TskService } from 'app/service/TskService';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   formModel:FormGroup; 
 dataSource:Observable<any>;
 fb:FormBuilder = new FormBuilder();
-  constructor(private http:Http,private router:Router,private userinfo:UserService) {
+  constructor(private http:Http,private router:Router,private userinfo:UserService,private tsk:TskService) {
     this.formModel = this.fb.group({
       username: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
       password: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(24)]],
@@ -37,17 +38,18 @@ let myHeaders:Headers = new Headers();
    this.dataSource.subscribe(data=>{
       console.log(data);
                 if (data==2){
-                            alert('用户名或者密码错误!');
+                            this.tsk.tsk('用户名或者密码错误!',3000);
                             return;
                         };
                         if (data==3){
-                            alert('后端数据验证失败！');
+                          this.tsk.tsk('后端数据验证失败！',3000);
                             return;
                         };
                            if (data['dl']=1 && data['zlyz']== 1){
                           this.router.navigate(['index']);
                             return;
                         }else if(data['dl']=1 && data['zlyz']== 2){
+                          this.tsk.tsk('系统提示：您的基本信息填写不完整，为更好的使用本系统，请先完善个人资料！',8000);                          
                           this.router.navigate(['index/grbg/grzl']);
                           return;
                         }
