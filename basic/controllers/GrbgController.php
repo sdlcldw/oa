@@ -73,7 +73,7 @@ public function actionBrsy_get(){
 	return $dataReader;
 }
 
-public function actionGrzl_set(){
+public function actionGrzl_update(){
 	if (Yii::$app->request->isPost){ 
 		$ps = Yii::$app->request->post();
 		$session = Yii::$app->session;
@@ -86,7 +86,21 @@ public function actionGrzl_set(){
 	return false;
 }
 
-
+public function actionGrzl_jc(){
+	$session = Yii::$app->session;
+	$id = $session['__id'];
+	$sql="select * from user where Id='".$id."';";
+	$data = Yii::$app->db->createCommand($sql)->queryOne();
+	if($data){
+		if($data['email'] && $data['sex'] && $data['phone'] && $data['phone_d'] && $data['phone_bg'] && $data['xk']){
+			return '2';
+		}else{
+			return 'false';
+		}
+	}
+	return 'false';
+}
+	
 
 
 

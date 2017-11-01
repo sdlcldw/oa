@@ -10,10 +10,10 @@ export class LoginGuard implements CanActivate{
 dataSource:Observable<any>;
 products;
 
-constructor(private router:Router,private http:Http) {
+constructor(private router:Router,private http:Http){
     this.dataSource = this.http.get('/oa/basic/web/index.php?r=index/islogin')
 }
- canActivate(){      
+ canActivate(){
 return this.dataSource.map((auth) => {
     let data = auth.json();
             if (data==1) {

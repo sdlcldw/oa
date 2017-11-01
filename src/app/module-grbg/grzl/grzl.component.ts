@@ -49,7 +49,7 @@ export class GrzlComponent implements OnInit {
   onSubmit(){
    let myHeaders:Headers = new Headers();
    myHeaders.append("Content-Type","application/json; charset=UTF-8");
-   this.http.post("/oa/basic/web/index.php?r=grbg/grzl_set",this.formModel.value, { headers: myHeaders }).toPromise().then((response) => {
+   this.http.post("/oa/basic/web/index.php?r=grbg/grzl_update",this.formModel.value, { headers: myHeaders }).toPromise().then((response) => {
       let data = response.json();
       if(data == 1){
       this.tsk.cg('个人资料修改成功');

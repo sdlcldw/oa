@@ -54,7 +54,7 @@ let myHeaders:Headers = new Headers();
                           this.router.navigate(['index']);
                             return;
                         }else if(data['dl']=1 && data['zlyz']== 2){
-                          this.tsk.tsk('系统提示：您的基本信息填写不完整，为更好的使用本系统，请先完善个人资料！',8000);                          
+                          this.tsk.tsk('系统检测：基本信息填写不完整，请先完善个人资料！',8000);                          
                           this.router.navigate(['index/grbg/grzl']);
                           return;
                         }
