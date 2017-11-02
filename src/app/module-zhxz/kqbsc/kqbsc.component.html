@@ -1,3 +1,63 @@
-<p>
-  kqbsc works!
-</p>
+<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">考勤数据上传
+  </div>
+</div>
+<div class="right_content" style="padding:5px;">
+<!-- 内容区域开始 -->
+<hr>
+<input type="file" name='kqb' ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />
+
+<a (click)="kqbyl()" class="btn btn-warning">考勤表预览</a>							
+<a (click)="kqbsc()" class="btn btn-warning">确认上传该考勤表</a>
+<hr>
+<div [hidden]="yangli">
+<p>考勤表格式样例</p>
+<img src="assets/images/htgzgs.png" class="img-thumbnail">
+</div>
+<div [hidden]="ifkqb">
+<table class="table table-bordered">
+<caption>以下为考勤表预览内容：</caption>
+<caption>共{{kqbdata.length}}条考勤数据</caption>
+<thead>
+<tr>
+  <th>序号</th>
+  <th>考勤号码</th>
+  <th>姓名</th>
+  <th>日期</th>
+  <th>对应时段</th>
+  <th>上班时间</th>
+  <th>下班时间</th>
+  <th>签到时间</th>
+  <th>签退时间</th>
+  <th>迟到时间</th>
+  <th>早退时间</th>
+  <th>是否旷工</th>
+  <th>工作时间</th>
+  <th>例外情况</th>
+  <th>部门</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let x of kqbdata; let i=index">
+<td>{{ i + 1 }}</td>
+<td>{{ x.kqhm }}</td>
+<td>{{ x.xm }}</td>
+<td>{{ x.rq }}</td>
+<td>{{ x.dysd }}</td>
+<td>{{ x.sbsj }}</td>
+<td>{{ x.xbsj }}</td>
+<td>{{ x.qdsj }}</td>
+<td>{{ x.qtsj }}</td>
+<td>{{ x.cdsj }}</td>
+<td>{{ x.ztsj }}</td>
+<td>{{ x.sfkg }}</td>
+<td>{{ x.gzsj }}</td>
+<td>{{ x.lwqk }}</td>
+<td>{{ x.bm }}</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- 内容区域结束 -->
+</div>
+
