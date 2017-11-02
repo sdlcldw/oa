@@ -7,6 +7,7 @@ import { Observable } from "rxjs/Observable";
 import * as $ from 'jquery';
 import 'rxjs/Rx';
 import { UserService } from "../../service/UserService";
+import { TskService } from 'app/service/TskService';
 
 
 
@@ -22,7 +23,7 @@ export class CjxsComponent implements OnInit {
   imageurl = "/oa/basic/web/lcedu/loading20.gif";
   txan:boolean = true;
 
-  constructor(fb: FormBuilder, private http: Http, private router: Router,private user:UserService) { 
+  constructor(fb: FormBuilder, private http: Http, private router: Router,private user:UserService,private tsk: TskService) { 
     this.formModel = fb.group({
       yhzh: ['2014371502003720086', [Validators.required, Validators.minLength(19), Validators.maxLength(19)]],
       yhmm: ['123456', [Validators.required, Validators.minLength(3), Validators.maxLength(24)]],
@@ -64,11 +65,11 @@ export class CjxsComponent implements OnInit {
     this.fsdata.subscribe(data => {
       console.log(data);
       if (data == 2) {
-        alert('连接教育局网站错误！');
+        this.tsk.tsk('连接教育局网站错误！',3000);
         return;
       }
       if (data.html.indexOf("重新登录") > 0) {
-        alert('用户名、密码或验证码错误，请重新输入！');
+        this.tsk.tsk('用户名、密码或验证码错误，请重新输入！',3000);
         return;
       }
       let zy;

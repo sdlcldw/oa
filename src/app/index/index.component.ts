@@ -24,6 +24,7 @@ export class IndexComponent implements OnInit {
   rsgl: boolean;
   cwpt: boolean;
   xtsz: boolean;  
+  zhxz: boolean;  
   height: number;
   menu_ul_height:number;
   // username: string;
@@ -131,6 +132,7 @@ ifleft:boolean=false;
     this.rsgl = false;
     this.cwpt = false;
     this.xtsz = false;
+    this.zhxz = false;
     
   
     if (name == 'xsgl') {
@@ -151,6 +153,9 @@ ifleft:boolean=false;
     }else if (name == 'xtsz') {
       this.xtsz = true;
       this.menu_title = '系统设置'; 
+    }else if (name == 'zhxz') {
+      this.zhxz = true;
+      this.menu_title = '综合行政'; 
     }
    }
   }

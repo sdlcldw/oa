@@ -18,6 +18,7 @@ import { MenuXsglComponent } from './menu-xsgl/menu-xsgl.component';
 import { MenuZcglComponent } from './menu-zcgl/menu-zcgl.component';
 import { MenuRsglComponent } from './menu-rsgl/menu-rsgl.component';
 import { MenuCwptComponent } from './menu-cwpt/menu-cwpt.component';
+import { MenuZhxzComponent } from './menu-zhxz/menu-zhxz.component';
 import { MenuXtszComponent } from './menu-xtsz/menu-xtsz.component';
 import { User_infoResolve } from 'app/guard/user_info.resolve';
 import { QxGuard } from 'app/guard/qx.guard';
@@ -36,6 +37,7 @@ const routeConfig: Routes = [
       {path:'cwpt',loadChildren:'./module-cwpt/module-cwpt.module#CwptModule'},
       {path:'xtsz',loadChildren:'./module-xtsz/module-xtsz.module#XtszModule'},
       {path:'zcgl',loadChildren:'./module-zcgl/module-zcgl.module#ZcglModule'},
+      {path:'zhxz',loadChildren:'./module-zhxz/module-zhxz.module#ZhxzModule'},
     ],canActivate:[LoginGuard],resolve:{info:User_infoResolve},
   }
   ];
@@ -52,6 +54,7 @@ const routeConfig: Routes = [
     MenuCwptComponent,
     MenuXtszComponent,
     SeekpasswordComponent,
+    MenuZhxzComponent,
   ],
   imports: [
     BrowserModule,
