@@ -100,6 +100,16 @@ public function actionGrzl_jc(){
 	}
 	return 'false';
 }
+public function actionKqjl_get(){
+	$um =Yii::$app->session['user']['username'];
+	$sql = "SELECT * FROM zhxz_kqb_mx where xm='".$um."';";
+	$connection=Yii::$app->db;
+   $command=$connection->createCommand($sql);
+   $dataReader=$command->query();
+   $dataReader=$dataReader->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+	return $dataReader;
+}
 	
 
 

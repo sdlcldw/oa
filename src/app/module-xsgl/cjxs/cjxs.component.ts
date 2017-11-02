@@ -45,13 +45,13 @@ export class CjxsComponent implements OnInit {
         this.imageurl = "/oa/basic/web/lcedu/" + userid + ".jpg?" + Math.random();
         return;
       }
-      alert('连接教育局网站失败！');
+      this.tsk.tsk('连接教育局网站失败！',3000);
       return;
     })
 
   }
    wjmm = function () {
-    alert('市教育局网站：若忘记密码请考生本人或家长持户口本、学生证到县区普教科办理密码重置手续。');
+    this.tsk.tsk('市教育局网站：若忘记密码请考生本人或家长持户口本、学生证到县区普教科办理密码重置手续。',3000);
   }
 
   onSubmit() {

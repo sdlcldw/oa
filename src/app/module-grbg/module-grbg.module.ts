@@ -12,6 +12,7 @@ import { WdzsComponent } from './wdzs/wdzs.component';
 import { BrsyComponent } from './brsy/brsy.component';
 import { GrzlComponent } from './grzl/grzl.component';
 import { GrzlGuard } from 'app/module-grbg/guard/grzl.guard';
+import { KqjlComponent } from './kqjl/kqjl.component';
 
 const Routes=[
   {path:'gzcx',component:GzcxComponent,},
@@ -20,6 +21,7 @@ const Routes=[
   {path:'gjcjtxl',component:GjcjtxlComponent,},
   {path:'brsy',component:BrsyComponent,},
   {path:'grzl',component:GrzlComponent,canDeactivate:[GrzlGuard]},
+  {path:'kqjl',component:KqjlComponent},
 ];
 
 @NgModule({
@@ -31,7 +33,7 @@ const Routes=[
     FormsModule, 
     ReactiveFormsModule,
   ],
-  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent],
+  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent, KqjlComponent],
   providers: [GrzlGuard],
 })
 export class GrbgModule { }
