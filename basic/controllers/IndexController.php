@@ -50,7 +50,7 @@ class IndexController extends CommonController
 					$time = time();
 					$token = md5(md5($command['Id']).base64_decode('666888').md5($time));
 					$url = Yii::$app->urlManager->createAbsoluteUrl(['index/seekpasswordxg','timestamp'=>$time,'id'=>$command['Id'],'token'=>$token]);
-					$body="尊敬的".$post['username']."您好：\r\n您的找回密码链接如下：\r\n".$url."\r\n，该链接5分钟内有效，请勿传递给别人！\r\n该邮件为系统自动发送，请勿回复！";
+					$body="尊敬的".$post['username']."您好：\r\n您的找回密码链接如下：\r\n".$url."\r\n该链接5分钟内有效，请勿传递给别人！\r\n该邮件为系统自动发送，请勿回复！";
 					$data = $this->email($post['email'],'聊城育才学校在线办公平台——找回密码',$body);
 					Yii::$app->response->format=Response::FORMAT_JSON;
 				   return $data;
