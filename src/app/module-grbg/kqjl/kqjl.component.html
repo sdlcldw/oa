@@ -6,12 +6,12 @@
 <div class="right_content" id="cwpt" style="padding:5px;">
 <!-- 内容区域开始 -->
 <div>
-
-<span>一页显示</span>
+<hr>
+<span>每页显示</span>
     <select [(ngModel)]="page" (ngModelChange)="setpage()">
         <option *ngFor="let item of pages" [value]='item'>{{item}}</option>  
     </select>
-    <span>行</span>
+    <span>条记录</span>
 <hr>
 <ng2-smart-table class="ng2-smart-table" [settings]="settings" [source]="source"></ng2-smart-table>
 </div>
