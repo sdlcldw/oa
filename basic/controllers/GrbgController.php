@@ -110,6 +110,16 @@ public function actionKqjl_get(){
    Yii::$app->response->format=Response::FORMAT_JSON;
 	return $dataReader;
 }
+public function actionBmkqjl_get(){
+	$id =Yii::$app->session['__id'];
+	$sql = "SELECT * FROM zhxz_kqb_mx where bm='".$bm."';";
+	$connection=Yii::$app->db;
+   $command=$connection->createCommand($sql);
+   $dataReader=$command->query();
+   $dataReader=$dataReader->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+	return $dataReader;
+}
 	
 
 

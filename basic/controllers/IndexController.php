@@ -14,6 +14,18 @@ use app\controllers\CommonController;
 class IndexController extends CommonController
 {
 	public $enableCsrfValidation = false;// ->覆盖父类的属性	
+
+
+	public function actionCs(){
+		
+		$data = Yii::$app->authManager->getPermissionsByUser('252');
+		Yii::$app->response->format=Response::FORMAT_JSON;		
+		return $data;
+		}
+
+
+
+
 	public function actionIndex(){
 				$this->layout = false;
 				if(Yii::$app->session['user']['isLogin']===1){
@@ -155,10 +167,7 @@ class IndexController extends CommonController
 
 
 
-	public function actionCs(){
-		$url = Yii::$app->urlManager->createAbsoluteUrl(['index/seekpasswordxg']);
-		return $url;
-		}
+
 	
 	public function actionUp_time(){
 		$model = new User;
@@ -606,18 +615,26 @@ class IndexController extends CommonController
 			  $userinfo=$dataReader->readAll();
 			  
 			  	/*获取当前用户权限列表*/
-			$sql = "Select b.child from (select * from `auth_assignment` where user_id='".$id."') a Left JOIN auth_item_child b on a.item_name = b.parent";
-			$connection=Yii::$app->db;
-			$command=$connection->createCommand($sql);
-			$dataReader=$command->query();
-			$dataReader=$dataReader->readAll();
+			// $sql = "Select b.child from (select * from `auth_assignment` where user_id='".$id."') a Left JOIN auth_item_child b on a.item_name = b.parent";
+			// $connection=Yii::$app->db;
+			// $command=$connection->createCommand($sql);
+			// $dataReader=$command->query();
+			// $dataReader=$dataReader->readAll();
 
-			$qx="";
-			foreach($dataReader as $item){
-				foreach ($item as $ite) {
-					$qx=$qx.$ite.';';
-				}
+			// $qx="";
+			// foreach($dataReader as $item){
+			// 	foreach ($item as $ite) {
+			// 		$qx=$qx.$ite.';';
+			// 	}
+			// }
+
+
+			$qx = "";
+			$items = Yii::$app->authManager->getPermissionsByUser($id);
+			foreach($items as $item){
+				$qx =$qx.$item->name.';';
 			}
+
 
 			$arr = array('qx'=>$qx,'userinfo'=>$userinfo[0]);
 

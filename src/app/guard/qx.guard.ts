@@ -34,7 +34,7 @@ export class QxGuard implements CanActivate {
         } else {
 
             let qx = this.userinfo.getuserinfo().qx;
-            console.log("QxGuard信息:" + qx);
+            console.log("QxGuard信息:" + qx + "想要进入的路由："+ '/' + next.url+(qx.indexOf(next.parent.url + '/*') == -1) + (qx.indexOf('/' + next.url) == -1));
             //  return true;
             if (qx.indexOf(next.parent.url + '/*') == -1) {
                 if (qx.indexOf('/' + next.url) == -1) {
