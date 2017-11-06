@@ -18,7 +18,8 @@ class IndexController extends CommonController
 
 	public function actionCs(){
 		
-		$data = Yii::$app->authManager->getPermissionsByUser('252');
+		$id =Yii::$app->session['__id'];
+				
 		Yii::$app->response->format=Response::FORMAT_JSON;		
 		return $data;
 		}

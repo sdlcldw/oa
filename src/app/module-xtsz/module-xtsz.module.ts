@@ -15,6 +15,9 @@ import { YhsqFpjsComponent } from './yhsq_fpjs/yhsq_fpjs.component';
 import { FpjsGuard } from './fpjs.guard';
 import { FpqxGuard } from './fpqx.guard';
 import { QxGuard } from 'app/guard/qx.guard';
+import { BmwhComponent } from './bmwh/bmwh.component';
+import { ZwwhComponent } from './zwwh/zwwh.component';
+import { FpzwComponent } from './fpzw/fpzw.component';
 
 const Routes=[
   {path:'bmjbxx',component:BmjbxxComponent,canActivate:[QxGuard]},
@@ -25,6 +28,9 @@ const Routes=[
   {path:'fpqx',component:FpqxComponent,canActivate:[QxGuard,FpqxGuard]},
   {path:'yhsq',component:YhsqComponent,canActivate:[QxGuard]},
   {path:'yhsq-fpjs',component:YhsqFpjsComponent,canActivate:[QxGuard,FpjsGuard]},
+  {path:'bmwh',component:BmwhComponent,canActivate:[QxGuard]},
+  {path:'zwwh',component:ZwwhComponent,canActivate:[QxGuard]},
+  {path:'fpzw',component:FpzwComponent,canActivate:[QxGuard]},
 ];
 
 @NgModule({
@@ -36,6 +42,6 @@ const Routes=[
     Ng2SmartTableModule,
   ], 
   providers: [DataService,FpjsGuard,FpqxGuard,QxGuard],  
-  declarations: [BmjbxxComponent, YhlbComponent, DljlComponent, CjjsComponent, JslbComponent, FpqxComponent, YhsqComponent, YhsqFpjsComponent]
+  declarations: [BmjbxxComponent, YhlbComponent, DljlComponent, CjjsComponent, JslbComponent, FpqxComponent, YhsqComponent, YhsqFpjsComponent, BmwhComponent, ZwwhComponent, FpzwComponent]
 })
 export class XtszModule { }

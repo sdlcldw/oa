@@ -1,0 +1,31 @@
+
+		<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+			<div class="title_txt">部门维护
+			</div>
+		</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+<!-- 内容区域开始 -->
+<hr>
+<input class="form-control" placeholder="请输入名称" [(ngModel)]="add_name" style="width: 150px;display:inline;margin-right: 5px;">
+<button type="button" class="btn btn-primary" (click)="addbm()">添加新部门</button>
+<hr>
+<table class="table table-bordered" style="width: 300px;">
+	<thead>
+		<tr>
+			<th>序号</th>      
+			<th>部门名称</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr *ngFor="let x of bmdata; let i=index">
+	<td>{{i +1 }}</td>
+    <td>{{ x.name }}</td>
+    <td><button type="button" class="btn btn-danger btn-xs" (click)="delbm(x.name)">删除</button></td>
+  </tr>
+	</tbody>
+</table>
+
+</div>
+
+<!-- 内容区域结束 -->

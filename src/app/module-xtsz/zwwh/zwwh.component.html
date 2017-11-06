@@ -1,0 +1,67 @@
+<div class="right_title">
+  <img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">职务维护
+  </div>
+</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+  <!-- 内容区域开始 -->
+  <hr>
+  <div>
+  <input class="form-control" placeholder="请输入名称" [(ngModel)]="add_name" style="width: 150px;display:inline;margin-right: 5px;">
+  <button type="button" class="btn btn-primary" (click)="addzw()">添加职务</button>
+  <hr>
+  <table class="table table-bordered" style="width: 500px;">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>职务</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of zwdata; let i=index">
+        <td>{{i +1 }}</td>
+        <td>{{ x.name }}</td>
+        <td>
+          <button type="button" class="btn btn-info btn-xs" (click)="fpbm(x.name)">分配所管理的部门和职务岗位</button>
+          <button type="button" class="btn btn-danger btn-xs" (click)="delzw(x.name)">删除</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="iffpbm">
+<div><h3>当前职务：{{data.js}}</h3></div>
+<form [formGroup]="myForm">
+<table class="table table-condensed" style="width: 500px;">
+
+  
+  <tr><td colspan="3"><h4>职务子节点：</h4></td></tr>
+
+    <tr class="like" *ngFor="let rol of roles['controls']; let i = index;" >
+     <td><input type="checkbox" [formControl]="rol"></td> 
+     <td>name：{{rolesall[i]['name']}} </td><td>描述：{{rolesall[i]['description']}}</td>
+    </tr>
+    <div class="youselect">{{selects}}</div>
+    
+
+
+  <tr><td colspan="3"><h4>部门子节点：</h4></td></tr>
+      <tr class="like" *ngFor="let per of permissions['controls']; let i = index;" >
+        <td><input type="checkbox" [formControl]="per"></td>
+        <td>name：{{permissionsall[i]['name']}}</td>
+        <td>描述：{{permissionsall[i]['description']}}</td> 
+      </tr>
+      <div class="youselect">{{selects}}</div>
+      
+ 
+</table>
+   </form>
+<button  type="button" class="btn btn-info" (click)="ok()" >分配权限</button>  
+<button  type="button" class="btn btn-warning" (click)="fh()" >返回</button> 
+</div>
+
+
+
+</div>

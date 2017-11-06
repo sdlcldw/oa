@@ -150,7 +150,7 @@ class XtszController extends CommonController
                 }
                 
                
-               $children = Yii::$app->authManager->getChildren($jsname['js']);//获取当前角色所有权限和角色
+               $children = Yii::$app->authManager->getChildren($jsname['js']);//获取当前角色所有子权限和子角色
                foreach ($children as $obj){
                    if($obj->type ==1){
                        $return['myroles'][] = $obj->name;
@@ -338,7 +338,58 @@ class XtszController extends CommonController
                 }
             }
 
-
+            public function actionBmwh_get_bm(){
+                
+                $sql = "SELECT name FROM zzjg_item where type = '2'";
+                $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+               Yii::$app->response->format=Response::FORMAT_JSON;
+                return $data;
+        
+            }
+            public function actionBmwh_add_bm(){
+                
+                if(Yii::$app->request->isPost){
+                    $post = Yii::$app->request->post();
+                    $sql = "INSERT zzjg_item VALUES ('".$post['name']."','2')";
+                    $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+                   return $ifok;
+                }
+        
+            }
+            public function actionBmwh_del_bm(){
+                if(Yii::$app->request->isPost){
+                    $post = Yii::$app->request->post();
+                    $sql = "DELETE FROM zzjg_item WHERE name ='".$post['name']."'";
+                    $ifok = Yii::$app->db->createCommand($sql)->execute();
+                   return $ifok;
+                }
+            }
+            public function actionZwwh_get_zw(){
+                
+                $sql = "SELECT name FROM zzjg_item where type = '1'";
+                $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+               Yii::$app->response->format=Response::FORMAT_JSON;
+                return $data;
+        
+            }
+            public function actionZwwh_add_zw(){
+                
+                if(Yii::$app->request->isPost){
+                    $post = Yii::$app->request->post();
+                    $sql = "INSERT zzjg_item VALUES ('".$post['name']."','1')";
+                    $ifok = Yii::$app->db->createCommand($sql)->execute();
+                   return $ifok;
+                }
+        
+            }
+            public function actionZwwh_del_zw(){
+                if(Yii::$app->request->isPost){
+                    $post = Yii::$app->request->post();
+                    $sql = "DELETE FROM zzjg_item WHERE name ='".$post['name']."'";
+                    $ifok = Yii::$app->db->createCommand($sql)->execute();
+                   return $ifok;
+                }
+            }
 
 
 
