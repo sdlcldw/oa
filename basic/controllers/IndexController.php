@@ -9,6 +9,7 @@ use Yii;
 use yii\web\Response; 
 use yii\data\Pagination;
 use app\controllers\CommonController;
+use yii\db\Query;
 
 
 class IndexController extends CommonController
@@ -18,10 +19,19 @@ class IndexController extends CommonController
 
 	public function actionCs(){
 		
-		$id =Yii::$app->session['__id'];
-				
-		Yii::$app->response->format=Response::FORMAT_JSON;		
-		return $data;
+		// $data =Yii::$app->authManager->getChildren('admin');//获取角色下的所有子角色和权限子节点
+		// $data =Yii::$app->authManager->getPermissionsByUser('252');//根据用户ID获取用户所有权限节点
+		// $data =Yii::$app->authManager->getRolesByUser('252');//根据用户ID获取用户角色
+		// $data =Yii::$app->authManager->getChildRoles('admin');//根据角色名获取所有子角色
+		// $data =Yii::$app->authManager->getPermissionsByRole('admin');//根据角色名获取所有权限节点
+		$query = (new Query)->select('b.*')
+		->from(['a' =>'assignmentTable', 'b' =>'itemTable'])
+		->where('{{a}}.[[item_name]]={{b}}.[[name]]')
+		->andWhere(['a.user_id' => '252'])
+		->andWhere(['b.type' => '2']);
+		// Yii::$app->response->format=Response::FORMAT_JSON;		
+		// return $data;
+		print_r($query);
 		}
 
 
