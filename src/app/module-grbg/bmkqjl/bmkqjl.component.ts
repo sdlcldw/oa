@@ -51,7 +51,7 @@ export class BmkqjlComponent implements OnInit {
   
   source: LocalDataSource = new LocalDataSource();
   
-  constructor(private http:Http) { 
+  constructor(private http:Http) {
     this.http.get('/oa/basic/web/index.php?r=grbg/bmkqjl_get').map(res => res.json()).subscribe(data => {
        if(data){
         this.source.load(data);

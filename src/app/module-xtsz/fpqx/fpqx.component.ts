@@ -46,14 +46,6 @@ myForm: FormGroup;
       permissions: this.fb.array(this.ifpermissions),
     });
 
-    // this.roles.valueChanges.subscribe(values => {
-    //   let selects: string[] = [];
-    //   values.forEach((selected: boolean ,i: number) => {
-    //     selected === true && selects.push(this.rolesall[i]['name'])
-    //   });
-    //   this.selects = selects;
-    //   console.log(this.roles); 
-    // });
   }
 
   ok(){

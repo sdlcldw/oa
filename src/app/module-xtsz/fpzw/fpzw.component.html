@@ -1,3 +1,38 @@
-<p>
-  fpzw works!
-</p>
+
+		<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+			<div class="title_txt">员工列表
+			</div>
+		</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+<!-- 内容区域开始 -->
+<hr>
+<div style="width:300px;float: left;" >
+<ng2-smart-table class="ng2-smart-table" [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+</div>
+
+
+<div *ngIf="iffpzw" style="float: left;margin-left: 90px;background-color: #f8f3d2;border-radius: 15px;padding-left: 20px;padding-bottom: 20px;">
+
+  <div><h3>当前用户：{{data.user.username}}</h3><h3>用户Id：{{data.user.Id}}</h3></div>
+  
+  <form [formGroup]="myForm">
+  <table class="table table-condensed" style="width: 500px;" >
+  
+    
+    <tr><td colspan="3"><h4>职务列表：</h4></td></tr>
+  
+      <tr class="like" *ngFor="let z of zw['controls']; let i = index;" >
+       <td><input type="checkbox" [formControl]="z"></td> 
+       <td>职务名：{{zwall[i]['name']}} </td>
+      </tr>
+  </table>
+     </form>
+  <!-- 内容区域结束 -->
+  <button  type="button" class="btn btn-info" (click)="ok()" >分配</button>  
+  <button  type="button" class="btn btn-warning" (click)="fh()" >返回</button>  
+
+</div>
+
+
+
+</div>

@@ -6,7 +6,7 @@
 <div class="right_content" id="cwpt" style="padding:5px;">
   <!-- 内容区域开始 -->
   <hr>
-  <div>
+  <div style="float: left;">
   <input class="form-control" placeholder="请输入名称" [(ngModel)]="add_name" style="width: 150px;display:inline;margin-right: 5px;">
   <button type="button" class="btn btn-primary" (click)="addzw()">添加职务</button>
   <hr>
@@ -31,35 +31,32 @@
   </table>
 </div>
 
-<div *ngIf="iffpbm">
-<div><h3>当前职务：{{data.js}}</h3></div>
+<div *ngIf="iffpbm" style="float: left;margin-left: 90px;background-color: #f8f3d2;border-radius: 15px;padding-left: 20px;padding-bottom: 20px;">
+<div><h3>当前职务：{{dat['name']}}</h3></div>
 <form [formGroup]="myForm">
 <table class="table table-condensed" style="width: 500px;">
 
   
   <tr><td colspan="3"><h4>职务子节点：</h4></td></tr>
 
-    <tr class="like" *ngFor="let rol of roles['controls']; let i = index;" >
-     <td><input type="checkbox" [formControl]="rol"></td> 
-     <td>name：{{rolesall[i]['name']}} </td><td>描述：{{rolesall[i]['description']}}</td>
+    <tr class="like" *ngFor="let z of zws['controls']; let i = index;" >
+     <td><input type="checkbox" [formControl]="z"></td> 
+     <td>name：{{zw[i]['name']}} </td>
     </tr>
-    <div class="youselect">{{selects}}</div>
     
 
 
   <tr><td colspan="3"><h4>部门子节点：</h4></td></tr>
-      <tr class="like" *ngFor="let per of permissions['controls']; let i = index;" >
-        <td><input type="checkbox" [formControl]="per"></td>
-        <td>name：{{permissionsall[i]['name']}}</td>
-        <td>描述：{{permissionsall[i]['description']}}</td> 
+      <tr class="like" *ngFor="let b of bms['controls']; let i = index;" >
+        <td><input type="checkbox" [formControl]="b"></td>
+        <td>name：{{bm[i]['name']}}</td>
       </tr>
-      <div class="youselect">{{selects}}</div>
       
  
 </table>
    </form>
-<button  type="button" class="btn btn-info" (click)="ok()" >分配权限</button>  
-<button  type="button" class="btn btn-warning" (click)="fh()" >返回</button> 
+<button  type="button" class="btn btn-info" (click)="ok()" >分配</button>  
+<button  type="button" class="btn btn-warning" (click)="qx()" >取消</button> 
 </div>
 
 
