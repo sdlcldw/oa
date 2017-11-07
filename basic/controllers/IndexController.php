@@ -22,14 +22,25 @@ class IndexController extends CommonController
 	public function actionCs(){
 		
 		// $data =Yii::$app->authManager->getChildren('admin');//获取角色下的所有子角色和权限子节点
-		$data =Yii::$app->authManager->getPermissionsByUser('252');//根据用户ID获取用户所有权限节点
+		// $data =Yii::$app->authManager->getPermissionsByUser('252');//根据用户ID获取用户所有权限节点
 		// $data =Yii::$app->authManager->getRolesByUser('252');//根据用户ID获取用户角色
 		// $data =Yii::$app->authManager->getChildRoles('admin');//根据角色名获取所有子角色
 		// $data =Yii::$app->authManager->getPermissionsByRole('admin');//根据角色名获取所有权限节点
+		$id = '252';
+		$type = 2;
+		$query = (new Query)->select('b.*')
+		->from(['a' => '{{%auth_assignment}}', 'b' => '{{%auth_item}}'])
+		->where('{{a}}.[[item_name]]={{b}}.[[name]]')
+		->andWhere(['a.user_id' => (string) $id])
+		->andWhere(['b.type' => $type]);
 
+	$permissions = [];
+	foreach ($query->all() as $row) {
+		$permissions[] = $row;
+	}
+	Yii::$app->response->format=Response::FORMAT_JSON;
+	return $query->all();
 
-        Yii::$app->response->format=Response::FORMAT_JSON;
-        return $data;
 		}
 
 
