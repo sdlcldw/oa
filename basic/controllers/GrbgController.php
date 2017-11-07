@@ -112,10 +112,19 @@ public function actionKqjl_get(){
 }
 public function actionBmkqjl_get(){
 	$id =Yii::$app->session['__id'];
-	$sql = "SELECT * FROM zhxz_kqb_mx where bm='".$bm."';";
+	$control=Yii::$app->runAction('xtsz/get_bm_byuser',['userid'=> '33']);
+	if(!$control){
+		return '没有数据';
+	  }
+	 $sql = "SELECT * FROM zhxz_kqb_mx where bm in (";
+	  foreach ($control as $row) {
+		$sql .="'".$row['name']."',";
+	}
+	$sql = rtrim($sql,',');
+	$sql .=");";
 	$dataReader=Yii::$app->db->createCommand($sql)->query()->readAll();
-   Yii::$app->response->format=Response::FORMAT_JSON;
-	return $dataReader;
+	Yii::$app->response->format=Response::FORMAT_JSON;
+	 return $dataReader;
 }
 	
 

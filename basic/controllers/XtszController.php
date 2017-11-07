@@ -545,6 +545,63 @@ class XtszController extends CommonController
             }
 
 
+            // actionGet_bm_byuser($userid)方法 根据用户id获取所有直接子部门和间接子部门
+            public function actionGet_bm_byuser($userid){
+                $type = 2;
+                $querya = (new Query)->select('b.*')
+                ->from(['a' => '{{%zzjg_assignment}}', 'b' => '{{%zzjg_item}}'])
+                ->where('{{a}}.[[item_name]]={{b}}.[[name]]')
+                ->andWhere(['a.user_id' => (string) $userid])
+                ->andWhere(['b.type' => $type]);
+        
+            $DirectBm = [];
+            foreach ($querya->all() as $row) {
+                $DirectBm[] = $row;
+            }
+        
+                    $queryb = (new Query)->select('item_name')
+                    ->from('{{%zzjg_assignment}}')
+                    ->where(['user_id' => (string) $userid]);
+        
+                // $childrenList = $this->getChildrenList();
+                $queryc = (new Query)->from('{{%zzjg_item_child}}');
+                $childrenList = [];
+                foreach ($queryc->all() as $row) {
+                    $childrenList[$row['parent']][] = $row['child'];
+                }
+                
+        
+                $result = [];
+                foreach ($queryb->column() as $roleName) {
+                    $this->getChildrenRecursive($roleName, $childrenList, $result);
+                }
+        
+                $queryd = (new Query)->from('{{%zzjg_item}}')->where([
+                    'type' => $type,
+                    'name' => array_keys($result),
+                ]);
+                $InheritedBm = [];
+                foreach ($queryd->all() as $row) {
+                    $InheritedBm[$row['name']] = $row;
+                }
+        
+        
+        
+            // Yii::$app->response->format=Response::FORMAT_JSON;
+            return array_merge($DirectBm, $InheritedBm);;
+            }
+
+            protected function getChildrenRecursive($name, $childrenList, &$result)
+            {
+                if (isset($childrenList[$name])) {
+                    foreach ($childrenList[$name] as $child) {
+                        $result[$child] = true;
+                        $this->getChildrenRecursive($child, $childrenList, $result);
+                    }
+                }
+            }
+
+
 
 
 

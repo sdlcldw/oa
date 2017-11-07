@@ -17,7 +17,21 @@ use yii\db\Expression;
 class IndexController extends CommonController
 {
 	public $enableCsrfValidation = false;// ->覆盖父类的属性
-	
+	public function actionCst(){
+		$control=Yii::$app->runAction('xtsz/get_bm_byuser',['userid'=>'33']);
+		if(!$control){
+			return '没有数据';
+		  }
+		 $sql = "SELECT * FROM zhxz_kqb_mx where bm in (";
+		  foreach ($control as $row) {
+			$sql .="'".$row['name']."',";
+		}
+		$sql = rtrim($sql,',');
+		$sql .=");";
+		$dataReader=Yii::$app->db->createCommand($sql)->query()->readAll();
+		Yii::$app->response->format=Response::FORMAT_JSON;
+		 return $dataReader;
+	}
 
 	public function actionCs(){
 		
@@ -26,22 +40,11 @@ class IndexController extends CommonController
 		// $data =Yii::$app->authManager->getRolesByUser('252');//根据用户ID获取用户角色
 		// $data =Yii::$app->authManager->getChildRoles('admin');//根据角色名获取所有子角色
 		// $data =Yii::$app->authManager->getPermissionsByRole('admin');//根据角色名获取所有权限节点
-		$id = '252';
-		$type = 2;
-		$query = (new Query)->select('b.*')
-		->from(['a' => '{{%auth_assignment}}', 'b' => '{{%auth_item}}'])
-		->where('{{a}}.[[item_name]]={{b}}.[[name]]')
-		->andWhere(['a.user_id' => (string) $id])
-		->andWhere(['b.type' => $type]);
-
-	$permissions = [];
-	foreach ($query->all() as $row) {
-		$permissions[] = $row;
-	}
-	Yii::$app->response->format=Response::FORMAT_JSON;
-	return $query->all();
+		
 
 		}
+
+		
 
 
 
