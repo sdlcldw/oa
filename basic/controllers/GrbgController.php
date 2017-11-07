@@ -112,7 +112,7 @@ public function actionKqjl_get(){
 }
 public function actionBmkqjl_get(){
 	$id =Yii::$app->session['__id'];
-	$control=Yii::$app->runAction('xtsz/get_bm_byuser',['userid'=> '33']);
+	$control=Yii::$app->runAction('xtsz/get_bm_byuser',['userid'=> $id]);
 	if(!$control){
 		return '没有数据';
 	  }

@@ -13,7 +13,7 @@ export class BmkqjlComponent implements OnInit {
 
   pages=[10,30,50];
   page = 30;
-
+  cd;
 
 
   settings = {
@@ -55,6 +55,7 @@ export class BmkqjlComponent implements OnInit {
     this.http.get('/oa/basic/web/index.php?r=grbg/bmkqjl_get').map(res => res.json()).subscribe(data => {
        if(data){
         this.source.load(data);
+        this.cd = data.length;
        }
     });
   }
