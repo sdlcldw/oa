@@ -1,17 +1,23 @@
-
-		<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
-			<div class="title_txt">部门考勤记录
-			</div>
-		</div>
-<div class="right_content" id="cwpt" style="padding:5px;">
-<!-- 内容区域开始 -->
-<div>
-<hr>
-<span>每页显示</span>
-    <select [(ngModel)]="page" (ngModelChange)="setpage()">
-        <option *ngFor="let item of pages" [value]='item'>{{item}}</option>  
-    </select>
-    <span>条记录</span> <span>共查询到{{cd}}条数据</span>
-<hr>
-<ng2-smart-table class="ng2-smart-table" [settings]="settings" [source]="source"></ng2-smart-table>
+<div class="right_title">
+    <img class="title_arrow" src="assets/images/title_arrow.png">
+    <div class="title_txt">部门考勤记录
+    </div>
 </div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+    <!-- 内容区域开始 -->
+    <div>
+        <hr>
+        <div class="ybp">
+            <span>共查询到</span><span style="margin: 0 5px;" >{{cd}}</span><span>条数据</span>
+        </div>
+        <div class="ybp">
+        <span>每页显示</span>
+        <select [(ngModel)]="page" (ngModelChange)="setpage()">
+            <option *ngFor="let item of pages" [value]='item'>{{item}}</option>
+        </select>
+        <span>条记录</span>
+        </div>
+       
+        <hr>
+        <ng2-smart-table class="ng2-smart-table" [settings]="settings" [source]="source"></ng2-smart-table>
+    </div>

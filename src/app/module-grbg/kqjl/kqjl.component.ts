@@ -17,7 +17,7 @@ export class KqjlComponent implements OnInit {
  
   pages=[10,30,50];
   page = 30;
-
+cd;
 
 
   settings = {
@@ -59,6 +59,7 @@ export class KqjlComponent implements OnInit {
     this.http.get('/oa/basic/web/index.php?r=grbg/kqjl_get').map(res => res.json()).subscribe(data => {
        if(data){
         this.source.load(data);
+        this.cd = data.length;
        }
     });
   }
@@ -66,7 +67,7 @@ export class KqjlComponent implements OnInit {
   
   }
     
-    private setpage() {
+    setpage() {
        this.source.setPaging(1,this.page);
     }
 

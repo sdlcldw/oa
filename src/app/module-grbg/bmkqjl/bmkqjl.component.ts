@@ -63,7 +63,7 @@ export class BmkqjlComponent implements OnInit {
   
   }
     
-    private setpage(){
+    setpage(){
        this.source.setPaging(1,this.page);
     }
 

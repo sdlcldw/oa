@@ -34,12 +34,12 @@ class ZhxzController extends CommonController
 					$zj++;
 			}
 			//检查本日期是否已上传
-			$rq = $sheet->getCell("C2")->getValue();
-			$sql = "select * from zhxz_kqb_mx where rq = '".$rq."'";
-			$dataReader=Yii::$app->db->createCommand($sql)->queryOne();
-			if($dataReader){
-				return 2;
-			}
+			// $rq = $sheet->getCell("C2")->getValue();
+			// $sql = "select * from zhxz_kqb_mx where rq = '".$rq."'";
+			// $dataReader=Yii::$app->db->createCommand($sql)->queryOne();
+			// if($dataReader){
+			// 	return 2;
+			// }
 
 	for($y=2;$y<=$highestRow;$y++){	
         $A=$sheet->getCell("A".$y)->getValue();
@@ -71,7 +71,9 @@ class ZhxzController extends CommonController
                      unset(Yii::$app->session['kqb']);//删除该session
 				 	if(!$kqbdata){
 				 		return false; //在session获取上传数据失败
-				 	}
+					 }
+					 $sqla='truncate table zhxz_kqb_mx'; //清空表数据
+					 Yii::$app->db->createCommand($sqla)->execute();					 
 				 	$sql = 'insert into zhxz_kqb_mx values ';
 					foreach($kqbdata as $key=>$v){
 		    				$sql.="('".$v['kqhm']."','".$v['xm']."','".$v['rq']."','".$v['dysd']."','".$v['sbsj']."','".$v['xbsj']."','".$v['qdsj']."','".$v['qtsj']."','".$v['cdsj']."','".$v['ztsj']."','".$v['sfkg']."','".$v['gzsj']."','".$v['lwqk']."','".$v['bm']."'),";
@@ -83,6 +85,18 @@ class ZhxzController extends CommonController
 						Yii::$app->response->format=Response::FORMAT_JSON;	
 				 		return $data;
 		}
+	}
+	public function actionCkkqsj_get(){
+		$sql = 'SELECT * FROM zhxz_kqb_mx';
+		$dataReader=Yii::$app->db->createCommand($sql)->query()->readAll();
+		Yii::$app->response->format=Response::FORMAT_JSON;
+		return $dataReader;
+	}		
+	public function actionCkkqsj_del(){
+		$sql = 'truncate table zhxz_kqb_mx';
+		$data = Yii::$app->db->createCommand($sql)->execute();
+		Yii::$app->response->format=Response::FORMAT_JSON;
+		return $data;
 	}
 
 
