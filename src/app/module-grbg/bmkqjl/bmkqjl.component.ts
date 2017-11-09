@@ -34,9 +34,9 @@ export class BmkqjlComponent implements OnInit {
       xbsj: {title: '下班时间',width:'150px'},
       qdsj: {title: '签到时间',width:'150px'},
       qtsj: {title: '签退时间',width:'150px'},
-      cdsj: {title: '迟到时间',width:'150px'},
-      ztsj: {title: '早退时间',width:'150px'},
-      sfkg: {title: '是否旷工',width:'150px'},
+      cdsj: {title: '迟到时间',width:'150px', type: 'html'},
+      ztsj: {title: '早退时间',width:'150px', type: 'html'},
+      sfkg: {title: '是否旷工',width:'150px', type: 'html'},
       gzsj: {title: '工作时间',width:'150px'},
       lwqk: {title: '例外情况',width:'150px'},
       bm: {title: '部门',width:'150px'},
@@ -54,6 +54,11 @@ export class BmkqjlComponent implements OnInit {
   constructor(private http:Http) {
     this.http.get('/oa/basic/web/index.php?r=grbg/bmkqjl_get').map(res => res.json()).subscribe(data => {
        if(data){
+        for (var i = 0, len = data.length; i < len; i++) {
+          (data[i]['cdsj']) ? data[i]['cdsj'] = "<span class='kqjl_cdsj'>" + data[i]['cdsj'] + "</span>" : data[i]['cdsj'] = '';
+          (data[i]['ztsj']) ? data[i]['ztsj'] = "<span class='kqjl_ztsj'>" + data[i]['ztsj'] + "</span>" : data[i]['ztsj'] = '';
+          (data[i]['sfkg']) ? data[i]['sfkg'] = "<span class='kqjl_sfkg'>" + data[i]['sfkg'] + "</span>" : data[i]['sfkg'] = '';
+        }
         this.source.load(data);
         this.cd = data.length;
        }

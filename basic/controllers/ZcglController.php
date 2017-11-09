@@ -64,7 +64,7 @@ class ZcglController extends CommonController
             }
         }	
         public function actionBmjbxx_get_bm(){
-            $sql = "SELECT name FROM data_bm";
+            $sql = "SELECT name FROM zzjg_item where type = '2'";
             $connection=Yii::$app->db;
            $command=$connection->createCommand($sql);
            $dataReader=$command->query();
@@ -75,7 +75,6 @@ class ZcglController extends CommonController
            }
            Yii::$app->response->format=Response::FORMAT_JSON;
             return $bms;
-    
         }
         public function actionZczt_get(){
             $sql = "SELECT * FROM zcgl_zt";
