@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   formModel:FormGroup; 
 dataSource:Observable<any>;
 fb:FormBuilder = new FormBuilder();
-
+imageurl;
 
   constructor(private http:Http,private router:Router,private userinfo:UserService,private tsk:TskService) {
     this.formModel = this.fb.group({
@@ -29,7 +29,8 @@ fb:FormBuilder = new FormBuilder();
 
   
   ngOnInit(){
- 
+    let images=3; //图像总数量
+    this.imageurl="assets/images/background_"+Math.floor(Math.random()*images+1)+".jpg";
   }
 
   get username() { return this.formModel.get('username'); }
@@ -62,4 +63,5 @@ let myHeaders:Headers = new Headers();
               }
     )
  }
+
 }

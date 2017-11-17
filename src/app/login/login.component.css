@@ -4,3 +4,28 @@
 #logindev{
     margin-top: 220px; 
   }
+
+
+  .login-wallpaper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+.ovh {
+    overflow: hidden !important;
+}
+.h {
+  height: 100% !important;
+}
+.w {
+  width: 100% !important;
+}
+.panel-primary {
+  border: 5px solid #dfedf9;
+  filter: alpha(Opacity=95);
+  -moz-opacity: 0.95;
+  opacity: 0.95;
+}
