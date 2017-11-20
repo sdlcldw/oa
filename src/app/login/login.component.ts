@@ -28,7 +28,7 @@ imageurl;
   }
 
   ngOnInit(){
-    let images=7; //图像总数量
+    let images=10; //图像总数量
     this.imageurl="assets/images/background_"+Math.floor(Math.random()*images+1)+".jpg";
   }
 
