@@ -1,0 +1,86 @@
+
+		<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+			<div class="title_txt">年级部设置
+			</div>
+		</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+<!-- 内容区域开始 -->
+<hr>
+<input class="form-control" placeholder="请输入名称" [(ngModel)]="add_name" style="width: 150px;display:inline;margin-right: 5px;">
+<button type="button" class="btn btn-primary" (click)="addnjb()">添加新级部</button>
+<hr>
+<table class="table table-bordered" style="width: 800px;">
+	<thead>
+		<tr>
+			<th>级部ID</th>
+			<th>级部名称</th>
+      <th>级部负责人</th>
+      <th>系统管理员</th>
+      <th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr *ngFor="let x of njbdata;">
+	<td>{{x.Id }}</td>
+    <td>{{ x.name }}</td>
+    <td>{{ x.username }}</td>
+    <td>{{ x.xtgly }}</td>
+    <td>
+      <button type="button" class="btn btn-danger btn-xs" (click)="fzrsz(x)">负责人、系统管理员设置</button>
+      <button type="button" class="btn btn-danger btn-xs" (click)="delnjb(x.Id)">删除</button>
+      <span id='openfzrsz' data-toggle="modal" data-target="#fzrszModal"></span>
+    </td>
+  </tr>
+	</tbody>
+</table>
+</div>
+
+<!-- 内容区域结束 -->
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="fzrszModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            用户列表
+          </h4>
+        </div>
+        <div class="modal-body">
+         <hr>
+         <input class="form-control" placeholder="输入姓名或姓名中包含的字" [(ngModel)]="ss_name" style="width: 200px;display:inline;margin-right: 5px;">
+         <button type="button" class="btn btn-primary" (click)="ssyh()">搜索</button>
+         <hr>
+         <div style="height: 550px;overflow-y:auto;overflow-x: hidden;">
+              <table class="table table-bordered" style="width: 800px;">
+                  <thead>
+                    <tr>
+                      <th>用户ID</th>
+                      <th>姓名</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let x of users;">
+                  <td>{{x.Id }}</td>
+                    <td>{{ x.username }}</td>
+                    <td>
+                      <button type="button" class="btn btn-danger btn-xs" (click)="swfzr(x.Id)">设为{{dqnjb.name}}负责人</button>
+                      <button type="button" class="btn btn-danger btn-xs" (click)="swgly(x.Id)">设为{{dqnjb.name}}管理员</button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+     </div>
+        </div>
+        <div class="modal-footer">
+          <button id="qxant" class="btn btn-warning" style="float: left;" data-dismiss="modal">
+        取消
+      </button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div>

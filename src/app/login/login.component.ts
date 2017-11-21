@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 dataSource:Observable<any>;
 fb:FormBuilder = new FormBuilder();
 imageurl;
-
+imagegh;
   constructor(private http:Http,private router:Router,private userinfo:UserService,private tsk:TskService) {
     this.formModel = this.fb.group({
       username: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
@@ -29,7 +29,13 @@ imageurl;
 
   ngOnInit(){
     let images=10; //图像总数量
-    this.imageurl="assets/images/background_"+Math.floor(Math.random()*images+1)+".jpg";
+    let imagegh = Math.floor(Math.random()*images+1);
+    if(imagegh == this.imagegh){
+    imagegh = Math.floor(Math.random()*images+1);
+    }else{
+      this.imagegh = imagegh;
+      this.imageurl="assets/images/background_"+imagegh+".jpg";      
+    }
   }
 
   get username() { return this.formModel.get('username'); }
