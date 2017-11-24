@@ -1,3 +1,35 @@
-<p>
-  sssz works!
-</p>
+		<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+			<div class="title_txt">宿舍设置
+			</div>
+		</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+<!-- 内容区域开始 -->
+<div *ngIf="if_ly">
+<hr>
+添加：<input class="form-control" placeholder="请输入楼宇名称" [(ngModel)]="add_name" style="width: 150px;display:inline;margin-right: 5px;">
+<button type="button" class="btn btn-primary" (click)="addly()">添加新楼宇</button><span style="margin-left: 50px;">删除：</span>
+<select [(ngModel)]="del_lyid" class="form-control" style="width: 200px;display: inline;">
+  <option *ngFor="let x of lydata" [value]='x.Id'>{{x.name}}</option>
+</select>
+<button type="button" class="btn btn-primary" (click)="delly()">删除选中楼宇</button>
+<hr>
+
+<div style="padding: 50px;">
+<div *ngFor="let x of lydata;" class="ssl">
+  <div (click)="golc(x.Id)" class="sslbj" style="background: url(assets/images/sslbj.jpg) no-repeat;"></div>
+  <div class="lyxx">楼宇名称：{{x.name}} </div>
+</div>
+</div>
+</div>
+
+<div *ngIf="if_lc">
+
+</div>
+
+<div *ngIf="if_jf">
+  
+</div>
+
+
+</div>
+<!-- 内容区域结束 -->

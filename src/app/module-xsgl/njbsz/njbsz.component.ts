@@ -94,5 +94,36 @@ export class NjbszComponent implements OnInit {
        this.tsk.tsk('未查到结果!')
      }
   }
+  swfzr(data){
+    let dat = {userid:data,njbid:this.dqnjb.Id};
+    let myHeaders:Headers = new Headers();
+    myHeaders.append("Content-Type","application/json; charset=UTF-8");
+    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_njb_swfzr",dat, { headers: myHeaders }).toPromise().then((response) => {
+      let data= response.json();
+       if(data){
+    $('#qxant').click();    
+        this.getnjb();        
+      this.tsk.cg('设置成功！');         
+       }else{
+      this.tsk.tsk('操作失败！');         
+       }
+  });
+  }
+  swgly(data){
+    let dat = {userid:data,njbid:this.dqnjb.Id};
+    let myHeaders:Headers = new Headers();
+    myHeaders.append("Content-Type","application/json; charset=UTF-8");
+    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_njb_swgly",dat, { headers: myHeaders }).toPromise().then((response) => {
+      let data= response.json();
+       if(data){
+    $('#qxant').click();    
+        this.getnjb();        
+      this.tsk.cg('设置成功！');         
+       }else{
+      this.tsk.tsk('操作失败！');         
+       }
+  });
+  }
+  
 
 }

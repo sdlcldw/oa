@@ -28,7 +28,7 @@ imagegh;
   }
 
   ngOnInit(){
-    let images=10; //图像总数量
+    let images=13; //图像总数量
     let imagegh = Math.floor(Math.random()*images+1);
     if(imagegh == this.imagegh){
     imagegh = Math.floor(Math.random()*images+1);

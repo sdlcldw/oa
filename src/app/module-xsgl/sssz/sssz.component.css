@@ -1,0 +1,10 @@
+.ssl{
+    float: left;
+    margin-left: 100px;
+    margin-bottom: 50px;
+}
+.sslbj{
+    height: 150px;
+    width: 220px;
+    cursor:pointer;
+}
