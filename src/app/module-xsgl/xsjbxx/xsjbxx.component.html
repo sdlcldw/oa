@@ -1,3 +1,26 @@
-<p>
-  xsjbxx works!
-</p>
+<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">学生基本信息设置
+  </div>
+</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+<!-- 内容区域开始 -->
+<div>
+<hr>
+管理身份验证：xxx ；当前学生信息为：xxx；
+<hr>
+<button type="button" class="btn btn-primary" (click)="add()">添加学生信息</button>
+<select [(ngModel)]="del_lcid" class="form-control" style="width: 200px;display: inline;">
+<option *ngFor="let x of lcdata" [value]='x.Id'>{{x.name}}</option>
+</select>
+<button type="button" class="btn btn-primary" (click)="dellc()">删除选中楼层</button>
+
+<hr>
+<div style="padding: 50px;">
+  <div *ngFor="let x of lcdata;" class="ssl">
+    <div class="sslbj"></div>
+    <div class="lyxx">楼层名称：{{x.name}} </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- 内容区域结束 -->

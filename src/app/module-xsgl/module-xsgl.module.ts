@@ -8,8 +8,6 @@ import { ZszlComponent } from './zszl/zszl.component';
 import { NjbszComponent } from './njbsz/njbsz.component';
 import { BjszComponent } from './bjsz/bjsz.component';
 import { SsszComponent } from './sssz/sssz.component';
-import { BzrpzComponent } from './bzrpz/bzrpz.component';
-import { RkjspzComponent } from './rkjspz/rkjspz.component';
 import { XsjbxxComponent } from './xsjbxx/xsjbxx.component';
 import { SsszLcComponent } from './sssz-lc/sssz-lc.component';
 import { SsszFjComponent } from './sssz-fj/sssz-fj.component';
@@ -25,8 +23,6 @@ const Routes=[
   {path:'sssz_lc',component:SsszLcComponent},
   {path:'sssz_fj',component:SsszFjComponent},
   {path:'sssz_cw',component:SsszCwComponent},
-  {path:'bzrpz',component:BzrpzComponent},
-  {path:'rkjspz',component:RkjspzComponent},
   {path:'xsjbxx',component:XsjbxxComponent},
 ];
 
@@ -37,7 +33,7 @@ const Routes=[
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [CjxsComponent, XxshComponent, ZszlComponent, NjbszComponent, BjszComponent, SsszComponent, BzrpzComponent, RkjspzComponent, XsjbxxComponent, SsszLcComponent, SsszFjComponent, SsszCwComponent]
+  declarations: [CjxsComponent, XxshComponent, ZszlComponent, NjbszComponent, BjszComponent, SsszComponent, XsjbxxComponent, SsszLcComponent, SsszFjComponent, SsszCwComponent]
 })
 
 export class XsglModule { }

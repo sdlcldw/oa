@@ -197,7 +197,7 @@ class XsglController extends CommonController
            return $ifok;
         }
     }
-    // --房间床位
+    // --床位管理
     public function actionJcxxsz_get_cw(){
         if(Yii::$app->request->isPost){
             $post = Yii::$app->request->post();            
@@ -224,7 +224,8 @@ class XsglController extends CommonController
            return $ifok;
         }
     }
-
+// 学生基本信息管理
+    
 
 
 
