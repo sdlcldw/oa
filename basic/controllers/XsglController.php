@@ -119,7 +119,7 @@ class XsglController extends CommonController
         }
     }
 
-    // 宿舍管理
+    // 宿舍管理 --楼宇管理
     public function actionJcxxsz_get_ly(){
         $sql = "SELECT * FROM xsgl_jcxx_ss_ly ;";
         $data=Yii::$app->db->createCommand($sql)->query()->readAll();
@@ -143,8 +143,87 @@ class XsglController extends CommonController
            return $ifok;
         }
     }
-
-
+//--楼层管理
+    public function actionJcxxsz_get_lc(){
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();            
+            $lyid= $post['id'];
+        $sql = "SELECT * FROM xsgl_jcxx_ss_lc where ly_id = ".$lyid.";";
+        $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $data;
+        }
+    }
+    public function actionJcxxsz_add_lc(){
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+            $sql = "INSERT xsgl_jcxx_ss_lc (name,ly_id) VALUES ('".$post['name']."','".$post['ly_id']."')";
+            $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+           return $ifok;
+        }
+    }
+    public function actionJcxxsz_del_lc(){
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+            $sql = "DELETE FROM xsgl_jcxx_ss_lc WHERE Id ='".$post['id']."'";
+            $ifok = Yii::$app->db->createCommand($sql)->execute();
+           return $ifok;
+        }
+    }
+    // --房间管理
+    public function actionJcxxsz_get_fj(){
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();            
+            $lyid= $post['id'];
+        $sql = "SELECT * FROM xsgl_jcxx_ss_fj where lc_id = ".$lyid.";";
+        $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $data;
+        }
+    }
+    public function actionJcxxsz_add_fj(){
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+            $sql = "INSERT xsgl_jcxx_ss_fj (name,lc_id) VALUES ('".$post['name']."','".$post['lc_id']."')";
+            $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+           return $ifok;
+        }
+    }
+    public function actionJcxxsz_del_fj(){
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+            $sql = "DELETE FROM xsgl_jcxx_ss_fj WHERE Id ='".$post['id']."'";
+            $ifok = Yii::$app->db->createCommand($sql)->execute();
+           return $ifok;
+        }
+    }
+    // --房间床位
+    public function actionJcxxsz_get_cw(){
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();            
+            $lyid= $post['id'];
+        $sql = "SELECT * FROM xsgl_jcxx_ss_cw where fj_id = ".$lyid.";";
+        $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $data;
+        }
+    }
+    public function actionJcxxsz_add_cw(){
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+            $sql = "INSERT xsgl_jcxx_ss_cw (name,fj_id) VALUES ('".$post['name']."','".$post['fj_id']."')";
+            $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+           return $ifok;
+        }
+    }
+    public function actionJcxxsz_del_cw(){
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+            $sql = "DELETE FROM xsgl_jcxx_ss_cw WHERE Id ='".$post['id']."'";
+            $ifok = Yii::$app->db->createCommand($sql)->execute();
+           return $ifok;
+        }
+    }
 
 
 

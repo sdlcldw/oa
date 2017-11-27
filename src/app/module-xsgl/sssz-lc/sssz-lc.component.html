@@ -1,0 +1,26 @@
+<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">宿舍设置-楼层管理
+  </div>
+</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+<!-- 内容区域开始 -->
+<div>
+<hr>
+添加：<input class="form-control" placeholder="请输入楼宇名称" [(ngModel)]="add_name" style="width: 150px;display:inline;margin-right: 5px;">
+<button type="button" class="btn btn-primary" (click)="addlc()">添加新楼层</button><span style="margin-left: 50px;">删除：</span>
+<select [(ngModel)]="del_lcid" class="form-control" style="width: 200px;display: inline;">
+<option *ngFor="let x of lcdata" [value]='x.Id'>{{x.name}}</option>
+</select>
+<button type="button" class="btn btn-primary" (click)="dellc()">删除选中楼层</button>
+<hr>
+当前楼宇：{{lydata.name}}
+<hr>
+<div style="padding: 50px;">
+  <div *ngFor="let x of lcdata;" class="ssl">
+    <div [routerLink]="['../sssz_fj']" [queryParams]="{ly_id:lydata.Id,ly_name:lydata.name,lc_id:x.Id,lc_name:x.name}" class="sslbj"></div>
+    <div class="lyxx">楼层名称：{{x.name}} </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- 内容区域结束 -->
