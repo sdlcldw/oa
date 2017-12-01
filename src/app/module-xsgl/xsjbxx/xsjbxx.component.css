@@ -1,0 +1,15 @@
+table{
+    width:600px;
+}
+table tr{
+    height: 33px;
+}
+table td{
+    width: 100px;
+}
+.form-control {
+    border-radius: 0;
+}
+.td_input{
+    padding: 2px;
+}
