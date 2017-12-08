@@ -12,8 +12,8 @@ import { TskService } from 'app/service/TskService';
 })
 export class CkkqsjComponent implements OnInit {
   
-    pages=[10,30,50];
-    page = 30;
+  pages = [10,30,50,100,300,500];
+    page = 50;
     cd;
   
   

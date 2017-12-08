@@ -11,8 +11,8 @@ import { Http, Headers, RequestOptions } from "@angular/http";
 })
 export class BmkqjlComponent implements OnInit {
 
-  pages=[10,30,50];
-  page = 30;
+  pages = [10,30,50,100,300,500];
+  page = 50;
   cd;
 
 

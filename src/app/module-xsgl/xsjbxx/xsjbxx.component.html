@@ -8,84 +8,174 @@
 <hr>
 管理身份验证：xxx ；当前学生信息为：xxx；
 <hr>
-<button type="button" class="btn btn-primary" (click)="add()">添加学生信息</button>
-<select [(ngModel)]="del_lcid" class="form-control" style="width: 200px;display: inline;">
+<button type="button" class="btn btn-primary" (click)="xsxxlb()">信息列表</button>
+<button type="button" class="btn btn-primary" (click)="tjxsxx()">添加学生信息</button>
+<!-- <select [(ngModel)]="del_lcid" class="form-control" style="width: 200px;display: inline;">
 <option *ngFor="let x of lcdata" [value]='x.Id'>{{x.name}}</option>
-</select>
-<button type="button" class="btn btn-primary" (click)="dellc()">删除选中楼层</button>
-
+</select> -->
+<!-- <button type="button" class="btn btn-primary" (click)="dellc()">删除选中楼层</button> -->
 <hr>
-<div style="padding: 50px;">
-  <div *ngFor="let x of lcdata;" class="ssl">
-    <div class="sslbj"></div>
-    <div class="lyxx">楼层名称：{{x.name}} </div>
-    </div>
 </div>
+<!-- 学生信息列表 -->
+<div *ngIf="ifxsxxlb">
+    <span>共查询到</span><span style="margin: 0 5px;" ></span><span>条数据</span>    
+    <ngx-table [configuration]="configuration"
+    [data]="data"
+    [columns]="columns"
+    [pagination]="pagination">
+    <ng-template let-row>
+      <td>
+        <div class="font-small">
+          {{row.Id}}
+        </div>
+      </td>
+      <td>
+        <div class="font-small">
+          {{row.name}}
+        </div>
+      </td>
+      <td>
+        <span class="font-small">{{row.xjh}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.sfzh}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.xb}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.njb_name}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.bj_name}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.jtzz}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.lxfs_1}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.lxfs_2}}</span>
+      </td>
+      <td>
+        <button class="btn btn-info btn-xs"
+          (click)=ckxxxx(row.Id)>详细
+        </button>
+        <button class="btn btn-warning btn-xs"
+        (click)=bjxsxx(row.Id)>编辑
+      </button>
+      <button class="btn btn-danger btn-xs"
+      (click)=delxsxx(row.Id)>删除
+    </button>
+      </td>
+    </ng-template>
+
+
+</ngx-table>
 </div>
-
-
-<div>
-
-  <form class="form-horizontal" role="form">
+<!-- 添加学生信息 -->
+<div *ngIf="iftjxsxx" style="border: 2px solid #d4d7d0;width: 640px;padding: 20px;background-color: #fdfefa;">
+  <form [formGroup]="formModel" class="form-horizontal" role="form" (submit)="onSubmit()">
     <table class="table table-bordered">
       <tr>
         <td>姓名</td>
         <td>
-          <input type="text" class="form-control" placeholder="必填">
+          <input formControlName="name" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('name').invalid && formModel.get('name').touched"/>
         </td>
         <td>学籍号</td>
         <td colspan="2">
-            <input type="text" class="form-control" placeholder="必填">            
+            <input formControlName="xjh" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('xjh').invalid && formModel.get('xjh').touched">            
         </td>
-        <td rowspan="3"></td>
+        <td rowspan="3">
+            <input style="width: 100px;" *ngIf='ifsczp' type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
+            <a style="margin-top: 50px;margin-left: 15px;" *ngIf='ifsczp' (click)="uploadFile()" class="btn btn-sm btn-info">确认上传</a>                        
+        </td>
       </tr>
       <tr>
         <td>性别</td>
         <td>
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="xb" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('xb').invalid && formModel.get('xb').touched">                        
         </td>
         <td>身份证号</td>
         <td colspan="2">
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="sfzh" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('sfzh').invalid && formModel.get('sfzh').touched">                        
         </td>
       </tr>
       <tr>
           <td>身高</td>
           <td>
-              <input type="text" class="form-control" placeholder="必填">            
+              <input formControlName="sg" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('sg').invalid && formModel.get('sg').touched">            
           </td>
           <td>家庭住址</td>
           <td colspan="2">
-              <input type="text" class="form-control" placeholder="必填">                          
+              <input formControlName="jtzz" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('jtzz').invalid && formModel.get('jtzz').touched">                          
           </td>
       </tr>
       <tr>
+            <td>体重</td>
+            <td>
+                <input formControlName="tz" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('tz').invalid && formModel.get('tz').touched">                          
+            </td>
           <td>民族</td>
           <td>
-              <input type="text" class="form-control" placeholder="必填">                          
+              <input formControlName="mz" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('mz').invalid && formModel.get('mz').touched">                          
           </td>
-          <td>籍贯</td>
-          <td>
-              <input type="text" class="form-control" placeholder="必填">                          
-          </td>
+          
           <td>照片</td>
           <td>
-              <input type="text" class="form-control" placeholder="必填">                          
+            <a *ngIf="!ifsczp" (click)="sczp()" class="btn btn-sm btn-info">上传照片</a>                            
+            <a *ngIf="ifsczp" (click)="qxsczp()" class="btn btn-sm btn-info">取消</a>                            
           </td>
       </tr>
       <tr>
-          <td>所在班级</td>
+         <td>籍贯</td>
           <td>
-              <input type="text" class="form-control" placeholder="必填">                          
+              <input formControlName="jg" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('jg').invalid && formModel.get('jg').touched">                          
           </td>
           <td>是否住校</td>
           <td>
-              <input type="text" class="form-control" placeholder="必填">            
+              <select formControlName="sfzx" class="form-control"  [class.hasError]="formModel.get('sfzx').invalid && formModel.get('sfzx').touched">
+                <option value='是'>是</option>
+                <option value='否'>否</option>
+                </select>           
           </td>
-          <td>所在宿舍</td>
-          <td>
-              <input type="text" class="form-control" placeholder="必填">                          
-          </td>
+      </tr>
+      <tr>
+            <td>所在班级</td>
+            <td colspan="5">
+                <!-- <input formControlName="szbj" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('szbj').invalid && formModel.get('szbj').touched">                           -->
+                <select (change)="getbj($event.target.value)" class="form-control" style="width: 200px;display: inline;">
+                        <option value=''>选择年级</option>                                                                                    
+                        <option *ngFor="let x of data_njb" [value]='x.Id'>{{x.name}}</option>
+                </select>
+                <select formControlName="szbj" class="form-control" style="width: 200px;display: inline;">
+                        <option value=''>选择班级</option>                                                                                    
+                        <option *ngFor="let x of data_bj" [value]='x.Id'>{{x.name}}</option>
+                </select>
+            </td>
+      </tr>
+      <tr>
+            <td>所在宿舍</td>
+            <td colspan="5">
+             <!-- <input formControlName="szss" type="text" class="form-control" placeholder="必填"  [class.hasError]="formModel.get('szss').invalid && formModel.get('szss').touched">                           -->
+             <select (change)="get_ss_lc($event.target.value)" class="form-control" style="width: 150px;display: inline;">
+                    <option value=''>选择楼宇</option>                                                            
+                    <option *ngFor="let x of data_ss_ly" [value]='x.Id'>{{x.name}}</option>
+            </select>
+            <select (change)="get_ss_fj($event.target.value)" class="form-control" style="width: 100px;display: inline;">
+                    <option value=''>选择楼层</option>                    
+                    <option *ngFor="let x of data_ss_lc" [value]='x.Id'>{{x.name}}</option>
+            </select>
+            <select (change)="get_ss_cw($event.target.value)" class="form-control" style="width: 100px;display: inline;">
+                    <option value=''>选择房间</option>                                        
+                    <option *ngFor="let x of data_ss_fj" [value]='x.Id'>{{x.name}}</option>
+            </select>
+            <select formControlName="szss" class="form-control" style="width: 100px;display: inline;">
+                    <option value=''>选择床位</option>                                                            
+                    <option *ngFor="let x of data_ss_cw" [value]='x.Id'>{{x.name}}</option>
+            </select>
+            </td>
       </tr>
       <tr>
           <td>家长信息</td>
@@ -99,40 +189,40 @@
       </tr>
       <tr>
           <td>
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="gx_1" type="text" class="form-control" placeholder="必填"  [class.hasError]="formModel.get('gx_1').invalid && formModel.get('gx_1').touched">                        
           </td>
           <td>
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="xm_1" type="text" class="form-control" placeholder="必填"  [class.hasError]="formModel.get('xm_1').invalid && formModel.get('xm_1').touched">
           </td>
           <td>
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="zzmm_1" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('zzmm_1').invalid && formModel.get('zzmm_1').touched">                        
           </td>
           <td>
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="gzdw_1" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('gzdw_1').invalid && formModel.get('gzdw_1').touched">                        
           </td>
           <td colspan="2">
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="lxfs_1" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('lxfs_1').invalid && formModel.get('lxfs_1').touched">                        
           </td>
       </tr>
       <tr>
-          <td>
-            <input type="text" class="form-control" placeholder="必填">                        
+        <td>
+            <input formControlName="gx_2" type="text" class="form-control" [class.hasError]="formModel.get('gx_2').invalid && formModel.get('gx_2').touched">                        
           </td>
           <td>
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="xm_2" type="text" class="form-control" [class.hasError]="formModel.get('xm_2').invalid && formModel.get('xm_2').touched">
           </td>
           <td>
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="zzmm_2" type="text" class="form-control" [class.hasError]="formModel.get('zzmm_2').invalid && formModel.get('zzmm_2').touched">                        
           </td>
           <td>
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="gzdw_2" type="text" class="form-control" [class.hasError]="formModel.get('gzdw_2').invalid && formModel.get('gzdw_2').touched">                        
           </td>
           <td colspan="2">
-            <input type="text" class="form-control" placeholder="必填">                        
+            <input formControlName="lxfs_2" type="text" class="form-control" [class.hasError]="formModel.get('lxfs_2').invalid && formModel.get('lxfs_2').touched">                        
           </td>
       </tr>
     </table>
-   
+   <button type="submit" class="btn btn-success" style="cursor: pointer" [disabled]="formModel.invalid">确认添加</button>   
   </form>
   
 
@@ -141,3 +231,283 @@
 
 </div>
 <!-- 内容区域结束 -->
+
+<!-- 编辑学生信息————模态框（Modal） -->
+<span id='openbjxsxx' data-toggle="modal" data-target="#bjxsxxModal"></span>
+<div class="modal fade" id="bjxsxxModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form [formGroup]="formModel" class="form-horizontal" role="form" (submit)="bjxsxx_submit()">            
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          编辑学生信息
+        </h4>
+      </div>
+      <div class="modal-body">
+       <hr>
+        <table class="table table-bordered">
+          <tr>
+            <td>姓名</td>
+            <td>
+              <input formControlName="name" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('name').invalid && formModel.get('name').touched"/>
+            </td>
+            <td>学籍号</td>
+            <td colspan="2">
+                <input formControlName="xjh" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('xjh').invalid && formModel.get('xjh').touched">            
+            </td>
+            <td rowspan="3">
+                <input style="width: 100px;" *ngIf='ifsczp' type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
+                <a style="margin-top: 50px;margin-left: 15px;" *ngIf='ifsczp' (click)="uploadFile()" class="btn btn-sm btn-info">确认上传</a>                        
+            </td>
+          </tr>
+          <tr>
+            <td>性别</td>
+            <td>
+                <input formControlName="xb" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('xb').invalid && formModel.get('xb').touched">                        
+            </td>
+            <td>身份证号</td>
+            <td colspan="2">
+                <input formControlName="sfzh" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('sfzh').invalid && formModel.get('sfzh').touched">                        
+            </td>
+          </tr>
+          <tr>
+              <td>身高</td>
+              <td>
+                  <input formControlName="sg" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('sg').invalid && formModel.get('sg').touched">            
+              </td>
+              <td>家庭住址</td>
+              <td colspan="2">
+                  <input formControlName="jtzz" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('jtzz').invalid && formModel.get('jtzz').touched">                          
+              </td>
+          </tr>
+          <tr>
+                <td>体重</td>
+                <td>
+                    <input formControlName="tz" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('tz').invalid && formModel.get('tz').touched">                          
+                </td>
+              <td>民族</td>
+              <td>
+                  <input formControlName="mz" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('mz').invalid && formModel.get('mz').touched">                          
+              </td>
+              
+              <td>照片</td>
+              <td>
+                <a *ngIf="!ifsczp" (click)="sczp()" class="btn btn-sm btn-info">上传照片</a>                            
+                <a *ngIf="ifsczp" (click)="qxsczp()" class="btn btn-sm btn-info">取消</a>                            
+              </td>
+          </tr>
+          <tr>
+             <td>籍贯</td>
+              <td>
+                  <input formControlName="jg" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('jg').invalid && formModel.get('jg').touched">                          
+              </td>
+              <td>是否住校</td>
+              <td>
+                  <select formControlName="sfzx" class="form-control"  [class.hasError]="formModel.get('sfzx').invalid && formModel.get('sfzx').touched">
+                    <option value='是'>是</option>
+                    <option value='否'>否</option>
+                    </select>           
+              </td>
+          </tr>
+        
+          <tr>
+              <td>家长信息</td>
+          </tr>
+          <tr>
+              <td>关系</td>
+              <td>姓名</td>
+              <td>政治面貌</td>
+              <td>工作单位</td>
+              <td colspan="2">联系方式</td>
+          </tr>
+          <tr>
+              <td>
+                <input formControlName="gx_1" type="text" class="form-control" placeholder="必填"  [class.hasError]="formModel.get('gx_1').invalid && formModel.get('gx_1').touched">                        
+              </td>
+              <td>
+                <input formControlName="xm_1" type="text" class="form-control" placeholder="必填"  [class.hasError]="formModel.get('xm_1').invalid && formModel.get('xm_1').touched">
+              </td>
+              <td>
+                <input formControlName="zzmm_1" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('zzmm_1').invalid && formModel.get('zzmm_1').touched">                        
+              </td>
+              <td>
+                <input formControlName="gzdw_1" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('gzdw_1').invalid && formModel.get('gzdw_1').touched">                        
+              </td>
+              <td colspan="2">
+                <input formControlName="lxfs_1" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('lxfs_1').invalid && formModel.get('lxfs_1').touched">                        
+              </td>
+          </tr>
+          <tr>
+            <td>
+                <input formControlName="gx_2" type="text" class="form-control" [class.hasError]="formModel.get('gx_2').invalid && formModel.get('gx_2').touched">                        
+              </td>
+              <td>
+                <input formControlName="xm_2" type="text" class="form-control" [class.hasError]="formModel.get('xm_2').invalid && formModel.get('xm_2').touched">
+              </td>
+              <td>
+                <input formControlName="zzmm_2" type="text" class="form-control" [class.hasError]="formModel.get('zzmm_2').invalid && formModel.get('zzmm_2').touched">                        
+              </td>
+              <td>
+                <input formControlName="gzdw_2" type="text" class="form-control" [class.hasError]="formModel.get('gzdw_2').invalid && formModel.get('gzdw_2').touched">                        
+              </td>
+              <td colspan="2">
+                <input formControlName="lxfs_2" type="text" class="form-control" [class.hasError]="formModel.get('lxfs_2').invalid && formModel.get('lxfs_2').touched">                        
+              </td>
+          </tr>
+        </table>
+      
+      
+      </div>
+      <div class="modal-footer">
+        <button id="qxant" class="btn btn-warning" style="float: left;" data-dismiss="modal">
+      取消
+    </button>
+    <button type="submit" class="btn btn-success" style="cursor: pointer" [disabled]="formModel.invalid" style="float: left;">确认修改</button>   
+      </div>
+    </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+
+  <!-- 查看学生信息————模态框（Modal） -->
+<span id='openckxsxx' data-toggle="modal" data-target="#ckxsxxModal"></span>
+<div class="modal fade" id="ckxsxxModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          编辑学生信息
+        </h4>
+      </div>
+      <div class="modal-body">
+       <hr>
+        <table class="table table-bordered">
+          <tr>
+            <td>姓名</td>
+            <td>
+              {{ckxsxxdata['name']}}
+            </td>
+            <td>学籍号</td>
+            <td colspan="2">
+                {{ckxsxxdata['xjh']}}            
+            </td>
+            <td rowspan="3">
+                      
+            </td>
+          </tr>
+          <tr>
+            <td>性别</td>
+            <td>
+                {{ckxsxxdata['xb']}}            
+            </td>
+            <td>身份证号</td>
+            <td colspan="2">
+                {{ckxsxxdata['sfzh']}}                                       
+            </td>
+          </tr>
+          <tr>
+              <td>身高</td>
+              <td>
+                  {{ckxsxxdata['sg']}}           
+              </td>
+              <td>家庭住址</td>
+              <td colspan="2">
+                  {{ckxsxxdata['jtzz']}}                          
+              </td>
+          </tr>
+          <tr>
+                <td>体重</td>
+                <td>
+                    {{ckxsxxdata['tz']}}                         
+                </td>
+              <td>民族</td>
+              <td>
+                  {{ckxsxxdata['mz']}}                          
+              </td>
+              
+              <td>照片</td>
+              <td>
+                                            
+              </td>
+          </tr>
+          <tr>
+             <td>籍贯</td>
+              <td>
+                  {{ckxsxxdata['jg']}}                         
+              </td>
+              <td>是否住校</td>
+              <td>
+                  {{ckxsxxdata['sfzx']}}    
+              </td>
+          </tr>
+          <tr>
+              <td>所在班级</td>
+              <td colspan="5">
+                  {{ckxsxxdata['njb_name']}}{{ckxsxxdata['bj_name']}}
+              </td>
+        </tr>
+        <tr>
+              <td>所在宿舍</td>
+              <td colspan="5">
+                  {{ckxsxxdata['ly_name']}}{{ckxsxxdata['lc_name']}}{{ckxsxxdata['fj_name']}}{{ckxsxxdata['cw_name']}}
+              </td>
+        </tr>
+          <tr>
+              <td>家长信息</td>
+          </tr>
+          <tr>
+              <td>关系</td>
+              <td>姓名</td>
+              <td>政治面貌</td>
+              <td>工作单位</td>
+              <td colspan="2">联系方式</td>
+          </tr>
+          <tr>
+              <td>
+                  {{ckxsxxdata['gx_1']}}                        
+              </td>
+              <td>
+                  {{ckxsxxdata['xm_1']}} 
+              </td>
+              <td>
+                  {{ckxsxxdata['zzmm_1']}}                         
+              </td>
+              <td>
+                  {{ckxsxxdata['gzdw_1']}}                         
+              </td>
+              <td colspan="2">
+                  {{ckxsxxdata['lxfs_1']}}                         
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  {{ckxsxxdata['gx_2']}}                        
+              </td>
+              <td>
+                  {{ckxsxxdata['xm_2']}} 
+              </td>
+              <td>
+                  {{ckxsxxdata['zzmm_2']}}                         
+              </td>
+              <td>
+                  {{ckxsxxdata['gzdw_2']}}                         
+              </td>
+              <td colspan="2">
+                  {{ckxsxxdata['lxfs_2']}}                         
+              </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button id="qxant" class="btn btn-warning" style="float: left;" data-dismiss="modal">
+      返回
+    </button> 
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>

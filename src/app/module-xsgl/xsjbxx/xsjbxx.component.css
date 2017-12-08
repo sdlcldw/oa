@@ -13,3 +13,6 @@ table td{
 .td_input{
     padding: 2px;
 }
+.ng2-smart-table{
+    font-size: 14px;
+}

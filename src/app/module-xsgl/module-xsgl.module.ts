@@ -12,6 +12,8 @@ import { XsjbxxComponent } from './xsjbxx/xsjbxx.component';
 import { SsszLcComponent } from './sssz-lc/sssz-lc.component';
 import { SsszFjComponent } from './sssz-fj/sssz-fj.component';
 import { SsszCwComponent } from './sssz-cw/sssz-cw.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import {TableModule} from 'ngx-easy-table';
 
 const Routes=[
   {path:'cjxs',component:CjxsComponent},
@@ -32,8 +34,21 @@ const Routes=[
     RouterModule.forChild(Routes),
     FormsModule,
     ReactiveFormsModule,
+    FileUploadModule,   
+    TableModule, 
   ],
-  declarations: [CjxsComponent, XxshComponent, ZszlComponent, NjbszComponent, BjszComponent, SsszComponent, XsjbxxComponent, SsszLcComponent, SsszFjComponent, SsszCwComponent]
+  declarations: [
+    CjxsComponent,
+    XxshComponent, 
+    ZszlComponent,
+    NjbszComponent, 
+    BjszComponent, 
+    SsszComponent, 
+    XsjbxxComponent, 
+    SsszLcComponent,
+    SsszFjComponent,
+    SsszCwComponent,
+  ],
 })
 
 export class XsglModule { }

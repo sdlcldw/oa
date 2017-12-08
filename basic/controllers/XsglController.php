@@ -225,21 +225,103 @@ class XsglController extends CommonController
         }
     }
 // 学生基本信息管理
-    
+public function actionJcxxsz_xsjbxx_get_bj(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+    $sqlw = "SELECT * FROM xsgl_jcxx_bj where njb_id = '".$post['njbid']."';";
+    $dataw=Yii::$app->db->createCommand($sqlw)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $dataw;
+}
+}
+public function actionJcxxsz_xsjbxx_get_ss_ly(){
+    $sql = "SELECT * FROM xsgl_jcxx_ss_ly ;";
+    $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $data;
+}
+public function actionJcxxsz_xsjbxx_get_ss_lc(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+    $sqlw = "SELECT * FROM xsgl_jcxx_ss_lc where ly_id = '".$post['id']."';";
+    $dataw=Yii::$app->db->createCommand($sqlw)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $dataw;
+}
+}    
+public function actionJcxxsz_xsjbxx_get_ss_fj(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+    $sqlw = "SELECT * FROM xsgl_jcxx_ss_fj where lc_id = '".$post['id']."';";
+    $dataw=Yii::$app->db->createCommand($sqlw)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $dataw;
+}
+}
+public function actionJcxxsz_xsjbxx_get_ss_cw(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+    $sqlw = "SELECT * FROM xsgl_jcxx_ss_cw where fj_id = '".$post['id']."';";
+    $dataw=Yii::$app->db->createCommand($sqlw)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $dataw;
+}
+}
+
+public function actionJcxxsz_xsjbxx_add(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $sql = "INSERT xsgl_jcxx_xs_jbxx (name,xjh,xb,sfzh,sg,tz,mz,jg,jtzz,bj_id,sfzx,ss_cw_id,gx_1,xm_1,zzmm_1,gzdw_1,lxfs_1,gx_2,xm_2,zzmm_2,gzdw_2,lxfs_2) VALUES ('".$post['name']."','".$post['xjh']."','".$post['xb']."','".$post['sfzh']."','".$post['sg']."','".$post['tz']."','".$post['mz']."','".$post['jg']."','".$post['jtzz']."','".$post['szbj']."','".$post['sfzx']."','".$post['szss']."','".$post['gx_1']."','".$post['xm_1']."','".$post['zzmm_1']."','".$post['gzdw_1']."','".$post['lxfs_1']."','".$post['gx_2']."','".$post['xm_2']."','".$post['zzmm_2']."','".$post['gzdw_2']."','".$post['lxfs_2']."')";
+        $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+        return $ifok;
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $post;
+}
+}
 
 
+public function actionJcxxsz_xsjbxx_get_lb(){
+    $sqlw = "SELECT a.*,b.name as bj_name,c.name as njb_name FROM xsgl_jcxx_xs_jbxx as a left join xsgl_jcxx_bj as b on a.bj_id = b.id left join xsgl_jcxx_njb as c on b.njb_id = c.id";
+    $dataw=Yii::$app->db->createCommand($sqlw)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $dataw;
+}
+public function actionJcxxsz_xsjbxx_del(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $sql = "DELETE FROM xsgl_jcxx_xs_jbxx WHERE Id ='".$post['id']."'";
+        $ifok = Yii::$app->db->createCommand($sql)->execute();
+       return $ifok;
+    }
+}
+public function actionJcxxsz_xsjbxx_get(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $sql = "SELECT a.*,b.name as szbj,c.name as njb_name,d.name as szss,e.name as fj_name,f.name as lc_name,g.name as ly_name FROM xsgl_jcxx_xs_jbxx as a left join xsgl_jcxx_bj as b on a.bj_id = b.id left join xsgl_jcxx_njb as c on b.njb_id = c.id left join xsgl_jcxx_ss_cw as d on a.ss_cw_id = d.id left join xsgl_jcxx_ss_fj as e on d.fj_id = e.id left join xsgl_jcxx_ss_lc as f on e.lc_id = f.id left join xsgl_jcxx_ss_ly as g on f.ly_id = g.id WHERE a.Id ='".$post['id']."'";
+        $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+        Yii::$app->response->format=Response::FORMAT_JSON;
+        
+         return $data;
+    }
+}
+public function actionJcxxsz_xsjbxx_edit(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post(); 
+$sql = "UPDATE xsgl_jcxx_xs_jbxx SET name='".$post['name']."',sfzh='".$post['sfzh']."',xjh='".$post['xjh']."',jg='".$post['jg']."',jtzz='".$post['jtzz']."',mz='".$post['mz']."',sfzx='".$post['sfzx']."',sg='".$post['sg']."',tz='".$post['tz']."',xb='".$post['xb']."',gx_1='".$post['gx_1']."',xm_1='".$post['xm_1']."',zzmm_1='".$post['zzmm_1']."',gzdw_1='".$post['gzdw_1']."',lxfs_1='".$post['lxfs_1']."',gx_2='".$post['gx_2']."',xm_2='".$post['xm_2']."',zzmm_2='".$post['zzmm_2']."',gzdw_2='".$post['gzdw_2']."',lxfs_2='".$post['lxfs_2']."' WHERE Id =".$post['Id'].";";
+        $ifok = Yii::$app->db->createCommand($sql)->execute();
+       return $ifok;
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
+public function actionJcxxsz_xsjbxx_ck_get(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $sql = "SELECT a.*,b.name as bj_name,c.name as njb_name,d.name as cw_name,e.name as fj_name,f.name as lc_name,g.name as ly_name FROM xsgl_jcxx_xs_jbxx as a left join xsgl_jcxx_bj as b on a.bj_id = b.id left join xsgl_jcxx_njb as c on b.njb_id = c.id left join xsgl_jcxx_ss_cw as d on a.ss_cw_id = d.id left join xsgl_jcxx_ss_fj as e on d.fj_id = e.id left join xsgl_jcxx_ss_lc as f on e.lc_id = f.id left join xsgl_jcxx_ss_ly as g on f.ly_id = g.id WHERE a.Id ='".$post['id']."'";
+        $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+        Yii::$app->response->format=Response::FORMAT_JSON;
+         return $data;
+    }
+}
 
 
 
