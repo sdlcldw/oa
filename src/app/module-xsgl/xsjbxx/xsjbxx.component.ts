@@ -19,8 +19,6 @@ export class XsjbxxComponent implements OnInit {
 
   formModel: FormGroup;
   ifsczp:boolean = false;
-  iftjxsxx:boolean = false;
-  ifxsxxlb:boolean = true;
   data_njb:Array<any>;
   data_bj;
   xznjb;
@@ -226,7 +224,9 @@ onSubmit(){
     let data= response.json();
      if(data){
        if(data == 1){
-         this.tsk.cg('添加成功！')
+         this.tsk.cg('添加成功！');
+         this.getxsxxlb();
+  $('#qxantw').click();  
        }else{
       this.tsk.tsk('添加失败！');               
        }
@@ -237,10 +237,9 @@ onSubmit(){
 }
 
 tjxsxx(){
-  this.ifxsxxlb = false;
   this.getnjb();
   this.get_ss_ly();
-  this.iftjxsxx = true;
+  $('#opentjxsxx').click();
 }
 //查看学生详细信息
 ckxxxx(id){
@@ -252,7 +251,6 @@ ckxxxx(id){
      if(data){
       console.log(data[0]);
       this.ckxsxxdata = data[0];
-      console.log(this.formModel.value);
       $('#openckxsxx').click();
      }else{
       this.tsk.tsk('操作失败！');         
@@ -321,11 +319,6 @@ delxsxx(id){
       this.tsk.tsk('操作失败！');         
      }
 });
-}
-//显示学生信息列表
-xsxxlb(){
-  this.iftjxsxx = false;
-  this.ifxsxxlb = true;
 }
 //编辑学生信息提交
 bjxsxx_submit(){
