@@ -1,0 +1,108 @@
+<div class="right_title">
+  <img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">查看学生成长记录
+  </div>
+</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+  <!-- 内容区域开始 -->
+  <hr>
+  搜索姓名查看：
+  <input class="form-control" placeholder="请输入学生姓名" [(ngModel)]="form_name" style="width: 150px;display:inline;margin-right: 5px;">
+  <button type="button" class="btn btn-primary" (click)="ck_name()">确定</button>
+  <hr>
+  <span>按照班级查看：</span>
+  <select (change)="getbj($event.target.value)" class="form-control" style="width: 200px;display: inline;">
+      <option value=''>选择年级</option>
+    <option *ngFor="let x of nj_data" [value]='x.Id'>{{x.name}}</option>
+  </select>
+  <select [(ngModel)]="form_bj" class="form-control" style="width: 200px;display: inline;">
+      <option value=''>选择班级</option>      
+    <option *ngFor="let x of bj_data" [value]='x.Id'>{{x.name}}</option>
+  </select>
+  <button type="button" class="btn btn-primary" (click)="ck_bj()">确定</button>
+  <hr>
+
+  <ngx-table [configuration]="configuration" [data]="xsdata" [columns]="columns" [pagination]="pagination">
+    <ng-template let-row>
+      <td style="width: 200px;">
+        <div class="font-small">{{row.xjh}}</div>
+      </td>
+      <td style="width: 150px;">
+        <div class="font-small">{{row.name}}</div>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.xb}}</span>
+      </td>
+      <td style="width: 100px;">
+          <span class="font-small">{{row.sfzx}}</span>
+        </td>
+        <td style="width: 100px;">
+            <span class="font-small">{{row.lxfs_1}}</span>
+          </td>
+      <td style="width: 150px;">
+        <button type="button" class="btn btn-success btn-xs" (click)="ckxq(row.xjh)">详细</button>
+        <span id='openckxq' data-toggle="modal" data-target="#ckxqModal"></span>
+      </td>
+    </ng-template>
+  </ngx-table>
+
+
+
+<!-- 模态框（Modal) -->
+<div class="modal fade" id="ckxqModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            查看学生成长记录
+          </h4>
+        </div>
+        <div class="modal-body">
+          
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active"><a href="#grxx" data-toggle="tab">个人信息</a></li>
+                <li><a href="#wjjl" data-toggle="tab">违纪记录</a></li>
+                <li><a href="#ryjl" data-toggle="tab">荣誉记录</a></li>
+                <li><a href="#cjjl" data-toggle="tab">成绩记录</a></li>                
+              </ul>
+              <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="grxx">
+                  <p>123。</p>
+                </div>
+                <div class="tab-pane fade" id="wjjl">
+                  <p>456</p>
+                </div>
+                <div class="tab-pane fade" id="ryjl">
+                  <p>j678</p>
+                </div>
+                <div class="tab-pane fade" id="cjjl">
+                  <p>312
+                  </p>
+                </div>
+              </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button id="qxant" class="btn btn-warning" style="float: left;" data-dismiss="modal">
+            取消
+          </button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+  <!-- 内容区域结束 -->  
+  </div>

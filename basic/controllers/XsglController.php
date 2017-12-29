@@ -322,6 +322,98 @@ public function actionJcxxsz_xsjbxx_ck_get(){
          return $data;
     }
 }
+//学生成长记录
+public function actionXsczjl_zjjl_get(){
+    $session = Yii::$app->session;
+    $id = $session['__id'];
+    $sql="select a.Id,a.name as bj_name,b.name as njb_name from xsgl_jcxx_bj as a left join xsgl_jcxx_njb as b on a.njb_id = b.id where a.user_id_bzr='".$id."';";
+    $command = Yii::$app->db->createCommand($sql)->queryOne();
+    if(!$command){
+   Yii::$app->response->format=Response::FORMAT_JSON;       
+        return array('2');
+    }
+    $sql = "SELECT * FROM xsgl_jcxx_xs_jbxx where bj_id = '".$command['Id']."';";
+    $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+    $datas['bm'] = $command;
+    $datas['xs'] = $data;
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $datas;
+}
+public function actionXsczjl_zjjl_add_wj(){
+    
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $id = Yii::$app->session['__id'];
+        $sql = "INSERT xsgl_czjl_wj (xjh,sj,ms,user_id_czr) VALUES ('".$post['xjh']."','".$post['sj']."','".$post['ms']."','".$id."')";
+        $ifok = Yii::$app->db->createCommand($sql)->execute();
+        Yii::$app->response->format=Response::FORMAT_JSON;
+         return $ifok;
+    }
+    
+    }  
+public function actionXsczjl_zjjl_add_ry(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $id = Yii::$app->session['__id'];
+        $sql = "INSERT xsgl_czjl_ry (xjh,sj,ms,user_id_czr) VALUES ('".$post['xjh']."','".$post['sj']."','".$post['ms']."','".$id."')";
+        $ifok = Yii::$app->db->createCommand($sql)->execute();
+        Yii::$app->response->format=Response::FORMAT_JSON;
+         return $ifok;
+    }
+}    
+
+public function actionXsczjl_ckjl_get_njb(){
+    $sql = "SELECT * FROM xsgl_jcxx_njb";
+    $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $data;
+}
+
+public function actionXsczjl_ckjl_get_bj(){
+    if(Yii::$app->request->isPost){  
+    $post = Yii::$app->request->post();        
+    $sql = "SELECT * FROM xsgl_jcxx_bj where njb_id ='".$post['id']."';";
+    $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $data;
+    }
+}
+public function actionXsczjl_ckjl_xsxx_bj(){
+    if(Yii::$app->request->isPost){  
+    $post = Yii::$app->request->post();        
+    $sql = "SELECT * FROM xsgl_jcxx_xs_jbxx where bj_id ='".$post['id']."';";
+    $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $data;
+    }
+}
+public function actionXsczjl_ckjl_xsxx_name(){
+    if(Yii::$app->request->isPost){  
+    $post = Yii::$app->request->post();        
+    $sql = "SELECT * FROM xsgl_jcxx_xs_jbxx where name ='".$post['name']."';";
+    $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $data;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

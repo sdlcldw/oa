@@ -487,3 +487,10 @@ div.error{
 	padding: 3px 5px;
 	border-radius: 5px;
    }
+   .ngx-table td{
+    border: 1px solid #ddd;
+}
+.ngx-table th{
+	border: 1px solid #ddd;
+	cursor: pointer;
+}

@@ -1,0 +1,176 @@
+<div class="right_title">
+  <img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">增加记录
+  </div>
+</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+  <!-- 内容区域开始 -->
+  <hr>
+  <span>身份验证：</span><span class="mc">{{bm['njb_name']}}-{{bm['bj_name']}}-班主任</span>
+  <hr>
+  <span>操作范围：</span><span class="mc">{{bm['njb_name']}}-{{bm['bj_name']}}-学生</span>
+  <hr>
+
+  <ngx-table [configuration]="configuration" [data]="xsdata" [columns]="columns" [pagination]="pagination">
+    <ng-template let-row>
+      <td style="width: 200px;">
+        <div class="font-small">{{row.xjh}}</div>
+      </td>
+      <td style="width: 150px;">
+        <div class="font-small">{{row.name}}</div>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.xb}}</span>
+      </td>
+      <td style="width: 150px;">
+        <button type="button" class="btn btn-success btn-xs" (click)="xzjl(row)">新增记录</button>
+        <span id='openxzjl' data-toggle="modal" data-target="#xzjlModal"></span>
+      </td>
+    </ng-template>
+  </ngx-table>
+</div>
+<!-- 内容区域结束 -->
+
+<!-- 模态框（Modal) -->
+<div class="modal fade" id="xzjlModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          新增成长记录
+        </h4>
+      </div>
+      <div class="modal-body">
+        <hr>
+        <span>当前学生：</span><span class="mc">{{dqxs['name']}}</span>
+        <hr style="margin-top: 15px;">
+        <div>
+          <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+              <a href="#wj" data-toggle="tab">
+                记录违纪
+              </a>
+            </li>
+            <li>
+              <a href="#ry" data-toggle="tab">记录荣誉</a>
+            </li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="wj" style="background-color: white;">
+              <form [formGroup]="wjformModel" class="form-horizontal" role="form" (submit)="onSubmit_wj()">
+                <table class="tab_table">
+                  <tr>
+                    <td>时间</td>
+                    <td style="width: 400px;">
+                        <div class="input-group">
+                      <input [(ngModel)]='dqrq_wj' formControlName="sj" type="text" class="form-control" placeholder="必填" [class.hasError]="wjformModel.get('sj').invalid && wjformModel.get('sj').touched"/>
+                            <span class="input-group-btn">
+                              <button class="btn btn-default" type="button" (click)="set_dqrq_wj()">
+                                设为今天
+                              </button>
+                            </span>
+                          </div>
+                      <div *ngIf="wjformModel.get('sj').invalid && (wjformModel.get('sj').dirty || wjformModel.get('sj').touched)" class="error">
+                        <div class="error" *ngIf="wjformModel.get('sj').errors.required">不可为空</div>
+                        <div class="error" *ngIf="wjformModel.get('sj').errors.date">日期格式为：2018-01-01</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>扣量化学分</td>
+                    <td>
+                      <input formControlName="lhxf" type="text" class="form-control" placeholder="必填" [class.hasError]="wjformModel.get('lhxf').invalid && wjformModel.get('lhxf').touched"
+                      />
+                      <div *ngIf="wjformModel.get('lhxf').invalid && (wjformModel.get('lhxf').dirty || wjformModel.get('lhxf').touched)" class="error">
+                        <div class="error" *ngIf="wjformModel.get('lhxf').errors.required">不可为空</div>
+                        <div class="error" *ngIf="wjformModel.get('lhxf').errors.zzs">请输入正整数</div>
+                        <div class="error" *ngIf="wjformModel.get('lhxf').errors.maxlength">长度不应超过3位</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>违纪描述</td>
+                    <td>
+                      <textarea class="form-control" rows="3" formControlName="ms" class="form-control" placeholder="必填" [class.hasError]="wjformModel.get('ms').invalid && wjformModel.get('ms').touched">
+                          </textarea>
+                      <div *ngIf="wjformModel.get('ms').invalid && (wjformModel.get('ms').dirty || wjformModel.get('ms').touched)" class="error">
+                        <div class="error" *ngIf="wjformModel.get('ms').errors.minlength || wjformModel.get('ms').errors.maxlength || wjformModel.get('ms').errors.required">应不少于6字，不大于100字</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr><td></td><td><button type="submit" class="btn btn-success" style="cursor: pointer" [disabled]="wjformModel.invalid" style="float: right;margin: 10px 5px;">确认添加</button></td></tr>
+                </table>
+              </form>
+            </div>
+            <div class="tab-pane fade" id="ry" style="background-color: white;">
+              <form [formGroup]="ryformModel" class="form-horizontal" role="form" (submit)="onSubmit_ry()">
+                <table class="tab_table">
+                  <tr>
+                    <td>时间</td>
+                    <td style="width: 400px;">
+                      <div class="input-group">
+                        <input [(ngModel)]='dqrq_ry' formControlName="sj" type="text" class="form-control" placeholder="必填" [class.hasError]="ryformModel.get('sj').invalid && ryformModel.get('sj').touched"
+                        />
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button" (click)="set_dqrq_ry()">
+                            设为今天
+                          </button>
+                        </span>
+                      </div>
+                      <div *ngIf="ryformModel.get('sj').invalid && (ryformModel.get('sj').dirty || ryformModel.get('sj').touched)" class="error">
+                        <div class="error" *ngIf="ryformModel.get('sj').errors.required">不可为空</div>
+                        <div class="error" *ngIf="ryformModel.get('sj').errors.date">日期格式为：2018-01-01</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>加量化学分</td>
+                    <td>
+                      <input formControlName="lhxf" type="text" class="form-control" placeholder="必填" [class.hasError]="ryformModel.get('lhxf').invalid && ryformModel.get('lhxf').touched"
+                      />
+                      <div *ngIf="ryformModel.get('lhxf').invalid && (ryformModel.get('lhxf').dirty || ryformModel.get('lhxf').touched)" class="error">
+                        <div class="error" *ngIf="ryformModel.get('lhxf').errors.required">不可为空</div>
+                        <div class="error" *ngIf="ryformModel.get('lhxf').errors.zzs">请输入正整数</div>
+                        <div class="error" *ngIf="ryformModel.get('lhxf').errors.maxlength">长度不应超过3位</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>荣誉描述</td>
+                    <td>
+                      <textarea class="form-control" rows="3" formControlName="ms" class="form-control" placeholder="必填" [class.hasError]="ryformModel.get('ms').invalid && ryformModel.get('ms').touched">
+                              </textarea>
+                      <div *ngIf="ryformModel.get('ms').invalid && (ryformModel.get('ms').dirty || ryformModel.get('ms').touched)" class="error">
+                        <div class="error" *ngIf="ryformModel.get('ms').errors.minlength || ryformModel.get('ms').errors.maxlength || ryformModel.get('ms').errors.required">应不少于6字，不大于100字</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>      <td></td><td><button type="submit" class="btn btn-success" style="cursor: pointer" [disabled]="ryformModel.invalid" style="float: right;margin: 10px 5px;">确认添加</button></td>            
+</tr>
+                </table>                  
+
+              </form>
+            </div>
+
+          </div>
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="qxant" class="btn btn-warning" style="float: left;" data-dismiss="modal">
+          取消
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal -->
+</div>

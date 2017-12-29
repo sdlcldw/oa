@@ -14,6 +14,8 @@ import { SsszFjComponent } from './sssz-fj/sssz-fj.component';
 import { SsszCwComponent } from './sssz-cw/sssz-cw.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import {TableModule} from 'ngx-easy-table';
+import { ZjjlComponent } from './zjjl/zjjl.component';
+import { CkjlComponent } from './ckjl/ckjl.component';
 
 const Routes=[
   {path:'cjxs',component:CjxsComponent},
@@ -26,6 +28,8 @@ const Routes=[
   {path:'sssz_fj',component:SsszFjComponent},
   {path:'sssz_cw',component:SsszCwComponent},
   {path:'xsjbxx',component:XsjbxxComponent},
+  {path:'zjjl',component:ZjjlComponent},
+  {path:'ckjl',component:CkjlComponent},
 ];
 
 @NgModule({
@@ -48,6 +52,8 @@ const Routes=[
     SsszLcComponent,
     SsszFjComponent,
     SsszCwComponent,
+    ZjjlComponent,
+    CkjlComponent,
   ],
 })
 
