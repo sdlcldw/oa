@@ -19,6 +19,7 @@ export class CkjlComponent implements OnInit {
   nj_data=[];
   form_name;
   form_bj;
+  ckxsxxdata=[];
   columns = [
     { key: 'xjh', title: '学籍号' },
     { key: 'name', title: '姓名' },
