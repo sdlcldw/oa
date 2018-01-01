@@ -13,7 +13,7 @@
   <span>按照班级查看：</span>
   <select (change)="getbj($event.target.value)" class="form-control" style="width: 200px;display: inline;">
       <option value=''>选择年级</option>
-    <option *ngFor="let x of nj_data" [value]='x.Id'>{{x.name}}</option>
+      <option *ngFor="let x of nj_data" [value]='x.Id'>{{x.name}}</option>
   </select>
   <select [(ngModel)]="form_bj" class="form-control" style="width: 200px;display: inline;">
       <option value=''>选择班级</option>      
@@ -74,11 +74,11 @@
                     <tr>
                       <td>姓名</td>
                       <td>
-                        {{ckxsxxdata['name']}}
+                        {{ckxsxx_jbxx['name']}}
                       </td>
                       <td>学籍号</td>
                       <td colspan="2">
-                        {{ckxsxxdata['xjh']}}
+                        {{ckxsxx_jbxx['xjh']}}
                       </td>
                       <td rowspan="3">
           
@@ -87,31 +87,31 @@
                     <tr>
                       <td>性别</td>
                       <td>
-                        {{ckxsxxdata['xb']}}
+                        {{ckxsxx_jbxx['xb']}}
                       </td>
                       <td>身份证号</td>
                       <td colspan="2">
-                        {{ckxsxxdata['sfzh']}}
+                        {{ckxsxx_jbxx['sfzh']}}
                       </td>
                     </tr>
                     <tr>
                       <td>身高</td>
                       <td>
-                        {{ckxsxxdata['sg']}}
+                        {{ckxsxx_jbxx['sg']}}
                       </td>
                       <td>家庭住址</td>
                       <td colspan="2">
-                        {{ckxsxxdata['jtzz']}}
+                        {{ckxsxx_jbxx['jtzz']}}
                       </td>
                     </tr>
                     <tr>
                       <td>体重</td>
                       <td>
-                        {{ckxsxxdata['tz']}}
+                        {{ckxsxx_jbxx['tz']}}
                       </td>
                       <td>民族</td>
                       <td>
-                        {{ckxsxxdata['mz']}}
+                        {{ckxsxx_jbxx['mz']}}
                       </td>
           
                       <td>照片</td>
@@ -122,23 +122,23 @@
                     <tr>
                       <td>籍贯</td>
                       <td>
-                        {{ckxsxxdata['jg']}}
+                        {{ckxsxx_jbxx['jg']}}
                       </td>
                       <td>是否住校</td>
                       <td>
-                        {{ckxsxxdata['sfzx']}}
+                        {{ckxsxx_jbxx['sfzx']}}
                       </td>
                     </tr>
                     <tr>
                       <td>所在班级</td>
                       <td colspan="5">
-                        {{ckxsxxdata['njb_name']}}{{ckxsxxdata['bj_name']}}
+                        {{ckxsxx_jbxx['njb_name']}}{{ckxsxx_jbxx['bj_name']}}
                       </td>
                     </tr>
                     <tr>
                       <td>所在宿舍</td>
                       <td colspan="5">
-                        {{ckxsxxdata['ly_name']}}{{ckxsxxdata['lc_name']}}{{ckxsxxdata['fj_name']}}{{ckxsxxdata['cw_name']}}
+                        {{ckxsxx_jbxx['ly_name']}}{{ckxsxx_jbxx['lc_name']}}{{ckxsxx_jbxx['fj_name']}}{{ckxsxx_jbxx['cw_name']}}
                       </td>
                     </tr>
                     <tr>
@@ -153,45 +153,67 @@
                     </tr>
                     <tr>
                       <td>
-                        {{ckxsxxdata['gx_1']}}
+                        {{ckxsxx_jbxx['gx_1']}}
                       </td>
                       <td>
-                        {{ckxsxxdata['xm_1']}}
+                        {{ckxsxx_jbxx['xm_1']}}
                       </td>
                       <td>
-                        {{ckxsxxdata['zzmm_1']}}
+                        {{ckxsxx_jbxx['zzmm_1']}}
                       </td>
                       <td>
-                        {{ckxsxxdata['gzdw_1']}}
+                        {{ckxsxx_jbxx['gzdw_1']}}
                       </td>
                       <td colspan="2">
-                        {{ckxsxxdata['lxfs_1']}}
+                        {{ckxsxx_jbxx['lxfs_1']}}
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        {{ckxsxxdata['gx_2']}}
+                        {{ckxsxx_jbxx['gx_2']}}
                       </td>
                       <td>
-                        {{ckxsxxdata['xm_2']}}
+                        {{ckxsxx_jbxx['xm_2']}}
                       </td>
                       <td>
-                        {{ckxsxxdata['zzmm_2']}}
+                        {{ckxsxx_jbxx['zzmm_2']}}
                       </td>
                       <td>
-                        {{ckxsxxdata['gzdw_2']}}
+                        {{ckxsxx_jbxx['gzdw_2']}}
                       </td>
                       <td colspan="2">
-                        {{ckxsxxdata['lxfs_2']}}
+                        {{ckxsxx_jbxx['lxfs_2']}}
                       </td>
                     </tr>
                   </table>
                 </div>
                 <div class="tab-pane fade" id="wjjl">
-                  <p>456</p>
+                  <table class="table table-bordered">
+                    <tr>
+                      <td style="width: 100px;">违纪时间</td>
+                      <td style="width: 60px;">扣学分</td>
+                      <td>违纪过程</td>
+                    </tr>
+                    <tr *ngFor="let x of ckxsxx_wj;">
+                        <td>{{x.sj}}</td>
+                        <td>{{x.lhxf}}</td>
+                        <td>{{x.ms}}</td>
+                      </tr>
+                  </table>
                 </div>
                 <div class="tab-pane fade" id="ryjl">
-                  <p>j678</p>
+                    <table class="table table-bordered">
+                        <tr>
+                          <td style="width: 100px;">获荣誉时间</td>
+                          <td style="width: 60px;">加学分</td>
+                          <td>荣誉描述</td>
+                        </tr>
+                        <tr *ngFor="let x of ckxsxx_ry;">
+                            <td>{{x.sj}}</td>
+                            <td>{{x.lhxf}}</td>
+                            <td>{{x.ms}}</td>
+                          </tr>
+                      </table>
                 </div>
                 <div class="tab-pane fade" id="cjjl">
                   <p>312

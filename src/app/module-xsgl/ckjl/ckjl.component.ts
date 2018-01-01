@@ -12,14 +12,15 @@ import jQuery from 'jquery';
   styleUrls: ['./ckjl.component.css']
 })
 
-
 export class CkjlComponent implements OnInit {
   xsdata = [];  
   bj_data=[];
   nj_data=[];
   form_name;
-  form_bj;
-  ckxsxxdata=[];
+  form_bj = '';
+  ckxsxx_jbxx=[];
+  ckxsxx_wj=[];
+  ckxsxx_ry=[];
   columns = [
     { key: 'xjh', title: '学籍号' },
     { key: 'name', title: '姓名' },
@@ -109,15 +110,22 @@ export class CkjlComponent implements OnInit {
  }
 ckxq(d){
  console.log(d);
+ let dat = {xjh:d};
+ let myHeaders: Headers = new Headers();
+ myHeaders.append("Content-Type", "application/json; charset=UTF-8");
+ this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_ckjl_ckxq", dat, { headers: myHeaders }).toPromise().then((response) => {
+   let data = response.json();
+   if (data) {
+       console.log(data);
+       this.ckxsxx_jbxx = data['jbxx'];
+       this.ckxsxx_wj = data['wj'];
+       this.ckxsxx_ry = data['ry'];
+   } else {
+     this.tsk.tsk('获取数据失败！');
+   }
+ });
  $('#openckxq').click(); 
 }
-
-
-
-
-
-
-
 
 
 

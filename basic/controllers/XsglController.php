@@ -344,7 +344,7 @@ public function actionXsczjl_zjjl_add_wj(){
     if(Yii::$app->request->isPost){
         $post = Yii::$app->request->post();
         $id = Yii::$app->session['__id'];
-        $sql = "INSERT xsgl_czjl_wj (xjh,sj,ms,user_id_czr) VALUES ('".$post['xjh']."','".$post['sj']."','".$post['ms']."','".$id."')";
+        $sql = "INSERT xsgl_czjl_ry (xjh,sj,lhxf,ms,user_id_czr) VALUES ('".$post['xjh']."','".$post['sj']."','".$post['lhxf']."','".$post['ms']."','".$id."')";
         $ifok = Yii::$app->db->createCommand($sql)->execute();
         Yii::$app->response->format=Response::FORMAT_JSON;
          return $ifok;
@@ -355,7 +355,7 @@ public function actionXsczjl_zjjl_add_ry(){
     if(Yii::$app->request->isPost){
         $post = Yii::$app->request->post();
         $id = Yii::$app->session['__id'];
-        $sql = "INSERT xsgl_czjl_ry (xjh,sj,ms,user_id_czr) VALUES ('".$post['xjh']."','".$post['sj']."','".$post['ms']."','".$id."')";
+        $sql = "INSERT xsgl_czjl_ry (xjh,sj,lhxf,ms,user_id_czr) VALUES ('".$post['xjh']."','".$post['sj']."','".$post['lhxf']."','".$post['ms']."','".$id."')";
         $ifok = Yii::$app->db->createCommand($sql)->execute();
         Yii::$app->response->format=Response::FORMAT_JSON;
          return $ifok;
@@ -397,7 +397,22 @@ public function actionXsczjl_ckjl_xsxx_name(){
     }
 }
 
-
+public function actionXsczjl_ckjl_ckxq(){
+    if(Yii::$app->request->isPost){
+    $post = Yii::$app->request->post();        
+    $sql = "SELECT a.*,b.name as bj_name,c.name as njb_name,d.name as cw_name,e.name as fj_name,f.name as lc_name,g.name as ly_name FROM xsgl_jcxx_xs_jbxx as a left join xsgl_jcxx_bj as b on a.bj_id = b.id left join xsgl_jcxx_njb as c on b.njb_id = c.id left join xsgl_jcxx_ss_cw as d on a.ss_cw_id = d.id left join xsgl_jcxx_ss_fj as e on d.fj_id = e.id left join xsgl_jcxx_ss_lc as f on e.lc_id = f.id left join xsgl_jcxx_ss_ly as g on f.ly_id = g.id WHERE a.xjh ='".$post['xjh']."'";
+    $jbxx = Yii::$app->db->createCommand($sql)->queryOne();    
+    $sql = "SELECT * FROM xsgl_czjl_wj where xjh ='".$post['xjh']."';";
+    $wj=Yii::$app->db->createCommand($sql)->query()->readAll();
+    $sql = "SELECT * FROM xsgl_czjl_ry where xjh ='".$post['xjh']."';";
+    $ry=Yii::$app->db->createCommand($sql)->query()->readAll();
+    $data['jbxx'] = $jbxx;
+    $data['wj'] = $wj;
+    $data['ry'] = $ry;
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $data;
+    }
+}
 
 
 
