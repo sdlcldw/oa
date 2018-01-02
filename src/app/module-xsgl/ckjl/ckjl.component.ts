@@ -56,12 +56,17 @@ export class CkjlComponent implements OnInit {
   }
 
   ck_name(){
+    this.xsdata = [];
     console.log(this.form_name);
     let dat = {name:this.form_name};
     let myHeaders: Headers = new Headers();
     myHeaders.append("Content-Type", "application/json; charset=UTF-8");
     this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_ckjl_xsxx_name",dat,{ headers: myHeaders }).toPromise().then((response) => {
       let data = response.json();
+      if(data == '2'){
+        this.tsk.tsk('没有符合条件的数据！');
+          return;        
+      }
       if (data) {
           this.xsdata = data;
       } else {
@@ -70,12 +75,17 @@ export class CkjlComponent implements OnInit {
     });
   }
   ck_bj(){
+    this.xsdata = [];    
     console.log(this.form_bj);
     let dat = {id:this.form_bj};
     let myHeaders: Headers = new Headers();
     myHeaders.append("Content-Type", "application/json; charset=UTF-8");
     this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_ckjl_xsxx_bj", dat, { headers: myHeaders }).toPromise().then((response) => {
       let data = response.json();
+      if(data == '2'){
+        this.tsk.tsk('没有符合条件的数据！');
+          return;        
+      }
       if (data) {
           this.xsdata = data;
       } else {

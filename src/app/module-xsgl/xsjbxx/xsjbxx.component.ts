@@ -27,7 +27,7 @@ export class XsjbxxComponent implements OnInit {
   data_ss_fj;
   data_ss_cw;
   ckxsxxdata:Array<any> = [];
-
+  xsimage;
   data = [];
   columns = [
     { key: 'Id', title: 'id' },
@@ -175,35 +175,27 @@ export class XsjbxxComponent implements OnInit {
        }
   });
   }
-
-   // B: 初始化定义uploader变量,用来配置input中的uploader属性
    public uploader:FileUploader = new FileUploader({
-    url: "/oa/basic/web/index.php?r=jssczp/uploadfile",
+    url: "/oa/basic/web/index.php?r=xssczp/uploadfile",
     method: "POST",
     itemAlias: "uploadedfile",
     removeAfterUpload:true,
 });
-// C: 定义事件，选择文件
-selectedFileOnChanged(event:any) {
-    // 打印文件选择名称
-}
-// D: 定义事件，上传文件
 uploadFile() {
-    // 上传
-    // this.uploader.queue[0].onSuccess = function (response, status, headers) {
+  let xjh =  this.formModel.value.xjh;
+  this.uploader.onBuildItemForm = function(fileItem, form){
+    form.append('xjh',xjh);
+    };
       this.uploader.queue[0].onSuccess = (response, status, headers) => {    
-        // 上传文件成功
+     
         if (status == 200) {
-            // 上传文件后获取服务器返回的数据
-            // let tempRes = JSON.parse(response);
             if(response == '1'){
-              alert('上传成功！');
+              this.tsk.cg('上传成功！');
             }else{
             alert(response);
           }
         } else {
-            // 上传文件后获取服务器返回的数据错误
-            alert("上传失败了");
+            alert("上传失败");
         }
     };
     this.uploader.queue[0].upload(); // 开始上传
@@ -251,6 +243,7 @@ ckxxxx(id){
      if(data){
       console.log(data[0]);
       this.ckxsxxdata = data[0];
+      this.xsimage = "assets/images/xsimg/" + this.ckxsxxdata['xjh'] + ".jpg?" + Math.random();      
       $('#openckxsxx').click();
      }else{
       this.tsk.tsk('操作失败！');         
@@ -294,6 +287,7 @@ bjxsxx(id){
       gzdw_2: data[0].gzdw_2,
       lxfs_2: data[0].lxfs_2,
     });
+    this.xsimage = "assets/images/xsimg/" + data[0].xjh + ".jpg?" + Math.random();    
       console.log(this.formModel.value)
      }else{
       this.tsk.tsk('操作失败！');         

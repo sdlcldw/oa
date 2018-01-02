@@ -108,7 +108,7 @@ ifleft:boolean=false;
               }
             } else {
                 // 上传文件后获取服务器返回的数据错误
-                alert("上传失败了");
+                alert("上传失败");
             }
         };
         this.uploader.queue[0].upload(); // 开始上传

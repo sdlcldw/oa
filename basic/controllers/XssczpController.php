@@ -8,13 +8,15 @@ use app\controllers\CommonController;
 class XssczpController extends CommonController{
 
 public $enableCsrfValidation = false;
-	protected $fileName='logo';
+	protected $fileName='uploadedfile';
 	protected $maxSize=500000;
-	protected $allowMime=array('image/jpeg');
 	// protected $allowMime=array('image/jpeg','image/png','image/gif');
-	protected $allowExt=array('jpg');
+	protected $allowMime=array('image/jpeg');
 	// protected $allowExt=array('jpeg','jpg','png','gif');
-	protected $uploadPath='../../images/xsimg';
+	protected $allowExt=array('jpg');
+	protected $uploadPath='../../src/assets/images/xsimg';
+	// protected $uploadPath='../../../jsimg';
+	
 	protected $imgFlag=true;
 	protected $fileInfo;
 	protected $error;
@@ -144,11 +146,12 @@ public $enableCsrfValidation = false;
 	 * @return string
 	 */
 	public function actionUploadfile(){
-		$name = $_GET['xjh'];
-		// print_r($_FILES['logo']);
+		$post = Yii::$app->request->post();  
+		$name = $post['xjh'];
 		 $this->fileInfo = $_FILES[$this->fileName];
 		if($this->checkError()&&$this->checkSize()&&$this->checkExt()&&$this->checkMime()&&$this->checkTrueImg()&&$this->checkHTTPPost()){
 			$this->checkUploadPath();
+			// $uniName=123;
 			$destination=$this->uploadPath.'/'.$name.'.'.$this->ext;
 			if(@move_uploaded_file($this->fileInfo['tmp_name'], $destination)){
 				// return  $destination;
@@ -161,7 +164,9 @@ public $enableCsrfValidation = false;
 			return $this->error;
 		 }
 	}
-
+// 	public function actionUploadfile(){
+// print_r($_FILES);	
+// 	}
 }
 
 

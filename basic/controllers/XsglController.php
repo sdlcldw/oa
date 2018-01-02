@@ -383,6 +383,9 @@ public function actionXsczjl_ckjl_xsxx_bj(){
     $post = Yii::$app->request->post();        
     $sql = "SELECT * FROM xsgl_jcxx_xs_jbxx where bj_id ='".$post['id']."';";
     $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+    if(!$data){
+        return '2';
+    }
    Yii::$app->response->format=Response::FORMAT_JSON;
     return $data;
     }
@@ -392,6 +395,9 @@ public function actionXsczjl_ckjl_xsxx_name(){
     $post = Yii::$app->request->post();        
     $sql = "SELECT * FROM xsgl_jcxx_xs_jbxx where name ='".$post['name']."';";
     $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+    if(!$data){
+        return '2';
+    }
    Yii::$app->response->format=Response::FORMAT_JSON;
     return $data;
     }
