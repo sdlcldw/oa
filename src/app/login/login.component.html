@@ -32,9 +32,9 @@
                         <label class="col-md-2 control-label">
                             密 &ensp; 码：
                         </label>
-                        <div class="col-md-8" >
-                     <input class="form-control" name="password" type="password" [class.hasError]="formModel.get('password').invalid && formModel.get('password').touched" formControlName="password">
-                        </div>
+                        <div class="col-md-8" >                                   
+                     <input [(ngModel)]='passwd' class="form-control" name="password" type="text" [class.hasError]="formModel.get('password').invalid && formModel.get('password').touched" formControlName="password">                     
+                    </div>
                          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="col-md-8 col-md-offset-2 error">
                                 <div class="error" *ngIf="password.errors.required">密码不可为空</div>
                                 <div class="error" *ngIf="password.errors.minlength">密码最小长度为6位</div>

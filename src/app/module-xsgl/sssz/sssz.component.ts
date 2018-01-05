@@ -45,7 +45,7 @@ export class SsszComponent implements OnInit {
        }
   });
   }
-  delly(data){
+  delly(){
     if (confirm('该操作会将该楼宇下包含的所有数据都会删除！确认删除吗？')!=true){
       return; 
      }

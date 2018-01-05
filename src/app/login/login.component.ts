@@ -20,11 +20,27 @@ dataSource:Observable<any>;
 fb:FormBuilder = new FormBuilder();
 imageurl;
 imagegh;
+passwd='';
+passwdt='';
   constructor(private http:Http,private router:Router,private userinfo:UserService,private tsk:TskService) {
     this.formModel = this.fb.group({
       username: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
       password: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(24)]],
     })
+    //定制密码框
+   this.password.valueChanges.subscribe( e => {
+     if(this.passwd.length != this.passwdt.length){
+       if(this.passwd.length == 0){
+        this.passwdt = '';
+       }
+       if(this.passwd.length < this.passwdt.length){
+        this.passwdt = this.passwdt.substring(0,this.passwdt.length - 1);//删除    
+       }else{
+       this.passwdt = this.passwdt + this.passwd.substring(this.passwdt.length);//增加
+       }
+     }
+     this.passwd = this.passwd.replace(/./g,'●');
+    });
   }
 
   ngOnInit(){
@@ -34,17 +50,20 @@ imagegh;
     imagegh = Math.floor(Math.random()*images+1);
     }else{
       this.imagegh = imagegh;
-      this.imageurl="assets/images/background_"+imagegh+".jpg";      
+      this.imageurl="http://oj6yy14e0.bkt.clouddn.com/background_"+imagegh+".jpg?imageslim";      
     }
   }
 
   get username() { return this.formModel.get('username'); }
   get password() { return this.formModel.get('password'); }
   
+  passchange(){
+    console.log('onchange:'+this.passwd);
+  }
 onSubmit(){
 let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-    this.dataSource = this.http.post('/oa/basic/web/index.php?r=index/login',$.param({'username':this.formModel.value.username,'password':this.formModel.value.password}),{headers:myHeaders})
+    this.dataSource = this.http.post('/oa/basic/web/index.php?r=index/login',$.param({'username':this.formModel.value.username,'password':this.passwdt}),{headers:myHeaders})
     .map((res)=>res.json());
    this.dataSource.subscribe(data=>{
       console.log(data);
