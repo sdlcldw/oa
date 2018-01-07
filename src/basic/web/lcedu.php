@@ -1,3 +1,0 @@
-<?php
-$xmlDoc = new DOMDocument();
-?>

@@ -9,8 +9,8 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './login/login.component';
 import { Routes, RouterModule } from "@angular/router";
-import { LoginGuard } from "app/guard/login.guard";
-import { ExitGuard } from "app/guard/exit.guard";
+import { LoginGuard } from "./guard/login.guard";
+import { ExitGuard } from "./guard/exit.guard";
 import { UserService } from "./service/UserService";
 import { TskService } from "./service/TskService";
 import { MenuGrbgComponent } from './menu-grbg/menu-grbg.component';
@@ -20,8 +20,8 @@ import { MenuRsglComponent } from './menu-rsgl/menu-rsgl.component';
 import { MenuCwptComponent } from './menu-cwpt/menu-cwpt.component';
 import { MenuZhxzComponent } from './menu-zhxz/menu-zhxz.component';
 import { MenuXtszComponent } from './menu-xtsz/menu-xtsz.component';
-import { User_infoResolve } from 'app/guard/user_info.resolve';
-import { QxGuard } from 'app/guard/qx.guard';
+import { User_infoResolve } from './guard/user_info.resolve';
+import { QxGuard } from './guard/qx.guard';
 import { SeekpasswordComponent } from './seekpassword/seekpassword.component';
 
 const routeConfig: Routes = [
