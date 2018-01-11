@@ -15,8 +15,6 @@ public $enableCsrfValidation = false;
 	// protected $allowExt=array('jpeg','jpg','png','gif');
 	protected $allowExt=array('jpg');
 	protected $uploadPath='../../src/assets/images/jsimg';
-	// protected $uploadPath='../../../jsimg';
-	
 	protected $imgFlag=true;
 	protected $fileInfo;
 	protected $error;
@@ -146,26 +144,21 @@ public $enableCsrfValidation = false;
 	 * @return string
 	 */
 	public function actionUploadfile(){
-		// $session = Yii::$app->session;
-		// $name = $session['__id'];
-print_r($_FILES);	
-
-		// print_r($_FILES['logo']);
-		//  $this->fileInfo = $_FILES[$this->fileName];
-		// if($this->checkError()&&$this->checkSize()&&$this->checkExt()&&$this->checkMime()&&$this->checkTrueImg()&&$this->checkHTTPPost()){
-		// 	$this->checkUploadPath();
-		// 	// $uniName=123;
-		// 	$destination=$this->uploadPath.'/'.$name.'.'.$this->ext;
-		// 	if(@move_uploaded_file($this->fileInfo['tmp_name'], $destination)){
-		// 		// return  $destination;
-		// 		return 1;
-		// 	}else{
-		// 		$this->error='文件移动失败';
-		// 		return $this->error;
-		// 	}
-		// }else{
-		// 	return $this->error;
-		//  }
+		$session = Yii::$app->session;
+		$name = $session['__id'];
+		 $this->fileInfo = $_FILES[$this->fileName];
+		if($this->checkError()&&$this->checkSize()&&$this->checkExt()&&$this->checkMime()&&$this->checkTrueImg()&&$this->checkHTTPPost()){
+			$this->checkUploadPath();
+			$destination=$this->uploadPath.'/'.$name.'.'.$this->ext;
+			if(@move_uploaded_file($this->fileInfo['tmp_name'], $destination)){
+				return '2';
+			}else{
+				$this->error='文件移动失败';
+				return $this->error;
+			}
+		}else{
+			return $this->error;
+		 }
 	}
 // 	public function actionUploadfile(){
 // print_r($_FILES);	

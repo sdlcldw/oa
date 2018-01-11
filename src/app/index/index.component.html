@@ -28,8 +28,7 @@
 	<div class="user">
 
 	<div class="head_img_div"></div>	
-	<!--[src]="userimage"						onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';			-->
-	<img id="jsimg" src="{{userimage}}" height="60" width="60" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">
+	<img id="jsimg" [src]="userimage" height="60" width="60" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">
 
 		<span id="username" class="username" data-toggle="modal" data-target="#myModal">
 		{{ userdata.username }}
@@ -96,13 +95,7 @@
 						<td>姓名</td>
 						<td>{{modeldata.username}}</td>
 						<td style="width:30%;height:200px;" rowspan="4">
-						<img class="img-thumbnail" height="180" width="180" src="{{userimage}}" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">
-						<div [hidden]='ifsczp'>
-						<p  style="color:#ff0000;">温馨提示：照片格式应为jpg<br>照片大小不超过500KB</p>
-						<input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />
-							<button class="btn btn-sm btn-warning" (click)="qxsczp()">取消</button>
-						<a  (click)="uploadFile()" class="btn btn-sm btn-info">确认上传</a>
-						</div>
+						<img class="img-thumbnail" height="180" width="180" [src]="userimage" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">
 						</td>
 					</tr>
 					<tr>
@@ -124,7 +117,11 @@
 						<td><input [(ngModel)]="modeldata.email" style="border:none;background:transparent;" type="text" name=""></td>
 					</tr>  
 				</table>
+				<div *ngIf='ifsczp' class="progress">
+					<div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+				</div>
 		</div>
+
 			</div>
 
 
@@ -135,8 +132,9 @@
 				<button id="qxan" class="btn btn-warning" style="position:absolute;left:16px" data-dismiss="modal">
 			取消
 		</button>
-        
-		<button class="btn btn-sm btn-info" (click)="zpsc()">更换照片</button>
+        <input style="display: none;" id="upload_jszp" type="file" ng2FileSelect [uploader]="uploader"/>                
+		<a *ngIf='!ifsczp' (click)="zpsc()" class="btn btn-sm btn-info" title="提示：照片格式应为jpg,最大500KB">更换照片</a>
+	
 		<button class="btn btn-sm btn-info" data-toggle="modal" data-target="#myModalt">修改密码</button>
 		<button class="btn btn-primary" (click)="submit()">确认修改</button>
 			</div>

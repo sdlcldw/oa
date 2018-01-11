@@ -1,9 +1,10 @@
 import {Injectable, OnInit} from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
 import { Http,Headers } from "@angular/http";
-import { TskService } from 'app/service/TskService';
 import { Observable } from 'rxjs';
-import { UserService } from 'app/service/UserService';
+import { TskService } from '../service/TskService';
+import { UserService } from '../service/UserService';
+
 
 @Injectable()
 export class User_infoResolve implements Resolve<any>{

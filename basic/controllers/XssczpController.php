@@ -14,9 +14,7 @@ public $enableCsrfValidation = false;
 	protected $allowMime=array('image/jpeg');
 	// protected $allowExt=array('jpeg','jpg','png','gif');
 	protected $allowExt=array('jpg');
-	// protected $uploadPath='../../src/assets/images/xsimg';
-	protected $uploadPath='../../xsimg';
-	
+	protected $uploadPath='../../src/assets/images/xsimg';
 	protected $imgFlag=true;
 	protected $fileInfo;
 	protected $error;

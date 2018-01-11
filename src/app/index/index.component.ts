@@ -37,7 +37,7 @@ userdata;
 model: any;
 modelt:any;
 
-ifsczp:boolean = true;
+ifsczp:boolean = false;
 
 modeldata;
 
@@ -50,7 +50,15 @@ qx;
 imgfile;
 ifleft:boolean=false;
 
-  constructor(private router: Router,private httpw:  HttpClient, private http: Http, private modalService:NgbModal, private location: Location,private tsk:TskService,private ar:ActivatedRoute, private userinfo:UserService) {
+public uploader: FileUploader = new FileUploader({
+  url: "/oa/basic/web/index.php?r=jssczp/uploadfile",
+  method: "POST",
+  itemAlias: "uploadedfile",
+  removeAfterUpload: true,
+  autoUpload: true,
+});
+
+constructor(private router: Router,private httpw:  HttpClient, private http: Http, private modalService:NgbModal, private location: Location,private tsk:TskService,private ar:ActivatedRoute, private userinfo:UserService) {
     this.zxrs = this.http.get('/oa/basic/web/index.php?r=index/up_time').map((res) => res.json());
     this.height = $(window).height() - 100;
     this.menu_ul_height = $(window).height() - 100 - 232;
@@ -59,11 +67,29 @@ ifleft:boolean=false;
     this.ar.data.subscribe((data=>{
       this.userdata = data.info.userinfo;
       this.qx = data.info.qx;
-      this.userimage = "assets/images/jsimg/" + this.userdata.userId + ".jpg?" + Math.random();
+    
+      this.userimage = "assets/images/jsimg/" + this.userdata.Id + ".jpg?" + Math.random();
       this.modeldata = this.userdata;
-    })
+    }))
 
-    )
+    this.uploader.onBuildItemForm = () => {
+      this.ifsczp = true;    
+    };
+    this.uploader.onCompleteItem = (item, response, status, headers) =>{
+      if (status == 200) {
+            if (response == '2') {
+              this.tsk.cg('上传成功！');
+      this.userimage = "assets/images/jsimg/" + this.userdata.Id + ".jpg?" + Math.random();
+            } else {
+              alert(response);
+            }
+          } else {
+            alert("上传失败");
+          }
+          this.ifsczp = false;
+    };
+
+    
     
 
     this.grbg = true;
@@ -79,55 +105,10 @@ ifleft:boolean=false;
       this.location.back();
     }
 
-
- // B: 初始化定义uploader变量,用来配置input中的uploader属性
-    public uploader:FileUploader = new FileUploader({
-        url: "/oa/basic/web/index.php?r=jssczp/uploadfile",
-        method: "POST",
-        itemAlias: "uploadedfile",
-        removeAfterUpload:true,
-    });
-    // C: 定义事件，选择文件
-    selectedFileOnChanged(event:any) {
-      // console.log(event.target.value);
-      this.imgfile = event.target.files[0];
-        // 打印文件选择名称
+  //照片上传
+    zpsc(){
+      document.getElementById('upload_jszp').click();
     }
-    // D: 定义事件，上传文件
-    uploadFile() {
-      console.log(this.imgfile)
-      const req = new HttpRequest('POST', '/oa/basic/web/index.php?r=jssczp/uploadfile',this.imgfile,{
-        reportProgress: true,
-      });
-      this.httpw.request(req).subscribe(event => {
-        // Via this API, you get access to the raw event stream.
-        // Look for upload progress events.
-        if (event.type === HttpEventType.UploadProgress) {
-          // This is an upload progress event. Compute and show the % done:
-          const percentDone = Math.round(100 * event.loaded / event.total);
-          console.log(`File is ${percentDone}% uploaded.`);
-        } else if (event instanceof HttpResponse) {
-          console.log('File is completely uploaded!');
-        }
-      });
-        // 上传
-        //   this.uploader.queue[0].onSuccess = (response, status, headers) => {    
-        //     if (status == 200) {
-        //         if(response == '1'){
-        //           this.ifsczp = true;
-        //           this.userimage = "assets/images/jsimg/" + this.userdata.userid + ".jpg?" + Math.random();
-        //           alert('上传成功！');
-                  
-        //         }else{
-        //         alert(response);
-        //       }
-        //     } else {
-        //         alert("上传失败");
-        //     }
-        // };
-        // this.uploader.queue[0].upload();
-    }
-
 
   zxrsdata() {
     this.zxrs.subscribe((data) => {
@@ -189,12 +170,8 @@ this.tsk.tsk('退出成功！')
 // }
 
 
-zpsc(){
-  this.ifsczp = false;
-}
-qxsczp(){
-   this.ifsczp = true;
-}
+
+
 
   submit() {
     var creds = 'sex=' + this.modeldata.sex + "&email=" + this.modeldata.email + "&phone=" + this.modeldata.phone;
