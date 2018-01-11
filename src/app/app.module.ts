@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 import { CommonModule }     from '@angular/common';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AppComponent } from './app.component';
@@ -60,6 +61,7 @@ const routeConfig: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routeConfig,{ useHash: true }),
     NgbModule.forRoot(),

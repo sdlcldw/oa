@@ -4,6 +4,7 @@
   </div>
 </div>
 <div class="right_content" id="cwpt" style="padding:5px;">
+  
   <!-- 内容区域开始 -->
   <div>
     <hr> 管理身份验证：xxx ；当前学生信息为：xxx；
@@ -11,6 +12,7 @@
     <button type="button" class="btn btn-primary" (click)="tjxsxx()">添加学生信息</button>
     <hr>
   </div>
+  
   <!-- 学生信息列表 -->
     <span>共查询到</span>
     <span style="margin: 0 5px;"></span>
@@ -60,8 +62,6 @@
           </button>
         </td>
       </ng-template>
-
-
     </ngx-table>
 </div>
 
@@ -94,12 +94,7 @@
                   <input formControlName="xjh" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('xjh').invalid && formModel.get('xjh').touched">
                 </td>
                 <td rowspan="3">
-                    <img class="img-thumbnail" height="180" width="180" src="{{xsimage}}" onError=" this.onerror=null;this.src='assets/images/xsimg/moren.jpg';"> 
-                    <div *ngIf='ifsczp'>
-                    <p  style="color:#ff0000;">温馨提示：照片格式应为jpg<br>照片大小不超过500KB</p>                   
-                  <input style="width: 100px;" type="file" ng2FileSelect [uploader]="uploader"/>
-                  <a style="margin-top: 50px;margin-left: 15px;" (click)="uploadFile()" class="btn btn-sm btn-info">确认上传</a>
-                </div>
+                    <img class="img-thumbnail" height="180" width="180" [src]="xsimage" onError=" this.onerror=null;this.src='assets/images/xsimg/moren.jpg';">
               </td>
               </tr>
               <tr>
@@ -134,8 +129,11 @@
 
                 <td>照片</td>
                 <td>
-                  <a *ngIf="!ifsczp" (click)="sczp()" class="btn btn-sm btn-info">上传照片</a>
-                  <a *ngIf="ifsczp" (click)="qxsczp()" class="btn btn-sm btn-info">取消</a>
+                <input style="display: none;" id="upload_file" type="file" ng2FileSelect [uploader]="uploader"/>                
+                  <a *ngIf='!ifsczp' (click)="sczp()" class="btn btn-sm btn-info" title="提示：照片格式应为jpg,最大500KB">上传照片</a>
+                  <div *ngIf='ifsczp' class="progress">
+                      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                  </div>
                 </td>
               </tr>
               <tr>
@@ -150,6 +148,8 @@
                     <option value='否'>否</option>
                   </select>
                 </td>
+            
+            
               </tr>
               <tr>
                 <td>所在班级</td>
@@ -275,12 +275,7 @@
                 <input formControlName="xjh" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('xjh').invalid && formModel.get('xjh').touched">
               </td>
               <td rowspan="3">
-                  <img class="img-thumbnail" height="180" width="180" src="{{xsimage}}" onError=" this.onerror=null;this.src='assets/images/xsimg/moren.jpg';"> 
-                  <div *ngIf='ifsczp'>
-                  <p  style="color:#ff0000;">温馨提示：照片格式应为jpg<br>照片大小不超过500KB</p>                   
-                <input style="width: 100px;" type="file" ng2FileSelect [uploader]="uploader"/>
-                <a style="margin-top: 50px;margin-left: 15px;" (click)="uploadFile()" class="btn btn-sm btn-info">确认上传</a>
-              </div>
+                  <img class="img-thumbnail" height="180" width="180" [src]="xsimage" onError=" this.onerror=null;this.src='assets/images/xsimg/moren.jpg';">
               </td>
             </tr>
             <tr>
@@ -315,8 +310,11 @@
 
               <td>照片</td>
               <td>
-                <a *ngIf="!ifsczp" (click)="sczp()" class="btn btn-sm btn-info">上传照片</a>
-                <a *ngIf="ifsczp" (click)="qxsczp()" class="btn btn-sm btn-info">取消</a>
+                  <input style="display: none;" id="upload_file" type="file" ng2FileSelect [uploader]="uploader"/>                
+                  <a *ngIf='!ifsczp' (click)="sczp()" class="btn btn-sm btn-info" title="提示：照片格式应为jpg,最大500KB">上传照片</a>
+                  <div *ngIf='ifsczp' class="progress">
+                      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                  </div>
               </td>
             </tr>
             <tr>

@@ -344,7 +344,7 @@ public function actionXsczjl_zjjl_add_wj(){
     if(Yii::$app->request->isPost){
         $post = Yii::$app->request->post();
         $id = Yii::$app->session['__id'];
-        $sql = "INSERT xsgl_czjl_ry (xjh,sj,lhxf,ms,user_id_czr) VALUES ('".$post['xjh']."','".$post['sj']."','".$post['lhxf']."','".$post['ms']."','".$id."')";
+        $sql = "INSERT xsgl_czjl_wj (xjh,sj,lhxf,ms,user_id_czr) VALUES ('".$post['xjh']."','".$post['sj']."','".$post['lhxf']."','".$post['ms']."','".$id."')";
         $ifok = Yii::$app->db->createCommand($sql)->execute();
         Yii::$app->response->format=Response::FORMAT_JSON;
          return $ifok;

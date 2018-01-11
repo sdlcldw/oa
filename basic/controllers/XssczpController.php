@@ -14,8 +14,8 @@ public $enableCsrfValidation = false;
 	protected $allowMime=array('image/jpeg');
 	// protected $allowExt=array('jpeg','jpg','png','gif');
 	protected $allowExt=array('jpg');
-	protected $uploadPath='../../src/assets/images/xsimg';
-	// protected $uploadPath='../../../jsimg';
+	// protected $uploadPath='../../src/assets/images/xsimg';
+	protected $uploadPath='../../xsimg';
 	
 	protected $imgFlag=true;
 	protected $fileInfo;
@@ -146,16 +146,16 @@ public $enableCsrfValidation = false;
 	 * @return string
 	 */
 	public function actionUploadfile(){
+		// print_r($_FILES);
 		$post = Yii::$app->request->post();  
-		$name = $post['xjh'];
-		 $this->fileInfo = $_FILES[$this->fileName];
+		$name = $post['sfzh'];
+		// $name = 123;
+		$this->fileInfo = $_FILES[$this->fileName];
 		if($this->checkError()&&$this->checkSize()&&$this->checkExt()&&$this->checkMime()&&$this->checkTrueImg()&&$this->checkHTTPPost()){
 			$this->checkUploadPath();
-			// $uniName=123;
 			$destination=$this->uploadPath.'/'.$name.'.'.$this->ext;
 			if(@move_uploaded_file($this->fileInfo['tmp_name'], $destination)){
-				// return  $destination;
-				return 1;
+				return '2';
 			}else{
 				$this->error='文件移动失败';
 				return $this->error;
@@ -164,18 +164,5 @@ public $enableCsrfValidation = false;
 			return $this->error;
 		 }
 	}
-// 	public function actionUploadfile(){
-// print_r($_FILES);	
-// 	}
 }
-
-
-
-
-
-
-
-
-
-
 ?>

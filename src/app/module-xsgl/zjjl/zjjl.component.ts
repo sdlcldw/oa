@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms";
 import { Http, Headers } from '@angular/http';
-import { TskService } from 'app/service/TskService';
 import { Observable } from 'rxjs/Observable';
 import * as $ from 'jquery';
 import jQuery from 'jquery';
-import { dateValidator, zzsValidator } from 'app/valldators/valldators';
-import { getNowFormatDate } from 'app/function/function';
+import { TskService } from '../../service/TskService';
+import { dateValidator, zzsValidator } from '../../valldators/valldators';
+import { getNowFormatDate } from '../../function/function';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-zjjl',
@@ -45,7 +46,7 @@ export class ZjjlComponent implements OnInit {
     detailsTemplate: false,
     groupRows: false
   };
-  constructor(fb: FormBuilder, private http: Http, private tsk: TskService) {
+  constructor(fb: FormBuilder,private http: HttpClient, private tsk: TskService) {
     this.wjformModel = fb.group({
       sj: ['', [Validators.required, dateValidator]],
       lhxf: ['', [Validators.required, Validators.maxLength(3), zzsValidator]],
@@ -61,7 +62,7 @@ export class ZjjlComponent implements OnInit {
     this.getxslb();
   }
   getxslb() {
-    this.http.get('/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_get').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_get').subscribe(data => {
       if (data) {
         if (data[0] == '2') {
           this.tsk.tsk('没有权限访问', 3000);
@@ -73,6 +74,9 @@ export class ZjjlComponent implements OnInit {
       } else {
         this.tsk.tsk('没有获取到数据！');
       }
+    },
+    err => {
+      this.tsk.tsk('网络请求错误！');
     });
   }
   qkform(){
@@ -92,13 +96,10 @@ export class ZjjlComponent implements OnInit {
     this.dqrq_wj = getNowFormatDate();
   }
   onSubmit_wj() {
-    console.log(this.wjformModel.value);
     let dat = this.wjformModel.value;
     dat['xjh'] = this.dqxs['xjh'];
-    let myHeaders: Headers = new Headers();
-    myHeaders.append("Content-Type", "application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_add_wj", dat, { headers: myHeaders }).toPromise().then((response) => {
-      let data = response.json();
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_add_wj",dat).subscribe((response) => {
+      let data = response;
       if (data) {
         if (data == 1) {
           this.tsk.cg('添加成功！');
@@ -112,13 +113,12 @@ export class ZjjlComponent implements OnInit {
     });
   }
   onSubmit_ry() {
-    console.log(this.ryformModel.value);
     let dat = this.ryformModel.value;
     dat['xjh'] = this.dqxs['xjh'];
     let myHeaders: Headers = new Headers();
     myHeaders.append("Content-Type", "application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_add_ry", dat, { headers: myHeaders }).toPromise().then((response) => {
-      let data = response.json();
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_add_ry", dat).subscribe((response) => {
+      let data = response;
       if (data) {
         if (data == 1) {
           this.tsk.cg('添加成功！');

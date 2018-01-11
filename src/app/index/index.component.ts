@@ -7,8 +7,9 @@ import jQuery from 'jquery';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {FileUploader} from "ng2-file-upload";
 import { Location } from '@angular/common';
-import { TskService } from "app/service/TskService";
-import { UserService } from 'app/service/UserService';
+import { HttpRequest, HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
+import { TskService } from '../service/TskService';
+import { UserService } from '../service/UserService';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -46,9 +47,10 @@ qrxmm;
 
 qx;
 
+imgfile;
 ifleft:boolean=false;
 
-  constructor(private router: Router, private http: Http, private modalService:NgbModal, private location: Location,private tsk:TskService,private ar:ActivatedRoute, private userinfo:UserService) {
+  constructor(private router: Router,private httpw:  HttpClient, private http: Http, private modalService:NgbModal, private location: Location,private tsk:TskService,private ar:ActivatedRoute, private userinfo:UserService) {
     this.zxrs = this.http.get('/oa/basic/web/index.php?r=index/up_time').map((res) => res.json());
     this.height = $(window).height() - 100;
     this.menu_ul_height = $(window).height() - 100 - 232;
@@ -87,31 +89,43 @@ ifleft:boolean=false;
     });
     // C: 定义事件，选择文件
     selectedFileOnChanged(event:any) {
+      // console.log(event.target.value);
+      this.imgfile = event.target.files[0];
         // 打印文件选择名称
     }
     // D: 定义事件，上传文件
     uploadFile() {
+      console.log(this.imgfile)
+      const req = new HttpRequest('POST', '/oa/basic/web/index.php?r=jssczp/uploadfile',this.imgfile,{
+        reportProgress: true,
+      });
+      this.httpw.request(req).subscribe(event => {
+        // Via this API, you get access to the raw event stream.
+        // Look for upload progress events.
+        if (event.type === HttpEventType.UploadProgress) {
+          // This is an upload progress event. Compute and show the % done:
+          const percentDone = Math.round(100 * event.loaded / event.total);
+          console.log(`File is ${percentDone}% uploaded.`);
+        } else if (event instanceof HttpResponse) {
+          console.log('File is completely uploaded!');
+        }
+      });
         // 上传
-        // this.uploader.queue[0].onSuccess = function (response, status, headers) {
-          this.uploader.queue[0].onSuccess = (response, status, headers) => {    
-            // 上传文件成功
-            if (status == 200) {
-                // 上传文件后获取服务器返回的数据
-                // let tempRes = JSON.parse(response);
-                if(response == '1'){
-                  this.ifsczp = true;
-                  this.userimage = "assets/images/jsimg/" + this.userdata.userid + ".jpg?" + Math.random();
-                  alert('上传成功！');
+        //   this.uploader.queue[0].onSuccess = (response, status, headers) => {    
+        //     if (status == 200) {
+        //         if(response == '1'){
+        //           this.ifsczp = true;
+        //           this.userimage = "assets/images/jsimg/" + this.userdata.userid + ".jpg?" + Math.random();
+        //           alert('上传成功！');
                   
-                }else{
-                alert(response);
-              }
-            } else {
-                // 上传文件后获取服务器返回的数据错误
-                alert("上传失败");
-            }
-        };
-        this.uploader.queue[0].upload(); // 开始上传
+        //         }else{
+        //         alert(response);
+        //       }
+        //     } else {
+        //         alert("上传失败");
+        //     }
+        // };
+        // this.uploader.queue[0].upload();
     }
 
 
