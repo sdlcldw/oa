@@ -75,12 +75,12 @@ export class XsjbxxComponent implements OnInit {
       Id: '',
       name: ['', [Validators.required, Validators.maxLength(19)]],
       xjh: ['', [Validators.required, Validators.maxLength(24)]],
-      xb: ['', [Validators.required, Validators.maxLength(24)]],
-      sfzh: ['', [Validators.required, Validators.maxLength(24)]],
-      sg: ['', [Validators.required, Validators.maxLength(24)]],
-      tz: ['', [Validators.required, Validators.maxLength(24)]],
-      jtzz: ['', [Validators.required, Validators.maxLength(24)]],
-      mz: ['', [Validators.required, Validators.maxLength(24)]],
+      xb: ['', [Validators.required]],
+      sfzh: ['', [Validators.required, Validators.maxLength(18),Validators.minLength(18)]],
+      sg: ['', [Validators.required, Validators.maxLength(6)]],
+      tz: ['', [Validators.required, Validators.maxLength(6)]],
+      jtzz: ['', [Validators.required, Validators.maxLength(36)]],
+      mz: ['', [Validators.required, Validators.maxLength(6)]],
       jg: ['', [Validators.required, Validators.maxLength(24)]],
       szbj: ['', [Validators.required, Validators.maxLength(24)]],
       sfzx: ['是', [Validators.required]],
@@ -121,7 +121,12 @@ export class XsjbxxComponent implements OnInit {
   }
 
   sczp() {
-    document.getElementById('upload_file').click();
+    if(this.formModel.value.sfzh.length == 18){
+       document.getElementById('upload_file').click();
+    }else{
+       alert('请先输入正确身份证号，照片基于身份证号存储！');
+    }
+    
   }
 
 

@@ -23,7 +23,7 @@ export class ZjjlComponent implements OnInit {
   dqrq_ry;
   dqrq_wj;
   columns = [
-    { key: 'xjh', title: '学籍号' },
+    { key: 'sfzh', title: '身份证号' },
     { key: 'name', title: '姓名' },
     { key: 'xb', title: '性别' },
     { key: 'cz', title: '操作' },
@@ -46,6 +46,7 @@ export class ZjjlComponent implements OnInit {
     detailsTemplate: false,
     groupRows: false
   };
+
   constructor(fb: FormBuilder,private http: HttpClient, private tsk: TskService) {
     this.wjformModel = fb.group({
       sj: ['', [Validators.required, dateValidator]],
@@ -90,14 +91,14 @@ export class ZjjlComponent implements OnInit {
     $('#openxzjl').click();
   }
   set_dqrq_ry() {
-    this.dqrq_ry = getNowFormatDate();
+    // this.dqrq_ry = getNowFormatDate();
   }
   set_dqrq_wj() {
     this.dqrq_wj = getNowFormatDate();
   }
   onSubmit_wj() {
     let dat = this.wjformModel.value;
-    dat['xjh'] = this.dqxs['xjh'];
+    dat['sfzh'] = this.dqxs['sfzh'];
     this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_add_wj",dat).subscribe((response) => {
       let data = response;
       if (data) {
@@ -114,7 +115,7 @@ export class ZjjlComponent implements OnInit {
   }
   onSubmit_ry() {
     let dat = this.ryformModel.value;
-    dat['xjh'] = this.dqxs['xjh'];
+    dat['sfzh'] = this.dqxs['sfzh'];
     let myHeaders: Headers = new Headers();
     myHeaders.append("Content-Type", "application/json; charset=UTF-8");
     this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_add_ry", dat).subscribe((response) => {
