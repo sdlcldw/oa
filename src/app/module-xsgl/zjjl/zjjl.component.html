@@ -66,11 +66,9 @@
                     <td>时间</td>
                     <td style="width: 400px;">
                         <div class="input-group">
-                      <input [(ngModel)]='dqrq_wj' formControlName="sj" type="text" class="form-control" placeholder="必填" [class.hasError]="wjformModel.get('sj').invalid && wjformModel.get('sj').touched"/>
-                            <span class="input-group-btn">
-                              <button class="btn btn-default" type="button" (click)="set_dqrq_wj()">
-                                设为今天
-                              </button>
+                      <input formControlName="sj" type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsValue]="dqrq_wj"/>     
+                      <span class="input-group-btn">
+                          <a class="btn btn-default" (click)="dp.toggle()">选择日期</a>
                             </span>
                           </div>
                       <div *ngIf="wjformModel.get('sj').invalid && (wjformModel.get('sj').dirty || wjformModel.get('sj').touched)" class="error">
@@ -112,13 +110,10 @@
                     <td>时间</td>
                     <td style="width: 400px;">
                       <div class="input-group">
-                        <input [(ngModel)]='dqrq_ry' formControlName="sj" type="text" class="form-control" placeholder="必填" [class.hasError]="ryformModel.get('sj').invalid && ryformModel.get('sj').touched"
-                        />
-                        <span class="input-group-btn">
-                          <button class="btn btn-default" type="button" (click)="set_dqrq_ry()">
-                            设为今天
-                          </button>
-                        </span>
+                          <input formControlName="sj" type="text" class="form-control" #dps="bsDatepicker" bsDatepicker [bsValue]="dqrq_ry"/>     
+                          <span class="input-group-btn">
+                              <a class="btn btn-default" (click)="dps.toggle()">选择日期</a>
+                                </span>
                       </div>
                       <div *ngIf="ryformModel.get('sj').invalid && (ryformModel.get('sj').dirty || ryformModel.get('sj').touched)" class="error">
                         <div class="error" *ngIf="ryformModel.get('sj').errors.required">不可为空</div>
@@ -156,11 +151,6 @@
             </div>
 
           </div>
-
-
-
-
-
 
         </div>
       </div>

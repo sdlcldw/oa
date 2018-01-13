@@ -343,19 +343,20 @@ public function actionXsczjl_zjjl_add_wj(){
     
     if(Yii::$app->request->isPost){
         $post = Yii::$app->request->post();
+        $sj = gmdate('Y-m-d',strtotime($post['sj']) + 8*3600); //将标准时间转换为东八区时间
         $id = Yii::$app->session['__id'];
-        $sql = "INSERT xsgl_czjl_wj (sfzh,sj,lhxf,ms,user_id_czr) VALUES ('".$post['sfzh']."','".$post['sj']."','".$post['lhxf']."','".$post['ms']."','".$id."')";
+        $sql = "INSERT xsgl_czjl_wj (sfzh,sj,lhxf,ms,user_id_czr) VALUES ('".$post['sfzh']."','".$sj."','".$post['lhxf']."','".$post['ms']."','".$id."')";
         $ifok = Yii::$app->db->createCommand($sql)->execute();
         Yii::$app->response->format=Response::FORMAT_JSON;
          return $ifok;
     }
-    
     }  
 public function actionXsczjl_zjjl_add_ry(){
     if(Yii::$app->request->isPost){
         $post = Yii::$app->request->post();
+        $sj = gmdate('Y-m-d',strtotime($post['sj']) + 8*3600); //将标准时间转换为东八区时间        
         $id = Yii::$app->session['__id'];
-        $sql = "INSERT xsgl_czjl_ry (sfzh,sj,lhxf,ms,user_id_czr) VALUES ('".$post['sfzh']."','".$post['sj']."','".$post['lhxf']."','".$post['ms']."','".$id."')";
+        $sql = "INSERT xsgl_czjl_ry (sfzh,sj,lhxf,ms,user_id_czr) VALUES ('".$post['sfzh']."','".$sj."','".$post['lhxf']."','".$post['ms']."','".$id."')";
         $ifok = Yii::$app->db->createCommand($sql)->execute();
         Yii::$app->response->format=Response::FORMAT_JSON;
          return $ifok;

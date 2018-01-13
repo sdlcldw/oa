@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule }     from '@angular/common';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AppComponent } from './app.component';
@@ -24,7 +23,11 @@ import { MenuXtszComponent } from './index/menu/menu-xtsz/menu-xtsz.component';
 import { User_infoResolve } from './guard/user_info.resolve';
 import { QxGuard } from './guard/qx.guard';
 import { SeekpasswordComponent } from './seekpassword/seekpassword.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+import { defineLocale } from 'ngx-bootstrap/bs-moment';
+import { zhCn } from 'ngx-bootstrap/bs-moment/i18n/zh-cn';
+defineLocale('zh-cn', zhCn); //ngx-bootstrap 语言设置
 const routeConfig: Routes = [
   {path: '',  pathMatch: 'full',redirectTo: 'index'},
   {path: 'login', component:LoginComponent,canActivate:[ExitGuard]},
@@ -58,15 +61,15 @@ const routeConfig: Routes = [
     MenuZhxzComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, 
     FormsModule,
     HttpModule,
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routeConfig,{ useHash: true }),
-    NgbModule.forRoot(),
     CommonModule,
     FileUploadModule,
+    BsDatepickerModule.forRoot(),
   ],
   providers: [LoginGuard,ExitGuard,UserService,TskService,User_infoResolve,QxGuard],
   bootstrap: [AppComponent]

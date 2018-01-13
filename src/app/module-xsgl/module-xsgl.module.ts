@@ -16,6 +16,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import {TableModule} from 'ngx-easy-table';
 import { ZjjlComponent } from './zjjl/zjjl.component';
 import { CkjlComponent } from './ckjl/ckjl.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 const Routes=[
   {path:'cjxs',component:CjxsComponent},
@@ -40,6 +41,8 @@ const Routes=[
     ReactiveFormsModule,
     FileUploadModule,   
     TableModule, 
+    BsDatepickerModule.forRoot(),
+    
   ],
   declarations: [
     CjxsComponent,

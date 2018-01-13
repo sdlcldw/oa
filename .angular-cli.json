@@ -22,7 +22,8 @@
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "styles.css",
         "../node_modules/ngx-easy-table/spectre.css",
-        "../node_modules/ngx-easy-table/spectre-icons.css"
+        "../node_modules/ngx-easy-table/spectre-icons.css",
+        "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",

@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import * as $ from 'jquery';
 import jQuery from 'jquery';
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {FileUploader} from "ng2-file-upload";
 import { Location } from '@angular/common';
 import { HttpRequest, HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
@@ -28,9 +27,7 @@ export class IndexComponent implements OnInit {
   zhxz: boolean;  
   height: number;
   menu_ul_height:number;
-  // username: string;
   userimage: string;
-  // userId:number;
 userdata;
   menu_title = "个人办公";
 
@@ -58,8 +55,8 @@ public uploader: FileUploader = new FileUploader({
   autoUpload: true,
 });
 
-constructor(private router: Router,private httpw:  HttpClient, private http: Http, private modalService:NgbModal, private location: Location,private tsk:TskService,private ar:ActivatedRoute, private userinfo:UserService) {
-    this.zxrs = this.http.get('/oa/basic/web/index.php?r=index/up_time').map((res) => res.json());
+constructor(private router: Router,private httpw:  HttpClient, private http: Http, private location: Location,private tsk:TskService,private ar:ActivatedRoute, private userinfo:UserService) {
+  this.zxrs = this.http.get('/oa/basic/web/index.php?r=index/up_time').map((res) => res.json());
     this.height = $(window).height() - 100;
     this.menu_ul_height = $(window).height() - 100 - 232;
   }
@@ -88,17 +85,10 @@ constructor(private router: Router,private httpw:  HttpClient, private http: Htt
           }
           this.ifsczp = false;
     };
-
-    
-    
-
     this.grbg = true;
 
     this.zxrsdata();
     setInterval(() => { this.zxrsdata() }, 2000 * 60);
-    
-           
-   
 }
     // 回退
     goBack(): void {
@@ -162,17 +152,6 @@ this.tsk.tsk('退出成功！')
       }
     })
   }
-
-// 个人资料模态框操作方法
-
-// open(){
-//   $("#username").click();
-// }
-
-
-
-
-
   submit() {
     var creds = 'sex=' + this.modeldata.sex + "&email=" + this.modeldata.email + "&phone=" + this.modeldata.phone;
     let myHeaders:Headers = new Headers();
@@ -187,13 +166,6 @@ if(data == 1){
 }
     })
   }
-
-// open_password(){
-//  $("#qxan").click();
-// }
-
-
-
 // 修改密码模态框操纵方法
 xgmm(){
   if(this.xmm != this.qrxmm){
@@ -220,7 +192,6 @@ xgmm(){
                         }
                         if(data == 1){
                             alert('修改密码成功！');
-                            //  $("#qxant").click();
                         }
                         this.xmm="";this.ymm="";this.qrxmm="";
     })

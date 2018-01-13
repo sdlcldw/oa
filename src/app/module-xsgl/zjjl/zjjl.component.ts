@@ -8,6 +8,7 @@ import { TskService } from '../../service/TskService';
 import { dateValidator, zzsValidator } from '../../valldators/valldators';
 import { getNowFormatDate } from '../../function/function';
 import { HttpClient } from '@angular/common/http';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-zjjl',
@@ -20,8 +21,6 @@ export class ZjjlComponent implements OnInit {
   bm = [];
   xsdata = [];
   dqxs = [];
-  dqrq_ry;
-  dqrq_wj;
   columns = [
     { key: 'sfzh', title: '身份证号' },
     { key: 'name', title: '姓名' },
@@ -47,19 +46,24 @@ export class ZjjlComponent implements OnInit {
     groupRows: false
   };
 
-  constructor(fb: FormBuilder,private http: HttpClient, private tsk: TskService) {
+  dqrq_wj: Date ;
+  dqrq_ry: Date;
+  
+  constructor(fb: FormBuilder,private http: HttpClient, private tsk: TskService,private _localeService: BsLocaleService) {
+    
     this.wjformModel = fb.group({
-      sj: ['', [Validators.required, dateValidator]],
+      sj: ['', [Validators.required,dateValidator]],
       lhxf: ['', [Validators.required, Validators.maxLength(3), zzsValidator]],
       ms: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
     })
     this.ryformModel = fb.group({
-      sj: ['', [Validators.required, dateValidator]],
+      sj: ['', [Validators.required,dateValidator]],
       lhxf: ['', [Validators.required, Validators.maxLength(3), zzsValidator]],
       ms: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
     })
   }
   ngOnInit() {
+    this._localeService.use('zh-cn');          
     this.getxslb();
   }
   getxslb() {
@@ -85,17 +89,14 @@ export class ZjjlComponent implements OnInit {
     this.ryformModel.reset();
   }
   xzjl(d) {
+    this.dqrq_wj = new Date();
+    this.dqrq_ry = new Date();
     this.qkform();
     this.dqxs = d;
     console.log(this.dqxs);
     $('#openxzjl').click();
   }
-  set_dqrq_ry() {
-    // this.dqrq_ry = getNowFormatDate();
-  }
-  set_dqrq_wj() {
-    this.dqrq_wj = getNowFormatDate();
-  }
+ 
   onSubmit_wj() {
     let dat = this.wjformModel.value;
     dat['sfzh'] = this.dqxs['sfzh'];
