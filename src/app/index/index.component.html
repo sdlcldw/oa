@@ -1,4 +1,4 @@
-<div class="top">
+<div class="top_menu">
 <img class="logo" src="assets/images/logo.png">
 	<ul class="top_rightmenu">
 		<li (click)="Logout()" class="li1" title="退出系统" onmouseover="menuOver(this);" onmouseout="menuOut(this);"><img src="assets/images/exit.png" hoversrc="assets/images/exit2.png" normalsrc="assets/images/exit.png"  border="0"></li>
@@ -95,7 +95,7 @@
 						<td>姓名</td>
 						<td>{{modeldata.username}}</td>
 						<td style="width:30%;height:200px;" rowspan="4">
-						<img class="img-thumbnail" height="180" width="180" [src]="userimage" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">
+						<img (click)="openimgmodal(template)" class="img-thumbnail" height="180" width="180" [src]="userimage" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">
 						</td>
 					</tr>
 					<tr>
@@ -133,7 +133,7 @@
 			取消
 		</button>
         <input style="display: none;" id="upload_jszp" type="file" ng2FileSelect [uploader]="uploader"/>                
-		<a *ngIf='!ifsczp' (click)="zpsc()" class="btn btn-sm btn-info" title="提示：照片格式应为jpg,最大500KB">更换照片</a>
+		<button *ngIf='!ifsczp' (click)="zpsc()" class="btn btn-sm btn-info" tooltip="提示：照片格式应为jpg,最大500KB" >更换照片</button>
 	
 		<button class="btn btn-sm btn-info" data-toggle="modal" data-target="#myModalt">修改密码</button>
 		<button class="btn btn-primary" (click)="submit()">确认修改</button>
@@ -188,3 +188,12 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
 </div>
+
+<ng-template #template>
+    <div class="modal-body">
+        <button style="margin-bottom: 10px;" type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <img class="img-thumbnail" height="180" width="300px" [src]="userimage" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">
+    </div>
+  </ng-template>

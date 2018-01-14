@@ -8,7 +8,7 @@ body {
   height: 1100px;
   min-width:1225px;
 }
-.top {
+.top_menu {
 background: url(assets/images/top_dw_repeat.png) repeat-x left top;
 padding: 0;
 width:100%;
@@ -493,4 +493,19 @@ div.error{
 .ngx-table th{
 	border: 1px solid #ddd;
 	cursor: pointer;
+}
+
+/* ngx-bootstrap tooltip style */
+:host >>> .tooltip-inner {
+    background-color: #f0ad4e;;
+    color: #fff;
+  }
+  :host >>> .tooltip.top .tooltip-arrow:before,
+  :host >>> .tooltip.top .tooltip-arrow {
+    border-top-color: #f0ad4e;
+  }
+
+  .modal-xsimg{
+    width: 300px;
+    margin-top: 80px;
 }

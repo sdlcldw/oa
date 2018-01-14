@@ -24,7 +24,8 @@ import { User_infoResolve } from './guard/user_info.resolve';
 import { QxGuard } from './guard/qx.guard';
 import { SeekpasswordComponent } from './seekpassword/seekpassword.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { defineLocale } from 'ngx-bootstrap/bs-moment';
 import { zhCn } from 'ngx-bootstrap/bs-moment/i18n/zh-cn';
 defineLocale('zh-cn', zhCn); //ngx-bootstrap 语言设置
@@ -70,6 +71,8 @@ const routeConfig: Routes = [
     CommonModule,
     FileUploadModule,
     BsDatepickerModule.forRoot(),
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   providers: [LoginGuard,ExitGuard,UserService,TskService,User_infoResolve,QxGuard],
   bootstrap: [AppComponent]

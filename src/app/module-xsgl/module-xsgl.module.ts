@@ -17,6 +17,8 @@ import {TableModule} from 'ngx-easy-table';
 import { ZjjlComponent } from './zjjl/zjjl.component';
 import { CkjlComponent } from './ckjl/ckjl.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 const Routes=[
   {path:'cjxs',component:CjxsComponent},
@@ -42,6 +44,8 @@ const Routes=[
     FileUploadModule,   
     TableModule, 
     BsDatepickerModule.forRoot(),
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
     
   ],
   declarations: [

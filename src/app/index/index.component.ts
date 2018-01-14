@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit ,TemplateRef} from '@angular/core';
 import { Http,Headers } from "@angular/http";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
@@ -9,6 +9,9 @@ import { Location } from '@angular/common';
 import { HttpRequest, HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { TskService } from '../service/TskService';
 import { UserService } from '../service/UserService';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -55,7 +58,16 @@ public uploader: FileUploader = new FileUploader({
   autoUpload: true,
 });
 
-constructor(private router: Router,private httpw:  HttpClient, private http: Http, private location: Location,private tsk:TskService,private ar:ActivatedRoute, private userinfo:UserService) {
+modalRef: BsModalRef;
+modal_img_config = {
+  animated: false,
+  keyboard: true,
+  backdrop: false,
+  ignoreBackdropClick: false
+};
+
+constructor(private router: Router,private httpw:  HttpClient, private http: Http, private location: Location,private tsk:TskService,
+            private ar:ActivatedRoute, private userinfo:UserService,private modalService: BsModalService) {
   this.zxrs = this.http.get('/oa/basic/web/index.php?r=index/up_time').map((res) => res.json());
     this.height = $(window).height() - 100;
     this.menu_ul_height = $(window).height() - 100 - 232;
@@ -93,6 +105,10 @@ constructor(private router: Router,private httpw:  HttpClient, private http: Htt
     // 回退
     goBack(): void {
       this.location.back();
+    }
+
+    openimgmodal(template: TemplateRef<any>) { 
+      this.modalRef = this.modalService.show(template,Object.assign({}, this.modal_img_config, { class: 'modal-xsimg' }));
     }
 
   //照片上传

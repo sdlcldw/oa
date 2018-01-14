@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, Injectable  } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Injectable ,TemplateRef  } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
@@ -8,6 +8,8 @@ import * as $ from 'jquery';
 import jQuery from 'jquery';
 import { HttpClient } from '@angular/common/http';
 import { TskService } from '../../service/TskService';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-xsjbxx',
@@ -62,6 +64,14 @@ export class XsjbxxComponent implements OnInit {
     groupRows: false
   };
 
+  modalRef: BsModalRef;
+  modal_img_config = {
+    animated: false,
+    keyboard: true,
+    backdrop: false,
+    ignoreBackdropClick: false
+  };
+
   public uploader: FileUploader = new FileUploader({
     url: "/oa/basic/web/index.php?r=xssczp/uploadfile",
     method: "POST",
@@ -70,7 +80,7 @@ export class XsjbxxComponent implements OnInit {
     autoUpload: true,
   });
 
-  constructor(fb: FormBuilder, private http: HttpClient, private router: Router, private tsk: TskService) {
+  constructor(fb: FormBuilder, private http: HttpClient, private router: Router, private tsk: TskService,private modalService: BsModalService) {
     this.formModel = fb.group({
       Id: '',
       name: ['', [Validators.required, Validators.maxLength(19)]],
@@ -118,6 +128,10 @@ export class XsjbxxComponent implements OnInit {
           }
           this.ifsczp = false;
     };
+  }
+
+  openimgmodal(template: TemplateRef<any>) { 
+    this.modalRef = this.modalService.show(template,Object.assign({}, this.modal_img_config, { class: 'modal-xsimg' }));
   }
 
   sczp() {

@@ -45,3 +45,12 @@
 .ycleft:hover{
     background-color: #FF7300;
 }
+
+:host >>> .tooltip-inner {
+    background-color: #f0ad4e;;
+    color: #fff;
+  }
+  :host >>> .tooltip.top .tooltip-arrow:before,
+  :host >>> .tooltip.top .tooltip-arrow {
+    border-top-color: #f0ad4e;
+  }
