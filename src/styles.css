@@ -504,8 +504,15 @@ div.error{
   :host >>> .tooltip.top .tooltip-arrow {
     border-top-color: #f0ad4e;
   }
-
+/* 模态框 */
   .modal-xsimg{
     width: 300px;
     margin-top: 80px;
+}
+.modal-excel{
+    width: 500px;
+    margin-top: 180px;
+}
+.modal-xzjs{
+	margin-right: 100px;
 }

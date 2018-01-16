@@ -8,12 +8,12 @@ use yii\data\Pagination;
 use phpexcel;
 use phpexcel_IOFactory;
 use PHPExcel_Style_Alignment;
+use PHPExcel_Style_Color;
 use app\controllers\CommonController;
 
 class XsglController extends CommonController
 {
     public $enableCsrfValidation = false;// ->覆盖父类的属性
-  
     //年级部管理
     public function actionJcxxsz_get_njb(){
         $sqlw = "SELECT a.*,b.username FROM xsgl_jcxx_njb as a left join user as b on a.user_id_fzr = b.id";
@@ -322,6 +322,99 @@ public function actionJcxxsz_xsjbxx_ck_get(){
          return $data;
     }
 }
+
+public function actionJcxxsz_xsjbxx_demo_excel(){
+    $sql = "SELECT a.*,b.name as njb_name FROM xsgl_jcxx_bj as a left join xsgl_jcxx_njb as b on a.njb_id = b.id";
+    $connection=Yii::$app->db;
+   $command=$connection->createCommand($sql);
+   $dataReader=$command->query();
+   $dataReader=$dataReader->readAll();
+        // $dir = dirname(__FILE__);//获取当前目录
+        $excel = new PHPExcel();
+        $sheet = $excel->getActiveSheet();
+        $sheet->setTitle("学生信息");
+        $sheet->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER)->setHorizontal(PHPExcel_Style_Alignment::VERTICAL_CENTER);//设置默认水平居中和垂直居中。
+        $sheet->getStyle("A1:Z2")->getFont()->setBold(True);
+        $sheet->getStyle("A1:Z2")->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_RED); 
+        $sheet->getStyle("A1:Z1")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);//水平居右 
+        $sheet->setCellValue("A1","格式要求：1.红色表头不许修改，只需按表头格式在第3行开始填写、粘贴学生信息即可。2.请确保信息完整，姓名、身份证、班级为必填项。3.班级处填写班级对应的Id号（在班级id表查）4.宿舍可为空");
+        $sheet->setCellValue("A2","姓名")->setCellValue("B2","学籍号_初中")->setCellValue("C2","性别")->setCellValue("D2","身份证号")->setCellValue("E2","身高")->setCellValue("F2","体重")->setCellValue("G2","民族")->setCellValue("H2","籍贯")->setCellValue("I2","家庭住址")->setCellValue("J2","所在班级")->setCellValue("K2","是否住校（是或否）")->setCellValue("L2","关系")->setCellValue("M2","姓名")->setCellValue("N2","政治面貌")->setCellValue("O2","工作单位")->setCellValue("P2","联系方式")->setCellValue("Q2","关系")->setCellValue("R2","姓名")->setCellValue("S2","政治面貌")->setCellValue("T2","工作单位")->setCellValue("U2","联系方式");
+       $excel->createSheet();//创建sheet
+       $excel->setActiveSheetIndex(1);//设置活动sheet
+        $sheett = $excel->getActiveSheet();//获取当前活动sheet
+        $sheett->setTitle("班级Id表");
+        $sheett->setCellValue("A1","班级Id")->setCellValue("B1","年级部")->setCellValue("C1","班级");
+        foreach ($dataReader as $row=>$v){
+            $line = $row+2;
+            $sheett->setCellValue("A".$line,$dataReader[$row]['Id'])
+                   ->setCellValue("B".$line,$dataReader[$row]['njb_name'])
+                   ->setCellValue("C".$line,$dataReader[$row]['name']);
+            }
+            $excel->setActiveSheetIndex(0);//设置活动sheet
+        $writer = PHPExcel_IOFactory::createWriter($excel,"Excel2007");//生成excel文件
+        // $writer->save($dir."/zc.xlsx");//保存文件
+        header('Content-Type:application/vnd.openxmiformats-officedocument.spreadsheetml,sheet');//excel2007
+        header('Content-Disposition:attachment;filename="学生信息excel导入模板.xlsx"');//告诉浏览器将输出文件的名称
+        header('Cache-Control:max-age=0');//禁止缓存
+        $writer->save("php://output");//输出到浏览器
+}
+public function actionJcxxsz_xsjbxx_up_excel(){
+    Yii::$app->response->format=Response::FORMAT_JSON;
+          $objphpexcel = phpexcel_IOFactory::load($_FILES['excel']['tmp_name']);
+           $sheetCount=$objphpexcel->getSheetCount();
+           // 取数据
+               $sheet = $objphpexcel->getSheet(0);
+              $highestRow = $sheet->getHighestRow(); // 取得总行数
+              $highestColumn = $sheet->getHighestColumn(); // 取得总列数
+  
+              //**检查格式是否正确↓↓
+              $bt=array("姓名","学籍号_初中","性别","身份证号","身高","体重","民族","籍贯","家庭住址","所在班级","是否住校（是或否）","关系","姓名","政治面貌","工作单位","联系方式","关系","姓名","政治面貌","工作单位","联系方式");
+              $zj=0;
+              foreach(range('A','U') as $v){
+              $bj = $sheet->getCell($v.'2')->getValue();	
+                  if ($bj != $bt[$zj]){
+                      return ['rt' => 'gs','data'=> '表头格式错误，请按模板要求修改后再试'];
+                  }
+                      $zj++;
+              }
+    $sql = 'insert into xsgl_jcxx_xs_jbxx values ';
+      for($y=3;$y<=$highestRow;$y++){
+        if(!$sheet->getCell("A".$y)->getValue()){break;}
+        $d=$sheet->getCell("D".$y)->getValue();
+        if(strlen($d)!=18){
+            return ['rt' => 'gs','data'=> '身份证号错误：行号'.$y];
+        }
+        
+        $sql.="('','"
+        .$sheet->getCell("A".$y)->getValue()."','"
+        .$sheet->getCell("B".$y)->getValue()."','"
+        .$sheet->getCell("C".$y)->getValue()."','"
+        .$d."','"
+        .$sheet->getCell("E".$y)->getValue()."','"
+        .$sheet->getCell("F".$y)->getValue()."','"
+        .$sheet->getCell("G".$y)->getValue()."','"
+        .$sheet->getCell("H".$y)->getValue()."','"
+        .$sheet->getCell("Y".$y)->getValue()."','"
+        .$sheet->getCell("J".$y)->getValue()."','"
+        .$sheet->getCell("K".$y)->getValue()."','','"
+        .$sheet->getCell("L".$y)->getValue()."','"
+        .$sheet->getCell("M".$y)->getValue()."','"
+        .$sheet->getCell("N".$y)->getValue()."','"
+        .$sheet->getCell("O".$y)->getValue()."','"
+        .$sheet->getCell("P".$y)->getValue()."','"
+        .$sheet->getCell("Q".$y)->getValue()."','"
+        .$sheet->getCell("R".$y)->getValue()."','"
+        .$sheet->getCell("S".$y)->getValue()."','"
+        .$sheet->getCell("T".$y)->getValue()."','"
+        .$sheet->getCell("U".$y)->getValue()."'),";
+    }
+    $sql = rtrim($sql,',');
+    $sql.=';'; 
+      $data = Yii::$app->db->createCommand($sql)->execute();
+      return ['rt' => 'cg','data'=> $data];	
+}
+
+
 //学生成长记录
 public function actionXsczjl_zjjl_get(){
     $session = Yii::$app->session;
@@ -421,11 +514,13 @@ public function actionXsczjl_ckjl_ckxq(){
     }
 }
 
-
-
-
-
-
+//校本课程 
+public function actionKcsz_get_lb(){
+    $sqlw = "SELECT a.*,b.name as bj_name,c.name as njb_name FROM xsgl_jcxx_xs_jbxx as a left join xsgl_jcxx_bj as b on a.bj_id = b.id left join xsgl_jcxx_njb as c on b.njb_id = c.id";
+    $dataw=Yii::$app->db->createCommand($sqlw)->query()->readAll();
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $dataw;
+}
 
 
 

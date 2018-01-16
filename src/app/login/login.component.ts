@@ -5,8 +5,9 @@ import { Http,Headers } from "@angular/http";
 import { Router } from "@angular/router";
 import 'rxjs/Rx';
 import * as $ from 'jquery';
-import { UserService } from 'app/service/UserService';
-import { TskService } from 'app/service/TskService';
+import { UserService } from '../service/UserService';
+import { TskService } from '../service/TskService';
+
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ imageurl;
 imagegh;
 passwd='';
 passwdt='';
+ifxslogin:boolean = false;
   constructor(private http:Http,private router:Router,private userinfo:UserService,private tsk:TskService) {
     this.formModel = this.fb.group({
       username: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
@@ -59,6 +61,12 @@ passwdt='';
   
   passchange(){
     console.log('onchange:'+this.passwd);
+  }
+  xs_login(){
+    this.ifxslogin = true;
+  }
+  js_login(){
+    this.ifxslogin = false;
   }
 onSubmit(){
 let myHeaders:Headers = new Headers();

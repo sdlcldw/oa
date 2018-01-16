@@ -19,6 +19,7 @@ import { CkjlComponent } from './ckjl/ckjl.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { KcszComponent } from './kcsz/kcsz.component';
 
 const Routes=[
   {path:'cjxs',component:CjxsComponent},
@@ -33,6 +34,7 @@ const Routes=[
   {path:'xsjbxx',component:XsjbxxComponent},
   {path:'zjjl',component:ZjjlComponent},
   {path:'ckjl',component:CkjlComponent},
+  {path:'kcsz',component:KcszComponent},
 ];
 
 @NgModule({
@@ -61,6 +63,7 @@ const Routes=[
     SsszCwComponent,
     ZjjlComponent,
     CkjlComponent,
+    KcszComponent,
   ],
 })
 

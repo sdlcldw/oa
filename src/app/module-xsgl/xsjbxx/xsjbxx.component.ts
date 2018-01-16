@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, Injectable ,TemplateRef  } from '@angular/core';
+import { Component, OnInit, Injectable ,TemplateRef  } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
@@ -31,6 +31,7 @@ export class XsjbxxComponent implements OnInit {
   xsimage;
   dqxs_sfzh;
   ifsczp:boolean = false;
+  ifexcel:boolean = false;
   data;
   columns = [
     { key: 'Id', title: 'id' },
@@ -56,7 +57,7 @@ export class XsjbxxComponent implements OnInit {
     selectRow: true,
     selectCol: false,
     selectCell: false,
-    rows: 10,
+    rows: 30,
     additionalActions: false,
     serverPagination: false,
     isLoading: false,
@@ -79,7 +80,13 @@ export class XsjbxxComponent implements OnInit {
     removeAfterUpload: true,
     autoUpload: true,
   });
-
+  public excelup: FileUploader = new FileUploader({
+    url: "/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_up_excel",
+    method: "POST",
+    itemAlias: "excel",
+    removeAfterUpload: true,
+    autoUpload: true,
+  });
   constructor(fb: FormBuilder, private http: HttpClient, private router: Router, private tsk: TskService,private modalService: BsModalService) {
     this.formModel = fb.group({
       Id: '',
@@ -128,22 +135,41 @@ export class XsjbxxComponent implements OnInit {
           }
           this.ifsczp = false;
     };
-  }
 
+
+    this.excelup.onBuildItemForm = (fileItem, form) => {
+      this.ifexcel = true;
+    };
+    this.excelup.onCompleteItem = (item, response, status, headers) =>{
+      if (status == 200) {
+        let data = JSON.parse(response);
+        console.log(data.rt)
+            if (data['rt'] == 'gs') {
+              alert(data['data']);
+            } else if(data['rt'] == 'cg'){
+              alert("成功插入"+data['data']+"条数据");
+              this.getxsxxlb();
+              this.modalRef.hide();
+            }
+          } else {
+            alert("上传失败"); 
+          }
+          this.ifexcel = false;
+    };
+  }
+  excel_dr(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template,Object.assign({}, this.modal_img_config, { class: 'modal-excel' }));
+  }
   openimgmodal(template: TemplateRef<any>) { 
     this.modalRef = this.modalService.show(template,Object.assign({}, this.modal_img_config, { class: 'modal-xsimg' }));
   }
-
   sczp() {
     if(this.formModel.value.sfzh.length == 18){
        document.getElementById('upload_file').click();
     }else{
        alert('请先输入正确身份证号，照片基于身份证号存储！');
     }
-    
   }
-
-
   getxsxxlb() {
     this.http.get('/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_get_lb').subscribe(data => {
       if (data) {
@@ -341,4 +367,17 @@ export class XsjbxxComponent implements OnInit {
       }
     });
   }
+
+//excel demo
+excel_demo(){
+  window.open('/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_demo_excel');  
+}
+
+excel_up(){
+  document.getElementById('upload_excel').click();
+}
+
+
+
+
 }
