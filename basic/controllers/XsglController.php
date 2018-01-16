@@ -522,7 +522,10 @@ public function actionKcsz_get_lb(){
     return $dataw;
 }
 
-
+public function actionKcsz_get_users(){
+   Yii::$app->response->format=Response::FORMAT_JSON;   
+    return $this->actionJcxxsz_get_users();
+}
 
 
 

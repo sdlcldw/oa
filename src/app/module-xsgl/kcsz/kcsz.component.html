@@ -10,124 +10,148 @@
     <button type="button" class="btn btn-primary" (click)="xjkc(xjkcmodal)">新建课程</button>
     <hr>
   </div>
-  
-    <ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
-      <ng-template let-row>
-        <td>
-          <div class="font-small">
-            {{row.Id}}
-          </div>
-        </td>
-        <td>
-          <div class="font-small">
-            {{row.name}}
-          </div>
-        </td>
-        <td>
-          <span class="font-small">{{row.xjh}}</span>
-        </td>
-        <td>
-          <span class="font-small">{{row.sfzh}}</span>
-        </td>
-        <td>
-          <span class="font-small">{{row.xb}}</span>
-        </td>
-        <td>
-          <span class="font-small">{{row.njb_name}}</span>
-        </td>
-        <td>
-          <span class="font-small">{{row.bj_name}}</span>
-        </td>
-        <td>
-          <span class="font-small">{{row.jtzz}}</span>
-        </td>
-        <td>
-          <span class="font-small">{{row.lxfs_1}}</span>
-        </td>
-        <td>
-          <span class="font-small">{{row.lxfs_2}}</span>
-        </td>
-        <td>
-          <button class="btn btn-info btn-xs" (click)=ckxxxx(row.Id)>查看
-          </button>
-          <button class="btn btn-warning btn-xs" (click)=bjxsxx(row.Id)>编辑
-          </button>
-          <button class="btn btn-danger btn-xs" (click)=delxsxx(row.Id)>删除
-          </button>
-        </td>
-      </ng-template>
-    </ngx-table>
+
+  <ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
+    <ng-template let-row>
+      <td>
+        <div class="font-small">
+          {{row.Id}}
+        </div>
+      </td>
+      <td>
+        <div class="font-small">
+          {{row.name}}
+        </div>
+      </td>
+      <td>
+        <span class="font-small">{{row.xjh}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.sfzh}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.xb}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.njb_name}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.bj_name}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.jtzz}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.lxfs_1}}</span>
+      </td>
+      <td>
+        <span class="font-small">{{row.lxfs_2}}</span>
+      </td>
+      <td>
+        <button class="btn btn-info btn-xs" (click)=ckxxxx(row.Id)>查看
+        </button>
+        <button class="btn btn-warning btn-xs" (click)=bjxsxx(row.Id)>编辑
+        </button>
+        <button class="btn btn-danger btn-xs" (click)=delxsxx(row.Id)>删除
+        </button>
+      </td>
+    </ng-template>
+  </ngx-table>
 </div>
 <!-- 新建课程 -->
 <ng-template #xjkcmodal>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">新建课程</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">新建课程</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formModel" class="form-horizontal" role="form" (submit)="onSubmit()">
+      <div class="form-group">
+        <label class="col-md-2 control-label">
+          课程名称
+        </label>
+        <div class="col-md-10">
+          <input formControlName="name" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('name').invalid && formModel.get('name').touched"
+          />
+        </div>
       </div>
-    <div class="modal-body">
-        <form [formGroup]="formModel" class="form-horizontal" role="form" (submit)="onSubmit()">
-            <div class="form-group">
-                <label class="col-md-2 control-label">
-                    课程名称
-                </label>
-                <div class="col-md-10" >                                   
-                    <input formControlName="name" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('name').invalid && formModel.get('name').touched"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label">
-                  讲师设置
-                </label>
-                <div class="col-md-10" > 
-                  <div style="text-align: center;margin-top: 15px;">
-                    <img class="img-thumbnail" height="180" width="180" [src]="jsimage" onError=" this.onerror=null;this.src='assets/images/jsimg/moren2.jpg';">
-                    <p>汪汪汪</p>
-                  </div>
-                  <a (click)="xzjs(xzjsmodal)" style="float: right;" class="btn btn-info btn-xs">选择讲师</a>                                                          
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label">
-                    讲师介绍
-                </label>
-                <div class="col-md-10" >                                   
-                    <textarea class="form-control" rows="3" formControlName="jsjs" class="form-control" placeholder="必填" [class.hasError]="formModel.get('jsjs').invalid && formModel.get('jsjs').touched">
+      <div class="form-group">
+        <label class="col-md-2 control-label">
+          讲师设置
+        </label>
+        <div class="col-md-10">
+          <div style="text-align: center;margin-top: 15px;">
+            <img *ngIf="ifimg" class="img-thumbnail" height="180" width="180" [src]="jsimage" onError=" this.onerror=null;this.src='assets/images/jsimg/moren2.jpg';">
+            <p>{{dqjs['username']}}</p>
+          </div>
+          <a (click)="xzjs(xzjsmodal)" style="float: right;" class="btn btn-info btn-xs">选择讲师</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">
+          讲师介绍
+        </label>
+        <div class="col-md-10">
+          <textarea class="form-control" rows="3" formControlName="jsjs" class="form-control" placeholder="必填" [class.hasError]="formModel.get('jsjs').invalid && formModel.get('jsjs').touched">
                     </textarea>
-                </div>
-            </div>
+        </div>
+      </div>
 
-            <div class="form-group">
-                <label class="col-md-2 control-label">
-                    课程介绍
-                </label>
-                <div class="col-md-10" >                                   
-                    <textarea class="form-control" rows="3" formControlName="js" class="form-control" placeholder="必填" [class.hasError]="formModel.get('js').invalid && formModel.get('js').touched">
+      <div class="form-group">
+        <label class="col-md-2 control-label">
+          课程介绍
+        </label>
+        <div class="col-md-10">
+          <textarea class="form-control" rows="3" formControlName="js" class="form-control" placeholder="必填" [class.hasError]="formModel.get('js').invalid && formModel.get('js').touched">
                       </textarea>
-                </div>
-            </div>
-          <div class="modal-footer">
-            <a class="btn btn-warning" style="float: left;" (click)="xjkcqx()">取消</a>
-            <button type="submit" class="btn btn-success" style="cursor: pointer" [disabled]="formModel.invalid" style="float: left;">确认添加</button>
-          </div>
-        </form>
-    </div>
-  </ng-template>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-warning" style="float: left;" (click)="xjkcqx()">取消</a>
+        <button type="submit" class="btn btn-success" style="cursor: pointer" [disabled]="formModel.invalid" style="float: left;">确认添加</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
 
-  <ng-template #xzjsmodal>
-    <div style="background: #fcffdc;">
-        <div class="modal-header">
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalXzjs.hide()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-      <div class="modal-body">
-         
-              </div>
-            <div class="modal-footer">
-              <a class="btn btn-warning" style="float: left;" (click)="xzjsqx()">取消</a>
-            </div>
-          
-          </div>
-    </ng-template>
+<ng-template #xzjsmodal>
+  <div style="background:#f8f9f1;">
+    <div class="modal-header">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalXzjs.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <hr>
+      <input class="form-control" placeholder="输入姓名或姓名中包含的字" [(ngModel)]="ss_name" style="width: 200px;display:inline;margin-right: 5px;">
+      <button type="button" class="btn btn-primary" (click)="ssyh()">搜索</button>
+      <hr>
+      <div style="height: 550px;overflow-y:auto;overflow-x: hidden;">
+        <table class="table table-bordered" style="width: 800px;">
+          <thead>
+            <tr>
+              <th>用户ID</th>
+              <th>姓名</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let x of users;">
+              <td>{{x.Id }}</td>
+              <td>{{ x.username }}</td>
+              <td>
+                <button type="button" class="btn btn-danger btn-xs" (click)="swjs(x)">选择</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="btn btn-warning" style="float: left;" (click)="xzjsqx()">取消</a>
+    </div>
+
+  </div>
+</ng-template>
