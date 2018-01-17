@@ -1,3 +1,125 @@
-<p>
-  index-xs works!
-</p>
+<div class="top_menu">
+  <img class="logo" src="assets/images/logo.png">
+  <ul class="top_rightmenu">
+    <li (click)="Logout()" class="li1" title="退出系统" onmouseover="menuOver(this);" onmouseout="menuOut(this);">
+      <img src="assets/images/exit.png" hoversrc="assets/images/exit2.png" normalsrc="assets/images/exit.png" border="0">
+    </li>
+
+    <li (click)="goBack()" class="li2" title="回退" onmouseover="menuOver(this);" onmouseout="menuOut(this);">
+      <img src="assets/images/return.png" hoversrc="assets/images/return2.png" normalsrc="assets/images/return.png" border="0">
+    </li>
+
+    <li class="li3" title="门户" onmouseover="menuOver(this);" onmouseout="menuOut(this);">
+      <img src="assets/images/home.png" hoversrc="assets/images/home2.png" normalsrc="assets/images/home.png" border="0">
+    </li>
+
+    <li [routerLink]="['/index']" class="li4" title="返回首页" onmouseover="menuOver(this);" onmouseout="menuOut(this);">
+      <img src="assets/images/main.png" hoversrc="assets/images/main2.png" normalsrc="assets/images/main.png" border="0">
+    </li>
+  </ul>
+  <div class="dibu"></div>
+</div>
+<!-- 左侧菜单栏 -->
+<div class="menu-left" [style.height]="height + 'px'" [class.left-hide-l]="ifleft">
+  <div class="kzt"></div>
+  <div class="ycleft" [class.hidden]="ifleft" (click)="lefthide()">
+    <i class="ion-chevron-left"></i>
+  </div>
+  <div class="ycleft" style="display:block" [class.hidden]="!ifleft" (click)="lefthide()">
+    <i class="ion-chevron-right"></i>
+  </div>
+  <div class="user">
+
+    <div class="head_img_div"></div>
+    <img id="jsimg" [src]="userimage" height="60" width="60" onError=" this.onerror=null;this.src='assets/images/jsimg/moren.jpg';">
+
+    <span id="username" class="username" data-toggle="modal" data-target="#myModal">
+      <!-- {{ userdata.username }} -->张三和
+    </span>
+
+  </div>
+  <div class="menu">
+    <div class="menu2">
+      <div class="menu-title">
+        <img class="menu-title-img" src="assets/images/dian_1.png">
+        学生菜单
+      </div>
+      <div class="menu_ul" [style.height]="menu_ul_height + 'px'">
+
+        <!-- 以下是左侧工具栏 -->
+        <div class="menu_1 menu_1_1">
+          <span>成绩查询</span>
+        </div>
+        <div class="menu_1_2">
+          <div [routerLink]="['./xsgl/cjxs']" class="out">
+            <span>查看我的成绩</span>
+          </div>
+        </div>
+        <div class="menu_1 menu_1_1">
+          <span>校本课程</span>
+        </div>
+        <div class="menu_1_2">
+          <div [routerLink]="['./xsgl/njbsz']" class="out">
+            <span>我的选课</span>
+          </div>
+          <div [routerLink]="['./xsgl/bjsz']" class="out">
+            <span>参加过的课程</span>
+          </div>
+        </div>
+        <div class="menu_1">
+          <span>学生成绩管理</span>
+        </div>
+        <div class="menu_1_2">
+          <div [routerLink]="['']" class="out">
+            <span>成绩导入</span>
+          </div>
+        </div>
+        <div class="menu_1">
+          <span>学生成长记录</span>
+        </div>
+        <div class="menu_1_2">
+          <div [routerLink]="['./xsgl/zjjl']" class="out">
+            <span>增加记录</span>
+          </div>
+          <div [routerLink]="['./xsgl/ckjl']" class="out out_last">
+            <span>查看记录</span>
+          </div>
+        </div>
+        <div class="menu_1 menu_1_end">
+          <span>校本课程</span>
+        </div>
+        <div class="menu_1_2">
+          <div [routerLink]="['./xsgl/kcsz']" class="out">
+            <span>课程设置</span>
+          </div>
+          <div class="out out_last">
+            <span>选课结果</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="search">
+    <div class="shousuo">
+      <!-- 防止自动填充	-->
+      <form style="display:none">
+        <input type="password" />
+      </form>
+      <input type="password" style="width:0;height:0;float:left;visibility:hidden" />
+      <input class="shuru" type="text" autocomplete="off">
+      <div class="anniu"></div>
+    </div>
+    <div class="zxrs">
+      <img src="assets/images/online.png">
+      <span style="cursor:pointer;float:left;margin-left:6px;margin-top:-2px;">当前在线人数
+        <span id="onlineUserNum">
+          <font color="red">{{rs}}</font>人&nbsp;</span>
+      </span>
+    </div>
+  </div>
+</div>
+<!--右侧操作显示区-->
+<div [style.height]="height + 'px'" class="nr-right" id='right' [class.left-hide-r]="ifleft">
+  <router-outlet></router-outlet>
+</div>

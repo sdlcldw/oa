@@ -1,0 +1,56 @@
+.ycleft {
+    display:none;
+    height: 60px;
+    width: 7px;
+    background-color: #559aea;
+    position: absolute;
+    right: -6px;
+    margin: auto 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+}
+.ycleft i{
+    position: absolute;
+    color: #ffffff;
+    top: 19px;
+    left: 0;
+}
+.left-hide-l{
+    left:-235px; 
+}
+.left-hide-r{
+    margin: 15px 15px 0 15px;
+}
+.menu-left,.nr-right {
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.kzt{
+    position: absolute;
+    top: 0;
+    right: -10px;
+    height: 100%;
+    width: 10px;
+}
+.menu-left:hover .ycleft{
+    display:block;
+}
+.kzt:hover .ycleft{
+    display:block;
+}
+.ycleft:hover{
+    background-color: #FF7300;
+}
+
+:host >>> .tooltip-inner {
+    background-color: #f0ad4e;;
+    color: #fff;
+  }
+  :host >>> .tooltip.top .tooltip-arrow:before,
+  :host >>> .tooltip.top .tooltip-arrow {
+    border-top-color: #f0ad4e;
+  }
