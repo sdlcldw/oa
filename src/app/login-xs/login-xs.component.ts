@@ -55,9 +55,11 @@ export class LoginXsComponent implements OnInit {
 
   onSubmit(){
     this.http.post("/oa/basic/web/index.php?r=xsindex/login", {'username':this.formModel.value.username,'password':this.passwdt}).toPromise().then((response) => {
-      let data = response;
- console.log(data)
+      if(response == '2'){
+        this.tsk.tsk("身份证号或密码错误");
+      } else if(response === true){
+        this.router.navigate(['index-xs']);        
+      }
     });
-        
     }
 }
