@@ -15,7 +15,7 @@ class CommonController extends Controller
         }
         $controller = $action->controller->id;
         $actionName = $action->id;
-        if ($controller == 'index'){ //index控制器不需验证
+        if ($controller == 'index' or $controller == 'xsindex'){ //index控制器不需验证
             return true;
         }
         if (Yii::$app->user->can($controller. '/*')) {

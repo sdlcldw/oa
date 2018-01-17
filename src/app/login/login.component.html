@@ -44,56 +44,7 @@
                         <div class="col-md-offset-2 col-md-8">
                              <button type="submit" class="btn btn-success btn-lg col-md-12" style="cursor: pointer" [disabled]="formModel.invalid">登&ensp;录</button>
                             <a href="#" [routerLink]="['/seekpw']">忘记密码？</a>
-                            <a style="float: right;" href="#" (click)="xs_login()">学生入口</a>
-                        </div>
-                    </div>
-                  
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div *ngIf="ifxslogin" class="panel panel-primary col-md-6" id="logindev" style="border: 5px solid #cdfcd9;">
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center">学生登录</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                 <form class="form-horizontal" role="form" [formGroup]="formModel" name="signUpForm" (submit)="onSubmit()">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">
-                            用户名：
-                        </label>
-                        <div class="col-md-8" >
-<input class="form-control" name="username" type="text" [class.hasError]="formModel.get('username').invalid && formModel.get('username').touched" formControlName="username">
-                        </div>
-                        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="col-md-8 col-md-offset-2">
-                           <div class="error" *ngIf="username.errors.required">用户名不可为空</div>
-                           <div class="error" *ngIf="username.errors.minlength">用户名最小长度为2位</div>
-                           <div class="error" *ngIf="username.errors.maxlength">用户名最大长度为8位</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">
-                            密 &ensp; 码：
-                        </label>
-                        <div class="col-md-8" >                                   
-                     <input [(ngModel)]='passwd' class="form-control" name="password" type="text" [class.hasError]="formModel.get('password').invalid && formModel.get('password').touched" formControlName="password">                     
-                    </div>
-                         <div *ngIf="password.invalid && (password.dirty || password.touched)" class="col-md-8 col-md-offset-2 error">
-                                <div class="error" *ngIf="password.errors.required">密码不可为空</div>
-                                <div class="error" *ngIf="password.errors.minlength">密码最小长度为6位</div>
-                                <div class="error" *ngIf="password.errors.maxlength">密码最大长度为24位</div>
-                            </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-8">
-                             <button type="submit" class="btn btn-info btn-lg col-md-12" style="cursor: pointer" [disabled]="formModel.invalid">登&ensp;录</button>
-                            <a href="#" [routerLink]="['/seekpw']">忘记密码？</a>
-                            <a style="float: right;" href="#" (click)="js_login()">教师入口</a>
+                            <a style="float: right;" href="#" [routerLink]="['/login-xs']">学生入口</a>
                         </div>
                     </div>
                   

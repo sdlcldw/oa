@@ -34,6 +34,7 @@ class IndexController extends CommonController
 	}
 
 	public function actionCs(){
+		return 1;
 		
 		// $data =Yii::$app->authManager->getChildren('admin');//获取角色下的所有子角色和权限子节点
 		// $data =Yii::$app->authManager->getPermissionsByUser('252');//根据用户ID获取用户所有权限节点

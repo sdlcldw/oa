@@ -16,14 +16,13 @@ import { TskService } from '../service/TskService';
 })
 export class LoginComponent implements OnInit {
 
-  formModel:FormGroup; 
+formModel:FormGroup; 
 dataSource:Observable<any>;
 fb:FormBuilder = new FormBuilder();
 imageurl;
 imagegh;
 passwd='';
 passwdt='';
-ifxslogin:boolean = false;
   constructor(private http:Http,private router:Router,private userinfo:UserService,private tsk:TskService) {
     this.formModel = this.fb.group({
       username: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
@@ -59,15 +58,6 @@ ifxslogin:boolean = false;
   get username() { return this.formModel.get('username'); }
   get password() { return this.formModel.get('password'); }
   
-  passchange(){
-    console.log('onchange:'+this.passwd);
-  }
-  xs_login(){
-    this.ifxslogin = true;
-  }
-  js_login(){
-    this.ifxslogin = false;
-  }
 onSubmit(){
 let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");

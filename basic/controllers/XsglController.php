@@ -516,12 +516,44 @@ public function actionXsczjl_ckjl_ckxq(){
 
 //校本课程 
 public function actionKcsz_get_lb(){
-    $sqlw = "SELECT a.*,b.name as bj_name,c.name as njb_name FROM xsgl_jcxx_xs_jbxx as a left join xsgl_jcxx_bj as b on a.bj_id = b.id left join xsgl_jcxx_njb as c on b.njb_id = c.id";
+    $sqlw = "SELECT a.*,b.username FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id;"; 
     $dataw=Yii::$app->db->createCommand($sqlw)->query()->readAll();
    Yii::$app->response->format=Response::FORMAT_JSON;
     return $dataw;
 }
-
+public function actionKcsz_add(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $sql = "INSERT xsgl_xbkc_mx (name,js,user_id,jsjs) VALUES ('".$post['name']."','".$post['js']."','".$post['jsid']."','".$post['jsjs']."')";
+        $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+       return $ifok;
+    }
+}
+public function actionKcsz_del(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $sql = "DELETE FROM xsgl_xbkc_mx WHERE Id ='".$post['Id']."'";
+        $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+       return $ifok;
+    }
+}
+public function actionKcsz_up(){
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $sql = "UPDATE xsgl_xbkc_mx SET name='".$post['name']."',js='".$post['js']."',user_id='".$post['jsid']."',jsjs='".$post['jsjs']."' WHERE Id ='".$post['Id']."';";
+        $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+       return $ifok;
+    }
+}
+public function actionKcsz_bj(){
+   Yii::$app->response->format=Response::FORMAT_JSON;   
+    if(Yii::$app->request->isPost){
+        $post = Yii::$app->request->post();
+        $sql = "SELECT a.*,b.username FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.Id = '".$post['id']."';";
+        $command = Yii::$app->db->createCommand($sql)->queryOne();                  
+       return $command;
+    }
+}
 public function actionKcsz_get_users(){
    Yii::$app->response->format=Response::FORMAT_JSON;   
     return $this->actionJcxxsz_get_users();

@@ -22,15 +22,10 @@ export class KcszComponent implements OnInit {
   data;
   columns = [
     { key: 'Id', title: 'id' },
-    { key: 'name', title: '姓名' },
-    { key: 'xjh', title: '学籍号' },
-    { key: 'sfzh', title: '身份证号' },
-    { key: 'xb', title: '性别' },
-    { key: 'njb_name', title: '所在年级' },
-    { key: 'bj_name', title: '所在班级' },
-    { key: 'jtzz', title: '家庭住址' },
-    { key: 'lxfs_1', title: '家长电话1' },
-    { key: 'lxfs_2', title: '家长电话2' },
+    { key: 'name', title: '课程名称' },
+    { key: 'js', title: '课程介绍' },
+    { key: 'userneme', title: '讲师' },
+    { key: 'jsjs', title: '讲师介绍' },
     { key: '操作', title: '操作' },
   ];
   configuration = {
@@ -54,6 +49,7 @@ export class KcszComponent implements OnInit {
 
   modalRef: BsModalRef;
   modalXzjs: BsModalRef;
+  modalBjkc: BsModalRef;
   modal_img_config = {
     animated: false,
     keyboard: true,
@@ -73,12 +69,10 @@ export class KcszComponent implements OnInit {
   userdata;
   ss_name;
   users;
-  dqjs={
-    username:'',
-    Id:''
-  };
+  dqjs={};
   jsimage;
   ifimg:boolean=true;
+  dqxs;
   constructor(fb: FormBuilder, private http: HttpClient, private tsk: TskService,private modalService: BsModalService) {
     this.formModel = fb.group({
       name: ['', [Validators.required, Validators.maxLength(20)]],
@@ -89,7 +83,62 @@ export class KcszComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getxbkc();
+    this.getxbkc();
+  }
+  del(_id){
+    if (window.confirm('你确定要删除吗?该操作会删除所有与此课程有关的信息，包括选课信息，不可逆的操作！')) {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/kcsz_del", {Id:_id,}).toPromise().then((response) => {
+      if (response == 1) {
+        this.getxbkc();
+        this.tsk.cg('删除成功！');                
+      } else {
+        this.tsk.tsk('操作失败！');
+      }
+    });
+    }
+  }
+  //编辑课程
+  bj(_id,template: TemplateRef<any>){
+    this.dqxs={};
+    this.dqjs = {};    
+    this.formModel.reset();
+    this.http.post("/oa/basic/web/index.php?r=xsgl/kcsz_bj", {id:_id,}).toPromise().then((response) => {
+      console.log(response);
+      let data = response;
+      if (response) {
+        this.formModel.setValue({
+          name:response['name'],
+          js: response['js'],
+          jsid: response['user_id'],
+          jsjs: response['jsjs'],
+        })
+        this.dqjs['username'] = response['username'];
+        this.dqxs = response;
+        this.jsimage = "assets/images/jsimg/" + this.dqjs['user_id'] + ".jpg?" + Math.random();
+        this.getxbkc();
+      } else {
+        this.tsk.tsk('获取信息失败！');
+      }
+    });
+    this.modalBjkc = this.modalService.show(template,Object.assign({}, this.modal_img_config, { class: 'modal-bjkc' }));
+    this.sximg();
+  }
+  bjkcqx(){
+    this.modalBjkc.hide();    
+  }
+  bjkc_tj(){
+    var data = this.formModel.value;
+    data['Id'] = this.dqxs['Id'];
+    this.http.post("/oa/basic/web/index.php?r=xsgl/kcsz_up", data).toPromise().then((response) => {
+      let data = response;
+      if (data == 1) {
+        this.getxbkc();
+        this.tsk.cg('编辑课程成功！');
+        this.modalBjkc.hide();
+      } else {
+        this.tsk.tsk('操作失败！');
+      }
+    });
   }
   getxbkc() {
     this.http.get('/oa/basic/web/index.php?r=xsgl/kcsz_get_lb').subscribe(data => {
@@ -100,6 +149,8 @@ export class KcszComponent implements OnInit {
   }
   //新建课程
   xjkc(template: TemplateRef<any>){
+    this.formModel.reset();
+    this.dqjs={};
     this.modalRef = this.modalService.show(template,Object.assign({}, this.modal_img_config, { class: 'modal-xjkc' }));
   }
   xjkcqx(){
@@ -135,7 +186,7 @@ export class KcszComponent implements OnInit {
      }
   }
 swjs(x){
-  this.ifimg = false;
+  this.sximg();
     this.dqjs = x;
     console.log(this.dqjs)
     let data = this.formModel.value;
@@ -146,7 +197,24 @@ swjs(x){
       jsjs: data.jsjs,
     })
     this.jsimage = "assets/images/jsimg/" + this.dqjs['Id'] + ".jpg?" + Math.random();
-  setTimeout(()=>{this.ifimg = true;},1000);    
+  this.modalXzjs.hide();
+}
+xjkc_tj(){
+  this.http.post("/oa/basic/web/index.php?r=xsgl/kcsz_add", this.formModel.value).toPromise().then((response) => {
+    let data = response;
+    if (data == 1) {
+      this.getxbkc();
+      this.tsk.cg('新建课程成功！');
+      this.modalRef.hide();
+    } else {
+      this.tsk.tsk('操作失败！');
+    }
+  });
+}
+sximg(){
+  this.ifimg = false;  
+  setTimeout(()=>{this.ifimg = true;},1000); 
+  
 }
 
 
