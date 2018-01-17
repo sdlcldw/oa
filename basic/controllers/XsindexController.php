@@ -17,8 +17,8 @@ class XsindexController extends CommonController
         Yii::$app->response->format=Response::FORMAT_JSON;
         $post = Yii::$app->request->post();
         if (Yii::$app->request->isPost) {
-            $sql = "select Id,name,sfzh from xsgl_jcxx_xs_jbxx where sfzh='" . $post['username'] . "' and password='" . $post['password'] . "'";
-            $data = Yii::$app->db->createCommand($sql)->queryOne();
+            $sql = "select Id,name,sfzh from xsgl_jcxx_xs_jbxx where sfzh=:un and password=:pw";
+            $data = Yii::$app->db->createCommand($sql,[':un'=>$post['username'],':pw'=>$post['password']])->queryOne();
             if (!$data) {
                 return "2";//用户名或者密码验证错误！
             } else {
