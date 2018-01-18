@@ -17,7 +17,7 @@ return this.dataSource.map((data) => {
                 return true;
             }
             console.log('not authenticated');
-            this.router.navigate(['login-xs'])
+            this.router.navigate(['xs/login'])
             return false;
         }).first(); 
     }

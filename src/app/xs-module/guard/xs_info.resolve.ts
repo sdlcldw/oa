@@ -1,10 +1,10 @@
 import {Injectable, OnInit} from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
 import { Observable } from 'rxjs';
-
-import { XsService } from '../service/XsService';
 import { HttpClient } from '@angular/common/http';
 import { TskService } from '../../service/TskService';
+import { XsService } from '../service/XsService';
+
 
 
 @Injectable()
@@ -21,7 +21,7 @@ export class Xs_infoResolve implements Resolve<any>{
             return data;
         }else{
             this.tsk.tsk('获取学生登录信息失败')
-            this.router.navigate(['login-xs']);
+            this.router.navigate(['xs/login']);
         }
           })
         

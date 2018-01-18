@@ -9,11 +9,23 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { TableModule } from 'ngx-easy-table';
 import { XsService } from './service/XsService';
 import { Xs_infoResolve } from './guard/xs_info.resolve';
+import { LoginxsGuard } from './guard/login_xs.guard';
+import { ExitxsGuard } from './guard/exit_xs.guard';
+import { KsxkComponent } from './index/ksxk/ksxk.component';
+import { HomeComponent } from './index/home/home.component';
 
-const Routes=[
-  {path:'',component:IndexComponent},  
-  {path:'login',component:LoginComponent},
-  {path:'index',component:IndexComponent},
+
+const Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'index' },
+  { path: 'login', component: LoginComponent, canActivate: [ExitxsGuard] },
+  {
+    path: 'index', component: IndexComponent,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'home' },
+      { path: 'home',  component: HomeComponent },
+      { path: 'ksxk',  component: KsxkComponent },
+    ], canActivate: [LoginxsGuard], resolve: { info: Xs_infoResolve },
+  },
 
 ];
 
@@ -27,11 +39,12 @@ const Routes=[
     FileUploadModule,
     TableModule
   ],
-  declarations: [IndexComponent, LoginComponent,XsService,Xs_infoResolve]
+  declarations: [IndexComponent, LoginComponent, KsxkComponent, HomeComponent],
+  providers: [XsService, Xs_infoResolve, LoginxsGuard, ExitxsGuard],
 })
 
 
 
 
 
-export class XsModule{ }
+export class XsModule { }

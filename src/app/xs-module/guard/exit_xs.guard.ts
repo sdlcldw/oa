@@ -16,8 +16,8 @@ canActivate(){
 return this.dataSource.map((data) => {
             if (data==1) {
             console.log('后端返回：'+data);
-            console.log('not authenticated');
-            this.router.navigate(['index-xs'])
+            console.log('authenticated');
+            this.router.navigate(['xs/index'])
             return false;
             }
             console.log('后端返回：'+data);

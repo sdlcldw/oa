@@ -53,7 +53,7 @@ constructor(private router: Router,private http:  HttpClient, private location: 
     this.http.get('/oa/basic/web/index.php?r=xsindex/logout').subscribe((data) => {
       if (data== 1) {
 this.tsk.tsk('退出成功！')
-        this.router.navigate(['login-xs'])
+        this.router.navigate(['xs/login'])
       }
     })
   }

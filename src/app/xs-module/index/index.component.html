@@ -13,7 +13,7 @@
       <img src="assets/images/home.png" hoversrc="assets/images/home2.png" normalsrc="assets/images/home.png" border="0">
     </li>
 
-    <li [routerLink]="['/index-xs']" class="li4" title="返回首页" onmouseover="menuOver(this);" onmouseout="menuOut(this);">
+    <li [routerLink]="['/xs/index']" class="li4" title="返回首页" onmouseover="menuOver(this);" onmouseout="menuOut(this);">
       <img src="assets/images/main.png" hoversrc="assets/images/main2.png" normalsrc="assets/images/main.png" border="0">
     </li>
   </ul>
@@ -51,7 +51,7 @@
           <span>成绩查询</span>
         </div>
         <div class="menu_1_2">
-          <div [routerLink]="['./xsgl/cjxs']" class="out">
+          <div class="out">
             <span>查看我的成绩</span>
           </div>
         </div>
@@ -59,10 +59,10 @@
           <span>校本课程</span>
         </div>
         <div class="menu_1_2">
-          <div [routerLink]="['./xsgl/njbsz']" class="out">
-            <span>我的选课</span>
+          <div [routerLink]="['./ksxk']" class="out">
+            <span>开始选课</span>
           </div>
-          <div [routerLink]="['./xsgl/bjsz']" class="out">
+          <div class="out">
             <span>参加过的课程</span>
           </div>
         </div>

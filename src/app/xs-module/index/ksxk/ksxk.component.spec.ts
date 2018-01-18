@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginXsComponent } from './login-xs.component';
+import { KsxkComponent } from './ksxk.component';
 
-describe('LoginXsComponent', () => {
-  let component: LoginXsComponent;
-  let fixture: ComponentFixture<LoginXsComponent>;
+describe('KsxkComponent', () => {
+  let component: KsxkComponent;
+  let fixture: ComponentFixture<KsxkComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginXsComponent ]
+      declarations: [ KsxkComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginXsComponent);
+    fixture = TestBed.createComponent(KsxkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
