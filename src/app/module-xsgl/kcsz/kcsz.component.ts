@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { TskService } from '../../service/TskService';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-kcsz',
@@ -23,9 +24,11 @@ export class KcszComponent implements OnInit {
   columns = [
     { key: 'Id', title: 'id' },
     { key: 'name', title: '课程名称' },
-    { key: 'js', title: '课程介绍' },
     { key: 'userneme', title: '讲师' },
-    { key: 'jsjs', title: '讲师介绍' },
+    { key: 'rs', title: '人数上限' },
+    { key: 'kssj', title: '开始时间' },
+    { key: 'jssj', title: '结束时间' },
+    { key: 'zt', title: '课程状态' },    
     { key: '操作', title: '操作' },
   ];
   configuration = {
@@ -73,16 +76,20 @@ export class KcszComponent implements OnInit {
   jsimage;
   ifimg:boolean=true;
   dqxs;
-  constructor(fb: FormBuilder, private http: HttpClient, private tsk: TskService,private modalService: BsModalService) {
+  constructor(fb: FormBuilder, private http: HttpClient, private tsk: TskService,private modalService: BsModalService,private _localeService: BsLocaleService) {
     this.formModel = fb.group({
       name: ['', [Validators.required, Validators.maxLength(20)]],
+      kksj: ['', [Validators.required]],
+      rs: ['', [Validators.required]],
       js: ['', [Validators.required, Validators.maxLength(120)]],
       jsid: ['', [Validators.required]],
       jsjs: ['', [Validators.required, Validators.maxLength(120),Validators.minLength(10)]],
+      zt: ['', [Validators.required]],      
     })
   }
 
   ngOnInit() {
+    this._localeService.use('zh-cn');   
     this.getxbkc();
   }
   del(_id){
@@ -108,9 +115,13 @@ export class KcszComponent implements OnInit {
       if (response) {
         this.formModel.setValue({
           name:response['name'],
+          kksj:[new Date(response['kssj']), new Date(response['jssj'])],
+          // kksj:[response['kssj'],response['jssj']],
+          rs:response['rs'],
           js: response['js'],
           jsid: response['user_id'],
           jsjs: response['jsjs'],
+          zt:response['zt'],
         })
         this.dqjs['username'] = response['username'];
         this.dqxs = response;
@@ -192,14 +203,18 @@ swjs(x){
     let data = this.formModel.value;
     this.formModel.setValue({
       name: data.name,
+      kksj:data.kksj,      
       js: data.js,
       jsid: x.Id,
       jsjs: data.jsjs,
+      rs:data.rs,
+      zt:data.zt,
     })
     this.jsimage = "assets/images/jsimg/" + this.dqjs['Id'] + ".jpg?" + Math.random();
   this.modalXzjs.hide();
 }
 xjkc_tj(){
+  console.log(this.formModel.value)
   this.http.post("/oa/basic/web/index.php?r=xsgl/kcsz_add", this.formModel.value).toPromise().then((response) => {
     let data = response;
     if (data == 1) {

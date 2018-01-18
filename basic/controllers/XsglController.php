@@ -516,7 +516,7 @@ public function actionXsczjl_ckjl_ckxq(){
 
 //校本课程 
 public function actionKcsz_get_lb(){
-    $sqlw = "SELECT a.*,b.username FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id;"; 
+    $sqlw = "SELECT a.Id,a.name,a.user_id,a.rs,a.kssj,a.jssj,a.zt,b.username FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id;";
     $dataw=Yii::$app->db->createCommand($sqlw)->query()->readAll();
    Yii::$app->response->format=Response::FORMAT_JSON;
     return $dataw;
@@ -524,8 +524,10 @@ public function actionKcsz_get_lb(){
 public function actionKcsz_add(){
     if(Yii::$app->request->isPost){
         $post = Yii::$app->request->post();
-        $sql = "INSERT xsgl_xbkc_mx (name,js,user_id,jsjs) VALUES ('".$post['name']."','".$post['js']."','".$post['jsid']."','".$post['jsjs']."')";
-        $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+        $kssj = gmdate('Y-m-d',strtotime($post['kksj'][0]) + 8*3600); //将标准时间转换为东八区时间
+        $jssj = gmdate('Y-m-d',strtotime($post['kksj'][1]) + 8*3600); //将标准时间转换为东八区时间
+        $sql = "INSERT xsgl_xbkc_mx (name,js,user_id,jsjs,rs,kssj,jssj,zt) VALUES (:name,:js,:jsid,:jsjs,:rs,:kssj,:jssj,:zt)";
+        $ifok = Yii::$app->db->createCommand($sql,[':name'=>$post['name'],':js'=>$post['js'],':jsid'=>$post['jsid'],':jsjs'=>$post['jsjs'],':rs'=>$post['rs'],':kssj'=>$kssj,':jssj'=>$jssj,':zt'=>$post['zt']])->execute();                   
        return $ifok;
     }
 }
@@ -549,8 +551,8 @@ public function actionKcsz_bj(){
    Yii::$app->response->format=Response::FORMAT_JSON;   
     if(Yii::$app->request->isPost){
         $post = Yii::$app->request->post();
-        $sql = "SELECT a.*,b.username FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.Id = '".$post['id']."';";
-        $command = Yii::$app->db->createCommand($sql)->queryOne();                  
+        $sql = "SELECT a.*,b.username FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.Id = :id;";
+        $command = Yii::$app->db->createCommand($sql,[':id'=>$post['id']])->queryOne();                  
        return $command;
     }
 }

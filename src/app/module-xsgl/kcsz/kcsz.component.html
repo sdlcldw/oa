@@ -24,14 +24,20 @@
         </div>
       </td>
       <td>
-        <span class="font-small">{{row.js}}</span>
-      </td>
-      <td>
         <span class="font-small">{{row.username}}</span>
       </td>
       <td>
-        <span class="font-small">{{row.jsjs}}</span>
+        <span class="font-small">{{row.rs}}</span>
       </td>
+      <td>
+          <span class="font-small">{{row.kssj}}</span>
+        </td>
+        <td>
+            <span class="font-small">{{row.jssj}}</span>
+          </td>
+          <td>
+              <span class="font-small">{{row.zt}}</span>
+            </td>
       <td>
         <button class="btn btn-warning btn-xs" (click)=bj(row.Id,bjkcmodal)>编辑
         </button>
@@ -57,6 +63,29 @@
         </label>
         <div class="col-md-10">
           <input formControlName="name" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('name').invalid && formModel.get('name').touched"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">
+          开课时间
+        </label>
+        <div class="col-md-10">
+          <div class="input-group">
+              <input formControlName="kksj" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker >
+            <!-- <input formControlName="sj" type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsValue]="dqrq_wj"/>      -->
+            <span class="input-group-btn">
+                <a class="btn btn-default" (click)="drp.toggle()">选择日期</a>
+                  </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">
+          人数上限
+        </label>
+        <div class="col-md-10">
+          <input formControlName="rs" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('rs').invalid && formModel.get('rs').touched"
           />
         </div>
       </div>
@@ -89,6 +118,22 @@
         <div class="col-md-10">
           <textarea class="form-control" rows="3" formControlName="js" class="form-control" placeholder="必填" [class.hasError]="formModel.get('js').invalid && formModel.get('js').touched">
                       </textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">
+          课程状态
+        </label>
+        <div class="col-md-10">
+              <label class="radio-inline">
+                <input formControlName="zt" type="radio" name="zt" value="1">选课阶段
+              </label>
+              <label class="radio-inline">
+                <input formControlName="zt" type="radio" name="zt" value="2">课程进行
+              </label>
+              <label class="radio-inline">
+                <input formControlName="zt" type="radio" name="zt" value="3">课程结束
+              </label>
         </div>
       </div>
       <div class="modal-footer">
@@ -160,6 +205,28 @@
         </div>
       </div>
       <div class="form-group">
+          <label class="col-md-2 control-label">
+            开课时间
+          </label>
+          <div class="col-md-10">
+            <div class="input-group">
+                <input formControlName="kksj" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker>
+              <span class="input-group-btn">
+                  <a class="btn btn-default" (click)="drp.toggle()">选择日期</a>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">
+              人数上限
+            </label>
+            <div class="col-md-10">
+              <input formControlName="rs" type="text" class="form-control" placeholder="必填" [class.hasError]="formModel.get('rs').invalid && formModel.get('rs').touched"
+              />
+            </div>
+          </div>
+      <div class="form-group">
         <label class="col-md-2 control-label">
           讲师设置
         </label>
@@ -190,6 +257,22 @@
           </textarea>
         </div>
       </div>
+      <div class="form-group">
+          <label class="col-md-2 control-label">
+            课程状态
+          </label>
+          <div class="col-md-10">
+                <label class="radio-inline">
+                  <input formControlName="zt" type="radio" name="zt" value="1">选课阶段
+                </label>
+                <label class="radio-inline">
+                  <input formControlName="zt" type="radio" name="zt" value="2">课程进行
+                </label>
+                <label class="radio-inline">
+                  <input formControlName="zt" type="radio" name="zt" value="3">课程结束
+                </label>
+          </div>
+        </div>
       <div class="modal-footer">
         <a class="btn btn-warning" style="float: left;" (click)="bjkcqx()">取消</a>
         <button type="submit" class="btn btn-success" style="cursor: pointer" [disabled]="formModel.invalid" style="float: left;">确认修改</button>

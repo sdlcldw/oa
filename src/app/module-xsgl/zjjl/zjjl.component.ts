@@ -46,7 +46,7 @@ export class ZjjlComponent implements OnInit {
     groupRows: false
   };
 
-  dqrq_wj: Date ;
+  dqrq_wj: Date;
   dqrq_ry: Date;
   
   constructor(fb: FormBuilder,private http: HttpClient, private tsk: TskService,private _localeService: BsLocaleService) {
