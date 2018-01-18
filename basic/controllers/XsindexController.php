@@ -25,8 +25,8 @@ class XsindexController extends CommonController
                 $session = Yii::$app->session;
                 $session['xs_login'] = [
                     'Id' => $data['Id'],
-                    'sfzh' => $data['sfzh'],
-                    'name' => $data['name'],
+                    // 'sfzh' => $data['sfzh'],
+                    // 'name' => $data['name'],
                     'isLogin' => 1,
                 ];
                 return (bool)$session['xs_login']['isLogin'];
@@ -34,9 +34,28 @@ class XsindexController extends CommonController
         }
         return false;
     }
-
-
-
+    public function actionIslogin(){
+        if(Yii::$app->session['xs_login']['isLogin']===1){
+        return "1";
+           }
+        return "2";
+}
+public function actionGetxsinfo(){
+    $session = Yii::$app->session;
+  $id = $session['xs_login']['Id'];
+    $sql = "Select * from xsgl_jcxx_xs_jbxx where Id=".$id;
+    $xsinfo=Yii::$app->db->createCommand($sql)->queryOne();;
+    Yii::$app->response->format=Response::FORMAT_JSON;
+    return $xsinfo;
+}
+public function actionLogout(){
+    Yii::$app->session->removeAll();
+    Yii::$app->session->destroy();
+    if(!isset(Yii::$app->session['xs_login']['isLogin'])){
+        return "1";
+    }
+    return "2";
+}
 
 
 

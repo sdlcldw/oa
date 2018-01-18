@@ -213,7 +213,7 @@ class IndexController extends CommonController
 	public function actionLogout(){
 				   Yii::$app->session->removeAll();
 				   Yii::$app->session->destroy();
-				   if(!isset(Yii::$app->session['admin']['isLogin'])){
+				   if(!isset(Yii::$app->session['user']['isLogin'])){
 				   	return "1";
 				   }
 				   return "2";

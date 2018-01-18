@@ -20,6 +20,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { KcszComponent } from './kcsz/kcsz.component';
+import { LoginxsGuard } from '../xs-module/guard/login_xs.guard';
+import { ExitxsGuard } from '../xs-module/guard/exit_xs.guard';
+import { XsService } from '../xs-module/service/XsService';
+import { Xs_infoResolve } from '../xs-module/guard/xs_info.resolve';
 
 const Routes=[
   {path:'cjxs',component:CjxsComponent},
@@ -65,6 +69,7 @@ const Routes=[
     CkjlComponent,
     KcszComponent,
   ],
+  providers: [LoginxsGuard,ExitxsGuard,XsService,Xs_infoResolve],
 })
 
 export class XsglModule { }

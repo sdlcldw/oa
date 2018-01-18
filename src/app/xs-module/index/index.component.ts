@@ -6,18 +6,18 @@ import jQuery from 'jquery';
 import {FileUploader} from "ng2-file-upload";
 import { Location } from '@angular/common';
 import { HttpRequest, HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
-import { TskService } from '../service/TskService';
 import { XsService } from '../service/XsService';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
+import { TskService } from '../../service/TskService';
 
 @Component({
-  selector: 'app-index-xs',
-  templateUrl: './index-xs.component.html',
-  styleUrls: ['./index-xs.component.css']
+  selector: 'app-index',
+  templateUrl: './index.component.html',
+  styleUrls: ['./index.component.css']
 })
-export class IndexXsComponent implements OnInit {
+export class IndexComponent implements OnInit {
+
 
   rs:number;
   height: number;
@@ -60,4 +60,5 @@ this.tsk.tsk('退出成功！')
   goBack(): void {
     this.location.back();
   }
+
 }

@@ -28,8 +28,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { defineLocale } from 'ngx-bootstrap/bs-moment';
 import { zhCn } from 'ngx-bootstrap/bs-moment/i18n/zh-cn';
-import { IndexXsComponent } from './index-xs/index-xs.component';
-import { LoginXsComponent } from './login-xs/login-xs.component';
 defineLocale('zh-cn', zhCn); //ngx-bootstrap 语言设置
 const routeConfig: Routes = [
   {path: '',  pathMatch: 'full',redirectTo: 'index'},
@@ -47,8 +45,9 @@ const routeConfig: Routes = [
       {path:'zhxz',loadChildren:'./module-zhxz/module-zhxz.module#ZhxzModule'},
     ],canActivate:[LoginGuard],resolve:{info:User_infoResolve},
   },
-  {path: 'login-xs', component:LoginXsComponent},  
-  {path: 'index-xs', component:IndexXsComponent},  
+  {path: 'xs', loadChildren:'./xs-module/xs-module.module#XsModule'},
+  // {path: 'login-xs', component:LoginXsComponent,canActivate:[ExitxsGuard]},  
+  // {path: 'index-xs', component:IndexXsComponent,canActivate:[LoginxsGuard],resolve:{info:Xs_infoResolve},},  
   ];
 
 @NgModule({
@@ -64,8 +63,6 @@ const routeConfig: Routes = [
     MenuXtszComponent,
     SeekpasswordComponent,
     MenuZhxzComponent,
-    IndexXsComponent,
-    LoginXsComponent,
   ],
   imports: [
     BrowserModule, 
