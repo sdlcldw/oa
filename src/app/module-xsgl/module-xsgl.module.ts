@@ -24,6 +24,7 @@ import { LoginxsGuard } from '../xs-module/guard/login_xs.guard';
 import { ExitxsGuard } from '../xs-module/guard/exit_xs.guard';
 import { XsService } from '../xs-module/service/XsService';
 import { Xs_infoResolve } from '../xs-module/guard/xs_info.resolve';
+import { ZtPipe } from './pipe/zt.pipe';
 
 const Routes=[
   {path:'cjxs',component:CjxsComponent},
@@ -68,6 +69,7 @@ const Routes=[
     ZjjlComponent,
     CkjlComponent,
     KcszComponent,
+    ZtPipe,
   ],
   providers: [LoginxsGuard,ExitxsGuard,XsService,Xs_infoResolve],
 })

@@ -13,12 +13,12 @@ class XsindexController extends CommonController
 {
     public $enableCsrfValidation = false;// ->覆盖父类的属性
     public function actionLogin()
-    {					
-        Yii::$app->response->format=Response::FORMAT_JSON;
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
         $post = Yii::$app->request->post();
         if (Yii::$app->request->isPost) {
             $sql = "select Id,name,sfzh from xsgl_jcxx_xs_jbxx where sfzh=:un and password=:pw";
-            $data = Yii::$app->db->createCommand($sql,[':un'=>$post['username'],':pw'=>$post['password']])->queryOne();
+            $data = Yii::$app->db->createCommand($sql, [':un' => $post['username'], ':pw' => $post['password']])->queryOne();
             if (!$data) {
                 return "2";//用户名或者密码验证错误！
             } else {
@@ -34,28 +34,37 @@ class XsindexController extends CommonController
         }
         return false;
     }
-    public function actionIslogin(){
-        if(Yii::$app->session['xs_login']['isLogin']===1){
-        return "1";
-           }
+    public function actionIslogin()
+    {
+        if (Yii::$app->session['xs_login']['isLogin'] === 1) {
+            return "1";
+        }
         return "2";
-}
-public function actionGetxsinfo(){
-    $session = Yii::$app->session;
-  $id = $session['xs_login']['Id'];
-    $sql = "Select * from xsgl_jcxx_xs_jbxx where Id=".$id;
-    $xsinfo=Yii::$app->db->createCommand($sql)->queryOne();;
-    Yii::$app->response->format=Response::FORMAT_JSON;
-    return $xsinfo;
-}
-public function actionLogout(){
-    Yii::$app->session->removeAll();
-    Yii::$app->session->destroy();
-    if(!isset(Yii::$app->session['xs_login']['isLogin'])){
-        return "1";
     }
-    return "2";
-}
+    public function actionGetxsinfo()
+    {
+        $session = Yii::$app->session;
+        $id = $session['xs_login']['Id'];
+        $sql = "Select * from xsgl_jcxx_xs_jbxx where Id=" . $id;
+        $xsinfo = Yii::$app->db->createCommand($sql)->queryOne();;
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $xsinfo;
+    }
+    public function actionLogout()
+    {
+        Yii::$app->session->removeAll();
+        Yii::$app->session->destroy();
+        if (!isset(Yii::$app->session['xs_login']['isLogin'])) {
+            return "1";
+        }
+        return "2";
+    }
+    public function actionKsxk_get(){
+        $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.kssj,a.jssj,a.zt,b.username FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.zt = '1';";
+        $data=Yii::$app->db->createCommand($sql)->query()->readAll();
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $data;
+    }
 
 
 

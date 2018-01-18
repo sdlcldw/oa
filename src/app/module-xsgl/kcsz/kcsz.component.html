@@ -36,7 +36,7 @@
             <span class="font-small">{{row.jssj}}</span>
           </td>
           <td>
-              <span class="font-small">{{row.zt}}</span>
+              <span class="font-small">{{row.zt | zt}}</span>
             </td>
       <td>
         <button class="btn btn-warning btn-xs" (click)=bj(row.Id,bjkcmodal)>编辑
@@ -73,7 +73,6 @@
         <div class="col-md-10">
           <div class="input-group">
               <input formControlName="kksj" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker >
-            <!-- <input formControlName="sj" type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsValue]="dqrq_wj"/>      -->
             <span class="input-group-btn">
                 <a class="btn btn-default" (click)="drp.toggle()">选择日期</a>
                   </span>

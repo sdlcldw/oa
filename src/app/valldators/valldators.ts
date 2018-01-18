@@ -15,3 +15,10 @@ export function zzsValidator(data:FormControl):any{
     let valid = myreg.test(value);
     return valid ? null : {zzs:true};
 }
+// 验证非零的正整数： 
+export function flzzsValidator(data:FormControl):any{
+    let value = (data.value || '')+'';
+    var myreg = /^\+?[1-9][0-9]*$/;
+    let valid = myreg.test(value);
+    return valid ? null : {flzzs:true};
+}

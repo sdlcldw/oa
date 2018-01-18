@@ -13,7 +13,7 @@ import { LoginxsGuard } from './guard/login_xs.guard';
 import { ExitxsGuard } from './guard/exit_xs.guard';
 import { KsxkComponent } from './index/ksxk/ksxk.component';
 import { HomeComponent } from './index/home/home.component';
-
+import { ZtPipe } from './pipe/zt.pipe';
 
 const Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'index' },
@@ -26,7 +26,6 @@ const Routes = [
       { path: 'ksxk',  component: KsxkComponent },
     ], canActivate: [LoginxsGuard], resolve: { info: Xs_infoResolve },
   },
-
 ];
 
 @NgModule({
@@ -39,7 +38,7 @@ const Routes = [
     FileUploadModule,
     TableModule
   ],
-  declarations: [IndexComponent, LoginComponent, KsxkComponent, HomeComponent],
+  declarations: [IndexComponent, LoginComponent, KsxkComponent, HomeComponent,ZtPipe],
   providers: [XsService, Xs_infoResolve, LoginxsGuard, ExitxsGuard],
 })
 

@@ -542,8 +542,10 @@ public function actionKcsz_del(){
 public function actionKcsz_up(){
     if(Yii::$app->request->isPost){
         $post = Yii::$app->request->post();
-        $sql = "UPDATE xsgl_xbkc_mx SET name='".$post['name']."',js='".$post['js']."',user_id='".$post['jsid']."',jsjs='".$post['jsjs']."' WHERE Id ='".$post['Id']."';";
-        $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+        $kssj = gmdate('Y-m-d',strtotime($post['kksj'][0]) + 8*3600); //将标准时间转换为东八区时间
+        $jssj = gmdate('Y-m-d',strtotime($post['kksj'][1]) + 8*3600); //将标准时间转换为东八区时间
+        $sql = "UPDATE xsgl_xbkc_mx SET name=:name,js=:js,user_id=:jsid,jsjs=:jsjs,rs=:rs,kssj=:kssj,jssj=:jssj,zt=:zt WHERE Id =:Id;";
+        $ifok = Yii::$app->db->createCommand($sql,[':name'=>$post['name'],':js'=>$post['js'],':jsid'=>$post['jsid'],':jsjs'=>$post['jsjs'],':rs'=>$post['rs'],':kssj'=>$kssj,':jssj'=>$jssj,':zt'=>$post['zt'],':Id'=>$post['Id']])->execute();                   
        return $ifok;
     }
 }

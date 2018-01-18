@@ -46,8 +46,6 @@ const routeConfig: Routes = [
     ],canActivate:[LoginGuard],resolve:{info:User_infoResolve},
   },
   {path: 'xs', loadChildren:'./xs-module/xs-module.module#XsModule'},
-  // {path: 'login-xs', component:LoginXsComponent,canActivate:[ExitxsGuard]},  
-  // {path: 'index-xs', component:IndexXsComponent,canActivate:[LoginxsGuard],resolve:{info:Xs_infoResolve},},  
   ];
 
 @NgModule({

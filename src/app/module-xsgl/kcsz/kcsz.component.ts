@@ -1,15 +1,11 @@
 import { Component, OnInit ,TemplateRef } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/Rx';
-import { FileUploader } from "ng2-file-upload";
-import * as $ from 'jquery';
-import jQuery from 'jquery';
 import { HttpClient } from '@angular/common/http';
 import { TskService } from '../../service/TskService';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { flzzsValidator } from '../../valldators/valldators';
 
 @Component({
   selector: 'app-kcsz',
@@ -60,13 +56,6 @@ export class KcszComponent implements OnInit {
     ignoreBackdropClick: false
   };
 
-  public uploader: FileUploader = new FileUploader({
-    url: "/oa/basic/web/index.php?r=xssczp/uploadfile",
-    method: "POST",
-    itemAlias: "uploadedfile",
-    removeAfterUpload: true,
-    autoUpload: true,
-  });
 
 
   userdata;
@@ -80,7 +69,7 @@ export class KcszComponent implements OnInit {
     this.formModel = fb.group({
       name: ['', [Validators.required, Validators.maxLength(20)]],
       kksj: ['', [Validators.required]],
-      rs: ['', [Validators.required]],
+      rs: ['', [Validators.required,flzzsValidator]],
       js: ['', [Validators.required, Validators.maxLength(120)]],
       jsid: ['', [Validators.required]],
       jsjs: ['', [Validators.required, Validators.maxLength(120),Validators.minLength(10)]],
@@ -93,7 +82,7 @@ export class KcszComponent implements OnInit {
     this.getxbkc();
   }
   del(_id){
-    if (window.confirm('你确定要删除吗?该操作会删除所有与此课程有关的信息，包括选课信息，不可逆的操作！')) {
+    if (window.confirm('该操作会删除所有与此课程有关的信息，包括选课信息，不可逆的操作！你确定要删除吗?')) {
     this.http.post("/oa/basic/web/index.php?r=xsgl/kcsz_del", {Id:_id,}).toPromise().then((response) => {
       if (response == 1) {
         this.getxbkc();
@@ -228,11 +217,6 @@ xjkc_tj(){
 }
 sximg(){
   this.ifimg = false;  
-  setTimeout(()=>{this.ifimg = true;},1000); 
-  
+  setTimeout(()=>{this.ifimg = true;},300); 
 }
-
-
-
-
 }
