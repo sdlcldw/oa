@@ -75,7 +75,20 @@ class XsindexController extends CommonController
         return $data;
     }
     }
-
+    public function actionKsxk_xk(){
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+            $id = Yii::$app->session['xs_login']['Id'];
+        $sql = "SELECT * from xsgl_xbkc_xk where xs_id = :id and zt=1 or zt = 2;";
+        $data = Yii::$app->db->createCommand($sql,[':id'=>$id])->queryOne();
+        if($data){
+            return '2';
+        }
+        $sql = "INSERT xsgl_xbkc_xk (xs_id,kc_id,zt) VALUES (:xs_id,:kc_id,:zt)";           
+        $data=Yii::$app->db->createCommand($sql,[':xs_id'=> $id,':kc_id'=>$post['id'],':zt'=>1])->execute();
+        return $data;
+    }
+    }
 
 
 

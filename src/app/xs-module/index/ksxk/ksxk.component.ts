@@ -67,16 +67,31 @@ export class KsxkComponent implements OnInit {
     });
   }
   xx(_id,template: TemplateRef<any>){
-    this.http.post("/oa/basic/web/index.php?r=xsindex/ksxk_ck", {id:_id,}).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsindex/ksxk_ck", {id:_id}).toPromise().then((response) => {
       console.log(response);
       if (response) {
         this.kcdata = response;
-        // this.jsimage = "assets/images/jsimg/" + this.dqjs['user_id'] + ".jpg?" + Math.random();
+        this.jsimage = "assets/images/jsimg/" + response['user_id'] + ".jpg?" + Math.random();
+    this.modalRef = this.modalService.show(template,Object.assign({}, this.modal_config, { class: 'modal-kcxq' }));        
       } else {
         this.tsk.tsk('获取信息失败！');
       }
     });
-    this.modalRef = this.modalService.show(template,Object.assign({}, this.modal_config, { class: 'modal-kcxq' }));
   }
-
+  xzkc(_id){
+    console.log(_id);
+    this.http.post("/oa/basic/web/index.php?r=xsindex/ksxk_xk", {id:_id}).toPromise().then((response) => {
+      if (response) {
+        if(response == 2){ 
+        this.tsk.tsk('你已选课，只能同时选一门课哦！');
+        return;          
+        }
+        this.tsk.cg('选课成功！');
+    this.modalRef.hide();        
+      } else {
+        this.tsk.tsk('操作失败！');
+      }
+    });
+  }
+  
 }

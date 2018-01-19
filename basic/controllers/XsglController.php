@@ -542,6 +542,8 @@ public function actionKcsz_del(){
 public function actionKcsz_up(){
     if(Yii::$app->request->isPost){
         $post = Yii::$app->request->post();
+        $sql = "UPDATE xsgl_xbkc_xk SET zt=:zt WHERE kc_id =:kc_id;";  
+        $ifok = Yii::$app->db->createCommand($sql,[':zt'=>$post['zt'],':kc_id'=>$post['Id']])->execute();              
         $kssj = gmdate('Y-m-d',strtotime($post['kksj'][0]) + 8*3600); //将标准时间转换为东八区时间
         $jssj = gmdate('Y-m-d',strtotime($post['kksj'][1]) + 8*3600); //将标准时间转换为东八区时间
         $sql = "UPDATE xsgl_xbkc_mx SET name=:name,js=:js,user_id=:jsid,jsjs=:jsjs,rs=:rs,kssj=:kssj,jssj=:jssj,zt=:zt WHERE Id =:Id;";
