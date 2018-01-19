@@ -1,0 +1,26 @@
+.kcbg{
+    margin: 15px;
+}
+.kcbg td{
+    padding: 10px;
+    padding-top: 20px;
+}
+.kcbg .bt{
+    font-weight: 700;
+width: 100px;
+}
+.kcbg .nr{
+width: 160px;
+}
+.well{
+    margin: 0;
+}
+.bgdata{
+    border-bottom: 1px #3584b6 solid;    
+}
+.kcbg .jswb{
+    padding: 10px;
+    background-color: #fbfbfb;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}

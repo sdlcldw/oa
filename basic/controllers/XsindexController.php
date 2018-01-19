@@ -60,7 +60,7 @@ class XsindexController extends CommonController
         return "2";
     }
     public function actionKsxk_get(){
-        $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.kssj,a.jssj,a.zt,b.username FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.zt = '1';";
+        $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.kssj,a.jssj,a.zt,b.username,(select count(kc_id) from xsgl_xbkc_xk c where a.Id = c.kc_id) as ybrs FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.zt = '1';";
         $data=Yii::$app->db->createCommand($sql)->query()->readAll();
        Yii::$app->response->format=Response::FORMAT_JSON;
         return $data;
@@ -82,7 +82,12 @@ class XsindexController extends CommonController
         $sql = "SELECT * from xsgl_xbkc_xk where xs_id = :id and zt=1 or zt = 2;";
         $data = Yii::$app->db->createCommand($sql,[':id'=>$id])->queryOne();
         if($data){
-            return '2';
+            return '2';//验证是否已选课
+        }
+        $sql="SELECT a.Id,a.rs,(select count(kc_id) from xsgl_xbkc_xk b where a.Id = b.kc_id) as ybrs FROM xsgl_xbkc_mx as a where a.id = :id;";
+        $data = Yii::$app->db->createCommand($sql,[':id'=>$post['id']])->queryOne();
+        if($data['ybrs'] >= $data['rs']){
+            return '3';//该课程已报满
         }
         $sql = "INSERT xsgl_xbkc_xk (xs_id,kc_id,zt) VALUES (:xs_id,:kc_id,:zt)";           
         $data=Yii::$app->db->createCommand($sql,[':xs_id'=> $id,':kc_id'=>$post['id'],':zt'=>1])->execute();

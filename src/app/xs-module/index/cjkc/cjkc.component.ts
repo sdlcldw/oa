@@ -5,11 +5,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TskService } from '../../../service/TskService';
 
 @Component({
-  selector: 'app-ksxk',
-  templateUrl: './ksxk.component.html',
-  styleUrls: ['./ksxk.component.css']
+  selector: 'app-cjkc',
+  templateUrl: './cjkc.component.html',
+  styleUrls: ['./cjkc.component.css']
 })
-export class KsxkComponent implements OnInit {
+export class CjkcComponent implements OnInit {  
   data;
   columns = [
     { key: 'Id', title: 'id' },

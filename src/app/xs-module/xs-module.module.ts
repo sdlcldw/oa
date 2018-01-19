@@ -14,6 +14,7 @@ import { ExitxsGuard } from './guard/exit_xs.guard';
 import { KsxkComponent } from './index/ksxk/ksxk.component';
 import { HomeComponent } from './index/home/home.component';
 import { ZtPipe } from './pipe/zt.pipe';
+import { CjkcComponent } from './index/cjkc/cjkc.component';
 
 const Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'index' },
@@ -24,6 +25,7 @@ const Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'home' },
       { path: 'home',  component: HomeComponent },
       { path: 'ksxk',  component: KsxkComponent },
+      { path: 'cjkc',  component: CjkcComponent },
     ], canActivate: [LoginxsGuard], resolve: { info: Xs_infoResolve },
   },
 ];
@@ -38,7 +40,7 @@ const Routes = [
     FileUploadModule,
     TableModule
   ],
-  declarations: [IndexComponent, LoginComponent, KsxkComponent, HomeComponent,ZtPipe],
+  declarations: [IndexComponent, LoginComponent, KsxkComponent, HomeComponent,ZtPipe, CjkcComponent],
   providers: [XsService, Xs_infoResolve, LoginxsGuard, ExitxsGuard],
 })
 
