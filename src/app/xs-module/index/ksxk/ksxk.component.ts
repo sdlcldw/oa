@@ -2,6 +2,7 @@ import { Component, OnInit ,TemplateRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { TskService } from '../../../service/TskService';
 
 @Component({
   selector: 'app-ksxk',
@@ -47,7 +48,10 @@ export class KsxkComponent implements OnInit {
     backdrop: false,
     ignoreBackdropClick: false
   };
-  constructor( private http: HttpClient,private modalService: BsModalService,) {
+
+  jsimage;
+  kcdata={};
+  constructor( private http: HttpClient,private modalService: BsModalService,private tsk: TskService,) {
 
   }
 
@@ -63,8 +67,16 @@ export class KsxkComponent implements OnInit {
     });
   }
   xx(_id,template: TemplateRef<any>){
+    this.http.post("/oa/basic/web/index.php?r=xsindex/ksxk_ck", {id:_id,}).toPromise().then((response) => {
+      console.log(response);
+      if (response) {
+        this.kcdata = response;
+        // this.jsimage = "assets/images/jsimg/" + this.dqjs['user_id'] + ".jpg?" + Math.random();
+      } else {
+        this.tsk.tsk('获取信息失败！');
+      }
+    });
     this.modalRef = this.modalService.show(template,Object.assign({}, this.modal_config, { class: 'modal-kcxq' }));
-
   }
 
 }

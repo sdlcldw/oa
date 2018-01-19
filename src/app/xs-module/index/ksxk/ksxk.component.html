@@ -53,76 +53,61 @@
 		</button>
 	</div>
 	<div class="modal-body">
-		<div class="form-group">
-			<label class="col-md-2 control-label">
-				课程名称
-			</label>
-			<div class="col-md-10">
-				<span [(ngModel)]="kcdata.name"></span>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">
-				开课时间
-			</label>
-			<div class="col-md-10">
-				<span>{{kcdata.kssj}}--{{kcdata.jssj}}</span>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">
-				人数上限
-			</label>
-			<div class="col-md-10">
-				<span [(ngModel)]="kcdata.rs"></span>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">
-				讲师设置
-			</label>
-			<div class="col-md-10">
-				<div style="text-align: center;margin-top: 15px; height:180px">
-					<img class="img-thumbnail" height="180" width="180" [src]="jsimage" onError=" this.onerror=null;this.src='assets/images/jsimg/moren2.jpg';">
-					<p>{{kcdata['username']}}</p>
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">
-				讲师介绍
-			</label>
-			<div class="col-md-10">
-				<span [(ngModel)]="kcdata.jsjs"></span>
-			</div>
-		</div>
+		<table class="kcbg">
+			<tr> 
+				<td class="bt">课程名称</td>
+				<td class='bgdata' colspan="3"><span>{{kcdata.name}}</span></td>
+			</tr>
+			<tr>
+				<td class="bt">开课时间</td>
+				<td class='bgdata' colspan="3">123</td>
+			</tr>
 
-		<div class="form-group">
-			<label class="col-md-2 control-label">
-				课程介绍
-			</label>
-			<div class="col-md-10">
-				<span [(ngModel)]="kcdata.js"></span>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">
-				课程状态
-			</label>
-			<div class="col-md-10">
-				<label class="radio-inline">
-					<input [(ngModel)]="kcdata.zt" type="radio" name="zt" value="1">选课阶段
-				</label>
-				<label class="radio-inline">
-					<input [(ngModel)]="kcdata.zt" type="radio" name="zt" value="2">课程进行
-				</label>
-				<label class="radio-inline">
-					<input [(ngModel)]="kcdata.zt" type="radio" name="zt" value="3">课程结束
-				</label>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="submit" class="btn btn-success" style="cursor: pointer" style="float: left;">选择学习本课程</button>
-		</div>
+			<tr>
+				<td class="bt">人数上限</td>
+				<td class="nr bgdata">123</td>
+				<td class="bt">已报人数</td>
+				<td class="nr bgdata">123</td>
+			</tr>
+			<tr style="height: 180px;">
+				<td class="bt">讲师</td>
+				<td align="center" colspan="3">
+					<div>123</div>
+					<div>456</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="bt">讲师介绍</td>
+				<td colspan="3"><div class="jswb">
+						浏览器支持
+						
+						所有浏览器都支持 align 属性。
+						
+						注释：IE 无法正确地处理 "justify" 值，IE 会以居中的方式进行处理。
+						
+						注释：几乎没有浏览器能够正确地处理 "char" 值。
+						</div></td>
+			</tr>
+			<tr>
+				<td class="bt">课程介绍</td>
+				<td colspan="3"><div class="jswb">
+						浏览器支持
+						
+						所有浏览器都支持 align 属性。
+						
+						注释：IE 无法正确地处理 "justify" 值，IE 会以居中的方式进行处理。
+						
+						注释：几乎没有浏览器能够正确地处理 "char" 值。
+						</div></td>
+			</tr>
+			<tr>
+				<td class="bt">课程状态</td>
+				<td class='bgdata' colspan="3">123</td>
+			</tr>
+		</table>
+
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-success" style="cursor: pointer" style="float: right;">选择学习本课程</button>
 	</div>
 </ng-template>

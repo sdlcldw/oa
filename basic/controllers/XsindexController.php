@@ -15,8 +15,8 @@ class XsindexController extends CommonController
     public function actionLogin()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $post = Yii::$app->request->post();
         if (Yii::$app->request->isPost) {
+        $post = Yii::$app->request->post();            
             $sql = "select Id,name,sfzh from xsgl_jcxx_xs_jbxx where sfzh=:un and password=:pw";
             $data = Yii::$app->db->createCommand($sql, [':un' => $post['username'], ':pw' => $post['password']])->queryOne();
             if (!$data) {
@@ -66,8 +66,15 @@ class XsindexController extends CommonController
         return $data;
     }
 
-
-
+    public function actionKsxk_ck(){
+        if (Yii::$app->request->isPost) {
+        $post = Yii::$app->request->post();            
+        $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.js,a.jsjs,a.kssj,a.jssj,a.zt,b.username FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.Id = :Id;";
+        $data=Yii::$app->db->createCommand($sql,[':Id'=>$post['id']])->queryOne();
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $data;
+    }
+    }
 
 
 
