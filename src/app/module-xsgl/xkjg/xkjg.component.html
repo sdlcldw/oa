@@ -1,0 +1,97 @@
+<div class="right_title">
+  <img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">校本课程选课结果
+  </div>
+</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+  <!-- 内容区域开始 -->
+  <hr>
+  <div> <i style="margin-right: 5px;color: #559aea;" class="icon ion-information-circled"></i>以下数据每分钟自动更新一次，或者点击<button style="margin: 0 5px;" class="btn btn-info btn-xs" (click)="sxsj()">更新数据</button>按钮随时更新。
+    <button style="margin-right: 25px;float: right;" class="btn btn-warning" (click)="excel_dcall()">excel导出全部课程报名结果</button>
+  </div>
+  <div><hr style="margin-top: 15px;"></div>
+  
+
+  <ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
+		<ng-template let-row>
+			<td>
+				<div class="font-small">
+					{{row.Id}}
+				</div>
+			</td>
+			<td>
+				<div class="font-small">
+					{{row.name}}
+				</div>
+			</td>
+			<td>
+				<span class="font-small">{{row.username}}</span>
+			</td>
+			<td>
+				<span class="font-small">{{row.rs}}</span>
+			</td>
+			<td>
+				<span class="font-small">{{row.ybrs}}</span>
+			</td>
+			<td>
+				<span class="font-small">{{row.kssj}}</span>
+			</td>
+			<td>
+				<span class="font-small">{{row.jssj}}</span>
+			</td>
+			<td>
+				<span class="font-small">{{row.zt | zt}}</span>
+			</td>
+			<td>
+				<button class="btn btn-info btn-xs" (click)="xsmd(row.Id,row.name,xsmdmodal)">学生名单
+				</button>
+			</td>
+		</ng-template>
+  </ngx-table>
+  
+
+</div>
+<!-- 内容区域结束 -->
+
+
+<ng-template #xsmdmodal>
+	<div class="modal-header">
+		<h4 class="modal-title pull-left"> <span style="color: #579cec;font-weight: 600;margin-right: 10px;">{{xsmd_kcdata.name}}</span>选课名单</h4>
+		<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<div style="height: 550px;overflow-y:auto;overflow-x: hidden;">
+		<ngx-table [configuration]="configurationt" [data]="datat" [columns]="columnst">
+			<ng-template let-row >
+				<td>
+					<div class="font-small">
+						{{row.kc_id}}
+					</div>
+				</td>
+				<td>
+					<div class="font-small">
+						{{row.name}}
+					</div>
+				</td>
+				<td>
+					<span class="font-small">{{row.xb}}</span>
+				</td>
+				<td>
+					<span class="font-small">{{row.njb}}</span>
+				</td>
+				<td>
+					<span class="font-small">{{row.bj}}</span>
+				</td>
+				<td>
+					<span class="font-small">{{row.zt | zt}}</span>
+				</td>
+			</ng-template>
+	  </ngx-table>
+</div>
+	</div>
+	<div class="modal-footer">
+		    <button style="float: right;" class="btn btn-warning" (click)="excel_dcone()">excel导出该课报名结果</button>
+	</div>
+</ng-template>

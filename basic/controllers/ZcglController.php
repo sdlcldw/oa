@@ -205,7 +205,7 @@ class ZcglController extends CommonController
                     $writer = PHPExcel_IOFactory::createWriter($excel,"Excel2007");//生成excel文件
                     // $writer->save($dir."/zc.xlsx");//保存文件
                     header('Content-Type:application/vnd.openxmiformats-officedocument.spreadsheetml,sheet');//excel2007
-                    header('Content-Disposition:attachment;filename="资产详细表单.xlsx"');//告诉浏览器将输出文件的名称
+                    header('Content-Disposition:attachment;filename="zhicanbiao.xlsx"');//告诉浏览器将输出文件的名称
                     header('Cache-Control:max-age=0');//禁止缓存
                     $writer->save("php://output");//输出到浏览器
             }

@@ -59,6 +59,30 @@ class XsindexController extends CommonController
         }
         return "2";
     }
+
+//home 模块 
+public function actionHome_ssb(){
+    if (Yii::$app->request->isPost) {
+    $post = Yii::$app->request->post(); 
+    $id = Yii::$app->session['xs_login']['Id'];
+    $sql = "select max(tjsj) as tjsj from xspt_home_ssb where xs_id = :id;";
+    $data=Yii::$app->db->createCommand($sql,[':id'=>$id])->queryOne();
+    if(time()-strtotime($data['tjsj']) < 24*3600){
+        return '2';
+    }
+    $sql = "INSERT xspt_home_ssb (nr,xs_id) VALUES (:nr,:id)";
+    $data=Yii::$app->db->createCommand($sql,['nr'=>$post['nr'],':id'=>$id])->execute();
+    return $data;
+    }
+}
+
+
+
+
+
+
+
+    //校本课程 选课
     public function actionKsxk_get(){
         $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.kssj,a.jssj,a.zt,b.username,(select count(kc_id) from xsgl_xbkc_xk c where a.Id = c.kc_id) as ybrs FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.zt = '1';";
         $data=Yii::$app->db->createCommand($sql)->query()->readAll();
@@ -69,7 +93,7 @@ class XsindexController extends CommonController
     public function actionKsxk_ck(){
         if (Yii::$app->request->isPost) {
         $post = Yii::$app->request->post();            
-        $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.js,a.jsjs,a.kssj,a.jssj,a.zt,b.username FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.Id = :Id;";
+        $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.js,a.jsjs,a.kssj,a.jssj,a.zt,b.username,(select count(kc_id) from xsgl_xbkc_xk c where a.Id = c.kc_id) as ybrs FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.Id = :Id;";
         $data=Yii::$app->db->createCommand($sql,[':Id'=>$post['id']])->queryOne();
        Yii::$app->response->format=Response::FORMAT_JSON;
         return $data;
@@ -94,9 +118,13 @@ class XsindexController extends CommonController
         return $data;
     }
     }
-
-
-
-
+    //获取本人参加的课程
+    public function actionCjkc_get(){
+        $id = Yii::$app->session['xs_login']['Id'];
+        $sql = "SELECT a.*,b.Id,b.name,b.rs,b.kssj,b.jssj,b.zt,c.username FROM xsgl_xbkc_xk a left join xsgl_xbkc_mx b on a.kc_id = b.Id left join user c on b.user_id=c.Id where a.xs_id = :id;";
+        $data=Yii::$app->db->createCommand($sql,[':id'=>$id])->query()->readAll();
+       Yii::$app->response->format=Response::FORMAT_JSON;
+        return $data;
+    }
 
 } ?>

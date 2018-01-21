@@ -25,6 +25,7 @@ import { ExitxsGuard } from '../xs-module/guard/exit_xs.guard';
 import { XsService } from '../xs-module/service/XsService';
 import { Xs_infoResolve } from '../xs-module/guard/xs_info.resolve';
 import { ZtPipe } from './pipe/zt.pipe';
+import { XkjgComponent } from './xkjg/xkjg.component';
 
 const Routes=[
   {path:'cjxs',component:CjxsComponent},
@@ -40,6 +41,7 @@ const Routes=[
   {path:'zjjl',component:ZjjlComponent},
   {path:'ckjl',component:CkjlComponent},
   {path:'kcsz',component:KcszComponent},
+  {path:'xkjg',component:XkjgComponent},
 ];
 
 @NgModule({
@@ -70,6 +72,7 @@ const Routes=[
     CkjlComponent,
     KcszComponent,
     ZtPipe,
+    XkjgComponent,
   ],
   providers: [LoginxsGuard,ExitxsGuard,XsService,Xs_infoResolve],
 })

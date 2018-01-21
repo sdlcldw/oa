@@ -16,7 +16,6 @@ export class CjkcComponent implements OnInit {
     { key: 'name', title: '课程名称' },
     { key: 'userneme', title: '讲师' },
     { key: 'rs', title: '人数上限' },
-    { key: 'ybrs', title: '已报人数' },
     { key: 'kssj', title: '课程开始' },
     { key: 'jssj', title: '课程结束' },
     { key: 'zt', title: '课程状态' },
@@ -57,13 +56,9 @@ export class CjkcComponent implements OnInit {
 
   ngOnInit() {
     this.getlist();
-    setInterval(()=>{this.getlist();},60000)
   }
-sxsj(){
-  this.getlist();  
-}
   getlist() {
-    this.http.get('/oa/basic/web/index.php?r=xsindex/ksxk_get').subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xsindex/cjkc_get').subscribe(data => {
       if (data) {
         this.data = data;
       }
@@ -81,24 +76,4 @@ sxsj(){
       }
     });
   }
-  xzkc(_id) {
-    console.log(_id);
-    this.http.post("/oa/basic/web/index.php?r=xsindex/ksxk_xk", { id: _id }).toPromise().then((response) => {
-      if (response) {
-        if (response == 2) {
-          this.tsk.tsk('你已选课，只能同时选一门课哦！');
-          return;
-        } else if (response == 3) {
-          this.tsk.tsk('该课程已报满，快去看看其他喜欢的课吧！');
-          return;
-        } else {
-          this.tsk.cg('选课成功！');
-          this.modalRef.hide();
-        }
-      } else {
-        this.tsk.tsk('操作失败！');
-      }
-    });
-  }
-
 }

@@ -1,13 +1,13 @@
 <div class="right_title">
 	<img class="title_arrow" src="assets/images/title_arrow.png">
-	<div class="title_txt">开始选课
+	<div class="title_txt">我的校本课
 	</div>
 </div>
 <div class="right_content" id="cwpt" style="padding:5px;">
 	<!-- 内容区域开始 -->
 	<hr>
 	
-<div style="margin-left: 20px;">以下数据每分钟自动更新一次，或者点击<button style="margin: 0 5px;" class="btn btn-info btn-xs" (click)=sxsj()>更新数据</button>按钮随时更新。</div>
+<div style="margin-left: 20px;"><i style="margin-right: 5px;color: #559aea;" class="icon ion-information-circled"></i>以下数据每分钟自动更新一次，或者点击<button style="margin: 0 5px;" class="btn btn-info btn-xs" (click)=sxsj()>更新数据</button>按钮随时更新。</div>
 	<hr>
 	<ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
 		<ng-template let-row>
@@ -40,7 +40,7 @@
 				<span class="font-small">{{row.zt | zt}}</span>
 			</td>
 			<td>
-				<button class="btn btn-danger btn-xs" (click)=xx(row.Id,kcxqmodal)>详细
+				<button class="btn btn-primary btn-xs" (click)=xx(row.Id,kcxqmodal)>详细
 				</button>
 			</td>
 		</ng-template>

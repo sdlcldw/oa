@@ -6,8 +6,7 @@
 <div class="right_content" id="cwpt" style="padding:5px;">
 	<!-- 内容区域开始 -->
 	<hr>
-	
-<div style="margin-left: 20px;">以下数据每分钟自动更新一次，或者点击<button style="margin: 0 5px;" class="btn btn-info btn-xs" (click)=sxsj()>更新数据</button>按钮随时更新。</div>
+<!-- <div style="margin-left: 20px;">以下数据每分钟自动更新一次，或者点击<button style="margin: 0 5px;" class="btn btn-info btn-xs" (click)=sxsj()>更新数据</button>按钮随时更新。</div> -->
 	<hr>
 	<ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
 		<ng-template let-row>
@@ -28,9 +27,6 @@
 				<span class="font-small">{{row.rs}}</span>
 			</td>
 			<td>
-				<span class="font-small">{{row.ybrs}}</span>
-			</td>
-			<td>
 				<span class="font-small">{{row.kssj}}</span>
 			</td>
 			<td>
@@ -40,7 +36,7 @@
 				<span class="font-small">{{row.zt | zt}}</span>
 			</td>
 			<td>
-				<button class="btn btn-danger btn-xs" (click)=xx(row.Id,kcxqmodal)>详细
+				<button class="btn btn-info btn-xs" (click)=xx(row.Id,kcxqmodal)>查看
 				</button>
 			</td>
 		</ng-template>
@@ -100,8 +96,5 @@
 			</tr>
 		</table>
 
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-success" style="cursor: pointer" style="float: right;" (click)="xzkc(kcdata.Id)">选择学习本课程</button>
 	</div>
 </ng-template>

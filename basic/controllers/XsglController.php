@@ -565,8 +565,101 @@ public function actionKcsz_get_users(){
     return $this->actionJcxxsz_get_users();
 }
 
+//选课结果
+public function actionXkjg_xsmd_get(){
+    if(Yii::$app->request->isPost){
+   Yii::$app->response->format=Response::FORMAT_JSON;           
+        $post = Yii::$app->request->post();
+      $sql="SELECT a.kc_id,a.zt,b.name,b.xb,c.name bj,d.name njb from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id =:id;";
+    $data=Yii::$app->db->createCommand($sql,[':id'=>$post['id']])->query()->readAll();
+        return $data;
+    
+    
+    }
+ }
 
+ public function actionXkjg_dcall(){
+    $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.zt,b.username,(select count(kc_id) from xsgl_xbkc_xk c where a.Id = c.kc_id) as ybrs FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.zt = '1';";
+   $kcdata=Yii::$app->db->createCommand($sql)->query()->readAll();//获取所有选课状态课程
+   $excel = new PHPExcel();
+   foreach ($kcdata as $row=>$v){
+       $sql = "SELECT a.kc_id,a.zt,b.name,b.xb,c.name bj,d.name njb from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id =:id;";
+        $xsmddata=Yii::$app->db->createCommand($sql,[':id'=>$kcdata[$row]['Id']])->query()->readAll();//获取当前课程学生名单
+        if($row != 0){
+            $excel->createSheet();//创建sheet
+            $excel->setActiveSheetIndex($row);//设置活动sheet
+        }
+        $sheet = $excel->getActiveSheet();
+        $sheet->setTitle($kcdata[$row]['name']);
+        $sheet->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER)->setHorizontal(PHPExcel_Style_Alignment::VERTICAL_CENTER);//设置默认水平居中和垂直居中。
+        $sheet->getStyle("A1:E2")->getFont()->setBold(True);
+        $sheet->mergeCells('A1:E1');
+        $sheet->getStyle("A1")->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_RED); 
+        $sheet->getColumnDimension('A')->setWidth('15');
+        $sheet->getColumnDimension('B')->setWidth('20');
+        $sheet->getColumnDimension('C')->setWidth('20');
+        $sheet->getColumnDimension('D')->setWidth('20');
+        $sheet->getColumnDimension('E')->setWidth('20');
+        $sheet->setCellValue("A1","课程名称：".$kcdata[$row]['name']."        讲师：".$kcdata[$row]['username']."       人数上限：".$kcdata[$row]['rs']."        报名人数：".$kcdata[$row]['ybrs']);
+        $sheet->setCellValue("A2","序号")->setCellValue("B2","学生姓名")->setCellValue("C2","学生性别")->setCellValue("D2","所在年级部")->setCellValue("E2","所在班级");
+        foreach ($xsmddata as $row=>$v){
+            $line = $row+3;
+            $sheet->setCellValue("A".$line,$row+1)
+                  ->setCellValue("B".$line,$xsmddata[$row]['name'])
+                  ->setCellValue("C".$line,$xsmddata[$row]['xb'])
+                  ->setCellValue("D".$line,$xsmddata[$row]['njb'])
+                  ->setCellValue("E".$line,$xsmddata[$row]['bj']);
+            }
+    }
+        $excel->setActiveSheetIndex(0);//设置活动sheet    
+        $writer = PHPExcel_IOFactory::createWriter($excel,"Excel2007");//生成excel文件
+        // $writer->save($dir."/zc.xlsx");//保存文件
+        header('Content-Type:application/vnd.openxmiformats-officedocument.spreadsheetml,sheet');//excel2007
+        header('Content-Disposition:attachment;filename="xbkc.xlsx"');//告诉浏览器将输出文件的名称
+        header('Cache-Control:max-age=0');//禁止缓存
+        $writer->save("php://output");//输出到浏览器
 
+}
+
+public function actionXkjg_dcone(){
+   Yii::$app->response->format=Response::FORMAT_JSON;           
+    $get = Yii::$app->request->get();
+    $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.zt,b.username,(select count(kc_id) from xsgl_xbkc_xk c where a.Id = c.kc_id) as ybrs FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.Id = :id;";
+    $kcdata=Yii::$app->db->createCommand($sql,[':id'=>$get['d']])->queryOne();//获取当前课程信息
+
+       $sql = "SELECT a.kc_id,a.zt,b.name,b.xb,c.name bj,d.name njb from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id =:id;";
+        $xsmddata=Yii::$app->db->createCommand($sql,[':id'=>$get['d']])->query()->readAll();//获取当前课程学生名单
+        $excel = new PHPExcel();
+        $sheet = $excel->getActiveSheet();
+        $sheet->setTitle($kcdata['name']);
+        $sheet->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER)->setHorizontal(PHPExcel_Style_Alignment::VERTICAL_CENTER);//设置默认水平居中和垂直居中。
+        $sheet->getStyle("A1:E2")->getFont()->setBold(True);
+        $sheet->mergeCells('A1:E1');
+        $sheet->getStyle("A1")->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_RED); 
+        $sheet->getColumnDimension('A')->setWidth('15');
+        $sheet->getColumnDimension('B')->setWidth('20');
+        $sheet->getColumnDimension('C')->setWidth('20');
+        $sheet->getColumnDimension('D')->setWidth('20');
+        $sheet->getColumnDimension('E')->setWidth('20');
+        $sheet->setCellValue("A1","课程名称：".$kcdata['name']."        讲师：".$kcdata['username']."       人数上限：".$kcdata['rs']."        报名人数：".$kcdata['ybrs']);
+        $sheet->setCellValue("A2","序号")->setCellValue("B2","学生姓名")->setCellValue("C2","学生性别")->setCellValue("D2","所在年级部")->setCellValue("E2","所在班级");
+        foreach ($xsmddata as $row=>$v){
+            $line = $row+3;
+            $sheet->setCellValue("A".$line,$row+1)
+                  ->setCellValue("B".$line,$xsmddata[$row]['name'])
+                  ->setCellValue("C".$line,$xsmddata[$row]['xb'])
+                  ->setCellValue("D".$line,$xsmddata[$row]['njb'])
+                  ->setCellValue("E".$line,$xsmddata[$row]['bj']);
+            }
+    
+        $excel->setActiveSheetIndex(0);//设置活动sheet    
+        $writer = PHPExcel_IOFactory::createWriter($excel,"Excel2007");//生成excel文件
+        // $writer->save($dir."/zc.xlsx");//保存文件
+        header('Content-Type:application/vnd.openxmiformats-officedocument.spreadsheetml,sheet');//excel2007
+        header('Content-Disposition:attachment;filename="xbkc.xlsx"');//告诉浏览器将输出文件的名称
+        header('Cache-Control:max-age=0');//禁止缓存
+        $writer->save("php://output");//输出到浏览器
+}
 
 
 
