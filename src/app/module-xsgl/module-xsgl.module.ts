@@ -26,22 +26,23 @@ import { XsService } from '../xs-module/service/XsService';
 import { Xs_infoResolve } from '../xs-module/guard/xs_info.resolve';
 import { ZtPipe } from './pipe/zt.pipe';
 import { XkjgComponent } from './xkjg/xkjg.component';
+import { QxGuard } from '../guard/qx.guard';
 
 const Routes=[
-  {path:'cjxs',component:CjxsComponent},
-  {path:'xxsh',component:XxshComponent},
-  {path:'zszl',component:ZszlComponent},
-  {path:'njbsz',component:NjbszComponent},
-  {path:'bjsz',component:BjszComponent},
-  {path:'sssz',component:SsszComponent},
-  {path:'sssz_lc',component:SsszLcComponent},
-  {path:'sssz_fj',component:SsszFjComponent},
-  {path:'sssz_cw',component:SsszCwComponent},
-  {path:'xsjbxx',component:XsjbxxComponent},
-  {path:'zjjl',component:ZjjlComponent},
-  {path:'ckjl',component:CkjlComponent},
-  {path:'kcsz',component:KcszComponent},
-  {path:'xkjg',component:XkjgComponent},
+  {path:'cjxs',component:CjxsComponent,canActivate:[QxGuard]},
+  {path:'xxsh',component:XxshComponent,canActivate:[QxGuard]},
+  {path:'zszl',component:ZszlComponent,canActivate:[QxGuard]},
+  {path:'njbsz',component:NjbszComponent,canActivate:[QxGuard]},
+  {path:'bjsz',component:BjszComponent,canActivate:[QxGuard]},
+  {path:'sssz',component:SsszComponent,canActivate:[QxGuard]},
+  {path:'sssz_lc',component:SsszLcComponent,canActivate:[QxGuard]},
+  {path:'sssz_fj',component:SsszFjComponent,canActivate:[QxGuard]},
+  {path:'sssz_cw',component:SsszCwComponent,canActivate:[QxGuard]},
+  {path:'xsjbxx',component:XsjbxxComponent,canActivate:[QxGuard]},
+  {path:'zjjl',component:ZjjlComponent,canActivate:[QxGuard]},
+  {path:'ckjl',component:CkjlComponent,canActivate:[QxGuard]},
+  {path:'kcsz',component:KcszComponent,canActivate:[QxGuard]},
+  {path:'xkjg',component:XkjgComponent,canActivate:[QxGuard]},
 ];
 
 @NgModule({
@@ -74,7 +75,7 @@ const Routes=[
     ZtPipe,
     XkjgComponent,
   ],
-  providers: [LoginxsGuard,ExitxsGuard,XsService,Xs_infoResolve],
+  providers: [QxGuard,LoginxsGuard,ExitxsGuard,XsService,Xs_infoResolve],
 })
 
 export class XsglModule { }

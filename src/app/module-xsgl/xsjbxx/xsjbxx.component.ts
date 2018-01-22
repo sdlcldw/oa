@@ -81,7 +81,7 @@ export class XsjbxxComponent implements OnInit {
     autoUpload: true,
   });
   public excelup: FileUploader = new FileUploader({
-    url: "/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_up_excel",
+    url: "/oa/basic/web/index.php?r=xsgl/xsjbxx_up_excel",
     method: "POST",
     itemAlias: "excel",
     removeAfterUpload: true,
@@ -171,7 +171,7 @@ export class XsjbxxComponent implements OnInit {
     }
   }
   getxsxxlb() {
-    this.http.get('/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_get_lb').subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xsgl/xsjbxx_get_lb').subscribe(data => {
       if (data) {
         this.data = data;
       }
@@ -179,7 +179,7 @@ export class XsjbxxComponent implements OnInit {
   }
 
   getnjb() {
-    this.http.get('/oa/basic/web/index.php?r=xsgl/jcxxsz_get_njb').subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xsgl/ckjl_get_njb').subscribe(data => {
       if (data) {
         this.data_njb = data;
         console.log(data);
@@ -190,7 +190,7 @@ export class XsjbxxComponent implements OnInit {
   }
   getbj(data) {
     let dat = { njbid: data };
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_get_bj", dat).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsjbxx_get_bj", dat).toPromise().then((response) => {
       let data = response;
       if (data) {
         this.data_bj = data;
@@ -200,7 +200,7 @@ export class XsjbxxComponent implements OnInit {
     });
   }
   get_ss_ly() {
-    this.http.get('/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_get_ss_ly').subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xsgl/xsjbxx_get_ss_ly').subscribe(data => {
       if (data) {
         this.data_ss_ly = data;
         console.log(data);
@@ -213,7 +213,7 @@ export class XsjbxxComponent implements OnInit {
     this.data_ss_fj = [];
     this.data_ss_cw = [];
     let dat = { id: data };
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_get_ss_lc", dat).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsjbxx_get_ss_lc", dat).toPromise().then((response) => {
       let data = response;
       if (data) {
         this.data_ss_lc = data;
@@ -225,7 +225,7 @@ export class XsjbxxComponent implements OnInit {
   get_ss_fj(data) {
     this.data_ss_cw = [];
     let dat = { id: data };
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_get_ss_fj", dat).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsjbxx_get_ss_fj", dat).toPromise().then((response) => {
       let data = response;
       if (data) {
         this.data_ss_fj = data;
@@ -236,7 +236,7 @@ export class XsjbxxComponent implements OnInit {
   }
   get_ss_cw(data) {
     let dat = { id: data };
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_get_ss_cw", dat).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsjbxx_get_ss_cw", dat).toPromise().then((response) => {
       let data = response;
       if (data) {
         this.data_ss_cw = data;
@@ -250,7 +250,7 @@ export class XsjbxxComponent implements OnInit {
   onSubmit() {
     console.log(this.formModel.value);
     let dat = this.formModel.value;
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_add", dat).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsjbxx_add", dat).toPromise().then((response) => {
       let data = response;
       if (data) {
         if (data == 1) {
@@ -275,7 +275,7 @@ export class XsjbxxComponent implements OnInit {
   //查看学生详细信息
   ckxxxx(id) {
     let dat = { id: id };
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_ck_get", dat).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsjbxx_ck_get", dat).toPromise().then((response) => {
       let data = response;
       if (data) {
         console.log(data[0]);
@@ -290,7 +290,7 @@ export class XsjbxxComponent implements OnInit {
   //编辑学生信息
   bjxsxx(id) {
     let dat = { id: id };
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_get", dat).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsjbxx_get", dat).toPromise().then((response) => {
       let data = response;
       if (data) {
         console.log(data[0]);
@@ -335,7 +335,7 @@ export class XsjbxxComponent implements OnInit {
   //删除学生信息
   delxsxx(id) {
     let dat = { id: id };
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_del", dat).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsjbxx_del", dat).toPromise().then((response) => {
       let data = response;
       if (data) {
         if (data == 1) {
@@ -353,7 +353,7 @@ export class XsjbxxComponent implements OnInit {
   bjxsxx_submit() {
     console.log(this.formModel.value);
     let dat = this.formModel.value;
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_edit", dat).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/xsjbxx_edit", dat).toPromise().then((response) => {
       let data = response;
       if (data) {
         if (data == 1) {
@@ -370,7 +370,7 @@ export class XsjbxxComponent implements OnInit {
 
 //excel demo
 excel_demo(){
-  window.open('/oa/basic/web/index.php?r=xsgl/jcxxsz_xsjbxx_demo_excel');  
+  window.open('/oa/basic/web/index.php?r=xsgl/xsjbxx_demo_excel');  
 }
 
 excel_up(){

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Http,Headers } from '@angular/http';
-import { TskService } from 'app/service/TskService';
 import { Observable } from 'rxjs/Observable';
 import * as $ from 'jquery';
 import jQuery from 'jquery';
+import { TskService } from '../../service/TskService';
 
 @Component({
   selector: 'app-njbsz',
@@ -19,7 +19,7 @@ export class NjbszComponent implements OnInit {
   ss_name;
   users;
    constructor(private http:Http,private tsk:TskService){
-    this.getdata = this.http.get('/oa/basic/web/index.php?r=xsgl/jcxxsz_get_njb').map(res => res.json())
+    this.getdata = this.http.get('/oa/basic/web/index.php?r=xsgl/njbsz_get').map(res => res.json())
   }
 
   ngOnInit() {
@@ -41,7 +41,7 @@ export class NjbszComponent implements OnInit {
     let dat = {name:this.add_name};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_add_njb",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/njbsz_add_njb",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
          this.getnjb();
@@ -55,7 +55,7 @@ export class NjbszComponent implements OnInit {
     let dat = {id:data};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_del_njb",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/njbsz_del_njb",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
         this.getnjb();        
@@ -68,7 +68,7 @@ export class NjbszComponent implements OnInit {
   
 
   fzrsz(Id){
-    this.http.get('/oa/basic/web/index.php?r=xsgl/jcxxsz_get_users').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xsgl/njbsz_get_users').map(res => res.json()).subscribe(data => {
       if(data){
       this.dqnjb = Id;
       this.userdata= data;
@@ -98,7 +98,7 @@ export class NjbszComponent implements OnInit {
     let dat = {userid:data,njbid:this.dqnjb.Id};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_njb_swfzr",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/njbsz_njb_swfzr",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
     $('#qxant').click();    
@@ -113,7 +113,7 @@ export class NjbszComponent implements OnInit {
     let dat = {userid:data,njbid:this.dqnjb.Id};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_njb_swgly",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/njbsz_njb_swgly",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
     $('#qxant').click();    

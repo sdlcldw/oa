@@ -11,10 +11,12 @@ import { GjcjtxlComponent } from './gjcjtxl/gjcjtxl.component';
 import { WdzsComponent } from './wdzs/wdzs.component';
 import { BrsyComponent } from './brsy/brsy.component';
 import { GrzlComponent } from './grzl/grzl.component';
-import { GrzlGuard } from 'app/module-grbg/guard/grzl.guard';
+
 import { KqjlComponent } from './kqjl/kqjl.component';
 import { BmkqjlComponent } from './bmkqjl/bmkqjl.component';
-import { QxGuard } from "app/guard/qx.guard";
+import { GrzlGuard } from './guard/grzl.guard';
+import { QxGuard } from '../guard/qx.guard';
+
 
 const Routes=[
   {path:'gzcx',component:GzcxComponent,},

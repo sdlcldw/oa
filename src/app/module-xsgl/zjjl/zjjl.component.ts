@@ -67,7 +67,7 @@ export class ZjjlComponent implements OnInit {
     this.getxslb();
   }
   getxslb() {
-    this.http.get('/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_get').subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xsgl/zjjl_get').subscribe(data => {
       if (data) {
         if (data[0] == '2') {
           this.tsk.tsk('没有权限访问', 3000);
@@ -100,7 +100,7 @@ export class ZjjlComponent implements OnInit {
   onSubmit_wj() {
     let dat = this.wjformModel.value;
     dat['sfzh'] = this.dqxs['sfzh'];
-    this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_add_wj",dat).subscribe((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/zjjl_add_wj",dat).subscribe((response) => {
       let data = response;
       if (data) {
         if (data == 1) {
@@ -119,7 +119,7 @@ export class ZjjlComponent implements OnInit {
     dat['sfzh'] = this.dqxs['sfzh'];
     let myHeaders: Headers = new Headers();
     myHeaders.append("Content-Type", "application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/xsczjl_zjjl_add_ry", dat).subscribe((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/zjjl_add_ry", dat).subscribe((response) => {
       let data = response;
       if (data) {
         if (data == 1) {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Http,Headers } from '@angular/http';
-import { TskService } from 'app/service/TskService';
 import { Observable } from 'rxjs/Observable';
+import { TskService } from '../../service/TskService';
 
 @Component({
   selector: 'app-sssz-fj',
@@ -30,7 +30,7 @@ export class SsszFjComponent implements OnInit {
     let dat = {id:this.data.lc_id};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_get_fj",dat, { headers: myHeaders }).map(res => res.json()).subscribe(data => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/sssz_get_fj",dat, { headers: myHeaders }).map(res => res.json()).subscribe(data => {
       if(data){
         this.fjdata = data;
       }else{
@@ -43,7 +43,7 @@ export class SsszFjComponent implements OnInit {
     let dat = {name:this.add_name,lc_id:this.data.lc_id};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_add_fj",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/sssz_add_fj",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
         this.tsk.cg('添加成功！');
@@ -60,7 +60,7 @@ export class SsszFjComponent implements OnInit {
     let dat = {id:this.del_fjid};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_del_fj",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/sssz_del_fj",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
         this.getfj();        

@@ -20,7 +20,7 @@ export class BjszComponent implements OnInit {
   ss_name;
   users;
    constructor(private http:Http,private tsk:TskService){
-    this.getdata = this.http.get('/oa/basic/web/index.php?r=xsgl/jcxxsz_get_bj').map(res => res.json())
+    this.getdata = this.http.get('/oa/basic/web/index.php?r=xsgl/bjsz_get_bj').map(res => res.json())
   }
 
   ngOnInit() {
@@ -48,7 +48,7 @@ export class BjszComponent implements OnInit {
     let dat = {name:this.add_name,dqnjbid:this.dqnjb.Id};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_add_bj",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/bjsz_add_bj",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
          this.getbj();
@@ -62,7 +62,7 @@ export class BjszComponent implements OnInit {
     let dat = {id:data};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_del_bj",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/bjsz_del_bj",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
         this.getbj();        
@@ -75,7 +75,7 @@ export class BjszComponent implements OnInit {
   
 
   bzrsz(Id){
-    this.http.get('/oa/basic/web/index.php?r=xsgl/jcxxsz_get_users').map(res => res.json()).subscribe(data => {
+    this.http.get('/oa/basic/web/index.php?r=xsgl/bjsz_get_users').map(res => res.json()).subscribe(data => {
       if(data){
       this.dqbj = Id;
       this.userdata= data;
@@ -105,12 +105,12 @@ export class BjszComponent implements OnInit {
     let dat = {userid:data,bjid:this.dqbj.Id};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_bj_swbzr",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/bjsz_bj_swbzr",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
     $('#qxant').click();    
         this.getbj();        
-      this.tsk.cg('设置成功！');         
+      this.tsk.cg('设置成功！');
        }else{
       this.tsk.tsk('操作失败！');         
        }

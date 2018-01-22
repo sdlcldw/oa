@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Http,Headers } from '@angular/http';
-import { TskService } from 'app/service/TskService';
 import { Observable } from 'rxjs/Observable';
+import { TskService } from '../../service/TskService';
 
 @Component({
   selector: 'app-sssz-lc',
@@ -30,7 +30,7 @@ getlc(){
   let dat = {id:this.lydata.Id};
   let myHeaders:Headers = new Headers();
   myHeaders.append("Content-Type","application/json; charset=UTF-8");
-  this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_get_lc",dat, { headers: myHeaders }).map(res => res.json()).subscribe(data => {
+  this.http.post("/oa/basic/web/index.php?r=xsgl/sssz_get_lc",dat, { headers: myHeaders }).map(res => res.json()).subscribe(data => {
     if(data){
       this.lcdata = data;
     }else{
@@ -43,7 +43,7 @@ addlc(){
   let dat = {name:this.add_name,ly_id:this.lydata.Id};
   let myHeaders:Headers = new Headers();
   myHeaders.append("Content-Type","application/json; charset=UTF-8");
-  this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_add_lc",dat, { headers: myHeaders }).toPromise().then((response) => {
+  this.http.post("/oa/basic/web/index.php?r=xsgl/sssz_add_lc",dat, { headers: myHeaders }).toPromise().then((response) => {
     let data= response.json();
      if(data){
       this.tsk.cg('添加成功！');
@@ -60,7 +60,7 @@ dellc(){
   let dat = {id:this.del_lcid};
   let myHeaders:Headers = new Headers();
   myHeaders.append("Content-Type","application/json; charset=UTF-8");
-  this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_del_lc",dat, { headers: myHeaders }).toPromise().then((response) => {
+  this.http.post("/oa/basic/web/index.php?r=xsgl/sssz_del_lc",dat, { headers: myHeaders }).toPromise().then((response) => {
     let data= response.json();
      if(data){
       this.getlc();        

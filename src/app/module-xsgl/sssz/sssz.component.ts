@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http,Headers } from '@angular/http';
-import { TskService } from 'app/service/TskService';
 import { Observable } from 'rxjs/Observable';
+import { TskService } from '../../service/TskService';
 @Component({
   selector: 'app-sssz',
   templateUrl: './sssz.component.html',
@@ -14,7 +14,7 @@ export class SsszComponent implements OnInit {
   add_name;
   del_lyid;
    constructor(private http:Http,private tsk:TskService){
-    this.getdata = this.http.get('/oa/basic/web/index.php?r=xsgl/jcxxsz_get_ly').map(res => res.json())
+    this.getdata = this.http.get('/oa/basic/web/index.php?r=xsgl/sssz_get_ly').map(res => res.json())
   }
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class SsszComponent implements OnInit {
     let dat = {name:this.add_name};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_add_ly",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/sssz_add_ly",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
          this.getly();
@@ -52,7 +52,7 @@ export class SsszComponent implements OnInit {
     let dat = {id:this.del_lyid};
     let myHeaders:Headers = new Headers();
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/jcxxsz_del_ly",dat, { headers: myHeaders }).toPromise().then((response) => {
+    this.http.post("/oa/basic/web/index.php?r=xsgl/sssz_del_ly",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
        if(data){
         this.getly();        
