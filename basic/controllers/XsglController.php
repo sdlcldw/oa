@@ -110,12 +110,29 @@ class XsglController extends CommonController
            return $ifok;
         }
     }
-    public function actionBjsz_bj_swbzr(){
+    
+    public function actionBjsz_bj_swbzr(){ //设为班主任
         if(Yii::$app->request->isPost){
-            $post = Yii::$app->request->post(); 
-    $sql = "UPDATE xsgl_jcxx_bj SET user_id_bzr=".$post['userid']." WHERE Id =".$post['bjid'].";";
-            $ifok = Yii::$app->db->createCommand($sql)->execute();
-           return $ifok;
+            $post = Yii::$app->request->post();
+  
+    $sql = "UPDATE xsgl_jcxx_bj SET user_id_bzr=".$post['userid']." WHERE Id =:id;";
+            $ifok = Yii::$app->db->createCommand($sql,[':id'=>$post['bjid']])->execute();//设置本班班主任
+
+    $sql ="SELECT user_id_bzr FROM xsgl_jcxx_bj;";
+    $bzr_data=Yii::$app->db->createCommand($sql)->query()->readAll();//获取所有班主任数组
+
+    $sql = "DELETE FROM auth_assignment WHERE item_name ='bzr'";
+    $ifok = Yii::$app->db->createCommand($sql)->execute(); //删除所有班主任角色
+
+    $sqlt = "INSERT INTO auth_assignment(item_name,user_id) VALUES";
+    foreach($bzr_data as $data){
+        $sqlt.= "('bzr','". $data['user_id_bzr']."'),";
+    }
+    $sqlt = rtrim($sqlt,',');
+    return $sqlt;
+    $ifok = Yii::$app->db->createCommand($sqlt)->execute();//设置所有班主任角色
+
+    return $ifok;
         }
     }
     public function actionBjsz_get_users(){
