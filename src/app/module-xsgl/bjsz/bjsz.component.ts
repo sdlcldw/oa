@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Http,Headers } from '@angular/http';
-import { TskService } from 'app/service/TskService';
 import { Observable } from 'rxjs/Observable';
 import * as $ from 'jquery';
 import jQuery from 'jquery';
+import { TskService } from '../../service/TskService';
 @Component({
   selector: 'app-bjsz',
   templateUrl: './bjsz.component.html',
@@ -58,20 +58,20 @@ export class BjszComponent implements OnInit {
        }
   });
   }
-  delbj(data){
-    let dat = {id:data};
-    let myHeaders:Headers = new Headers();
-    myHeaders.append("Content-Type","application/json; charset=UTF-8");
-    this.http.post("/oa/basic/web/index.php?r=xsgl/bjsz_del_bj",dat, { headers: myHeaders }).toPromise().then((response) => {
-      let data= response.json();
-       if(data){
-        this.getbj();        
-      this.tsk.cg('删除成功！');         
-       }else{
-      this.tsk.tsk('删除失败！');         
-       }
-  });
-  }
+  // delbj(data){
+  //   let dat = {id:data};
+  //   let myHeaders:Headers = new Headers();
+  //   myHeaders.append("Content-Type","application/json; charset=UTF-8");
+  //   this.http.post("/oa/basic/web/index.php?r=xsgl/bjsz_del_bj",dat, { headers: myHeaders }).toPromise().then((response) => {
+  //     let data= response.json();
+  //      if(data){
+  //       this.getbj();        
+  //     this.tsk.cg('删除成功！');         
+  //      }else{
+  //     this.tsk.tsk('删除失败！');         
+  //      }
+  // });
+  // }
   
 
   bzrsz(Id){
@@ -107,7 +107,7 @@ export class BjszComponent implements OnInit {
     myHeaders.append("Content-Type","application/json; charset=UTF-8");
     this.http.post("/oa/basic/web/index.php?r=xsgl/bjsz_bj_swbzr",dat, { headers: myHeaders }).toPromise().then((response) => {
       let data= response.json();
-       if(data){
+       if(data == '3'){
     $('#qxant').click();    
         this.getbj();        
       this.tsk.cg('设置成功！');

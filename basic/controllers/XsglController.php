@@ -57,15 +57,49 @@ class XsglController extends CommonController
             $post = Yii::$app->request->post(); 
     $sql = "UPDATE xsgl_jcxx_njb SET user_id_fzr=".$post['userid']." WHERE Id =".$post['njbid'].";";
             $ifok = Yii::$app->db->createCommand($sql)->execute();
-           return $ifok;
+
+            $sql ="SELECT user_id_fzr FROM xsgl_jcxx_njb;";
+            $fzr_data=Yii::$app->db->createCommand($sql)->query()->readAll();//获取所有负责人数组
+            $sql = "DELETE FROM auth_assignment WHERE item_name ='njbfzr'";
+            $ifok = Yii::$app->db->createCommand($sql)->execute(); //删除所有负责人角色
+        
+            $sqlt = "INSERT INTO auth_assignment(item_name,user_id) VALUES";
+        
+            foreach($fzr_data as $data){ //避免插入重复数据
+                if(strstr($sqlt,"'".$data['user_id_fzr']."'")){
+                    continue; 
+                }
+                $sqlt.= "('njbfzr','". $data['user_id_fzr']."'),";
+            }
+            $sqlt = rtrim($sqlt,',');
+            $ifok = Yii::$app->db->createCommand($sqlt)->execute();//设置所有负责人角色
+            return 1;
+         }
         }
-    }
     public function actionNjbsz_njb_swgly(){
         if(Yii::$app->request->isPost){
             $post = Yii::$app->request->post(); 
     $sql = "UPDATE xsgl_jcxx_njb SET user_id_xtgly=".$post['userid']." WHERE Id =".$post['njbid'].";";
             $ifok = Yii::$app->db->createCommand($sql)->execute();
-           return $ifok;
+          
+
+           $sql ="SELECT user_id_xtgly FROM xsgl_jcxx_njb;";
+           $gly_data=Yii::$app->db->createCommand($sql)->query()->readAll();//获取所有管理员数组
+       
+           $sql = "DELETE FROM auth_assignment WHERE item_name ='njbgly'";
+           $ifok = Yii::$app->db->createCommand($sql)->execute(); //删除所有管理员角色
+       
+           $sqlt = "INSERT INTO auth_assignment(item_name,user_id) VALUES";
+       
+           foreach($gly_data as $data){ //避免插入重复数据
+               if(strstr($sqlt,"'".$data['user_id_xtgly']."'")){
+                   continue; 
+               }
+               $sqlt.= "('njbgly','". $data['user_id_xtgly']."'),";
+           }
+           $sqlt = rtrim($sqlt,',');
+           $ifok = Yii::$app->db->createCommand($sqlt)->execute();//设置所有gly角色
+           return 1;
         }
     }
 
@@ -125,16 +159,20 @@ class XsglController extends CommonController
     $ifok = Yii::$app->db->createCommand($sql)->execute(); //删除所有班主任角色
 
     $sqlt = "INSERT INTO auth_assignment(item_name,user_id) VALUES";
-    foreach($bzr_data as $data){
+
+    foreach($bzr_data as $data){ //避免插入重复数据
+        if(strstr($sqlt,"'".$data['user_id_bzr']."'")){
+            continue; 
+        }
         $sqlt.= "('bzr','". $data['user_id_bzr']."'),";
     }
     $sqlt = rtrim($sqlt,',');
-    return $sqlt;
     $ifok = Yii::$app->db->createCommand($sqlt)->execute();//设置所有班主任角色
-
-    return $ifok;
+    return '3';
         }
     }
+
+
     public function actionBjsz_get_users(){
         $sql = "SELECT Id,username FROM user";
      $data=Yii::$app->db->createCommand($sql)->query()->readAll();
@@ -440,20 +478,31 @@ public function actionXsjbxx_up_excel(){
 
 //学生成长记录
 public function actionZjjl_get(){
+    Yii::$app->response->format=Response::FORMAT_JSON;
     $session = Yii::$app->session;
     $id = $session['__id'];
+
+    $sql="select a.sfzh,a.name,a.xb from xsgl_jcxx_xs_jbxx a where bj_id in (SELECT Id FROM xsgl_jcxx_bj where njb_id in (select Id from xsgl_jcxx_njb where user_id_xtgly = :id));"; //
+    $dataw=Yii::$app->db->createCommand($sql,[':id'=>$id])->query()->readAll();
+    if(!empty($dataw)){  //如果不为空则为系统管理员
+        $data['sf'] = '年级部系统管理员';
+        $data['czfw'] = '年级部全体学生';
+        $data['xs'] = $dataw;
+        return $data;
+    }else{
     $sql="select a.Id,a.name as bj_name,b.name as njb_name from xsgl_jcxx_bj as a left join xsgl_jcxx_njb as b on a.njb_id = b.id where a.user_id_bzr='".$id."';";
     $command = Yii::$app->db->createCommand($sql)->queryOne();
-    if(!$command){
-   Yii::$app->response->format=Response::FORMAT_JSON;       
-        return array('2');
-    }
-    $sql = "SELECT * FROM xsgl_jcxx_xs_jbxx where bj_id = '".$command['Id']."';";
-    $data=Yii::$app->db->createCommand($sql)->query()->readAll();
-    $datas['bm'] = $command;
-    $datas['xs'] = $data;
+    $sql = "SELECT sfzh,name,xb FROM xsgl_jcxx_xs_jbxx where bj_id = '".$command['Id']."';";
+    $datat=Yii::$app->db->createCommand($sql)->query()->readAll();
+    $data['sf'] = $command['njb_name']."—".$command['bj_name']."班主任";
+    $data['czfw'] = $command['njb_name']."—".$command['bj_name'].'全体学生';
+    $data['xs'] = $datat;
    Yii::$app->response->format=Response::FORMAT_JSON;
-    return $datas;
+    return $data;
+    }
+       
+
+  
 }
 public function actionZjjl_add_wj(){
     

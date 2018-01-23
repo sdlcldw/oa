@@ -18,7 +18,8 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 export class ZjjlComponent implements OnInit {
   wjformModel: FormGroup;
   ryformModel: FormGroup;
-  bm = [];
+  sf;
+  czfw;
   xsdata = [];
   dqxs = [];
   columns = [
@@ -69,13 +70,10 @@ export class ZjjlComponent implements OnInit {
   getxslb() {
     this.http.get('/oa/basic/web/index.php?r=xsgl/zjjl_get').subscribe(data => {
       if (data) {
-        if (data[0] == '2') {
-          this.tsk.tsk('没有权限访问', 3000);
-        } else {
           this.xsdata = data['xs'];
-          this.bm = data['bm'];
+          this.sf = data['sf'];
+          this.czfw = data['czfw'];
           console.log(data);
-        }
       } else {
         this.tsk.tsk('没有获取到数据！');
       }
