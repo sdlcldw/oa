@@ -332,8 +332,8 @@ public function actionXsjbxx_get_ss_cw(){
 public function actionXsjbxx_add(){
     if(Yii::$app->request->isPost){
         $post = Yii::$app->request->post();
-        $sql = "INSERT xsgl_jcxx_xs_jbxx (name,xjh,xb,sfzh,sg,tz,mz,jg,jtzz,bj_id,sfzx,ss_cw_id,gx_1,xm_1,zzmm_1,gzdw_1,lxfs_1,gx_2,xm_2,zzmm_2,gzdw_2,lxfs_2) VALUES ('".$post['name']."','".$post['xjh']."','".$post['xb']."','".$post['sfzh']."','".$post['sg']."','".$post['tz']."','".$post['mz']."','".$post['jg']."','".$post['jtzz']."','".$post['szbj']."','".$post['sfzx']."','".$post['szss']."','".$post['gx_1']."','".$post['xm_1']."','".$post['zzmm_1']."','".$post['gzdw_1']."','".$post['lxfs_1']."','".$post['gx_2']."','".$post['xm_2']."','".$post['zzmm_2']."','".$post['gzdw_2']."','".$post['lxfs_2']."')";
-        $ifok = Yii::$app->db->createCommand($sql)->execute();                   
+        $sql = "INSERT xsgl_jcxx_xs_jbxx (name,cz_xjh,xb,sfzh,sg,tz,mz,jg,jtzz,bj_id,sfzx,ss_cw_id,gx_1,xm_1,zzmm_1,gzdw_1,lxfs_1,gx_2,xm_2,zzmm_2,gzdw_2,lxfs_2,password) VALUES (:name,:cz_xjh,:xb,:sfzh,:sg,:tz,:mz,:jg,:jtzz,:szbj,:sfzx,:szss,:gx_1,:xm_1,:zzmm_1,:gzdw_1,:lxfs_1,:gx_2,:xm_2,:zzmm_2,:gzdw_2,:lxfs_2,:password)";
+        $ifok = Yii::$app->db->createCommand($sql,[':name'=>$post['name'],':cz_xjh'=>$post['xjh'],':xb'=>$post['xb'],':sfzh'=>$post['sfzh'],':sg'=>$post['sg'],':tz'=>$post['tz'],':mz'=>$post['mz'],':jg'=>$post['jg'],':jtzz'=>$post['jtzz'],':szbj'=>$post['szbj'],':sfzx'=>$post['sfzx'],':szss'=>$post['szss'],':gx_1'=>$post['gx_1'],':xm_1'=>$post['xm_1'],':zzmm_1'=>$post['zzmm_1'],':gzdw_1'=>$post['gzdw_1'],':lxfs_1'=>$post['lxfs_1'],':gx_2'=>$post['gx_2'],':xm_2'=>$post['xm_2'],':zzmm_2'=>$post['zzmm_2'],':gzdw_2'=>$post['gzdw_2'],':lxfs_2'=>$post['lxfs_2'],':password'=>sha1(substr($post['sfzh'],-6))])->execute();                   
         return $ifok;
    Yii::$app->response->format=Response::FORMAT_JSON;
     return $post;
@@ -467,7 +467,8 @@ public function actionXsjbxx_up_excel(){
         .$sheet->getCell("R".$y)->getValue()."','"
         .$sheet->getCell("S".$y)->getValue()."','"
         .$sheet->getCell("T".$y)->getValue()."','"
-        .$sheet->getCell("U".$y)->getValue()."'),";
+        .$sheet->getCell("U".$y)->getValue()."','"
+        .sha1(substr($d,-6))."'),";
     }
     $sql = rtrim($sql,',');
     $sql.=';'; 
