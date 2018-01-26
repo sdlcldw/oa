@@ -1,0 +1,142 @@
+
+		<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
+			<div class="title_txt">课堂记录
+			</div>
+		</div>
+<div class="right_content" style="padding:5px;">
+<!-- 内容区域开始 -->
+<hr>
+请选择您的课程： 
+<select [(ngModel)]="kc_id" class="form-control" style="width: 200px;display: inline;">
+  <option *ngFor="let x of kc_data" [value]='x.Id'>{{x.name}}</option>
+</select>
+<button type="button" class="btn btn-primary" (click)="xzkc()">确定</button>
+
+<hr>
+
+<table class="table table-bordered">
+  <tr>
+    <td colspan="7" align="center" style="font-size: 18px;">{{dqkcdata.kc['name']}}课程记录表</td>
+  </tr>
+  <tr>
+    <td>科目</td>
+    <td colspan="2">{{dqkcdata.kc['name']}}</td>
+    <td>日期</td>
+    <td colspan="3">xxx</td>
+  </tr>
+  <tr>
+    <td colspan="7">学生考勤表 说明：
+      <label class="radio-inline">
+      <input checked="checked" class="demo--radio" type="radio" name="zc">
+          <span class="demo--radioInput"></span>
+        正常
+        </label>
+        <label class="radio-inline">
+          <input checked="checked" class="demo--radio-l"  type="radio" name="qj">
+          <span class="demo--radioInput-l"></span>
+          请假
+        </label>
+        <label class="radio-inline">
+          <input checked="checked" class="demo--radio-h" type="radio" name="cd">
+          <span class="demo--radioInput-h"></span>
+          迟到
+        </label>
+        <label class="radio-inline">
+          <input checked="checked" class="demo--radio-red" type="radio" name="kcs">
+          <span class="demo--radioInput-red"></span>
+          旷课
+        </label>
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 60px;">
+      序号
+    </td>
+    <td style="width: 80px;">
+      姓名
+    </td>
+    <td style="width: 60px;">
+      性别
+    </td>
+    <td  style="width: 100px;">
+      年级
+    </td>
+    <td  style="width: 60px;">
+      班级
+    </td>
+    <td style="width: 200px;">
+      考勤状态
+    </td>
+    <td  style="width: 200px;">
+      备注
+    </td>
+  </tr>
+
+<tr class="xsmd" *ngFor="let x of dqkcdata.xs;let i=index;">
+  <td>{{i+1}}</td>
+  <td>{{x['name']}}</td>
+  <td>{{x['xb']}}</td>
+  <td>{{x['nj_name']}}</td>
+  <td>{{x['bj_name']}}</td>
+  <td>
+       <label class="radio-inline" style="padding: 0;">
+          <input checked="checked" class="demo--radio" [(ngModel)]="kq[x['xsid']]" type="radio" name="x['xsid']" value="1">
+          <span class="demo--radioInput"></span>
+        </label>
+        <label class="radio-inline" style="padding: 0;">
+          <input class="demo--radio-l" [(ngModel)]="kq[x['xsid']]" type="radio" name="x['xsid']" value="2">
+          <span class="demo--radioInput-l"></span>
+        </label>
+        <label class="radio-inline" style="padding: 0;">
+          <input class="demo--radio-h" [(ngModel)]="kq[x['xsid']]" type="radio" name="x['xsid']" value="3">
+          <span class="demo--radioInput-h"></span>
+        </label>
+        <label class="radio-inline" style="padding: 0;">
+          <input class="demo--radio-red" [(ngModel)]="kq[x['xsid']]" type="radio" name="x['xsid']" value="4">
+          <span class="demo--radioInput-red"></span>
+        </label>
+  </td>
+  <td>
+    <input type="text">
+  </td>
+</tr>
+
+
+  <tr>
+<td>应到</td>
+<td></td>
+<td>实到</td>
+<td></td>
+<td>请假</td>
+<td></td>
+  </tr>
+<tr>
+  <td>迟到</td>
+  <td></td>
+  <td>旷课</td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td colspan="7">
+    课堂情况：
+  </td>
+  </tr>
+  <tr>
+  <td  colspan="7">
+    课堂评价：
+  </td>
+</tr>
+<tr>
+<td colspan="7">
+  记录教师：{{dqkcdata.kc['username']}}
+</td></tr>
+<tr>
+<td colspan="7">
+  使用说明：本表用于记录学生平时课堂表现，考勤及教师每节课的课堂摘要。考勤备注栏填写学生随堂练习成绩小结及学生到课情况，如：请假、旷课、迟到等。课堂表现记录表主要记录学生课堂表现情况，请教师于每节课下课后及时填写本表，学生所属年级部及班主任可即时看到学生表现情况。
+</td></tr>
+</table>
+<button (click)="cs()">123</button>
+</div>
+<!-- 内容区域结束 -->

@@ -127,9 +127,31 @@ public function actionBmkqjl_get(){
 	 return $dataReader;
 }
 	
+public function actionKtjl_get_kc(){
+	$id =Yii::$app->session['__id'];
+	$sql="select Id,name from xsgl_xbkc_mx where zt = 1 and user_id = :id";
+	$data=Yii::$app->db->createCommand($sql,[':id'=>$id])->query()->readAll();
+	if(empty($data)){
+		return '2';
+	}
+	Yii::$app->response->format=Response::FORMAT_JSON;	
+	return $data;
+}
 
-
-
+public function actionKtjl_get_kcmx(){
+	if (Yii::$app->request->isPost){ 
+		$ps = Yii::$app->request->post();
+	$sql="select a.Id,a.name,b.username from xsgl_xbkc_mx a left join user b on a.user_id = b.Id where a.Id=:id";
+	$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id']])->queryOne();
+	
+	$sqlt="select b.Id as xsid,b.name,b.xb,c.name as bj_name,d.name as njb_name from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id = :id";
+	$datat=Yii::$app->db->createCommand($sqlt,[':id'=>$ps['id']])->query()->readAll();
+	Yii::$app->response->format=Response::FORMAT_JSON;	
+	$rdata['kc']=$data;
+	$rdata['xs']=$datat;
+	return $rdata;
+}
+}
 
 
 

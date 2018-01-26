@@ -16,6 +16,8 @@ import { KqjlComponent } from './kqjl/kqjl.component';
 import { BmkqjlComponent } from './bmkqjl/bmkqjl.component';
 import { GrzlGuard } from './guard/grzl.guard';
 import { QxGuard } from '../guard/qx.guard';
+import { KtjlComponent } from './ktjl/ktjl.component';
+import { JkpjComponent } from './jkpj/jkpj.component';
 
 
 const Routes=[
@@ -27,6 +29,9 @@ const Routes=[
   {path:'grzl',component:GrzlComponent,canDeactivate:[GrzlGuard]},
   {path:'kqjl',component:KqjlComponent},
   {path:'bmkqjl',component:BmkqjlComponent,canActivate:[QxGuard]},
+  {path:'ktjl',component:KtjlComponent},
+  {path:'jkpj',component:JkpjComponent},
+  
 ];
 
 @NgModule({
@@ -38,7 +43,7 @@ const Routes=[
     FormsModule, 
     ReactiveFormsModule,
   ],
-  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent, KqjlComponent, BmkqjlComponent],
+  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent, KqjlComponent, BmkqjlComponent,KtjlComponent,JkpjComponent],
   providers: [GrzlGuard,QxGuard],
 })
 export class GrbgModule { }
