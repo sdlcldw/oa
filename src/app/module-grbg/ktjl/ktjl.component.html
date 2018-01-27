@@ -1,142 +1,157 @@
-
-		<div class="right_title"><img class="title_arrow" src="assets/images/title_arrow.png">
-			<div class="title_txt">课堂记录
-			</div>
-		</div>
+<div class="right_title">
+  <img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">课堂记录
+  </div>
+</div>
 <div class="right_content" style="padding:5px;">
-<!-- 内容区域开始 -->
-<hr>
-请选择您的课程： 
-<select [(ngModel)]="kc_id" class="form-control" style="width: 200px;display: inline;">
-  <option *ngFor="let x of kc_data" [value]='x.Id'>{{x.name}}</option>
-</select>
-<button type="button" class="btn btn-primary" (click)="xzkc()">确定</button>
+  <!-- 内容区域开始 -->
+  <hr> 请选择您的课程：
+  <select [(ngModel)]="kc_id" class="form-control" style="width: 200px;display: inline;">
+    <option *ngFor="let x of kc_data" [value]='x.Id'>{{x.name}}</option>
+  </select>
+  <button type="button" class="btn btn-primary" (click)="xzkc()">确定</button>
 
-<hr>
+  <hr>
+  <form [formGroup]="formModel" class="form-horizontal" role="form" (submit)="onSubmit()">
+    <table class="table table-bordered">
+      <tr>
+        <td class="bt" colspan="7" align="center" style="font-size: 18px;">{{dqkcdata.kc['name']}}课程记录表</td>
+      </tr>
+      <tr>
+        <td class="bt">科目</td>
+        <td colspan="2">{{dqkcdata.kc['name']}}</td>
+        <td class="bt">日期</td>
+        <td style="padding: 2px;" colspan="3">
+          <div class="input-group" style="width: 400px;">
+            <input formControlName="sj" type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsValue]="jlsj" />
+            <span class="input-group-btn">
+              <a class="btn btn-default" (click)="dp.toggle()">选择日期</a>
+            </span>
+          </div>
+          <div *ngIf="formModel.get('sj').invalid && (formModel.get('sj').dirty || formModel.get('sj').touched)" class="error">
+            <div class="error" *ngIf="formModel.get('sj').errors.required">不可为空</div>
+            <div class="error" *ngIf="formModel.get('sj').errors.date">日期格式为：2018年01月01日</div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <span class="bt">学生考勤</span>
+          <span style="float: right;margin-right: 20px;">
+          考勤状态说明：
+            <input checked="checked" class="demo--radio" type="radio" name="zc">
+            <span class="demo--radioInput"></span>
+            正常
+            <input checked="checked" class="demo--radio-l" type="radio" name="qj">
+            <span class="demo--radioInput-l"></span>
+            请假
+            <input checked="checked" class="demo--radio-h" type="radio" name="cd">
+            <span class="demo--radioInput-h"></span>
+            迟到
+            <input checked="checked" class="demo--radio-red" type="radio" name="kcs">
+            <span class="demo--radioInput-red"></span>
+            旷课
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td class="bt" style="width: 60px;">
+          序号
+        </td>
+        <td class="bt" style="width: 80px;">
+          姓名
+        </td>
+        <td class="bt" style="width: 60px;">
+          性别
+        </td>
+        <td class="bt" style="width: 100px;">
+          年级
+        </td>
+        <td class="bt" style="width: 60px;">
+          班级
+        </td>
+        <td class="bt" style="width: 200px;">
+          考勤状态
+          <a style="margin-left: 10px;" class="btn btn-success btn-xs" (click)="qbzc()">全设正常</a>
+        </td>
+        <td class="bt" style="width: 200px;">
+          备注
+        </td>
+      </tr>
 
-<table class="table table-bordered">
-  <tr>
-    <td colspan="7" align="center" style="font-size: 18px;">{{dqkcdata.kc['name']}}课程记录表</td>
-  </tr>
-  <tr>
-    <td>科目</td>
-    <td colspan="2">{{dqkcdata.kc['name']}}</td>
-    <td>日期</td>
-    <td colspan="3">xxx</td>
-  </tr>
-  <tr>
-    <td colspan="7">学生考勤表 说明：
-      <label class="radio-inline">
-      <input checked="checked" class="demo--radio" type="radio" name="zc">
-          <span class="demo--radioInput"></span>
-        正常
-        </label>
-        <label class="radio-inline">
-          <input checked="checked" class="demo--radio-l"  type="radio" name="qj">
-          <span class="demo--radioInput-l"></span>
-          请假
-        </label>
-        <label class="radio-inline">
-          <input checked="checked" class="demo--radio-h" type="radio" name="cd">
-          <span class="demo--radioInput-h"></span>
-          迟到
-        </label>
-        <label class="radio-inline">
-          <input checked="checked" class="demo--radio-red" type="radio" name="kcs">
-          <span class="demo--radioInput-red"></span>
-          旷课
-        </label>
-    </td>
-  </tr>
-  <tr>
-    <td style="width: 60px;">
-      序号
-    </td>
-    <td style="width: 80px;">
-      姓名
-    </td>
-    <td style="width: 60px;">
-      性别
-    </td>
-    <td  style="width: 100px;">
-      年级
-    </td>
-    <td  style="width: 60px;">
-      班级
-    </td>
-    <td style="width: 200px;">
-      考勤状态
-    </td>
-    <td  style="width: 200px;">
-      备注
-    </td>
-  </tr>
+      <tr class="xsmd" *ngFor="let x of dqkcdata.xs;let i=index;">
+        <td>{{i+1}}</td>
+        <td>{{x['name']}}</td>
+        <td>{{x['xb']}}</td>
+        <td>{{x['nj_name']}}</td>
+        <td>{{x['bj_name']}}</td>
+        <td>
+          <label class="radio-inline" style="padding: 0;">
+            <input class="demo--radio" (change)="kqtj()" [(ngModel)]="xsjl.kq[i]" type="radio" [name]="i" [value]="1" checked [ngModelOptions]="{standalone: true}">
+            <span class="demo--radioInput"></span>
+          </label>
+          <label class="radio-inline" style="padding: 0;">
+            <input class="demo--radio-l"  (change)="kqtj()" [(ngModel)]="xsjl.kq[i]" type="radio" [name]="i" value="2" [ngModelOptions]="{standalone: true}">
+            <span class="demo--radioInput-l"></span>
+          </label>
+          <label class="radio-inline" style="padding: 0;">
+            <input class="demo--radio-h"  (change)="kqtj()"[(ngModel)]="xsjl.kq[i]" type="radio" [name]="i" value="3" [ngModelOptions]="{standalone: true}">
+            <span class="demo--radioInput-h"></span>
+          </label>
+          <label class="radio-inline" style="padding: 0;">
+            <input class="demo--radio-red" (change)="kqtj()" [(ngModel)]="xsjl.kq[i]" type="radio" [name]="i" value="4" [ngModelOptions]="{standalone: true}">
+            <span class="demo--radioInput-red"></span>
+          </label>
+        </td>
+        <td>
+          <input style="width: 260px;" type="text" [(ngModel)]="xsjl.bz[i]" [ngModelOptions]="{standalone: true}">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7"><span class="bt">考勤统计：</span>
+          <span class="kqtj">应到</span>{{yd}}人<span class="kqtj">实到</span>{{sd}}人<span class="kqtj">请假</span>{{qj}}人<span class="kqtj">迟到</span>{{cd}}人<span class="kqtj">旷课</span>{{kc}}人
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+         <span class="bt">课堂综合评价：</span>
+          <span style="margin-left: 20px;">
+            <rating [max]="5" [(ngModel)]="xj" [customTemplate]="t" [ngModelOptions]="{standalone: true}"></rating>
+            <b>
+              <span style="color: #9e9e9e;margin-left: 10px;">{{xj | xjpj}}</span>
+            </b>
+            <ng-template #t let-i="index" let-v="value">
+              <span style="font-size: 25px;color: #ffa200;" class="{{i < v ? 'ion-android-star' : 'ion-android-star-outline'}}">
+              </span>
+            </ng-template>
+          </span>
+        </td>
+      </tr>
 
-<tr class="xsmd" *ngFor="let x of dqkcdata.xs;let i=index;">
-  <td>{{i+1}}</td>
-  <td>{{x['name']}}</td>
-  <td>{{x['xb']}}</td>
-  <td>{{x['nj_name']}}</td>
-  <td>{{x['bj_name']}}</td>
-  <td>
-       <label class="radio-inline" style="padding: 0;">
-          <input checked="checked" class="demo--radio" [(ngModel)]="kq[x['xsid']]" type="radio" name="x['xsid']" value="1">
-          <span class="demo--radioInput"></span>
-        </label>
-        <label class="radio-inline" style="padding: 0;">
-          <input class="demo--radio-l" [(ngModel)]="kq[x['xsid']]" type="radio" name="x['xsid']" value="2">
-          <span class="demo--radioInput-l"></span>
-        </label>
-        <label class="radio-inline" style="padding: 0;">
-          <input class="demo--radio-h" [(ngModel)]="kq[x['xsid']]" type="radio" name="x['xsid']" value="3">
-          <span class="demo--radioInput-h"></span>
-        </label>
-        <label class="radio-inline" style="padding: 0;">
-          <input class="demo--radio-red" [(ngModel)]="kq[x['xsid']]" type="radio" name="x['xsid']" value="4">
-          <span class="demo--radioInput-red"></span>
-        </label>
-  </td>
-  <td>
-    <input type="text">
-  </td>
-</tr>
+      <tr>
+        <td colspan="7">
+          <span class="bt">课堂情况：</span>
+          <textarea class="form-control" rows="3" formControlName="ktqk" class="form-control" placeholder="必填" [class.hasError]="formModel.get('ktqk').invalid && formModel.get('ktqk').touched">
+    </textarea>
+          <div *ngIf="formModel.get('ktqk').invalid && (formModel.get('ktqk').dirty || formModel.get('ktqk').touched)" class="error">
+            <div class="error" *ngIf="formModel.get('ktqk').errors.minlength || formModel.get('ktqk').errors.maxlength || formModel.get('ktqk').errors.required">应不少于10字，不大于100字</div>
+          </div>
+        </td>
+      </tr>
 
-
-  <tr>
-<td>应到</td>
-<td></td>
-<td>实到</td>
-<td></td>
-<td>请假</td>
-<td></td>
-  </tr>
-<tr>
-  <td>迟到</td>
-  <td></td>
-  <td>旷课</td>
-  <td></td>
-  <td></td>
-  <td></td>
-</tr>
-<tr>
-  <td colspan="7">
-    课堂情况：
-  </td>
-  </tr>
-  <tr>
-  <td  colspan="7">
-    课堂评价：
-  </td>
-</tr>
-<tr>
-<td colspan="7">
-  记录教师：{{dqkcdata.kc['username']}}
-</td></tr>
-<tr>
-<td colspan="7">
-  使用说明：本表用于记录学生平时课堂表现，考勤及教师每节课的课堂摘要。考勤备注栏填写学生随堂练习成绩小结及学生到课情况，如：请假、旷课、迟到等。课堂表现记录表主要记录学生课堂表现情况，请教师于每节课下课后及时填写本表，学生所属年级部及班主任可即时看到学生表现情况。
-</td></tr>
-</table>
-<button (click)="cs()">123</button>
+      <tr>
+        <td colspan="7">
+          <span class="bt">记录教师：</span>{{dqkcdata.kc['username']}}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <span class="bt">使用说明：</span>本表用于记录学生平时课堂表现，考勤及教师每节课的课堂摘要。考勤备注栏填写学生随堂练习成绩小结及学生到课情况，如：请假、旷课、迟到等。课堂表现记录表主要记录学生课堂表现情况，请教师于每节课下课后及时填写本表，学生所属年级部及班主任可即时看到学生表现情况。
+        </td>
+      </tr>
+    </table>
+    <button type="submit" class="btn btn-primary" [disabled]="formModel.invalid">确认提交</button>
+  </form>
+ 
 </div>
 <!-- 内容区域结束 -->

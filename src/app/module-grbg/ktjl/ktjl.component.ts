@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms";
+import {FormArray, FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
 import { TskService } from '../../service/TskService';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { dateValidator } from '../../valldators/valldators';
+
 @Component({
   selector: 'app-ktjl',
   templateUrl: './ktjl.component.html',
@@ -10,16 +13,37 @@ import { TskService } from '../../service/TskService';
 export class KtjlComponent implements OnInit {
 kc_data;
 kc_id;
-kq=[];
+
+xsjl={
+  kq:[],
+  bz:[]
+}
+
 dqkcdata={};
+jlsj: Date;
+formModel: FormGroup;
 
-  constructor(fb: FormBuilder, private http: HttpClient, private tsk: TskService) {
+xj: number = 0;
 
+
+yd=0;
+sd=0;
+qj=0;
+kc=0;
+cd=0;
+
+  constructor(private fb: FormBuilder, private http: HttpClient, private tsk: TskService,private _localeService: BsLocaleService) {
+    this.formModel = fb.group({
+      sj: ['', [Validators.required,dateValidator]],
+      ktqk: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+   
+    })
    }
 
   ngOnInit() {
     this.dqkcdata ={kc:''};
   this.getkc();
+  this._localeService.use('zh-cn');          
   }
 
 getkc(){
@@ -37,14 +61,65 @@ xzkc(){
     this.tsk.tsk('请选择课程');
     return;
   }
-  this.kq = [];
+  this.reset();
   this.http.post("/oa/basic/web/index.php?r=grbg/ktjl_get_kcmx",{id:this.kc_id}).toPromise().then((response) => {
     this.dqkcdata = response;
+    this.jlsj = new Date();
     console.log(response);
+    console.log(this.xsjl.kq);
+    this.yd = this.dqkcdata['xs'].length;
   });
 }
-cs(){
-  console.log(this.kq)
+qbzc(){
+  console.log(this.xsjl.kq);
+    for(let j = 0,len=this.dqkcdata['xs'].length; j < len; j++) {
+      this.xsjl.kq[j]=1;
+    }
+    console.log(this.xsjl.kq);
+    this.yd = this.xsjl.kq.length;
+    this.sd =this.yd;
+    this.cd = 0; this.kc=0;this.qj=0;
+}
+
+kqtj(){
+  this.qj = 0;
+  this.cd = 0;
+  this.kc = 0;
+  for(let j = 0,len=this.xsjl.kq.length; j < len; j++) {
+     if(this.xsjl.kq[j]==2){
+        this.qj++;
+     }else if(this.xsjl.kq[j]==3){
+       this.cd++;
+     }else if(this.xsjl.kq[j]==4){
+       this.kc++;
+     }
+  }
+  this.sd = this.yd-this.qj-this.cd-this.kc;
+}
+onSubmit(){ //学生考勤和备注、星级评定、时间和评语、课程信息
+
+  let data = {
+    kcdata:this.dqkcdata['kc'],
+    xsjl:this.xsjl,
+    kqtj:{yd:this.yd,sd:this.sd,qj:this.qj,cd:this.cd,kc:this.kc},
+    kcjl:this.formModel.value,
+    xj:this.xj,
+  }
+  console.log(data);
+}
+
+reset(){
+  this.xsjl={
+    kq:[],
+    bz:[]
+  }
+this.yd=0;
+this.sd=0;
+this.qj=0;
+this.kc=0;
+this.cd=0;
+this.xj=0;
+this.formModel.reset;
 }
 
 }

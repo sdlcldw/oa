@@ -17,3 +17,10 @@
 .demo--radio-red{display:none}
 .demo--radioInput-red{background-color:#fff;border:1px solid rgba(0,0,0,0.15);border-radius:100%;display:inline-block;height:16px;margin-top:-1px;vertical-align:middle;width:16px;line-height:1}
 .demo--radio-red:checked + .demo--radioInput-red:after{background-color:#ff0000;border-radius:100%;content:"";display:inline-block;height:10px;margin:2px;width:10px}
+
+.bt{
+    font-weight: bold;
+}
+.kqtj {
+    margin-left: 20px;
+}

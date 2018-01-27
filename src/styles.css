@@ -155,7 +155,7 @@ min-height: 350px;
 		border-bottom: 2px solid #559aea;
 		}
 		/*活动菜单样式*/
-		.active{
+		.menu_active{
 		background-color: #F1F1F1;
 		/*border-bottom:1px solid #B3C5D9;*/
 		}

@@ -18,7 +18,9 @@ import { GrzlGuard } from './guard/grzl.guard';
 import { QxGuard } from '../guard/qx.guard';
 import { KtjlComponent } from './ktjl/ktjl.component';
 import { JkpjComponent } from './jkpj/jkpj.component';
-
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { RatingModule } from 'ngx-bootstrap';
+import { XjpjPipe } from './pipe/xjpj.pipe';
 
 const Routes=[
   {path:'gzcx',component:GzcxComponent,},
@@ -42,8 +44,10 @@ const Routes=[
     Ng2SmartTableModule,
     FormsModule, 
     ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    RatingModule.forRoot(),
   ],
-  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent, KqjlComponent, BmkqjlComponent,KtjlComponent,JkpjComponent],
+  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent, KqjlComponent, BmkqjlComponent,KtjlComponent,JkpjComponent, XjpjPipe],
   providers: [GrzlGuard,QxGuard],
 })
 export class GrbgModule { }

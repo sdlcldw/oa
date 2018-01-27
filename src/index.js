@@ -5,8 +5,8 @@
 $(document).on("click",".menu_1",function(){//修改成这样的写法  
     		$(this).siblings().next('.menu_1_2').slideUp();
 			 $(this).next('.menu_1_2').slideToggle(); // 打开/关闭二级菜单
-			$(this). addClass('active') // 设置点击菜单样式
-					.siblings('div').removeClass('active') 
+			$(this). addClass('menu_active') // 设置点击菜单样式
+					.siblings('div').removeClass('menu_active') 
 					var ys = $(this).prevAll('.menu_1').eq(0)//获取当前上一个菜单
 					var as=(ys[0]);
 					if(as){
