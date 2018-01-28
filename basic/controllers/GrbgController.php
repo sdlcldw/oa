@@ -23,7 +23,7 @@ class GrbgController extends CommonController
 			  if($dataReader){
   			Yii::$app->response->format=Response::FORMAT_JSON;
   			return $dataReader;
-			  }
+			  } 
 			  return "2";
 	}
 	public function actionGzcx_tggz(){
@@ -141,7 +141,7 @@ public function actionKtjl_get_kc(){
 public function actionKtjl_get_kcmx(){
 	if (Yii::$app->request->isPost){ 
 		$ps = Yii::$app->request->post();
-	$sql="select a.Id,a.name,b.username from xsgl_xbkc_mx a left join user b on a.user_id = b.Id where a.Id=:id";
+	$sql="select a.Id,a.name,b.username,b.Id as user_id from xsgl_xbkc_mx a left join user b on a.user_id = b.Id where a.Id=:id";
 	$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id']])->queryOne();
 	
 	$sqlt="select b.Id as xsid,b.name,b.xb,c.name as bj_name,d.name as njb_name from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id = :id";
@@ -153,8 +153,56 @@ public function actionKtjl_get_kcmx(){
 }
 }
 
+public function actionKtjl_add(){
+	Yii::$app->response->format=Response::FORMAT_JSON;	
+	if (Yii::$app->request->isPost){
+		$ps = Yii::$app->request->post();
+		$sj = gmdate('Y-m-d',strtotime($ps['kcjl']['sj']) + 8*3600); //将标准时间转换为东八区时间
+		$sql = "INSERT xsgl_xbkc_ktjl (kc_id,sj,kq_yd,kq_sd,kq_qj,kq_cd,kq_kc,xjpj,ktqk,user_id) VALUES (:kc_id,:sj,:kq_yd,:kq_sd,:kq_qj,:kq_cd,:kq_kc,:xjpj,:ktqk,:user_id)";
+        $ifok = Yii::$app->db->createCommand($sql,[':kc_id'=>$ps['kcdata']['Id'],':sj'=>$sj,':kq_yd'=>$ps['kqtj']['yd'],':kq_sd'=>$ps['kqtj']['sd'],':kq_qj'=>$ps['kqtj']['qj'],':kq_cd'=>$ps['kqtj']['cd'],':kq_kc'=>$ps['kqtj']['kc'],':xjpj'=>$ps['xj'],':ktqk'=>$ps['kcjl']['ktqk'],':user_id'=>$ps['kcdata']['user_id']])->execute();
+		if(!$ifok){
+			return false;
+		}
+		$sql = "select last_insert_id() as id;";
+		$data=Yii::$app->db->createCommand($sql)->queryOne();
+		$id = $data['id'];
+		foreach ($ps['xsjl']['xsid'] as $k => $v) { 
+			$xsjl[] = [$id,$v,$ps['xsjl']['kq'][$k],$ps['xsjl']['bz'][$k]]; 
+		}
+		$ifok = Yii::$app->db->createCommand()->batchInsert('xsgl_xbkc_ktjl_xskq',['ktjl_id','xs_id','kqzt','bz'],$xsjl)->execute();
+		return $ifok;
+	}
+}
 
-
+public function actionKtjl_ck_get(){
+	Yii::$app->response->format=Response::FORMAT_JSON;	
+	$id = Yii::$app->session['__id'];
+	$sql="select a.Id,a.kc_id,a.sj,a.kq_yd,a.kq_sd,a.kq_qj,a.kq_cd,a.kq_kc,a.xjpj,b.name,c.username from xsgl_xbkc_ktjl a left join xsgl_xbkc_mx b on a.kc_id = b.Id left join user c on a.user_id = c.Id where a.user_id = :id;";
+	$data=Yii::$app->db->createCommand($sql,[':id'=>$id])->query()->readAll();
+	if(empty($data)){
+		return '2';
+	}
+	return $data;
+}
+public function actionKtjl_ck_getkc(){
+	Yii::$app->response->format=Response::FORMAT_JSON;	
+	if (Yii::$app->request->isPost){
+	$ps = Yii::$app->request->post();
+	$sql="select a.*,b.name,c.username from xsgl_xbkc_ktjl a left join xsgl_xbkc_mx b on a.kc_id = b.Id left join user c on a.user_id = c.Id where a.Id = :id;";
+	$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id']])->queryOne();
+	if(empty($data)){
+		return '2';
+	}
+	$sqlt="select a.kqzt,a.bz,b.name,b.xb,c.name as bj_name,d.name as njb_name from xsgl_xbkc_ktjl_xskq a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.ktjl_id = :id;";
+	$datat=Yii::$app->db->createCommand($sqlt,[':id'=>$ps['id']])->query()->readAll();
+	if(empty($datat)){
+		return '2';
+	}
+	$datas['kc']=$data;
+	$datas['kq']=$datat;
+	return $datas;
+ }
+}
 
 
 

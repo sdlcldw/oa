@@ -76,12 +76,6 @@ public function actionHome_ssb(){
     }
 }
 
-
-
-
-
-
-
     //校本课程 选课
     public function actionKsxk_get(){
         $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.kssj,a.jssj,a.zt,b.username,(select count(kc_id) from xsgl_xbkc_xk c where a.Id = c.kc_id) as ybrs FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.zt = '1';";

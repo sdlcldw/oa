@@ -1,0 +1,147 @@
+<div class="right_title">
+  <img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">查看课堂记录
+  </div>
+</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+  <!-- 内容区域开始 -->
+  <hr>
+记录列表
+  <hr>
+  <ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
+    <ng-template let-row>
+      <td style="width: 150px;">
+        <div class="font-small">{{row.name}}</div>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.sj}}</span>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.kq_yd}}</span>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.kq_sd}}</span>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.kq_qj}}</span>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.kq_cd}}</span>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.kq_kc}}</span>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.xjpj}}</span>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.username}}</span>
+      </td>
+      <td style="width: 150px;">
+        <a class="btn btn-success btn-xs" (click)="ckjl(ckjlmodal,row.Id)">查看</a>
+        <a class="btn btn-success btn-xs" (click)="xzj(row)">删除</a>
+      </td>
+    </ng-template>
+  </ngx-table>
+</div>
+<!-- 内容区域结束 -->
+
+<!-- 查看记录 -->
+<ng-template #ckjlmodal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">课堂历史记录表</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalCkjl.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div style="overflow-y: auto;height: 700px;">
+    <table class="table table-bordered">
+      <tr>
+        <td class="bt" colspan="7" align="center" style="font-size: 18px;">{{ckjldata.kc['name']}}课程记录表</td>
+      </tr>
+      <tr>
+        <td class="bt">科目</td>
+        <td colspan="2">{{ckjldata.kc['name']}}</td>
+        <td class="bt">日期</td>
+        <td style="padding: 2px;" colspan="3">
+          {{ckjldata.kc['sj']}}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <span class="bt">学生考勤</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="bt" style="width: 60px;">
+          序号
+        </td>
+        <td class="bt" style="width: 80px;">
+          姓名
+        </td>
+        <td class="bt" style="width: 60px;">
+          性别
+        </td>
+        <td class="bt" style="width: 120px;">
+          年级
+        </td>
+        <td class="bt" style="width: 60px;">
+          班级
+        </td>
+        <td class="bt" style="width: 80px;">
+          考勤状态
+        </td>
+        <td class="bt">
+          备注
+        </td>
+      </tr>
+      <tr class="xsmd" *ngFor="let x of ckjldata.kq;let i=index;">
+        <td>{{i+1}}</td>
+        <td>{{x['name']}}</td>
+        <td>{{x['xb']}}</td>
+        <td>{{x['njb_name']}}</td>
+        <td>{{x['bj_name']}}</td>
+        <td>{{x['kqzt']}}</td>
+        <td>{{x['bz']}}</td>
+      </tr>
+      <tr>
+        <td colspan="7"><span class="bt">考勤统计：</span>
+          <span class="kqtj">应到</span>{{ckjldata.kc['kq_yd']}}人<span class="kqtj">实到</span>{{ckjldata.kc['kq_sd']}}人<span class="kqtj">请假</span>{{ckjldata.kc['kq_qj']}}人<span class="kqtj">迟到</span>{{ckjldata.kc['kq_cd']}}人<span class="kqtj">旷课</span>{{ckjldata.kc['kq_kc']}}人
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+         <span class="bt">课堂综合评价：</span>
+          <span style="margin-left: 20px;">
+            <rating [max]="5" [(ngModel)]="ckjldata.kc['xjpj']" [customTemplate]="t" [readonly]="true"></rating>
+            <b>
+              <span style="color: #9e9e9e;margin-left: 10px;">{{ckjldata.kc['xjpj'] | xjpj}}</span>
+            </b>
+            <ng-template #t let-i="index" let-v="value">
+              <span style="font-size: 25px;color: #ffa200;" class="{{i < v ? 'ion-android-star' : 'ion-android-star-outline'}}">
+              </span>
+            </ng-template>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <span class="bt">课堂情况：</span>
+          {{ckjldata.kc['ktqk']}}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <span class="bt">记录教师：</span>{{ckjldata.kc['username']}}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <span class="bt">使用说明：</span>本表用于记录学生平时课堂表现，考勤及教师每节课的课堂摘要。考勤备注栏填写学生随堂练习成绩小结及学生到课情况，如：请假、旷课、迟到等。课堂表现记录表主要记录学生课堂表现情况，请教师于每节课下课后及时填写本表，学生所属年级部及班主任可即时看到学生表现情况。
+        </td>
+      </tr>
+    </table>
+  </div>
+  </div>
+</ng-template>

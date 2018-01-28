@@ -10,13 +10,18 @@ import { dateValidator } from '../../valldators/valldators';
   templateUrl: './ktjl.component.html',
   styleUrls: ['./ktjl.component.css']
 })
+
+
+
+
 export class KtjlComponent implements OnInit {
 kc_data;
 kc_id;
 
 xsjl={
   kq:[],
-  bz:[]
+  bz:[],
+  xsid:[]
 }
 
 dqkcdata={};
@@ -32,19 +37,23 @@ qj=0;
 kc=0;
 cd=0;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private tsk: TskService,private _localeService: BsLocaleService) {
+ifaddktjl:boolean = false;
+
+
+constructor(private fb: FormBuilder, private http: HttpClient, private tsk: TskService,private _localeService: BsLocaleService) {
     this.formModel = fb.group({
       sj: ['', [Validators.required,dateValidator]],
       ktqk: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-   
     })
    }
 
   ngOnInit() {
     this.dqkcdata ={kc:''};
   this.getkc();
-  this._localeService.use('zh-cn');          
+  this._localeService.use('zh-cn');   
+
   }
+
 
 getkc(){
   this.http.get('/oa/basic/web/index.php?r=grbg/ktjl_get_kc').subscribe(data => {
@@ -63,12 +72,17 @@ xzkc(){
   }
   this.reset();
   this.http.post("/oa/basic/web/index.php?r=grbg/ktjl_get_kcmx",{id:this.kc_id}).toPromise().then((response) => {
+    this.ifaddktjl = true;
     this.dqkcdata = response;
     this.jlsj = new Date();
     console.log(response);
     console.log(this.xsjl.kq);
     this.yd = this.dqkcdata['xs'].length;
   });
+  setTimeout(()=>{
+    for(let j = 0,len=this.dqkcdata['xs'].length; j < len; j++) {
+    this.xsjl.bz[j]='';
+  }},2000)
 }
 qbzc(){
   console.log(this.xsjl.kq);
@@ -97,7 +111,9 @@ kqtj(){
   this.sd = this.yd-this.qj-this.cd-this.kc;
 }
 onSubmit(){ //学生考勤和备注、星级评定、时间和评语、课程信息
-
+  for(let j = 0,len=this.dqkcdata['xs'].length; j < len; j++) {
+    this.xsjl.xsid[j]=this.dqkcdata['xs'][j]['xsid'];
+  }
   let data = {
     kcdata:this.dqkcdata['kc'],
     xsjl:this.xsjl,
@@ -105,13 +121,25 @@ onSubmit(){ //学生考勤和备注、星级评定、时间和评语、课程信
     kcjl:this.formModel.value,
     xj:this.xj,
   }
-  console.log(data);
+
+  this.http.post("/oa/basic/web/index.php?r=grbg/ktjl_add",data).toPromise().then((response) => {
+    if(response){
+       this.tsk.cg('提交成功！');
+       this.reset();
+       this.ifaddktjl = false;
+    }else{
+      this.tsk.tsk('操作失败！')
+    }
+  });
+
+
 }
 
 reset(){
   this.xsjl={
     kq:[],
-    bz:[]
+    bz:[],
+    xsid:[]
   }
 this.yd=0;
 this.sd=0;
@@ -119,7 +147,7 @@ this.qj=0;
 this.kc=0;
 this.cd=0;
 this.xj=0;
-this.formModel.reset;
+this.formModel.reset();
 }
 
 }

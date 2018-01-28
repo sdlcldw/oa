@@ -21,6 +21,10 @@ import { JkpjComponent } from './jkpj/jkpj.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { RatingModule } from 'ngx-bootstrap';
 import { XjpjPipe } from './pipe/xjpj.pipe';
+import { KtjlCkComponent } from './ktjl-ck/ktjl-ck.component';
+
+import {TableModule} from 'ngx-easy-table';
+
 
 const Routes=[
   {path:'gzcx',component:GzcxComponent,},
@@ -32,6 +36,7 @@ const Routes=[
   {path:'kqjl',component:KqjlComponent},
   {path:'bmkqjl',component:BmkqjlComponent,canActivate:[QxGuard]},
   {path:'ktjl',component:KtjlComponent},
+  {path:'ktjl_ck',component:KtjlCkComponent},
   {path:'jkpj',component:JkpjComponent},
   
 ];
@@ -46,8 +51,9 @@ const Routes=[
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     RatingModule.forRoot(),
+    TableModule, 
   ],
-  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent, KqjlComponent, BmkqjlComponent,KtjlComponent,JkpjComponent, XjpjPipe],
+  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent, KqjlComponent, BmkqjlComponent,KtjlComponent,JkpjComponent, XjpjPipe, KtjlCkComponent],
   providers: [GrzlGuard,QxGuard],
 })
 export class GrbgModule { }
