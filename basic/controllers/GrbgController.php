@@ -177,12 +177,27 @@ public function actionKtjl_add(){
 public function actionKtjl_ck_get(){
 	Yii::$app->response->format=Response::FORMAT_JSON;	
 	$id = Yii::$app->session['__id'];
-	$sql="select a.Id,a.kc_id,a.sj,a.kq_yd,a.kq_sd,a.kq_qj,a.kq_cd,a.kq_kc,a.xjpj,b.name,c.username from xsgl_xbkc_ktjl a left join xsgl_xbkc_mx b on a.kc_id = b.Id left join user c on a.user_id = c.Id where a.user_id = :id;";
+	$sql="select a.Id,a.kc_id,a.sj,a.kq_yd,a.kq_sd,a.kq_qj,a.kq_cd,a.kq_kc,a.xjpj,b.name,c.username from xsgl_xbkc_ktjl a left join xsgl_xbkc_mx b on a.kc_id = b.Id left join user c on a.user_id = c.Id where a.user_id = :id ORDER BY a.Id desc;";
 	$data=Yii::$app->db->createCommand($sql,[':id'=>$id])->query()->readAll();
 	if(empty($data)){
 		return '2';
 	}
 	return $data;
+}
+public function actionKtjl_del(){
+	Yii::$app->response->format=Response::FORMAT_JSON;	
+	if (Yii::$app->request->isPost){
+		$id =Yii::$app->session['__id'];
+	$ps = Yii::$app->request->post();
+	$sql="DELETE FROM xsgl_xbkc_ktjl WHERE Id =:id and user_id = :userid";
+	$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id'],':userid'=>$id])->execute();
+	if(!$data){
+		return false;
+	}
+	$sql="DELETE FROM xsgl_xbkc_ktjl_xskq WHERE ktjl_id =:id";
+	$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id']])->execute();
+	return $data;
+}
 }
 public function actionKtjl_ck_getkc(){
 	Yii::$app->response->format=Response::FORMAT_JSON;	

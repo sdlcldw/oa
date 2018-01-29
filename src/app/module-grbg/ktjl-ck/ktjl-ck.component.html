@@ -6,7 +6,7 @@
 <div class="right_content" id="cwpt" style="padding:5px;">
   <!-- 内容区域开始 -->
   <hr>
-记录列表
+说明：当前显示范围为本人添加的所有课程的全部课堂记录
   <hr>
   <ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
     <ng-template let-row>
@@ -31,15 +31,20 @@
       <td style="width: 100px;">
         <span class="font-small">{{row.kq_kc}}</span>
       </td>
-      <td style="width: 100px;">
-        <span class="font-small">{{row.xjpj}}</span>
+      <td style="width: 200px;">
+          <rating [max]="5" [ngModel]="row.xjpj" [customTemplate]="t" [readonly]="true"></rating>
+          <ng-template #t let-i="index" let-v="value">
+            <span style="font-size: 22px;color: #ffa200;" class="{{i < v ? 'ion-android-star' : 'ion-android-star-outline'}}">
+            </span>
+          </ng-template>
+        
       </td>
       <td style="width: 100px;">
         <span class="font-small">{{row.username}}</span>
       </td>
       <td style="width: 150px;">
         <a class="btn btn-success btn-xs" (click)="ckjl(ckjlmodal,row.Id)">查看</a>
-        <a class="btn btn-success btn-xs" (click)="xzj(row)">删除</a>
+        <a class="btn btn-success btn-xs" (click)="del(row.Id)">删除</a>
       </td>
     </ng-template>
   </ngx-table>
@@ -102,7 +107,7 @@
         <td>{{x['xb']}}</td>
         <td>{{x['njb_name']}}</td>
         <td>{{x['bj_name']}}</td>
-        <td>{{x['kqzt']}}</td>
+        <td>{{x['kqzt'] | kqzt}}</td>
         <td>{{x['bz']}}</td>
       </tr>
       <tr>
@@ -114,7 +119,7 @@
         <td colspan="7">
          <span class="bt">课堂综合评价：</span>
           <span style="margin-left: 20px;">
-            <rating [max]="5" [(ngModel)]="ckjldata.kc['xjpj']" [customTemplate]="t" [readonly]="true"></rating>
+            <rating [max]="5" [ngModel]="ckjldata.kc['xjpj']" [customTemplate]="t" [readonly]="true"></rating>
             <b>
               <span style="color: #9e9e9e;margin-left: 10px;">{{ckjldata.kc['xjpj'] | xjpj}}</span>
             </b>
@@ -127,18 +132,13 @@
       </tr>
       <tr>
         <td colspan="7">
-          <span class="bt">课堂情况：</span>
+          <span class="bt">教学总结反思：</span>
           {{ckjldata.kc['ktqk']}}
         </td>
       </tr>
       <tr>
         <td colspan="7">
           <span class="bt">记录教师：</span>{{ckjldata.kc['username']}}
-        </td>
-      </tr>
-      <tr>
-        <td colspan="7">
-          <span class="bt">使用说明：</span>本表用于记录学生平时课堂表现，考勤及教师每节课的课堂摘要。考勤备注栏填写学生随堂练习成绩小结及学生到课情况，如：请假、旷课、迟到等。课堂表现记录表主要记录学生课堂表现情况，请教师于每节课下课后及时填写本表，学生所属年级部及班主任可即时看到学生表现情况。
         </td>
       </tr>
     </table>

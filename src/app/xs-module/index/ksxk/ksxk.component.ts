@@ -64,7 +64,7 @@ export class KsxkComponent implements OnInit {
   ngOnDestroy(){
     if(this.timer){
     clearInterval(this.timer);
-    }   
+    }
   }
 sxsj(){
   this.getlist();  

@@ -24,7 +24,7 @@
         <td class="bt">日期</td>
         <td style="padding: 2px;" colspan="3">
           <div class="input-group" style="width: 400px;">
-            <input formControlName="sj" type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsValue]="jlsj" />
+            <input formControlName="sj" type="text" class="form-control" #dp="bsDatepicker" bsDatepicker/>
             <span class="input-group-btn">
               <a class="btn btn-default" (click)="dp.toggle()">选择日期</a>
             </span>
@@ -130,7 +130,7 @@
       </tr>
       <tr>
         <td colspan="7">
-          <span class="bt">课堂情况：</span>
+          <span class="bt">课堂总结反思：</span>
           <textarea class="form-control" rows="3" formControlName="ktqk" class="form-control" placeholder="必填" [class.hasError]="formModel.get('ktqk').invalid && formModel.get('ktqk').touched">
     </textarea>
           <div *ngIf="formModel.get('ktqk').invalid && (formModel.get('ktqk').dirty || formModel.get('ktqk').touched)" class="error">

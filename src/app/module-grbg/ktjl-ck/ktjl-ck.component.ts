@@ -80,9 +80,19 @@ export class KtjlCkComponent implements OnInit {
         this.ckjldata = response;
         this.modalCkjl = this.modalService.show(template,Object.assign({}, this.modal_ckjl_config, { class: 'modal-ckjl' }));
     });
-
-
-    
     console.log(id);
+  }
+  del(id){
+    if(window.confirm('本操作将删除该条课堂记录和与之关联的学生考勤记录，确定要删除吗？')){
+      this.http.post("/oa/basic/web/index.php?r=grbg/ktjl_del",{id:id}).toPromise().then((response) => {
+      console.log(response);
+     if(response){
+      this.tsk.cg('删除成功！');
+      this.getktjl();
+     }
+  });
+  
+}
+   
   }
 }

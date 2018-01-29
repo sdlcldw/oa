@@ -25,7 +25,6 @@ xsjl={
 }
 
 dqkcdata={};
-jlsj: Date;
 formModel: FormGroup;
 
 xj: number = 0;
@@ -74,7 +73,7 @@ xzkc(){
   this.http.post("/oa/basic/web/index.php?r=grbg/ktjl_get_kcmx",{id:this.kc_id}).toPromise().then((response) => {
     this.ifaddktjl = true;
     this.dqkcdata = response;
-    this.jlsj = new Date();
+    this.formModel.patchValue({sj: new Date()});
     console.log(response);
     console.log(this.xsjl.kq);
     this.yd = this.dqkcdata['xs'].length;
@@ -111,16 +110,26 @@ kqtj(){
   this.sd = this.yd-this.qj-this.cd-this.kc;
 }
 onSubmit(){ //学生考勤和备注、星级评定、时间和评语、课程信息
+  if(this.xj == 0){
+    this.tsk.tsk('星级评价不能为空');
+    return;
+  }
   for(let j = 0,len=this.dqkcdata['xs'].length; j < len; j++) {
     this.xsjl.xsid[j]=this.dqkcdata['xs'][j]['xsid'];
   }
-  let data = {
+  if(this.xsjl.xsid.length == this.xsjl.kq.length && this.xsjl.kq.length == this.xsjl.bz.length){
+     let data = {
     kcdata:this.dqkcdata['kc'],
     xsjl:this.xsjl,
     kqtj:{yd:this.yd,sd:this.sd,qj:this.qj,cd:this.cd,kc:this.kc},
     kcjl:this.formModel.value,
     xj:this.xj,
   }
+  }else{
+    this.tsk.tsk('请检查考勤是否正确');
+    return;
+  }
+ 
 
   this.http.post("/oa/basic/web/index.php?r=grbg/ktjl_add",data).toPromise().then((response) => {
     if(response){
