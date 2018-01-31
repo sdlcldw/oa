@@ -118,18 +118,19 @@ onSubmit(){ //学生考勤和备注、星级评定、时间和评语、课程信
     this.xsjl.xsid[j]=this.dqkcdata['xs'][j]['xsid'];
   }
   if(this.xsjl.xsid.length == this.xsjl.kq.length && this.xsjl.kq.length == this.xsjl.bz.length){
-     let data = {
+    
+  }else{
+    this.tsk.tsk('请检查考勤是否正确');
+    return;
+  }
+  
+  let data = {
     kcdata:this.dqkcdata['kc'],
     xsjl:this.xsjl,
     kqtj:{yd:this.yd,sd:this.sd,qj:this.qj,cd:this.cd,kc:this.kc},
     kcjl:this.formModel.value,
     xj:this.xj,
   }
-  }else{
-    this.tsk.tsk('请检查考勤是否正确');
-    return;
-  }
- 
 
   this.http.post("/oa/basic/web/index.php?r=grbg/ktjl_add",data).toPromise().then((response) => {
     if(response){

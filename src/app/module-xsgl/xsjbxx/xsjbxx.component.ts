@@ -298,7 +298,7 @@ export class XsjbxxComponent implements OnInit {
           {
             Id: data[0].Id,
             name: data[0].name,
-            xjh: data[0].xjh,
+            xjh: data[0].cz_xjh,
             xb: data[0].xb,
             sfzh: data[0].sfzh,
             sg: data[0].sg,

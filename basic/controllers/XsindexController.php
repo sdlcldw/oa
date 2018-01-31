@@ -18,15 +18,13 @@ class XsindexController extends CommonController
         if (Yii::$app->request->isPost) {
         $post = Yii::$app->request->post();            
             $sql = "select Id,name,sfzh from xsgl_jcxx_xs_jbxx where sfzh=:un and password=:pw";
-            $data = Yii::$app->db->createCommand($sql, [':un' => $post['username'], ':pw' => $post['password']])->queryOne();
+            $data = Yii::$app->db->createCommand($sql, [':un' => $post['username'], ':pw' => sha1($post['password'])])->queryOne();
             if (!$data) {
                 return "2";//用户名或者密码验证错误！
             } else {
                 $session = Yii::$app->session;
                 $session['xs_login'] = [
                     'Id' => $data['Id'],
-                    // 'sfzh' => $data['sfzh'],
-                    // 'name' => $data['name'],
                     'isLogin' => 1,
                 ];
                 return (bool)$session['xs_login']['isLogin'];
