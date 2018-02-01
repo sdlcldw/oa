@@ -219,8 +219,39 @@ public function actionKtjl_ck_getkc(){
  }
 }
 
+//结课评价
+public function actionJkpj_get_kc(){
+	$id =Yii::$app->session['__id'];
+	$sql="select Id,name from xsgl_xbkc_mx where zt = 3 and user_id = :id";
+	$data=Yii::$app->db->createCommand($sql,[':id'=>$id])->query()->readAll();
+	if(empty($data)){
+		return '2';
+	}
+	Yii::$app->response->format=Response::FORMAT_JSON;	
+	return $data;
+}
 
+public function actionJkpj_get_kcmx(){
+	if (Yii::$app->request->isPost){ 
+		$ps = Yii::$app->request->post();
+	$sql="select a.Id,a.name,a.rs,a.zt,b.username,b.Id as user_id from xsgl_xbkc_mx a left join user b on a.user_id = b.Id where a.Id=:id";
+	$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id']])->queryOne();//获取课程基本信息
 
+	$sqlt="SELECT count(*) as zs,SUM(CASE xjpj WHEN 5 THEN 1 ELSE 0 END) 'wu',SUM(CASE xjpj WHEN 4 THEN 1 ELSE 0 END) 'si', SUM(CASE xjpj WHEN 3 THEN 1 ELSE 0 END) 'san',SUM(CASE xjpj WHEN 2 THEN 1 ELSE 0 END) 'er',SUM(CASE xjpj WHEN 1 THEN 1 ELSE 0 END) 'yi' FROM xsgl_xbkc_ktjl WHERE kc_id = :id";
+	$datat=Yii::$app->db->createCommand($sqlt,[':id'=>$ps['id']])->queryOne();//统计星级评价次数
+	
+	$sqls="select SUM(CASE kqzt WHEN 1 THEN 1 ELSE 0 END) 'zc',
+	SUM(CASE kqzt WHEN 2 THEN 1 ELSE 0 END) 'qj',
+	SUM(CASE kqzt WHEN 3 THEN 1 ELSE 0 END) 'cd',
+	SUM(CASE kqzt WHEN 4 THEN 1 ELSE 0 END) 'kc'
+	 from xsgl_xbkc_ktjl_xskq where ktjl_id in (select Id from xsgl_xbkc_ktjl where kc_id = :id)";
+	$datas=Yii::$app->db->createCommand($sqls,[':id'=>$ps['id']])->query()->readAll();
+	Yii::$app->response->format=Response::FORMAT_JSON;	
+	$rdata['kc']=$data;
+	$rdata['xs']=$datat;
+	return $rdata;
+}
+}
 
 
 

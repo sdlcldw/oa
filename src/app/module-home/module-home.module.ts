@@ -7,6 +7,7 @@ import { WeatherComponent } from './weather/weather.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CarouselComponent } from './carousel/carousel.component';
+import { DcwjComponent } from './dcwj/dcwj/dcwj.component';
 
 const Routes=[
   {
@@ -30,6 +31,7 @@ const Routes=[
     ModuleHomeComponent, 
     TodoComponent,
     WeatherComponent,
-    CarouselComponent]
+    CarouselComponent,
+    DcwjComponent]
 })
 export class HomeModule { }

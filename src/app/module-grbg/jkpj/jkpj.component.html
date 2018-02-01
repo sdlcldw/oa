@@ -1,3 +1,77 @@
-<p>
-  jkpj works!
-</p>
+<div class="right_title">
+  <img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">结课评价
+  </div>
+</div>
+<div class="right_content" style="padding:5px;">
+  <!-- 内容区域开始 -->
+  <hr>请先选择课程
+  <select [(ngModel)]="kc_id" class="form-control" style="width: 200px;display: inline;">
+    <option value="">请选择</option>
+    <option *ngFor="let x of kc_data" [value]='x.Id'>{{x.name}}</option>
+  </select>
+  <button type="button" class="btn btn-primary" (click)="xzkc()">确定</button>
+  <hr>
+<div style="font-size: 16px;margin-bottom: 5px;">课程信息总览</div>
+  <table class="table table-condensed table-bordered">
+    <tr>
+      <td class="bt" colspan="5">
+        基本信息
+      </td>
+    </tr>
+    <tr>
+      <td>课程名称</td>
+      <td>讲师</td>
+      <td>参加人数</td>
+      <td>课程状态</td>
+      <td>课堂记录数</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    
+    <tr>
+        <td class="bt" colspan="5">星级课堂</td>
+    </tr>
+    <tr>
+      <td>五星课堂（非常优秀）</td>
+      <td>四星课堂（优秀）</td>
+      <td>三星课堂（良好）</td>
+      <td>二星课堂（一般）</td>
+      <td>一星课堂（较差）</td>
+    </tr>
+    <tr>
+      <td>次</td>
+      <td>次</td>
+      <td>次</td>
+      <td>次</td>
+      <td>次</td>
+    </tr>
+    
+    <tr>
+        <td class="bt" colspan="5">考勤统计</td>
+    </tr>
+    <tr>
+      <td>请假人次</td>
+      <td>迟到人次</td>
+      <td>旷课人次</td>
+      <td>正常到课率</td>
+      <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+  </table>
+<div style="font-size: 16px;margin-bottom: 5px;">结课评价</div>
+
+
+</div>
+<!-- 内容区域结束 -->

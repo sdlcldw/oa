@@ -218,6 +218,27 @@ class IndexController extends CommonController
 				   }
 				   return "2";
 	}
+
+
+	public function actionHome_ssb(){
+		Yii::$app->response->format=Response::FORMAT_JSON;		
+		if (Yii::$app->request->isPost) {
+		$post = Yii::$app->request->post(); 
+		$userid = Yii::$app->session['__id'];
+		$sql = "select max(tjsj) as tjsj from home_ssb where xs_id = :id;";
+		$data=Yii::$app->db->createCommand($sql,[':id'=>$userid])->queryOne();
+		if(time()-strtotime($data['tjsj']) < 24*3600){
+			$rt['zt'] = '2';
+			$rt['sj'] = $data['tjsj'];			
+			return $rt;
+		}
+		$sql = "INSERT home_ssb (nr,xs_id) VALUES (:nr,:id)";
+		$data=Yii::$app->db->createCommand($sql,['nr'=>$post['nr'],':id'=>$userid])->execute();
+		return $data;
+		}
+	}
+
+
 	public function actionXxsh_wsh(){
 		if (!yii::$app->user->can('xxsh')){
 				 return "没有权限的非法访问！";

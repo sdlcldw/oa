@@ -16,7 +16,7 @@ import { dateValidator } from '../../valldators/valldators';
 
 export class KtjlComponent implements OnInit {
 kc_data;
-kc_id;
+kc_id='';
 
 xsjl={
   kq:[],

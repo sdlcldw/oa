@@ -1,0 +1,21 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">问卷调查：您认为本平台缺少哪些方便实用、提高沟通、减轻工作量的功能呢？</h3>
+  </div>
+  <form class="form-horizontal" role="form" [formGroup]="formModel" name="signUpForm" (submit)="onSubmit()">
+  
+  <div class="panel-body">
+          <div>
+            <label for="name">说说吧，万一要实现了呢：</label>
+            <textarea class="form-control" rows="3" name="ssb" type="text" formControlName="ssb"></textarea>
+            <div *ngIf="ssb.invalid && (ssb.dirty || ssb.touched)">
+                <div class="error" *ngIf="ssb.errors.required">内容不能为空</div>
+                <div class="error" *ngIf="ssb.errors.minlength">内容最小长度为10位</div>
+                <div class="error" *ngIf="ssb.errors.maxlength">内容最大长度为100位</div>
+             </div>
+          </div>
+          <button style="float: right;margin-top: 20px;" class="btn btn-info" type="submit" [disabled]="formModel.invalid">提交</button>
+      
+  </div>
+</form>
+</div>

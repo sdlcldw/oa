@@ -1,0 +1,7 @@
+.table td{
+    text-align:center;
+}
+.table .bt{
+    border-bottom-width: 2px;
+    font-weight: bold;
+}
