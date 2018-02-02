@@ -5,3 +5,23 @@
     border-bottom-width: 2px;
     font-weight: bold;
 }
+.table .tm{
+    background-color: #ede9ce;
+}
+
+
+.demo--radio{display:none}
+.demo--radioInput{background-color:#fff;border:1px solid rgba(0,0,0,0.15);border-radius:100%;display:inline-block;height:18px;margin-top:-1px;vertical-align:middle;width:18px;line-height:1}
+.demo--radio:checked + .demo--radioInput:after{background-color:#57ad68;border-radius:100%;content:"";display:inline-block;height:12px;margin:2px;width:12px}
+
+.demo--radio-l{display:none}
+.demo--radioInput-l{background-color:#fff;border:1px solid rgba(0,0,0,0.15);border-radius:100%;display:inline-block;height:18px;margin-top:-1px;vertical-align:middle;width:18px;line-height:1}
+.demo--radio-l:checked + .demo--radioInput-l:after{background-color:#559aea;border-radius:100%;content:"";display:inline-block;height:12px;margin:2px;width:12px}
+
+.demo--radio-h{display:none}
+.demo--radioInput-h{background-color:#fff;border:1px solid rgba(0,0,0,0.15);border-radius:100%;display:inline-block;height:18px;margin-top:-1px;vertical-align:middle;width:18px;line-height:1}
+.demo--radio-h:checked + .demo--radioInput-h:after{background-color:#f49b37;border-radius:100%;content:"";display:inline-block;height:12px;margin:2px;width:12px}
+
+.demo--radio-red{display:none}
+.demo--radioInput-red{background-color:#fff;border:1px solid rgba(0,0,0,0.15);border-radius:100%;display:inline-block;height:18px;margin-top:-1px;vertical-align:middle;width:18px;line-height:1}
+.demo--radio-red:checked + .demo--radioInput-red:after{background-color:#ff0000;border-radius:100%;content:"";display:inline-block;height:12px;margin:2px;width:12px}

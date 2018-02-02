@@ -232,6 +232,7 @@ public function actionJkpj_get_kc(){
 }
 
 public function actionJkpj_get_kcmx(){
+	Yii::$app->response->format=Response::FORMAT_JSON;
 	if (Yii::$app->request->isPost){ 
 		$ps = Yii::$app->request->post();
 	$sql="select a.Id,a.name,a.rs,a.zt,b.username,b.Id as user_id from xsgl_xbkc_mx a left join user b on a.user_id = b.Id where a.Id=:id";
@@ -240,19 +241,36 @@ public function actionJkpj_get_kcmx(){
 	$sqlt="SELECT count(*) as zs,SUM(CASE xjpj WHEN 5 THEN 1 ELSE 0 END) 'wu',SUM(CASE xjpj WHEN 4 THEN 1 ELSE 0 END) 'si', SUM(CASE xjpj WHEN 3 THEN 1 ELSE 0 END) 'san',SUM(CASE xjpj WHEN 2 THEN 1 ELSE 0 END) 'er',SUM(CASE xjpj WHEN 1 THEN 1 ELSE 0 END) 'yi' FROM xsgl_xbkc_ktjl WHERE kc_id = :id";
 	$datat=Yii::$app->db->createCommand($sqlt,[':id'=>$ps['id']])->queryOne();//统计星级评价次数
 	
-	$sqls="select SUM(CASE kqzt WHEN 1 THEN 1 ELSE 0 END) 'zc',
-	SUM(CASE kqzt WHEN 2 THEN 1 ELSE 0 END) 'qj',
-	SUM(CASE kqzt WHEN 3 THEN 1 ELSE 0 END) 'cd',
-	SUM(CASE kqzt WHEN 4 THEN 1 ELSE 0 END) 'kc'
-	 from xsgl_xbkc_ktjl_xskq where ktjl_id in (select Id from xsgl_xbkc_ktjl where kc_id = :id)";
-	$datas=Yii::$app->db->createCommand($sqls,[':id'=>$ps['id']])->query()->readAll();
-	Yii::$app->response->format=Response::FORMAT_JSON;	
+	$sqls="select SUM(CASE kqzt WHEN 1 THEN 1 ELSE 0 END) 'zc',SUM(CASE kqzt WHEN 2 THEN 1 ELSE 0 END) 'qj',SUM(CASE kqzt WHEN 3 THEN 1 ELSE 0 END) 'cd',SUM(CASE kqzt WHEN 4 THEN 1 ELSE 0 END) 'kc' from xsgl_xbkc_ktjl_xskq where ktjl_id in (select Id from xsgl_xbkc_ktjl where kc_id = :id)";
+	$datas=Yii::$app->db->createCommand($sqls,[':id'=>$ps['id']])->queryOne();//统计考勤信息
+
+	$sqlf="select (select SUM(CASE kqzt WHEN 2 THEN 1 ELSE 0 END) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as qj,
+	(select SUM(CASE kqzt WHEN 3 THEN 1 ELSE 0 END) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as cd,
+	(select SUM(CASE kqzt WHEN 4 THEN 1 ELSE 0 END) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as kc,
+	b.name,b.xb,b.Id,c.name as bj_name,d.name as njb_name from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id = :id;";
+	$dataf=Yii::$app->db->createCommand($sqlf,[':id'=>$ps['id']])->query()->readAll();//每个学生的基本信息、考勤信息
 	$rdata['kc']=$data;
 	$rdata['xs']=$datat;
+	$rdata['kq']=$datas;
+	$rdata['xskq']=$dataf;
 	return $rdata;
 }
 }
-
+public function actionJkpj_add_grpj(){
+	Yii::$app->response->format=Response::FORMAT_JSON;	
+	if (Yii::$app->request->isPost){
+		$id =Yii::$app->session['__id'];
+		$ps = Yii::$app->request->post();
+		$sql="DELETE FROM xsgl_xbkc_ktjl WHERE Id =:id and user_id = :userid";
+		$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id'],':userid'=>$id])->execute();
+		if(!$data){
+			return false;
+		}
+		$sql="DELETE FROM xsgl_xbkc_ktjl_xskq WHERE ktjl_id =:id";
+		$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id']])->execute();
+		return $data;
+}
+}
 
 
 

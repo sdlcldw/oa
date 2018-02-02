@@ -11,7 +11,10 @@
     <option *ngFor="let x of kc_data" [value]='x.Id'>{{x.name}}</option>
   </select>
   <button type="button" class="btn btn-primary" (click)="xzkc()">确定</button>
+  <span style="float: right;margin-top: 15px;">说明：当前显示范围为本人名下处于“课程结束”状态的全部课程。</span>
   <hr>
+  <p *ngIf="ifxskc">你当前没有符合显示条件的课程</p>
+  <div *ngIf="ifjkpj">
 <div style="font-size: 16px;margin-bottom: 5px;">课程信息总览</div>
   <table class="table table-condensed table-bordered">
     <tr>
@@ -20,58 +23,152 @@
       </td>
     </tr>
     <tr>
-      <td>课程名称</td>
-      <td>讲师</td>
-      <td>参加人数</td>
-      <td>课程状态</td>
-      <td>课堂记录数</td>
+      <td class="tm">课程名称</td>
+      <td class="tm">讲师</td>
+      <td class="tm">参加人数</td>
+      <td class="tm">课程状态</td>
+      <td class="tm">课堂记录数</td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>{{dqkcdata.kc.name}}</td>
+      <td>{{dqkcdata.kc.username}}</td>
+      <td>{{dqkcdata.kc.rs}}人</td>
+      <td>{{dqkcdata.kc.zt | zt}}</td>
+      <td>{{dqkcdata.xs.zs}}</td>
     </tr>
     
     <tr>
         <td class="bt" colspan="5">星级课堂</td>
     </tr>
     <tr>
-      <td>五星课堂（非常优秀）</td>
-      <td>四星课堂（优秀）</td>
-      <td>三星课堂（良好）</td>
-      <td>二星课堂（一般）</td>
-      <td>一星课堂（较差）</td>
+      <td class="tm">五星课堂（非常优秀）</td>
+      <td class="tm">四星课堂（优秀）</td>
+      <td class="tm">三星课堂（良好）</td>
+      <td class="tm">二星课堂（一般）</td>
+      <td class="tm">一星课堂（较差）</td>
     </tr>
     <tr>
-      <td>次</td>
-      <td>次</td>
-      <td>次</td>
-      <td>次</td>
-      <td>次</td>
+      <td>{{dqkcdata.xs.wu}}次</td>
+      <td>{{dqkcdata.xs.si}}次</td>
+      <td>{{dqkcdata.xs.san}}次</td>
+      <td>{{dqkcdata.xs.er}}次</td>
+      <td>{{dqkcdata.xs.yi}}次</td>
     </tr>
     
     <tr>
         <td class="bt" colspan="5">考勤统计</td>
     </tr>
     <tr>
-      <td>请假人次</td>
-      <td>迟到人次</td>
-      <td>旷课人次</td>
-      <td>正常到课率</td>
-      <td></td>
+      <td class="tm">请假人次</td>
+      <td class="tm">迟到人次</td>
+      <td class="tm">旷课人次</td>
+      <td class="tm">正常到课率</td>
+      <td class="tm"></td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{dqkcdata.kq.qj}}</td>
+        <td>{{dqkcdata.kq.cd}}</td>
+        <td>{{dqkcdata.kq.kc}}</td>
+        <td>{{(dqkcdata.kq.zc - dqkcdata.kq.qj - dqkcdata.kq.cd - dqkcdata.kq.kc)/dqkcdata.xs.zs | number : '2.0-0'}}</td>
         <td></td>
       </tr>
   </table>
-<div style="font-size: 16px;margin-bottom: 5px;">结课评价</div>
-
+<div style="font-size: 16px;margin-bottom: 5px;">对每位学生做个人结课评价</div>
+<ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
+  <ng-template let-row>
+    <td style="width: 150px;">
+      <div class="font-small">{{row.name}}</div>
+    </td>
+    <td style="width: 100px;">
+      <span class="font-small">{{row.xb}}</span>
+    </td>
+    <td style="width: 100px;">
+      <span class="font-small">{{row.njb_name}}</span>
+    </td>
+    <td style="width: 100px;">
+      <span class="font-small">{{row.bj_name}}</span>
+    </td>
+    <td style="width: 100px;">
+      <span class="font-small">{{row.qj}}</span>
+    </td>
+    <td style="width: 100px;">
+      <span class="font-small">{{row.cd}}</span>
+    </td>
+    <td style="width: 100px;">
+      <span class="font-small">{{row.kc}}</span>
+    </td>
+    <td style="width: 150px;">
+      <a class="btn btn-success btn-xs" (click)="grpj(grpjmodal,row)">评价</a>
+    </td>
+  </ng-template>
+</ngx-table>
 
 </div>
+</div>
 <!-- 内容区域结束 -->
+
+
+<!-- 个人评价 -->
+<ng-template #grpjmodal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">个人评价</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalGrpj.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-bordered">
+        <tr>
+          <td>姓名</td>
+          <td>{{dqxsdata.name}}</td>
+          <td>性别</td>
+          <td colspan="3">{{dqxsdata.xb}}</td>
+        </tr>
+        <tr>
+          <td>年级部</td>
+          <td>{{dqxsdata.njb_name}}</td>
+          <td>班级</td>
+          <td colspan="3">{{dqxsdata.bj_name}}</td>
+        </tr>
+        <tr>
+          <td style="width: 95px;">请假次数</td>
+          <td style="width: 110px;">{{dqxsdata.qj}}</td>
+          <td style="width: 95px;">迟到次数</td>
+          <td style="width: 95px;">{{dqxsdata.cd}}</td>
+          <td style="width: 95px;">旷课次数</td>
+          <td>{{dqxsdata.kc}}</td>
+        </tr>
+        <tr>
+          <td colspan="6" style="text-align: left;">
+            考核档次
+            <label class="radio-inline" style="padding: 0;margin-left: 20px;">
+              <input class="demo--radio" [(ngModel)]="khdc" type="radio" name="khdc" value="1" checked>
+              <span class="demo--radioInput"></span><span style="margin-left: 10px;">A档</span>
+            </label>
+            <label class="radio-inline" style="padding: 0;">
+              <input class="demo--radio-l"  [(ngModel)]="khdc" type="radio" name="khdc" value="2">
+              <span class="demo--radioInput-l"></span><span style="margin-left: 10px;">B档</span>
+            </label>
+            <label class="radio-inline" style="padding: 0;">
+              <input class="demo--radio-h" [(ngModel)]="khdc" type="radio" name="khdc" value="3">
+              <span class="demo--radioInput-h"></span><span style="margin-left: 10px;">C档</span>
+            </label>
+            <label class="radio-inline" style="padding: 0;">
+              <input class="demo--radio-red" [(ngModel)]="khdc" type="radio" name="khdc" value="4">
+              <span class="demo--radioInput-red"></span><span style="margin-left: 10px;">D档</span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" style="text-align: left;">
+            课堂表现点评
+            <textarea class="form-control" [(ngModel)]="py" rows="3" class="form-control" placeholder="选填">
+            </textarea>
+          </td>
+        </tr>
+    </table>
+  </div>
+  <div class="modal-footer">
+      <a class="btn btn-success" (click)="grpj_tj()">确定提交</a>  
+    </div>
+</ng-template>

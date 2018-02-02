@@ -36,7 +36,7 @@ export class KtjlCkComponent implements OnInit {
     selectRow: true,
     selectCol: false,
     selectCell: false,
-    rows: 10,
+    rows: 30,
     additionalActions: false,
     serverPagination: false,
     isLoading: false,
