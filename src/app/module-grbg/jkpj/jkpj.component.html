@@ -98,7 +98,15 @@
       <span class="font-small">{{row.kc}}</span>
     </td>
     <td style="width: 150px;">
+      <span *ngIf="!row.jkpj">
       <a class="btn btn-success btn-xs" (click)="grpj(grpjmodal,row)">评价</a>
+      <span style="color: #929292;
+      margin-left: 15px;">未评价</span></span>
+        <span *ngIf="row.jkpj">
+      <a class="btn btn-warning btn-xs" (click)="grpj(grpjmodal,row)">修改</a>
+      <span style="color: #929292;
+      margin-left: 15px;">已评价</span>
+      </span>
     </td>
   </ng-template>
 </ngx-table>

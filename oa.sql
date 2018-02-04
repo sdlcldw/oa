@@ -1,7 +1,22 @@
 ﻿# Host: localhost  (Version 5.5.53)
 # Date: 2018-02-02 16:49:08
 # Generator: MySQL-Front 6.0  (Build 2.20)
+#
+# Structure for table "auth_rule"
+#
 
+DROP TABLE IF EXISTS `auth_rule`;
+CREATE TABLE `auth_rule` (
+  `name` varchar(64) NOT NULL,
+  `data` text,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='规则表';
+
+#
+# Data for table "auth_rule"
+#
 
 #
 # Structure for table "auth_item"
@@ -67,22 +82,7 @@ CREATE TABLE `auth_item_child` (
 
 INSERT INTO `auth_item_child` VALUES ('2015gzb','bmfzr'),('2016gzb','bmfzr'),('2017gzb','bmfzr'),('admin','cwpt/*'),('admin','cwry'),('admin','grbg/*'),('admin','index/*'),('admin','xsgl/*'),('admin','xtsz/*'),('admin','zcgl/*'),('admin','zcgly'),('admin','zhxz/*'),('bgs','bmfzr'),('bmfzr','grbg/bmkqjl_get'),('cwk','bmfzr'),('cwry','cwpt/gzbsc_gzbsc'),('cwry','cwpt/gzbsc_uploadfile'),('cwry','cwpt/gzbwh_ckny_htgz'),('cwry','cwpt/gzbwh_ckny_tggz'),('cwry','cwpt/gzbwh_dele_htgz'),('cwry','cwpt/gzbwh_dele_tggz'),('cwry','cwpt/sjfx_cknd_htgz'),('cwry','cwpt/sjfx_cknd_tggz'),('cwry','cwpt/sjfx_ckny_htgz'),('cwry','cwpt/sjfx_ckny_tggz'),('cwry','cwpt/sjfx_jsxm_htgz'),('cwry','cwpt/sjfx_jsxm_tggz'),('cznjb','bmfzr'),('dck','bmfzr'),('default','grbg/*'),('default','index/*'),('default','jssczp/*'),('default','xssczp/*'),('default','xtsz/get_bm_byuser'),('jwk','bmfzr'),('jys','bmfzr'),('kfxz','bmfzr'),('kfxz','zhxz/ckkqsj_get'),('kqgly','zhxz/ckkqsj_del'),('kqgly','zhxz/ckkqsj_get'),('kqgly','zhxz/kqbsc_sc'),('kqgly','zhxz/kqbsc_uploadfile'),('lfxz','bmfzr'),('njbgly','xsgl/bjsz_add_bj'),('njbgly','xsgl/bjsz_bj_swbzr'),('njbgly','xsgl/bjsz_del_bj'),('njbgly','xsgl/bjsz_get_bj'),('njbgly','xsgl/bjsz_get_users'),('njbgly','xsgl/ckjl_ckxq'),('njbgly','xsgl/ckjl_get_bj'),('njbgly','xsgl/ckjl_get_njb'),('njbgly','xsgl/ckjl_xsxx_bj'),('njbgly','xsgl/ckjl_xsxx_name'),('njbgly','xsgl/kcsz_add'),('njbgly','xsgl/kcsz_bj'),('njbgly','xsgl/kcsz_del'),('njbgly','xsgl/kcsz_get_lb'),('njbgly','xsgl/kcsz_get_users'),('njbgly','xsgl/kcsz_up'),('njbgly','xsgl/xkjg_dcall'),('njbgly','xsgl/xkjg_dcone'),('njbgly','xsgl/xkjg_xsmd_get'),('njbgly','xsgl/xsczjl_zjjl_add_ry'),('njbgly','xsgl/xsczjl_zjjl_add_wj'),('njbgly','xsgl/xsczjl_zjjl_get'),('njbgly','xsgl/xsjbxx_add'),('njbgly','xsgl/xsjbxx_ck_get'),('njbgly','xsgl/xsjbxx_del'),('njbgly','xsgl/xsjbxx_demo_excel'),('njbgly','xsgl/xsjbxx_edit'),('njbgly','xsgl/xsjbxx_get'),('njbgly','xsgl/xsjbxx_get_bj'),('njbgly','xsgl/xsjbxx_get_lb'),('njbgly','xsgl/xsjbxx_get_ss_cw'),('njbgly','xsgl/xsjbxx_get_ss_fj'),('njbgly','xsgl/xsjbxx_get_ss_lc'),('njbgly','xsgl/xsjbxx_get_ss_ly'),('njbgly','xsgl/xsjbxx_up_excel'),('njbgly','xsgl/zjjl_add_ry'),('njbgly','xsgl/zjjl_add_wj'),('njbgly','xsgl/zjjl_get'),('rsk','bmfzr'),('wfxz','bmfzr'),('xsk','bmfzr'),('xz','2015gzb'),('xz','2016gzb'),('xz','2017gzb'),('xz','cwpt/sjfx_cknd_htgz'),('xz','cwpt/sjfx_cknd_tggz'),('xz','cwpt/sjfx_ckny_htgz'),('xz','cwpt/sjfx_ckny_tggz'),('xz','cwpt/sjfx_jsxm_htgz'),('xz','cwpt/sjfx_jsxm_tggz'),('zcgly','zcgl/*'),('zcgly','zcgl/bmjbxx_get_bm'),('zcgly','zcgl/zclb_add'),('zcgly','zcgl/zclb_delete'),('zcgly','zcgl/zclb_get'),('zcgly','zcgl/zcly_add'),('zcgly','zcgl/zcly_delete'),('zcgly','zcgl/zcly_get'),('zcgly','zcgl/zcmx_add'),('zcgly','zcgl/zcmx_dcexcel'),('zcgly','zcgl/zcmx_delete'),('zcgly','zcgl/zcmx_get'),('zcgly','zcgl/zcmx_updata'),('zcgly','zcgl/zczt_add'),('zcgly','zcgl/zczt_delete'),('zcgly','zcgl/zczt_get'),('zfxz','bmfzr'),('zwk','bmfzr');
 
-#
-# Structure for table "auth_rule"
-#
 
-DROP TABLE IF EXISTS `auth_rule`;
-CREATE TABLE `auth_rule` (
-  `name` varchar(64) NOT NULL,
-  `data` text,
-  `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='规则表';
-
-#
-# Data for table "auth_rule"
-#
 
 
 #

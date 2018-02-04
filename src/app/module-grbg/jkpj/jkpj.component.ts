@@ -98,7 +98,19 @@ export class JkpjComponent implements OnInit {
   }
 
   grpj(template: TemplateRef<any>,data){
+    let dt={
+      xsid:data.Id,
+       kcid:this.dqkcdata.kc.Id,
+    }
+    this.http.post("/oa/basic/web/index.php?r=grbg/jkpj_get_grpj",dt).toPromise().then((response) => {
+      if(response == '3'){
+    this.py='';
     this.khdc = '1';
+      }else{
+        this.py= response['py'];
+        this.khdc = response['dc'];
+      }
+    });
     this.dqxsdata = data;
     this.modalGrpj = this.modalService.show(template,Object.assign({}, this.modal_config, { class: 'modal-grpj' }));
     console.log(data);
@@ -117,6 +129,18 @@ export class JkpjComponent implements OnInit {
     }
     this.http.post("/oa/basic/web/index.php?r=grbg/jkpj_add_grpj",data).toPromise().then((response) => {
       console.log(response);
+      if(response == '2'){
+        this.xzkc(); 
+        this.tsk.cg('修改成功!');
+        this.modalGrpj.hide();
+      }else if(response == '3'){
+        this.xzkc(); 
+        this.tsk.cg('添加成功!');
+        this.modalGrpj.hide();
+      }else{
+        this.tsk.tsk('操作失败')
+      }
+      
     });
   }
   

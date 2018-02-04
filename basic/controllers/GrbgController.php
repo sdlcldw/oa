@@ -244,9 +244,10 @@ public function actionJkpj_get_kcmx(){
 	$sqls="select SUM(CASE kqzt WHEN 1 THEN 1 ELSE 0 END) 'zc',SUM(CASE kqzt WHEN 2 THEN 1 ELSE 0 END) 'qj',SUM(CASE kqzt WHEN 3 THEN 1 ELSE 0 END) 'cd',SUM(CASE kqzt WHEN 4 THEN 1 ELSE 0 END) 'kc' from xsgl_xbkc_ktjl_xskq where ktjl_id in (select Id from xsgl_xbkc_ktjl where kc_id = :id)";
 	$datas=Yii::$app->db->createCommand($sqls,[':id'=>$ps['id']])->queryOne();//统计考勤信息
 
-	$sqlf="select (select SUM(CASE kqzt WHEN 2 THEN 1 ELSE 0 END) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as qj,
-	(select SUM(CASE kqzt WHEN 3 THEN 1 ELSE 0 END) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as cd,
-	(select SUM(CASE kqzt WHEN 4 THEN 1 ELSE 0 END) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as kc,
+	$sqlf="select (select count(*) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.kqzt = 2 and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as qj,
+	(select count(*) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.kqzt = 3 and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as cd,
+	(select count(*) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.kqzt = 4 and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as kc,
+	(select xs_id from xsgl_xbkc_jkpj f where f.xs_id = a.xs_id and f.kc_id = :id )as jkpj,
 	b.name,b.xb,b.Id,c.name as bj_name,d.name as njb_name from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id = :id;";
 	$dataf=Yii::$app->db->createCommand($sqlf,[':id'=>$ps['id']])->query()->readAll();//每个学生的基本信息、考勤信息
 	$rdata['kc']=$data;
@@ -256,19 +257,36 @@ public function actionJkpj_get_kcmx(){
 	return $rdata;
 }
 }
+public function actionJkpj_get_grpj(){
+	Yii::$app->response->format=Response::FORMAT_JSON;	
+	if (Yii::$app->request->isPost){
+		$ps = Yii::$app->request->post();
+		$sql="select * from xsgl_xbkc_jkpj where xs_id = :xsid and kc_id = :kcid;";
+		$data=Yii::$app->db->createCommand($sql,[':xsid'=>$ps['xsid'],':kcid'=>$ps['kcid']])->queryOne();
+		if($data){
+			return $data;
+		}else{
+			return '3';
+		}
+}
+}
 public function actionJkpj_add_grpj(){
 	Yii::$app->response->format=Response::FORMAT_JSON;	
 	if (Yii::$app->request->isPost){
-		$id =Yii::$app->session['__id'];
 		$ps = Yii::$app->request->post();
-		$sql="DELETE FROM xsgl_xbkc_ktjl WHERE Id =:id and user_id = :userid";
-		$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id'],':userid'=>$id])->execute();
-		if(!$data){
-			return false;
+		$sql="select xs_id from xsgl_xbkc_jkpj where xs_id = :xsid and kc_id = :kcid;";
+		$data=Yii::$app->db->createCommand($sql,[':xsid'=>$ps['xsid'],':kcid'=>$ps['kcid']])->queryOne();
+
+		if($data){	//更新
+			$sql = "UPDATE xsgl_xbkc_jkpj SET xs_id = :xsid,kc_id = :kcid,dc = :dc,py = :py;";
+			$ifok = Yii::$app->db->createCommand($sql,[':xsid'=>$ps['xsid'],':kcid'=>$ps['kcid'],':dc'=>$ps['dc'],':py'=>$ps['py']])->execute();
+			return '2';
+		}else{	//否则添加
+			$sql = "insert xsgl_xbkc_jkpj (xs_id,kc_id,dc,py) values (:xsid,:kcid,:dc,:py);";
+			$ifok = Yii::$app->db->createCommand($sql,[':xsid'=>$ps['xsid'],':kcid'=>$ps['kcid'],':dc'=>$ps['dc'],':py'=>$ps['py']])->execute();
+			if($ifok){return '3';} 
 		}
-		$sql="DELETE FROM xsgl_xbkc_ktjl_xskq WHERE ktjl_id =:id";
-		$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id']])->execute();
-		return $data;
+		
 }
 }
 

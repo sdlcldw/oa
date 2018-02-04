@@ -11,7 +11,7 @@
     <option *ngFor="let x of kc_data" [value]='x.Id'>{{x.name}}</option>
   </select>
   <button type="button" class="btn btn-primary" (click)="xzkc()">确定</button>
-
+  <span style="float: right;margin-top: 15px;">说明：当前操作范围为本人名下处于“课程进行中”状态的全部课程。</span>
   <hr>
   <div *ngIf="ifaddktjl">
   <form [formGroup]="formModel" class="form-horizontal" role="form" (submit)="onSubmit()">
