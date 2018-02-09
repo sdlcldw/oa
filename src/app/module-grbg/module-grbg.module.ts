@@ -26,6 +26,7 @@ import { KtjlCkComponent } from './ktjl-ck/ktjl-ck.component';
 import {TableModule} from 'ngx-easy-table';
 import { KqztPipe } from './pipe/kqzt.pipe';
 import { ZtPipe } from './pipe/zt.pipe';
+import { XskqComponent } from './xskq/xskq.component';
 
 
 const Routes=[
@@ -55,7 +56,7 @@ const Routes=[
     RatingModule.forRoot(),
     TableModule, 
   ],
-  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent, KqjlComponent, BmkqjlComponent,KtjlComponent,JkpjComponent, XjpjPipe, KtjlCkComponent, KqztPipe,ZtPipe],
+  declarations: [GzcxComponent, TxlComponent, GjcjtxlComponent, WdzsComponent, BrsyComponent, GrzlComponent, KqjlComponent, BmkqjlComponent,KtjlComponent,JkpjComponent, XjpjPipe, KtjlCkComponent, KqztPipe,ZtPipe, XskqComponent],
   providers: [GrzlGuard,QxGuard],
 })
 export class GrbgModule { }

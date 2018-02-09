@@ -97,9 +97,9 @@ class CwptController extends CommonController
 			$highestColumn = $sheet->getHighestColumn(); // 取得总列数
 
 			//**检查格式是否正确↓↓
-			$bt=array("姓名","月份","基本工资","班主任费","课时工资","考务费","校龄","其它","全勤奖","应发工资","扣考勤","扣工会费","扣保险","其它扣款","扣款合计","实发工资");
+			$bt=array("姓名","月份","基本工资","班主任费","课时工资","考务费","校龄","其它","全勤奖","应发工资","扣考勤","扣工会费","扣保险","扣公积金","扣个税","其它扣款","扣款合计","实发工资");
 			$zj=0;
-			foreach(range('B','Q') as $v){
+			foreach(range('B','S') as $v){
 			$bj = $sheet->getCell($v.'2')->getValue();	
 				if ($bj != $bt[$zj]){
 					return 1;
@@ -133,7 +133,9 @@ class CwptController extends CommonController
 		$O = $sheet->getCell("O".$y)->getCalculatedValue();if(!$O){$O='0'; }
 		$P = $sheet->getCell("P".$y)->getCalculatedValue();if(!$P){$P='0'; }
 		$Q = $sheet->getCell("Q".$y)->getCalculatedValue();if(!$Q){$Q='0'; }
-		$htgz[] = array("username" => $username,"riqi" => $C,"jbgz" => $D,"bzrf" => $E,"ksgz" => $F,"kwf" => $G,"xl" => $H,"qt" => $I,"qqj" => $J,"yfgz" => $K,"kkq" => $L,"kghf" => $M,"kbx" => $N,"qtkk" => $O,"kkhj" => $P,"sfgz" => $Q,);
+		$R = $sheet->getCell("R".$y)->getCalculatedValue();if(!$R){$R='0'; }
+		$S = $sheet->getCell("S".$y)->getCalculatedValue();if(!$S){$S='0'; }
+		$htgz[] = array("username" => $username,"riqi" => $C,"jbgz" => $D,"bzrf" => $E,"ksgz" => $F,"kwf" => $G,"xl" => $H,"qt" => $I,"qqj" => $J,"yfgz" => $K,"kkq" => $L,"kghf" => $M,"kbx" => $N,"kgjj" => $O,"kgs" => $P,"qtkk" => $Q,"kkhj" => $R,"sfgz" => $S,);
 }
 // 取套改工资数据
 			$sheets = $objphpexcel->getSheet(1);
@@ -141,9 +143,9 @@ class CwptController extends CommonController
 			$highestColumn = $sheets->getHighestColumn(); // 取得总列数
 
 			//检查格式是否正确↓↓
-			$bt=array("姓名","月份","岗位工资","薪级工资","三次职补","地福补岗补","聊城岗位津贴","新增地方补贴","新增绩效","住房补贴","课时费","考务费","班主任费","其它","全勤奖","应发合计","扣考勤","扣保险","扣工会费","扣款合计","实发工资");
+			$bt=array("姓名","月份","岗位工资","薪级工资","三次职补","地福补岗补","聊城岗位津贴","新增地方补贴","新增绩效","住房补贴","课时费","考务费","班主任费","其它","全勤奖","应发合计","扣考勤","扣保险","扣工会费","扣公积金","扣个税","扣款合计","实发工资");
 			$zj=0;
-			foreach(range('B','V') as $v){
+			foreach(range('B','X') as $v){
 				$bj = $sheets->getCell($v.'2')->getValue();
 
 				if ($bj != $bt[$zj]){
@@ -182,7 +184,9 @@ class CwptController extends CommonController
 		$T = $sheets->getCell("T".$y)->getCalculatedValue();if(!$T){$T='0'; }
 		$U = $sheets->getCell("U".$y)->getCalculatedValue();if(!$U){$U='0'; }
 		$V = $sheets->getCell("V".$y)->getCalculatedValue();if(!$V){$V='0'; }
-		$tggz[] = array("username" => $username,"riqi" => $C,"gwgz" => $D,"xjgz" => $E,"sczb" => $F,"dfbgb" => $G,"lcgwjt" => $H,"xzdfbt" => $I,"xzjx" => $J,"zfbt" => $K,"ksf" => $L,"kwf" => $M,"bzrf" => $N,"qita" => $O,"qqj" => $P,"yfhj" => $Q,"kkq" => $R,"kbx" => $S,"kghf" => $T,"kkhj" => $U,"sfgz" => $V,);
+		$W = $sheets->getCell("W".$y)->getCalculatedValue();if(!$W){$W='0'; }
+		$X = $sheets->getCell("X".$y)->getCalculatedValue();if(!$X){$X='0'; }
+		$tggz[] = array("username" => $username,"riqi" => $C,"gwgz" => $D,"xjgz" => $E,"sczb" => $F,"dfbgb" => $G,"lcgwjt" => $H,"xzdfbt" => $I,"xzjx" => $J,"zfbt" => $K,"ksf" => $L,"kwf" => $M,"bzrf" => $N,"qita" => $O,"qqj" => $P,"yfhj" => $Q,"kkq" => $R,"kbx" => $S,"kghf" => $T,"kgjj" => $U,"kgs" => $V,"kkhj" => $W,"sfgz" => $X,);
 		}
 		$gzarray['htgz'] = $htgz;
 		$gzarray['tggz'] = $tggz;
@@ -201,13 +205,13 @@ class CwptController extends CommonController
 				 	}
 				 	$h = 'insert into gzcx_xd values ';
 					foreach($htgz as $key=>$v){
-		    				$h.="('".$v['username']."','".$v['riqi']."','".$v['jbgz']."','".$v['bzrf']."','".$v['ksgz']."','".$v['kwf']."','".$v['xl']."','".$v['qt']."','".$v['qqj']."','".$v['yfgz']."','".$v['kkq']."','".$v['kghf']."','".$v['kbx']."','".$v['qtkk']."','".$v['kkhj']."','".$v['sfgz']."'),";
+		    				$h.="('".$v['username']."','".$v['riqi']."','".$v['jbgz']."','".$v['bzrf']."','".$v['ksgz']."','".$v['kwf']."','".$v['xl']."','".$v['qt']."','".$v['qqj']."','".$v['yfgz']."','".$v['kkq']."','".$v['kghf']."','".$v['kbx']."','".$v['kgjj']."','".$v['kgs']."','".$v['qtkk']."','".$v['kkhj']."','".$v['sfgz']."'),";
 						}
 						$h = rtrim($h,',');
 						$h.=';';
 					$t = 'insert into gzcx_xd_2 values ';
 					foreach($tggz as $key=>$v){
-		    				$t.="('".$v['username']."','".$v['riqi']."','".$v['gwgz']."','".$v['xjgz']."','".$v['sczb']."','".$v['dfbgb']."','".$v['lcgwjt']."','".$v['xzdfbt']."','".$v['xzjx']."','".$v['zfbt']."','".$v['ksf']."','".$v['kwf']."','".$v['bzrf']."','".$v['qita']."','".$v['qqj']."','".$v['yfhj']."','".$v['kkq']."','".$v['kbx']."','".$v['kghf']."','".$v['kkhj']."','".$v['sfgz']."'),";
+		    				$t.="('".$v['username']."','".$v['riqi']."','".$v['gwgz']."','".$v['xjgz']."','".$v['sczb']."','".$v['dfbgb']."','".$v['lcgwjt']."','".$v['xzdfbt']."','".$v['xzjx']."','".$v['zfbt']."','".$v['ksf']."','".$v['kwf']."','".$v['bzrf']."','".$v['qita']."','".$v['qqj']."','".$v['yfhj']."','".$v['kkq']."','".$v['kbx']."','".$v['kghf']."','".$v['kgjj']."','".$v['kgs']."','".$v['kkhj']."','".$v['sfgz']."'),";
 						}
 						$t = rtrim($t,',');
 						$t.=';';

@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit} from '@angular/core';
 import { Http } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { TskService } from 'app/service/TskService';
+import { TskService } from '../../service/TskService';
+
 
 
 

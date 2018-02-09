@@ -36,6 +36,8 @@
         <th>扣考勤</th>
         <th>扣工会费</th>
         <th>扣保险</th>
+        <th>扣公积金</th>
+        <th>扣个税</th>
         <th>其它扣款</th>
         <th>扣款合计</th>
         <th>实发工资</th>
@@ -57,6 +59,8 @@
       <td>{{ x.kkq | number:'1.0-2' }}</td>
       <td>{{ x.kghf | number:'1.0-2' }}</td>
       <td>{{ x.kbx | number:'1.0-2' }}</td>
+      <td>{{ x.gjj | number:'1.0-2' }}</td>
+      <td>{{ x.kgs | number:'1.0-2' }}</td>
       <td>{{ x.qtkk | number:'1.0-2' }}</td>
       <td>{{ x.kkhj | number:'1.0-2' }}</td>
       <td class="sfgz">{{ x.sfgz | number:'1.0-2' }}</td>
@@ -90,6 +94,8 @@
      <th>扣考勤</th>
      <th>扣保险</th>
      <th>扣工会费</th>
+     <th>扣公积金</th>
+     <th>扣个税</th>
        <th>扣款合计</th>
      <th>实发工资</th>
       </tr>
@@ -116,6 +122,8 @@
       <td>{{ x.kkq | number:'1.0-2' }}</td>
       <td>{{ x.kbx | number:'1.0-2' }}</td>
       <td>{{ x.kghf | number:'1.0-2' }}</td>
+      <td>{{ x.kgjj | number:'1.0-2' }}</td>
+      <td>{{ x.kgs | number:'1.0-2' }}</td>
       <td>{{ x.kkhj | number:'1.0-2' }}</td>
       <td class="sfgz">{{ x.sfgz | number:'1.0-2' }}</td>
     </tr>
