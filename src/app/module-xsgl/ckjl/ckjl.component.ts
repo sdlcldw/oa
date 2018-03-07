@@ -22,7 +22,7 @@ export class CkjlComponent implements OnInit {
   ckxsxx_wj=[];
   ckxsxx_ry=[];
   columns = [
-    { key: 'xjh', title: '学籍号' },
+    { key: 'sfzh', title: '身份证号' },
     { key: 'name', title: '姓名' },
     { key: 'xb', title: '性别' },
     { key: 'sfzx', title: '是否住校' },
@@ -40,7 +40,7 @@ export class CkjlComponent implements OnInit {
     selectRow: true,
     selectCol: false,
     selectCell: false,
-    rows: 10,
+    rows: 50,
     additionalActions: false,
     serverPagination: false,
     isLoading: false,
@@ -120,7 +120,7 @@ export class CkjlComponent implements OnInit {
  }
 ckxq(d){
  console.log(d);
- let dat = {xjh:d};
+ let dat = {sfzh:d};
  let myHeaders: Headers = new Headers();
  myHeaders.append("Content-Type", "application/json; charset=UTF-8");
  this.http.post("/oa/basic/web/index.php?r=xsgl/ckjl_ckxq", dat, { headers: myHeaders }).toPromise().then((response) => {

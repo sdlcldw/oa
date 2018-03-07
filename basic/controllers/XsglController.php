@@ -483,7 +483,7 @@ public function actionZjjl_get(){
     $session = Yii::$app->session;
     $id = $session['__id'];
 
-    $sql="select a.sfzh,a.name,a.xb from xsgl_jcxx_xs_jbxx a where bj_id in (SELECT Id FROM xsgl_jcxx_bj where njb_id in (select Id from xsgl_jcxx_njb where user_id_xtgly = :id));"; //
+    $sql="select a.sfzh,a.name,a.xb,b.name as bj,c.name as njb from xsgl_jcxx_xs_jbxx a left join xsgl_jcxx_bj b on a.bj_id=b.Id left join xsgl_jcxx_njb c on b.njb_id=c.Id where bj_id in (SELECT Id FROM xsgl_jcxx_bj where njb_id in (select Id from xsgl_jcxx_njb where user_id_xtgly = :id));"; //
     $dataw=Yii::$app->db->createCommand($sql,[':id'=>$id])->query()->readAll();
     if(!empty($dataw)){  //如果不为空则为系统管理员
         $data['sf'] = '年级部系统管理员';
@@ -493,7 +493,7 @@ public function actionZjjl_get(){
     }else{
     $sql="select a.Id,a.name as bj_name,b.name as njb_name from xsgl_jcxx_bj as a left join xsgl_jcxx_njb as b on a.njb_id = b.id where a.user_id_bzr='".$id."';";
     $command = Yii::$app->db->createCommand($sql)->queryOne();
-    $sql = "SELECT sfzh,name,xb FROM xsgl_jcxx_xs_jbxx where bj_id = '".$command['Id']."';";
+    $sql = "SELECT a.sfzh,a.name,a.xb,b.name as bj,c.name as njb FROM xsgl_jcxx_xs_jbxx a left join xsgl_jcxx_bj b on a.bj_id=b.Id left join xsgl_jcxx_njb c on b.njb_id=c.Id where a.bj_id ='".$command['Id']."';";
     $datat=Yii::$app->db->createCommand($sql)->query()->readAll();
     $data['sf'] = $command['njb_name']."—".$command['bj_name']."班主任";
     $data['czfw'] = $command['njb_name']."—".$command['bj_name'].'全体学生';
@@ -511,8 +511,8 @@ public function actionZjjl_add_wj(){
         $post = Yii::$app->request->post();
         $sj = gmdate('Y-m-d',strtotime($post['sj']) + 8*3600); //将标准时间转换为东八区时间
         $id = Yii::$app->session['__id'];
-        $sql = "INSERT xsgl_czjl_wj (sfzh,sj,lhxf,ms,user_id_czr) VALUES ('".$post['sfzh']."','".$sj."','".$post['lhxf']."','".$post['ms']."','".$id."')";
-        $ifok = Yii::$app->db->createCommand($sql)->execute();
+        $sql = "INSERT xsgl_czjl_wj (sfzh,sj,lhxf,ms,user_id_czr) VALUES (:sfzh,:sj,:lhxf,:ms,:id)";
+        $ifok = Yii::$app->db->createCommand($sql,[':sfzh'=>$post['sfzh'],':sj'=>$sj,':lhxf'=>$post['lhxf'],':ms'=>$post['ms'],':id'=>$id])->execute();
         Yii::$app->response->format=Response::FORMAT_JSON;
          return $ifok;
     }
@@ -522,8 +522,8 @@ public function actionZjjl_add_ry(){
         $post = Yii::$app->request->post();
         $sj = gmdate('Y-m-d',strtotime($post['sj']) + 8*3600); //将标准时间转换为东八区时间        
         $id = Yii::$app->session['__id'];
-        $sql = "INSERT xsgl_czjl_ry (sfzh,sj,lhxf,ms,user_id_czr) VALUES ('".$post['sfzh']."','".$sj."','".$post['lhxf']."','".$post['ms']."','".$id."')";
-        $ifok = Yii::$app->db->createCommand($sql)->execute();
+        $sql = "INSERT xsgl_czjl_ry (sfzh,sj,lhxf,ms,user_id_czr) VALUES (:sfzh,:sj,:lhxf,:ms,:id)";
+        $ifok = Yii::$app->db->createCommand($sql,[':sfzh'=>$post['sfzh'],':sj'=>$sj,':lhxf'=>$post['lhxf'],':ms'=>$post['ms'],':id'=>$id])->execute();
         Yii::$app->response->format=Response::FORMAT_JSON;
          return $ifok;
     }
@@ -573,12 +573,12 @@ public function actionCkjl_xsxx_name(){
 public function actionCkjl_ckxq(){
     if(Yii::$app->request->isPost){
     $post = Yii::$app->request->post();        
-    $sql = "SELECT a.*,b.name as bj_name,c.name as njb_name,d.name as cw_name,e.name as fj_name,f.name as lc_name,g.name as ly_name FROM xsgl_jcxx_xs_jbxx as a left join xsgl_jcxx_bj as b on a.bj_id = b.id left join xsgl_jcxx_njb as c on b.njb_id = c.id left join xsgl_jcxx_ss_cw as d on a.ss_cw_id = d.id left join xsgl_jcxx_ss_fj as e on d.fj_id = e.id left join xsgl_jcxx_ss_lc as f on e.lc_id = f.id left join xsgl_jcxx_ss_ly as g on f.ly_id = g.id WHERE a.xjh ='".$post['xjh']."'";
-    $jbxx = Yii::$app->db->createCommand($sql)->queryOne();    
-    $sql = "SELECT * FROM xsgl_czjl_wj where xjh ='".$post['xjh']."';";
-    $wj=Yii::$app->db->createCommand($sql)->query()->readAll();
-    $sql = "SELECT * FROM xsgl_czjl_ry where xjh ='".$post['xjh']."';";
-    $ry=Yii::$app->db->createCommand($sql)->query()->readAll();
+    $sql = "SELECT a.*,b.name as bj_name,c.name as njb_name,d.name as cw_name,e.name as fj_name,f.name as lc_name,g.name as ly_name FROM xsgl_jcxx_xs_jbxx as a left join xsgl_jcxx_bj as b on a.bj_id = b.id left join xsgl_jcxx_njb as c on b.njb_id = c.id left join xsgl_jcxx_ss_cw as d on a.ss_cw_id = d.id left join xsgl_jcxx_ss_fj as e on d.fj_id = e.id left join xsgl_jcxx_ss_lc as f on e.lc_id = f.id left join xsgl_jcxx_ss_ly as g on f.ly_id = g.id WHERE a.sfzh = :sfzh";
+    $jbxx = Yii::$app->db->createCommand($sql,[':sfzh'=>$post['sfzh']])->queryOne();    
+    $sql = "SELECT * FROM xsgl_czjl_wj where sfzh = :sfzh;";
+    $wj=Yii::$app->db->createCommand($sql,[':sfzh'=>$post['sfzh']])->query()->readAll();
+    $sql = "SELECT * FROM xsgl_czjl_ry where sfzh = :sfzh;";
+    $ry=Yii::$app->db->createCommand($sql,[':sfzh'=>$post['sfzh']])->query()->readAll();
     $data['jbxx'] = $jbxx;
     $data['wj'] = $wj;
     $data['ry'] = $ry;

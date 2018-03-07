@@ -25,7 +25,7 @@
   <ngx-table [configuration]="configuration" [data]="xsdata" [columns]="columns">
     <ng-template let-row>
       <td style="width: 200px;">
-        <div class="font-small">{{row.xjh}}</div>
+        <div class="font-small">{{row.sfzh}}</div>
       </td>
       <td style="width: 150px;">
         <div class="font-small">{{row.name}}</div>
@@ -40,7 +40,7 @@
             <span class="font-small">{{row.lxfs_1}}</span>
           </td>
       <td style="width: 150px;">
-        <button type="button" class="btn btn-success btn-xs" (click)="ckxq(row.xjh)">详细</button>
+        <button type="button" class="btn btn-success btn-xs" (click)="ckxq(row.sfzh)">详细</button>
         <span id='openckxq' data-toggle="modal" data-target="#ckxqModal"></span>
       </td>
     </ng-template>

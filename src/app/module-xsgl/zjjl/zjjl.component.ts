@@ -24,6 +24,8 @@ export class ZjjlComponent implements OnInit {
   dqxs = [];
   columns = [
     { key: 'sfzh', title: '身份证号' },
+    { key: 'njb', title: '年级部' },
+    { key: 'bj', title: '班级' },
     { key: 'name', title: '姓名' },
     { key: 'xb', title: '性别' },
     { key: 'cz', title: '操作' },
@@ -39,7 +41,7 @@ export class ZjjlComponent implements OnInit {
     selectRow: true,
     selectCol: false,
     selectCell: false,
-    rows: 10,
+    rows: 50,
     additionalActions: false,
     serverPagination: false,
     isLoading: false,
