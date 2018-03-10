@@ -1,0 +1,37 @@
+<div class="right_title">
+  <img class="title_arrow" src="assets/images/title_arrow.png">
+  <div class="title_txt">增加记录
+  </div>
+</div>
+<div class="right_content" id="cwpt" style="padding:5px;">
+  <!-- 内容区域开始 -->
+  <hr>
+  <span>说明：班主任可在此页面查看本班学生参加校本课程的非正常出勤记录</span>
+  <hr>
+  <ngx-table [configuration]="configuration" [data]="xsdata" [columns]="columns">
+    <ng-template let-row>
+      <td style="width: 200px;">
+        <div class="font-small">{{row.kc_name}}</div>
+      </td>
+      <td style="width: 150px;">
+        <div class="font-small">{{row.njb_name}}</div>
+      </td>
+      <td style="width: 150px;"> 
+        <div class="font-small">{{row.bj_name}}</div>
+      </td>
+      <td style="width: 150px;">
+        <div class="font-small">{{row.xs_name}}</div>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.xb}}</span>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.kqzt}}</span>
+      </td>
+      <td style="width: 100px;">
+        <span class="font-small">{{row.bz}}</span>
+      </td>
+    </ng-template>
+  </ngx-table>
+</div>
+<!-- 内容区域结束 -->

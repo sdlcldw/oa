@@ -21,7 +21,7 @@ kc_id='';
 xsjl={
   kq:[],
   bz:[],
-  xsid:[]
+  xssfzh:[]
 }
 
 dqkcdata={};
@@ -115,9 +115,9 @@ onSubmit(){ //学生考勤和备注、星级评定、时间和评语、课程信
     return;
   }
   for(let j = 0,len=this.dqkcdata['xs'].length; j < len; j++) {
-    this.xsjl.xsid[j]=this.dqkcdata['xs'][j]['xsid'];
+    this.xsjl.xssfzh[j]=this.dqkcdata['xs'][j]['xssfzh'];
   }
-  if(this.xsjl.xsid.length == this.xsjl.kq.length && this.xsjl.kq.length == this.xsjl.bz.length){
+  if(this.xsjl.xssfzh.length == this.xsjl.kq.length && this.xsjl.kq.length == this.xsjl.bz.length){
     
   }else{
     this.tsk.tsk('请检查考勤是否正确');
@@ -149,7 +149,7 @@ reset(){
   this.xsjl={
     kq:[],
     bz:[],
-    xsid:[]
+    xssfzh:[]
   }
 this.yd=0;
 this.sd=0;

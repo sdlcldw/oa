@@ -245,8 +245,6 @@ export class XsjbxxComponent implements OnInit {
       }
     });
   }
-
-
   onSubmit() {
     console.log(this.formModel.value);
     let dat = this.formModel.value;
@@ -334,6 +332,7 @@ export class XsjbxxComponent implements OnInit {
   }
   //删除学生信息
   delxsxx(id) {
+    if (window.confirm('温馨提示：该操作不可恢复，确定要删除吗？')) {
     let dat = { id: id };
     this.http.post("/oa/basic/web/index.php?r=xsgl/xsjbxx_del", dat).toPromise().then((response) => {
       let data = response;
@@ -348,6 +347,7 @@ export class XsjbxxComponent implements OnInit {
         this.tsk.tsk('操作失败！');
       }
     });
+  }
   }
   //编辑学生信息提交
   bjxsxx_submit() {
@@ -370,7 +370,7 @@ export class XsjbxxComponent implements OnInit {
 
 //excel demo
 excel_demo(){
-  window.open('/oa/basic/web/index.php?r=xsgl/xsjbxx_demo_excel');  
+  window.open('/oa/basic/web/index.php?r=xsgl/xsjbxx_demo_excel');
 }
 
 excel_up(){

@@ -144,7 +144,7 @@ public function actionKtjl_get_kcmx(){
 	$sql="select a.Id,a.name,b.username,b.Id as user_id from xsgl_xbkc_mx a left join user b on a.user_id = b.Id where a.Id=:id";
 	$data=Yii::$app->db->createCommand($sql,[':id'=>$ps['id']])->queryOne();
 	
-	$sqlt="select b.Id as xsid,b.name,b.xb,c.name as bj_name,d.name as njb_name from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id = :id";
+	$sqlt="select b.sfzh as xssfzh,b.name,b.xb,c.name as bj_name,d.name as njb_name from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_sfzh = b.sfzh left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id = :id";
 	$datat=Yii::$app->db->createCommand($sqlt,[':id'=>$ps['id']])->query()->readAll();
 	Yii::$app->response->format=Response::FORMAT_JSON;	
 	$rdata['kc']=$data;
@@ -166,10 +166,10 @@ public function actionKtjl_add(){
 		$sql = "select last_insert_id() as id;";
 		$data=Yii::$app->db->createCommand($sql)->queryOne();
 		$id = $data['id'];
-		foreach ($ps['xsjl']['xsid'] as $k => $v) { 
+		foreach ($ps['xsjl']['xssfzh'] as $k => $v) {
 			$xsjl[] = [$id,$v,$ps['xsjl']['kq'][$k],$ps['xsjl']['bz'][$k]]; 
 		}
-		$ifok = Yii::$app->db->createCommand()->batchInsert('xsgl_xbkc_ktjl_xskq',['ktjl_id','xs_id','kqzt','bz'],$xsjl)->execute();
+		$ifok = Yii::$app->db->createCommand()->batchInsert('xsgl_xbkc_ktjl_xskq',['ktjl_id','xs_sfzh','kqzt','bz'],$xsjl)->execute();
 		return $ifok;
 	}
 }
@@ -208,7 +208,7 @@ public function actionKtjl_ck_getkc(){
 	if(empty($data)){
 		return '2';
 	}
-	$sqlt="select a.kqzt,a.bz,b.name,b.xb,c.name as bj_name,d.name as njb_name from xsgl_xbkc_ktjl_xskq a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.ktjl_id = :id;";
+	$sqlt="select a.kqzt,a.bz,b.name,b.xb,c.name as bj_name,d.name as njb_name from xsgl_xbkc_ktjl_xskq a left join xsgl_jcxx_xs_jbxx b on a.xs_sfzh = b.sfzh left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.ktjl_id = :id;";
 	$datat=Yii::$app->db->createCommand($sqlt,[':id'=>$ps['id']])->query()->readAll();
 	if(empty($datat)){
 		return '2';
@@ -244,11 +244,11 @@ public function actionJkpj_get_kcmx(){
 	$sqls="select SUM(CASE kqzt WHEN 1 THEN 1 ELSE 0 END) 'zc',SUM(CASE kqzt WHEN 2 THEN 1 ELSE 0 END) 'qj',SUM(CASE kqzt WHEN 3 THEN 1 ELSE 0 END) 'cd',SUM(CASE kqzt WHEN 4 THEN 1 ELSE 0 END) 'kc' from xsgl_xbkc_ktjl_xskq where ktjl_id in (select Id from xsgl_xbkc_ktjl where kc_id = :id)";
 	$datas=Yii::$app->db->createCommand($sqls,[':id'=>$ps['id']])->queryOne();//统计考勤信息
 
-	$sqlf="select (select count(*) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.kqzt = 2 and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as qj,
-	(select count(*) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.kqzt = 3 and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as cd,
-	(select count(*) from xsgl_xbkc_ktjl_xskq e where e.xs_id = a.xs_id and e.kqzt = 4 and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as kc,
-	(select xs_id from xsgl_xbkc_jkpj f where f.xs_id = a.xs_id and f.kc_id = :id )as jkpj,
-	b.name,b.xb,b.Id,c.name as bj_name,d.name as njb_name from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id = :id;";
+	$sqlf="select (select count(*) from xsgl_xbkc_ktjl_xskq e where e.xs_sfzh = a.xs_sfzh and e.kqzt = 2 and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as qj,
+	(select count(*) from xsgl_xbkc_ktjl_xskq e where e.xs_sfzh = a.xs_sfzh and e.kqzt = 3 and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as cd,
+	(select count(*) from xsgl_xbkc_ktjl_xskq e where e.xs_sfzh = a.xs_sfzh and e.kqzt = 4 and e.ktjl_id in (select f.Id from xsgl_xbkc_ktjl f where f.kc_id = :id)) as kc,
+	(select xs_sfzh from xsgl_xbkc_jkpj f where f.xs_sfzh = a.xs_sfzh and f.kc_id = :id ) as jkpj,
+	b.name,b.xb,b.Id,b.sfzh,c.name as bj_name,d.name as njb_name from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_sfzh = b.sfzh left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id = :id;";
 	$dataf=Yii::$app->db->createCommand($sqlf,[':id'=>$ps['id']])->query()->readAll();//每个学生的基本信息、考勤信息
 	$rdata['kc']=$data;
 	$rdata['xs']=$datat;
@@ -261,8 +261,8 @@ public function actionJkpj_get_grpj(){
 	Yii::$app->response->format=Response::FORMAT_JSON;	
 	if (Yii::$app->request->isPost){
 		$ps = Yii::$app->request->post();
-		$sql="select * from xsgl_xbkc_jkpj where xs_id = :xsid and kc_id = :kcid;";
-		$data=Yii::$app->db->createCommand($sql,[':xsid'=>$ps['xsid'],':kcid'=>$ps['kcid']])->queryOne();
+		$sql="select * from xsgl_xbkc_jkpj where xs_sfzh = :xssfzh and kc_id = :kcid;";
+		$data=Yii::$app->db->createCommand($sql,[':xssfzh'=>$ps['xssfzh'],':kcid'=>$ps['kcid']])->queryOne();
 		if($data){
 			return $data;
 		}else{
@@ -274,21 +274,34 @@ public function actionJkpj_add_grpj(){
 	Yii::$app->response->format=Response::FORMAT_JSON;	
 	if (Yii::$app->request->isPost){
 		$ps = Yii::$app->request->post();
-		$sql="select xs_id from xsgl_xbkc_jkpj where xs_id = :xsid and kc_id = :kcid;";
-		$data=Yii::$app->db->createCommand($sql,[':xsid'=>$ps['xsid'],':kcid'=>$ps['kcid']])->queryOne();
+		$sql="select xs_sfzh from xsgl_xbkc_jkpj where xs_sfzh = :xssfzh and kc_id = :kcid;";
+		$data=Yii::$app->db->createCommand($sql,[':xssfzh'=>$ps['xssfzh'],':kcid'=>$ps['kcid']])->queryOne();
 
 		if($data){	//更新
-			$sql = "UPDATE xsgl_xbkc_jkpj SET xs_id = :xsid,kc_id = :kcid,dc = :dc,py = :py;";
-			$ifok = Yii::$app->db->createCommand($sql,[':xsid'=>$ps['xsid'],':kcid'=>$ps['kcid'],':dc'=>$ps['dc'],':py'=>$ps['py']])->execute();
+			$sql = "UPDATE xsgl_xbkc_jkpj SET xs_sfzh = :xssfzh,kc_id = :kcid,dc = :dc,py = :py;";
+			$ifok = Yii::$app->db->createCommand($sql,[':xssfzh'=>$ps['xssfzh'],':kcid'=>$ps['kcid'],':dc'=>$ps['dc'],':py'=>$ps['py']])->execute();
 			return '2';
 		}else{	//否则添加
-			$sql = "insert xsgl_xbkc_jkpj (xs_id,kc_id,dc,py) values (:xsid,:kcid,:dc,:py);";
-			$ifok = Yii::$app->db->createCommand($sql,[':xsid'=>$ps['xsid'],':kcid'=>$ps['kcid'],':dc'=>$ps['dc'],':py'=>$ps['py']])->execute();
+			$sql = "insert xsgl_xbkc_jkpj (xs_sfzh,kc_id,dc,py) values (:xssfzh,:kcid,:dc,:py);";
+			$ifok = Yii::$app->db->createCommand($sql,[':xssfzh'=>$ps['xssfzh'],':kcid'=>$ps['kcid'],':dc'=>$ps['dc'],':py'=>$ps['py']])->execute();
 			if($ifok){return '3';} 
 		}
 		
 }
 }
+//异常考勤
+public function actionYckq_get(){
+	$id =Yii::$app->session['__id'];
+    $sqlw = "select a.kqzt,a.bz,b.name xs_name,b.xb,c.name bj_name,d.name njb_name,(select f.name from xsgl_xbkc_ktjl e left join xsgl_xbkc_mx f on e.kc_id = f.Id where e.Id = a.ktjl_id) kc_name from xsgl_xbkc_ktjl_xskq a left join xsgl_jcxx_xs_jbxx b on a.xs_sfzh = b.sfzh left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where c.user_id_bzr = :id and a.kqzt != 1;";
+	$dataw=Yii::$app->db->createCommand($sqlw,[':id'=>$id])->query()->readAll();
+	if(empty($dataw)){
+		return '2';
+	}
+   Yii::$app->response->format=Response::FORMAT_JSON;
+    return $dataw;
+}
+
+
 
 
 

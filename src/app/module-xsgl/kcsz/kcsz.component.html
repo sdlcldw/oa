@@ -9,6 +9,8 @@
     <hr>
     <button type="button" class="btn btn-primary" (click)="xjkc(xjkcmodal)">新建课程</button>
     <hr>
+    <span>说明：课程只有在“选课阶段”状态下，学生可进行选课；在“进行中”状态下，教师可添加课堂评价，学生考勤等操作；在“已结束”状态下，教师可进行结课评价。</span>
+    <hr>
   </div>
 
   <ngx-table [configuration]="configuration" [data]="data" [columns]="columns">
@@ -54,6 +56,7 @@
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
+    
   </div>
   <div class="modal-body">
     <form [formGroup]="formModel" class="form-horizontal" role="form" (submit)="xjkc_tj()">

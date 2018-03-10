@@ -99,7 +99,7 @@ export class JkpjComponent implements OnInit {
 
   grpj(template: TemplateRef<any>,data){
     let dt={
-      xsid:data.Id,
+      xssfzh:data.sfzh,
        kcid:this.dqkcdata.kc.Id,
     }
     this.http.post("/oa/basic/web/index.php?r=grbg/jkpj_get_grpj",dt).toPromise().then((response) => {
@@ -122,7 +122,7 @@ export class JkpjComponent implements OnInit {
       return;
     }
     let data = {
-       xsid:this.dqxsdata.Id,
+       xssfzh:this.dqxsdata.sfzh,
        kcid:this.dqkcdata.kc.Id,
        dc:this.khdc,
        py:this.py

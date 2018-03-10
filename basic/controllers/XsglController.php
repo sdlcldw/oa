@@ -645,7 +645,7 @@ public function actionXkjg_xsmd_get(){
     if(Yii::$app->request->isPost){
    Yii::$app->response->format=Response::FORMAT_JSON;           
         $post = Yii::$app->request->post();
-      $sql="SELECT a.kc_id,a.zt,b.name,b.xb,c.name bj,d.name njb from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id =:id;";
+      $sql="SELECT a.kc_id,a.zt,b.name,b.xb,c.name bj,d.name njb from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_sfzh = b.sfzh left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id =:id;";
     $data=Yii::$app->db->createCommand($sql,[':id'=>$post['id']])->query()->readAll();
         return $data;
     
@@ -658,7 +658,7 @@ public function actionXkjg_xsmd_get(){
    $kcdata=Yii::$app->db->createCommand($sql)->query()->readAll();//获取所有选课状态课程
    $excel = new PHPExcel();
    foreach ($kcdata as $row=>$v){
-       $sql = "SELECT a.kc_id,a.zt,b.name,b.xb,c.name bj,d.name njb from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id =:id;";
+       $sql = "SELECT a.kc_id,a.zt,b.name,b.xb,c.name bj,d.name njb from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_sfzh = b.sfzh left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id =:id;";
         $xsmddata=Yii::$app->db->createCommand($sql,[':id'=>$kcdata[$row]['Id']])->query()->readAll();//获取当前课程学生名单
         if($row != 0){
             $excel->createSheet();//创建sheet
@@ -702,7 +702,7 @@ public function actionXkjg_dcone(){
     $sql = "SELECT a.Id,a.name,a.user_id,a.rs,a.zt,b.username,(select count(kc_id) from xsgl_xbkc_xk c where a.Id = c.kc_id) as ybrs FROM xsgl_xbkc_mx as a left join user as b on a.user_id = b.Id where a.Id = :id;";
     $kcdata=Yii::$app->db->createCommand($sql,[':id'=>$get['d']])->queryOne();//获取当前课程信息
 
-       $sql = "SELECT a.kc_id,a.zt,b.name,b.xb,c.name bj,d.name njb from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_id = b.Id left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id =:id;";
+       $sql = "SELECT a.kc_id,a.zt,b.name,b.xb,c.name bj,d.name njb from xsgl_xbkc_xk a left join xsgl_jcxx_xs_jbxx b on a.xs_sfzh = b.sfzh left join xsgl_jcxx_bj c on b.bj_id = c.Id left join xsgl_jcxx_njb d on c.njb_id = d.Id where a.kc_id =:id;";
         $xsmddata=Yii::$app->db->createCommand($sql,[':id'=>$get['d']])->query()->readAll();//获取当前课程学生名单
         $excel = new PHPExcel();
         $sheet = $excel->getActiveSheet();
@@ -735,14 +735,5 @@ public function actionXkjg_dcone(){
         header('Cache-Control:max-age=0');//禁止缓存
         $writer->save("php://output");//输出到浏览器
 }
-
-
-
-
-
-
-
-
-
 
 }?>

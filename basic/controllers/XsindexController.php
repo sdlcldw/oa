@@ -24,7 +24,7 @@ class XsindexController extends CommonController
             } else {
                 $session = Yii::$app->session;
                 $session['xs_login'] = [
-                    'Id' => $data['Id'],
+                    'sfzh' => $data['sfzh'],
                     'isLogin' => 1,
                 ];
                 return (bool)$session['xs_login']['isLogin'];
@@ -42,8 +42,8 @@ class XsindexController extends CommonController
     public function actionGetxsinfo()
     {
         $session = Yii::$app->session;
-        $id = $session['xs_login']['Id'];
-        $sql = "Select * from xsgl_jcxx_xs_jbxx where Id=" . $id;
+        $sfzh = $session['xs_login']['sfzh'];
+        $sql = "Select * from xsgl_jcxx_xs_jbxx where sfzh='" . $sfzh."';";
         $xsinfo = Yii::$app->db->createCommand($sql)->queryOne();;
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $xsinfo;
@@ -62,14 +62,14 @@ class XsindexController extends CommonController
 public function actionHome_ssb(){
     if (Yii::$app->request->isPost) {
     $post = Yii::$app->request->post(); 
-    $id = Yii::$app->session['xs_login']['Id'];
-    $sql = "select max(tjsj) as tjsj from xspt_home_ssb where xs_id = :id;";
-    $data=Yii::$app->db->createCommand($sql,[':id'=>$id])->queryOne();
+    $sfzh = Yii::$app->session['xs_login']['sfzh'];
+    $sql = "select max(tjsj) as tjsj from xspt_home_ssb where xs_sfzh = :sfzh;";
+    $data=Yii::$app->db->createCommand($sql,[':sfzh'=>$sfzh])->queryOne();
     if(time()-strtotime($data['tjsj']) < 24*3600){
         return '2';
     }
-    $sql = "INSERT xspt_home_ssb (nr,xs_id) VALUES (:nr,:id)";
-    $data=Yii::$app->db->createCommand($sql,['nr'=>$post['nr'],':id'=>$id])->execute();
+    $sql = "INSERT xspt_home_ssb (nr,xs_sfzh) VALUES (:nr,:sfzh)";
+    $data=Yii::$app->db->createCommand($sql,['nr'=>$post['nr'],':sfzh'=>$sfzh])->execute();
     return $data;
     }
 }
@@ -94,9 +94,9 @@ public function actionHome_ssb(){
     public function actionKsxk_xk(){
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
-            $id = Yii::$app->session['xs_login']['Id'];
-        $sql = "SELECT * from xsgl_xbkc_xk where xs_id = :id and zt=1 or zt = 2;";
-        $data = Yii::$app->db->createCommand($sql,[':id'=>$id])->queryOne();
+            $sfzh = Yii::$app->session['xs_login']['sfzh'];
+        $sql = "SELECT * from xsgl_xbkc_xk where xs_sfzh = :sfzh and zt=1 or zt = 2;";
+        $data = Yii::$app->db->createCommand($sql,[':sfzh'=>$sfzh])->queryOne();
         if($data){
             return '2';//验证是否已选课
         }
@@ -105,18 +105,17 @@ public function actionHome_ssb(){
         if($data['ybrs'] >= $data['rs']){
             return '3';//该课程已报满
         }
-        $sql = "INSERT xsgl_xbkc_xk (xs_id,kc_id,zt) VALUES (:xs_id,:kc_id,:zt)";           
-        $data=Yii::$app->db->createCommand($sql,[':xs_id'=> $id,':kc_id'=>$post['id'],':zt'=>1])->execute();
+        $sql = "INSERT xsgl_xbkc_xk (xs_sfzh,kc_id,zt) VALUES (:xs_sfzh,:kc_id,:zt)";           
+        $data=Yii::$app->db->createCommand($sql,[':xs_sfzh'=> $sfzh,':kc_id'=>$post['id'],':zt'=>1])->execute();
         return $data;
     }
     }
     //获取本人参加的课程
     public function actionCjkc_get(){
-        $id = Yii::$app->session['xs_login']['Id'];
-        $sql = "SELECT a.*,b.Id,b.name,b.rs,b.kssj,b.jssj,b.zt,c.username FROM xsgl_xbkc_xk a left join xsgl_xbkc_mx b on a.kc_id = b.Id left join user c on b.user_id=c.Id where a.xs_id = :id;";
-        $data=Yii::$app->db->createCommand($sql,[':id'=>$id])->query()->readAll();
+        $sfzh = Yii::$app->session['xs_login']['sfzh'];
+        $sql = "SELECT a.*,b.Id,b.name,b.rs,b.kssj,b.jssj,b.zt,c.username FROM xsgl_xbkc_xk a left join xsgl_xbkc_mx b on a.kc_id = b.Id left join user c on b.user_id=c.Id where a.xs_sfzh = :sfzh;";
+        $data=Yii::$app->db->createCommand($sql,[':sfzh'=>$sfzh])->query()->readAll();
        Yii::$app->response->format=Response::FORMAT_JSON;
         return $data;
     }
-
 } ?>

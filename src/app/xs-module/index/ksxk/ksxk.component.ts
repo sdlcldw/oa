@@ -90,6 +90,7 @@ sxsj(){
   }
   xzkc(_id) {
     console.log(_id);
+    if (window.confirm('温馨提示：你只有一次选课机会，且只能选择一门课程，不能更改，确定选择本课程吗？')) {
     this.http.post("/oa/basic/web/index.php?r=xsindex/ksxk_xk", { id: _id }).toPromise().then((response) => {
       if (response) {
         if (response == 2) {
@@ -106,6 +107,7 @@ sxsj(){
         this.tsk.tsk('操作失败！');
       }
     });
+  }
   }
 
 }
