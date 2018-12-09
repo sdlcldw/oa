@@ -51,7 +51,7 @@ passwdt='';
     imagegh = Math.floor(Math.random()*images+1);
     }else{
       this.imagegh = imagegh;
-      this.imageurl="http://oj6yy14e0.bkt.clouddn.com/background_"+imagegh+".jpg?imageslim";      
+      this.imageurl="http://sdlcycxx.com/oa_imgs/background_"+imagegh+".jpg";      
     }
   }
 

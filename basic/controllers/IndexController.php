@@ -17,6 +17,15 @@ use yii\db\Expression;
 class IndexController extends CommonController
 {
 	public $enableCsrfValidation = false;// ->覆盖父类的属性
+
+	public function actionCss(){
+		ini_set("display_errors","On");
+		if(!isset(Yii::$app->session['user']['isLogin'])){
+			return "1";
+		}
+		return "2";
+		error_reporting(E_ALL);
+	}	
 	public function actionCst(){
 		$control=Yii::$app->runAction('xtsz/get_bm_byuser',['userid'=>'33']);
 		if(!$control){
@@ -34,15 +43,18 @@ class IndexController extends CommonController
 	}
 
 	public function actionCs(){
-		return 1;
-		
-		// $data =Yii::$app->authManager->getChildren('admin');//获取角色下的所有子角色和权限子节点
-		// $data =Yii::$app->authManager->getPermissionsByUser('252');//根据用户ID获取用户所有权限节点
-		// $data =Yii::$app->authManager->getRolesByUser('252');//根据用户ID获取用户角色
-		// $data =Yii::$app->authManager->getChildRoles('admin');//根据角色名获取所有子角色
-		// $data =Yii::$app->authManager->getPermissionsByRole('admin');//根据角色名获取所有权限节点
-		
-
+		$code = Yii::$app->request->get("code");
+		$appid='wx339f1245bd4ac4c8';
+		$secret = 'ae213baee054da4db986a1b86b914c5e';
+	     $curl = curl_init();
+	     //设置抓取的url
+	     curl_setopt($curl, CURLOPT_URL, 'https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code');
+	        $data = curl_exec($curl);
+	        //关闭URL请求
+	        curl_close($curl);
+			//显示获得的数据
+			Yii::$app->response->format=Response::FORMAT_JSON;			
+	        return $data;
 		}
 
 		
@@ -58,12 +70,14 @@ class IndexController extends CommonController
 				   }
 				echo "请先登录！";
 	}
+
 	public function actionIslogin(){
-			if(Yii::$app->session['user']['isLogin']===1){
-			return "1";
-			   }
-			return "2";
+		if(Yii::$app->session['user']['isLogin']===1){
+		return "1";
+		   }
+		return "2";
 	}
+
 	public function actionLogin(){
 				$model = new User;
 				if (Yii::$app->request->isPost){
